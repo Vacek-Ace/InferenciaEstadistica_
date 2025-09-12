@@ -1,0 +1,530 @@
+---
+title: "Contrastes de hipótesis"
+author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
+date: "Curso académico 2024-2025"
+
+bibliography: References.bib
+
+format: 
+  beamer: 
+    template: dslab.beamer.tex
+
+editor: visual
+---
+
+# Contrastes de hipótesis
+
+-   Estimación puntual. Conocemos la distribución a excepción de un parámetro. Estimamos el valor de dicho parámetro.
+
+-   Intervalos de confianza. Construimos un intervalo que contiene el valor del parámetro con una confianza de $1-\alpha$
+
+-   Contrastes de hipótesis. Sirven para responder preguntas del tipo:
+
+    -   Dados los datos, ¿el valor del parámetro puede ser $a$? Por ejemplo, ¿la altura media de las alumnas de la URJC es 1.65m?
+
+    -   En base a la muestra, ¿estos dos medicamentos son igual de efectivos ($\mu_1 =\mu_2$) para tratar la ansiedad?
+
+# Contrastes de hipótesis
+
+-   Permiten evaluar si los datos disponibles proporcionan suficiente evidencia en contra de una hipótesis previamente establecida sobre una población
+
+-   Es un proceso estructurado para evaluar afirmaciones sobre parámetros poblacionales utilizando datos muestrales. Mediante la formulación de hipótesis, selección de niveles de significancia, elección de estadísticas de prueba y evaluación del $p$-valor, podemos tomar decisiones informadas y cuantitativamente justificadas
+
+-   Este enfoque es fundamental en muchas áreas de investigación y análisis de datos, proporcionando un marco riguroso para la inferencia estadística
+
+# Conceptos básicos: hipótesis nula
+
+**Hipótesis nula** $(H_0)$:
+
+La hipótesis nula es una afirmación sobre parámetros poblacionales que se asume verdadera hasta que se presente suficiente evidencia en contra. Se asume inicialmente que la hipótesis nula es correcta (semejante a suponer inocencia a menos que se pruebe la culpa). Habitualmente corresponde al estatus quo. Esto es, generalmente, la hipótesis nula representa un estado de "no efecto" o "no diferencia".
+
+Ejemplo:
+
+-   $H_0: \mu = 50$ Se contrasta si la media poblacional es $50$
+
+-   $H_0: \mu \leq 50$ Se contrasta si la media poblacional es $\leq 50$
+
+-   $H_0: \mu_1 = \mu_2$ Se contrasta si la media de las dos muestras es igual
+
+<!--# En este ejemplo, la idea fundamental del contraste sería toma una muestra aleatoria simple de la población, estudiar su media, y ver si hay evidencia suficiente como para rechazar la hipótesis nula establecida. La probabilidad de que la media sea *exactamente* igual a $50$ en la muestra es muy baja. Es decir, probablemente $\bar{\mathbf{x}} \neq 50$. Sin embargo, lo importante para rechazar la hipótesis nula es si la diferencia encontrada entre la media muestral y $50$ es tan grande como para rechazar que podría ser $50$. -->
+
+Se rechaza $H_0$ cuando los datos apoyan mucho más otra hipótesis, llamada hipótesis alternativa $H_1$
+
+# Conceptos básicos: hipótesis alternativa
+
+**Hipótesis alternativa** $H_1$:
+
+La hipótesis alternativa es una afirmación que contrasta con la hipótesis nula y representa el efecto o diferencia que se desea detectar
+
+Ejemplo:
+
+-   $H_1: \mu \neq 50$ La media poblacional no es 50
+
+-   $H_1: \mu > 50$ La media poblacional es mayor que 50
+
+# Ejemplo H0 vs H1 media poblacional
+
+Supongamos que una empresa de educación en línea afirma que sus estudiantes pasan en promedio al menos $4$ horas diarias estudiando en su plataforma. Queremos comprobar si esta afirmación es cierta basándonos en una muestra de estudiantes
+
+-   La hipótesis nula es la afirmación que queremos poner a prueba y que asumimos verdadera inicialmente. En este caso, la hipótesis nula es que la media del tiempo de estudio diario es de al menos $4$ horas.
+
+    $$
+     H_0: \mu \geq 4 \text{ horas}
+    $$
+
+-   La hipótesis alternativa es lo que queremos demostrar y se contrapone a la hipótesis nula. En este caso, queremos ver si el tiempo de estudio diario es menor de $4$ horas. Fíjate que la empresa podría estar "inflando" sus resultados y lo "intersante" en este caso es "demostrar" que realmente los alumnos pasan menos tiempo en la plataforma.
+
+    $$
+    H_1: \mu < 4 \text{ horas}
+    $$
+
+# Ejemplo H0 vs H1 proporción poblacional
+
+Supongamos que el rectorado de la URJC afirma que menos del $20\%$ de los estudiantes de sus grados, fuman. Queremos verificar si la proporción de fumadores es mayor al $20\%$
+
+-   La hipótesis nula es que la proporción de fumadores es menor o igual al $20\%$
+
+    $$
+         H_0: p \leq 0.20
+    $$
+
+-   La hipótesis alternativa es si la proporción de fumadores es mayor al $20\%$
+
+    $$
+        H_1: p > 0.20
+    $$
+
+# Tipos de contrastes
+
+-   Unilarerales. Se contrasta si el valor es mayor o menor, es decir, si queda a a izquierda o a la derecha en la distribución
+
+    $$H_0: p \leq 0.20 \ \ \text{vs}  \ \ H_1: p > 0.20$$
+
+-   Bilaterales. Se contrasta la igualdad y se rechaza si queda a la derecha o a la izquierda en la distribución del estadístico bajo $H_0$
+
+    $$H_0: p = 0.20  \ \ \text{vs}  \ \ H_1: p \neq 0.20$$
+
+![](images/RA_RC_CH.png){fig-align="center" width="450"}
+
+# Pasos en un contraste de hipótesis
+
+1.  **Formular las hipótesis**:
+
+    -   Definir $H_0$ y $H_1$ claramente
+
+2.  **Seleccionar el nivel de significatividad estadística** $(\alpha)$:
+
+    -   El nivel de significatividad estadística es la probabilidad de rechazar $H_0$ cuando es verdadera. Comúnmente, se utilizan $\alpha = 0.05, 0.01, 0.10$.
+
+3.  **Elegir el estadístico de prueba**:
+
+    -   Seleccionar un estadístico que resuma la información de interés sobre los datos (ejemplo: media muestral para la estatura media) y que siga una distribución conocida bajo $H_0$ (por ejemplo, la distribución Normal)
+
+4.  **Calcular el** $p-valor$:
+
+    -   El $p-valor$ es la probabilidad de observar un valor tan extremo o más extremo que el observado, bajo la suposición de que $H_0$ es verdadera
+
+# Pasos en un contraste de hipótesis
+
+5.  **Tomar una decisión**:
+
+    -   La regla de decisión de un contraste de hipótesis se basa en la "distancia" entre los datos muestrales y los valores esperados si $H_0$ es cierta
+
+    -   Esta distancia se calcula a partir del estadístico del contraste y se considera "grande" o no, en base a la distribución del mismo y a la probabilidad de observar realizaciones "más extremas" de dicho estadístico. Para tomar la decisión, comparamos el $p-valor$ con $\alpha$:
+
+        -   Si $p-valor \leq \alpha$, se rechaza $H_0$. Hay suficiente evidencia en la muestra como para rechazar la hipótesis nula. El valor del parámetro establecido en $H_0$ es poco creíble dada la muestra observada.
+
+        -   Si $p-valor > \alpha$, no se rechaza $H_0$. **Muy importante**: esto no significa que la hipótesis nula sea cierta. La interpretación es que no existe, en la muestra que hemos observado, suficiente evidencia en contra de la hipótesis nula como para recharzarla.
+
+# Pasos en un contraste de hipótesis
+
+Tenemos por tanto que el $p-valor$ es una medida que nos dice cuán probable sería obtener nuestros datos observados si la hipótesis nula fuera verdadera. En otras palabras, mide la evidencia en contra de $H_0$. Si el $p-valor$ es pequeño (generalmente menor que $0.05$), tenemos razones para rechazar $H_0$. Si es grande, no tenemos suficiente evidencia para rechazarla
+
+# Ejemplo para la media
+
+-   Queremos probar si, después de una campaña de concienciación, los jóvenes de 20 años de GCID pasan, de media, menos de 3 horas diarias en Instagram o siguen pasando 3 horas o más
+
+-   Se sabe que la v.a. $X:$ horas que pasan los jóvenes en Instagram sigue una distribución Normal de media desconocida $\mu$ y varianza $\sigma^{2}=0.25$
+
+-   Para contrastar si la campaña de concienciación ha tenido efecto, se toma una muestra de $n=50$ estudiantes
+
+**Hipótesis:**
+
+-   Hipótesis nula $H_0$: $\mu \geq 3$ horas
+-   Hipótesis alternativa $H_1$: $\mu < 3$ horas
+
+# Ejemplo para la media
+
+-   Si la media muestral de los $50$ estudiantes es $1'5$ horas, ¿qué haríamos?
+
+-   ¿Y si fuera de $4$ horas?
+
+-   Como la media muestral (en este caso) sigue una distribución $N(\mu,\sigma^{2}/n)=N(3,0.25/50)$ bajo $H_0$, trabajamos en términos de probabilides
+
+-   Con el contraste lo que hacemos es, dada la distribución de la población bajo $H_0$, estudiar cómo de probable es obtener una media muestral como la lograda con los $50$ estudiantes
+
+-   Si la probabilidad es muy baja --\> existen evidencias para rechazar la hipótesis nula de que los jóvenes pasan 3 o más horas en Instagram. El número medio de horas sería significativamente menor
+
+-   Si la probabilidad es muy alta --\> no existen evidencias para rechazar la hipótesis nula
+
+# Ejemplo para la media
+
+-   Bajo $H_0$:
+
+    -   La población $X \sim N(\mu=3,\sigma^{2}=0.25)$
+
+    -   De dicha población, se toma una m.a.s de v.a. independientes e igualmente distribuidas $X_1,\dots,X_{50} \sim N(\mu=3,\sigma^{2}=0.25)$
+
+    -   Sabemos que $\overline{X} \sim N(\mu=3,\sigma^{2}/n=0.25/50)$
+
+    -   Calculamos el valor de la media muestral en nuestra muestra concreta: $\overline{x}=2.75$
+
+    -   Suponiendo dicha distribución, calculamos la probabilidad de que el número medio de horas sea $2.75$: $P(\overline{X}< 2.75)=0.0002$ <!--# pnorm(2.75,3,std) --> ¿Interpretación?
+
+-   $p-valor=0.0002$ ¿Decisión con $\alpha=0.05$?
+
+# Errores
+
+-   Una vez especificadas las hipótesis nula $H_0$ y alternativa $H_1$ y recogida la información muestral, se toma una decisión sobre la hipótesis nula (rechazar o no rechazar $H_0$)
+
+-   Existe la posibilidad de llegar a una conclusión equivocada, porque solo se dispone de una muestra aleatoria y no se puede tener la certeza de que sea correcta o no
+
+-   Cuando realizamos un contraste de hipótesis, pueden ocurrir 2 errores: el **error de tipo I** o $\alpha$ y el **error de tipo II** o $\beta$
+
+-   Entender estos errores es fundamental para interpretar correctamente los resultados de cualquier prueba estadística
+
+-   El balance entre $\alpha$ y $\beta$, así como el tamaño de la muestra, juegan un papel importante en la fiabilidad de los resultados obtenidos
+
+# Error de tipo I
+
+-   El error de tipo I ocurre cuando rechazamos la hipótesis nula $H_0$ siendo esta verdadera. En otras palabras, concluimos que hay un efecto o una diferencia cuando, en realidad, no la hay
+
+-   El nivel de significancia $\alpha$ es la probabilidad de cometer un error de tipo I:$$
+    \alpha=P(\text{rechazar } H_0 \text{ | } H_0 \text{ es correcta})
+    $$
+
+-   Este valor se establece de antemano, comúnmente $0.05$, $0.01$ o $0.10$.
+
+-   Si el $p-valor$ de nuestra prueba es menor o igual a $\alpha$, rechazamos $H_0$. Por ejemplo, si $\alpha = 0.05$, esto significa que estamos dispuestos a aceptar un $5\%$ de probabilidad de rechazar $H_0$ cuando es verdadera
+
+# Error de tipo II
+
+-   El error de tipo II ocurre cuando no rechazamos la hipótesis nula $H_0$ siendo esta falsa. En otras palabras, concluimos que no hay un efecto o una diferencia cuando, en realidad, sí la hay:
+
+$$
+\beta=P(\text{No rechazar } H_0 \text{ | } H_0 \text{ es incorrecta})
+$$
+
+-   **Potencia del test**: La potencia de una prueba estadística es la probabilidad de rechazar $H_0$ cuando $H_0$ es falsa:
+
+$$
+Potencia=1-\beta=P(\text{Rechazar } H_0 \text{ | } H_1 \text{ es correcta})
+$$
+
+-   Una alta potencia es deseable --\> mayor probabilidad de detectar un efecto o diferencia cuando realmente existe. Por ejemplo, si $\beta = 0.20$, esto significa que hay un $20\%$ de probabilidad de no rechazar $H_0$ cuando es falsa. La potencia de la prueba, probabilidad de detectar un efecto cuando realmente existe, sería $0.80$
+
+# Ejemplo. Errores Tipo I y II
+
+Supongamos que estamos evaluando la efectividad de un nuevo medicamento.
+
+-   Hipótesis nula $H_0$: El medicamento no tiene efecto $(\mu = 0)$.
+
+-   Hipótesis alternativa $H_1$: El medicamento tiene un efecto $(\mu \neq 0)$.
+
+**Error de tipo I**: Si el medicamento no tiene ningún efecto pero el estudio concluye que sí lo tiene, hemos cometido un error de tipo I. Esto podría llevar a la aprobación y uso de un medicamento ineficaz
+
+**Error de tipo II**: Si el medicamento tiene un efecto, pero el estudio concluye que no lo tiene, hemos cometido un error de tipo II. Esto podría llevar a la no aprobación de un medicamento potencialmente beneficioso
+
+# Ejemplo. Errores Tipo I y II
+
+![](images/type-i-and-type-ii-errors-simplified.jpg){fig-align="center" width="400"}
+
+# Relación entre errores de tipo I y II
+
+-   **Inversamente proporcionales**: Reducir $\alpha$ (haciendo la prueba más conservadora y menos propensa a rechazar $H_0$) generalmente aumenta $\beta$ (haciendo la prueba más propensa a no detectar un efecto cuando realmente existe), y viceversa. Los errores de tipo I y de tipo II no se pueden comenter simultáneamente:
+
+    -   El error de tipo I solo puede darse si $H_0$ es correcta
+
+    -   El error de tipo II solo puede darse si $H_0$ es incorrecta
+
+-   **Tamaño de la muestra**: Aumentar el tamaño de la muestra puede reducir ambos tipos de errores, incrementando la precisión de la prueba
+
+# Relación entre errores de tipo I y II
+
+La siguiente tabla refleja la relación entre los dos tipos de errores en relación con la decisión del contraste y la verdadera situación en la población:
+
+![](images/tabla_erroresIyII.png)
+
+# Relación entre errores de tipo I y II
+
+Es importante notar que, si todo lo demás no cambia, entonces la potencia del contraste disminuye cuando:
+
+-   La diferencia entre el valor supuesto para el parámetro y el valor real disminuye
+
+-   La variabilidad de la población aumenta
+
+-   El tamaño muestral disminuye
+
+# CH para la media (var conocida, Normal)
+
+-   El contraste para la media de una población normal con varianza conocida es un procedimiento estadístico utilizado para determinar si la media de una población difiere de un valor específico (hipótesis nula)
+
+-   El parámetro de estudio es la media de la variable aleatoria: $X \sim N(\mu,\sigma^2)$
+
+-   Distintas opciones de hipótesis:
+
+    -   Hipótesis nula: $H_0$: $\mu = \mu_0$ (La media de la población es igual a $\mu_0$)
+
+    -   Tenemos varias opciones para la hipótesis alternativa:
+
+        -   $H_1$: $\mu \neq \mu_0$ (Contraste bilateral)
+
+        -   $H_1$: $\mu > \mu_0$ (Contraste unilateral derecho)
+
+        -   $H_1$: $\mu < \mu_0$ (Contraste unilateral izquierdo)
+
+# CH para la media (var conocida, Normal)
+
+-   Nivel de significación $\alpha$
+
+-   El estadístico de prueba se calcula utilizando la distribución Normal estándar $Z\sim N(0,1)$, dado que la varianza ($\sigma^2$) es conocida. La fórmula para el estadístico de prueba es:
+
+    $$
+    Z = \frac{\bar{\mathbf{X}} - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1)
+    $$
+
+    donde $\bar{\mathbf{X}}$ es el estadístico media muestral
+
+-   Calculamos el valor observado del estadístico:
+
+    $$
+    z = \frac{\bar{\mathbf{x}} - \mu_0}{\sigma/\sqrt{n}} 
+    $$
+
+    donde $\bar{\mathbf{x}}$ es la media muestral calculada con la muestra concreta
+
+# CH para la media (var conocida, Normal)
+
+-   Calculamos el $p-valor$ como sigue:
+
+    -   Contraste bilateral: $p-valor=P(|Z|\geq |z|)$
+
+    -   Contraste unilateral derecho: $p-valor=P(Z\geq z)$
+
+    -   Contraste unilateral izquierdo: $p-valor=P(Z\leq z)$
+
+-   Si esta probabilidad es menor o igual que el valor de referencia $\alpha$ entonces, rechazamos la hipótesis nula en favor de la alternativa.
+
+# CH para la media (var conocida, Normal)
+
+Otra forma de plantear el contraste de hipótesis es determinando el rechazo de $H_0$. Para ello, debemos comparar el valor del estadístico $Z$ con los valores críticos de la distribución Normal estándar.
+
+-   Para un contraste bilateral (dos colas): Rechaza $H_0$ si $|z| > z_{\alpha/2}$
+
+-   Para un contraste unilateral derecho (una cola): Rechaza $H_0$ si $z > z_{\alpha}$
+
+-   Para un contraste unilateral izquierdo (una cola): Rechaza $H_0$ si $z < -z_{\alpha}$
+
+Aquí, $z_{\alpha}$ y $z_{\alpha/2}$ son los valores críticos (cuantiles) de la distribución Normal estándar correspondientes al nivel de significación $\alpha$
+
+Es decir, decidimos si rechazamos o no la hipótesis nula en función del valor del estadístico de prueba:
+
+-   Si su valor está en la región crítica, rechaza $H_0$
+
+-   Si su valor no está en la región crítica, no rechaces $H_0$
+
+# Ejemplo
+
+Supón que queremos probar si la edad media de los profesores de la URJC es igual a $50$ años con una desviación estándar conocida de $10$ años, y tienes una muestra de $36$ observaciones con una media muestral de $52$
+
+# CH para la media (var desconocida, Normal)
+
+**Contraste de hipótesis para la media de una población Normal con varianza desconocida**
+
+-   Cuando la varianza poblacional es desconocida, se utiliza la desviación estándar muestral ($S$) y el estadístico de prueba se basa en la distribución $t$ de Student con $n - 1$ grados de libertad
+
+    $$
+    T=\frac{\bar{X} - \mu_0}{s/\sqrt{n}}
+    $$
+
+    donde $\bar{\mathbf{X}}$ es el estadístico media muestral
+
+-   Calculamos el valor observado del estadístico en base a la muestra concreta $$
+    t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}
+    $$
+
+# CH para la media (var desconocida, Normal)
+
+En función del tipo de contraste, se calculará el $p-valor$
+
+-   $H_1$: $\mu \neq \mu_0$ (Contraste bilateral), $p-valor$ = $P(|T_{n-1}| > |t|)$
+
+-   $H_1$: $\mu > \mu_0$ (Contraste unilateral derecho), $p-valor$ = $P(T_{n-1} > t)$
+
+-   $H_1$: $\mu < \mu_0$ (Contraste unilateral izquierdo), $p-valor$ = $P(T_{n-1} < t)$
+
+Aquí, $T_{n-1}$ es una variable aleatoria con una distribución $t$ de Student con $n - 1$ grados de libertad.
+
+La decisión asociada al contraste es:
+
+-   Si el $p-valor \leq \alpha$, rechazar $H_0$
+
+-   Si el $p-valor > \alpha$, no rechazar $H_0$
+
+# Ejemplo
+
+Supón que una empresa quiere verificar si el tiempo promedio de entrega de sus pedidos es mayor de $30$ minutos. Toma una muestra aleatoria de $16$ entregas y encuentra que el tiempo promedio de entrega es de $32$ minutos con una desviación estándar muestral de $4$ minutos. Realiza un contraste de hipótesis con un nivel de significación del $0.05$ para ver si el tiempo promedio de entrega es mayor de $30$ minutos.
+
+# CH igualdad de medias (muestras indep.)
+
+-   Cuando se desea comparar las medias de dos muestras independientes asumiendo que los datos siguen una distribución normal, se puede usar el contraste de hipótesis paramétrico conocido como la prueba $t$ de Student para muestras independientes
+
+-   Este método es robusto y se basa en suposiciones claras acerca de la normalidad de las distribuciones subyacentes:
+
+    -   Las dos muestras son independientes
+
+    -   Los datos de cada muestra se distribuyen normalmente (con $n$ grande, por el TCL, esto se cumplirá)
+
+    -   Las varianzas poblacionales son desconocidas, pero se pueden asumir iguales para una versión específica del test $t$ (si esta suposición es razonable).
+
+# CH igualdad de medias (muestras indep.)
+
+-   Supongamos dos m.a.s. independientes con medias, desviaciones típicas y tamaño muestral igual a: $\bar{\mathbf{x}}_1$, $\bar{\mathbf{x}}_2$, $s_1^2$, $s_2^2$, $n_1$ y $n_2$, respectivamente.
+
+-   Formulamos las hipótesis:
+
+    -   Hipótesis nula $H_0$: Las medias de las dos poblaciones son iguales $\mu_1=\mu_2$
+
+    -   Hipótesis alternativa $H_1$ Las medias de las dos poblaciones son diferentes $mu_1 \neq \mu_2$
+
+-   Consideramos un nivel de significancia estadística $\alpha$
+
+# CH igualdad de medias (muestras indep.)
+
+-   Calculamos el estadístico muestral, en este caso
+
+    $$
+    t = \frac{\bar{\mathbf{x}}_1-\bar{\mathbf{x}}_2}{SE}
+    $$
+
+    donde:
+
+    $$
+    SE = \sqrt{S^2_p \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}
+    $$
+
+    siendo $S_p$ la desviación típica combinada:
+
+    $$
+    S^2_p= \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
+    $$
+
+# CH igualdad de medias (muestras indep.)
+
+-   Para un nivel de significancia $\alpha= 0.05$ y grados de libertad $df = n_1+n_2-2$, buscamos el valor crítico $T_{df,1-\alpha/2}$ para la distribución $t$ de Student para una prueba de dos colas.
+
+-   Comparamos el valor del estadístico $t$ calculado con las muestras con el valor crítico:
+
+    -   Si $|t| > T_{df,1-\alpha/2}$, rechazamos $H_0$
+
+    -   Si $|t| \leq T_{df,1-\alpha/2}$, no rechazamos $H_0$
+
+# CH igualdad de medias (muestras indep.)
+
+El $t$-test de forma gráfica (¡y divertida!) gracias a las ilustraciones de Allison Horst:
+
+<https://twitter.com/allison_horst/status/1216411185240690688>
+
+![](images/allison_horst_t_test.jpeg){fig-align="center" width="309"}
+
+# Ejemplo
+
+Supongamos que un investigador quiere comparar la efectividad de dos métodos de enseñanza de matemáticas. Se seleccionan dos grupos de estudiantes al azar, uno para cada método. Después de un semestre, se mide el puntaje de un examen final de matemáticas.
+
+Datos:
+
+-   Grupo A (Método 1):
+
+    -   Tamaño de la muestra ($n_1$) = 12
+
+    -   Puntajes: 85, 78, 92, 88, 75, 84, 90, 91, 83, 79, 87, 86
+
+-   Grupo B (Método 2):
+
+    -   Tamaño de la muestra ($n_2$) = 10
+
+    -   Puntajes: 82, 77, 85, 80, 79, 81, 83, 78, 82, 76
+
+Consideramos un nivel de significancia $\alpha=0.05$.
+
+# CH igualdad de proporciones
+
+El contraste de hipótesis para la diferencia de proporciones se utiliza para determinar si hay una diferencia significativa entre las proporciones de éxito en dos grupos independientes. Supongamos dos variables aleatorias $X$ e $Y$ que siguen una distribución binomial de parámetros $p_1$ y $p_2$ respectivamente.
+
+Formulamos las hipótesis:
+
+-   Hipótesis nula $H_0$: Las proporciones de las dos poblaciones son iguales $p_1=p_2$
+
+-   Hipótesis alternativa $H_1$: Las proporciones de las dos poblaciones son diferentes $p_1 \neq p_2$
+
+# CH igualdad de proporciones
+
+-   Consideremos dos m.a.s. de tamaño $n_1$ y $n_2$, siendo $\mathbf{x}$ y $\mathbf{y}$ el número de observaciones que cumplen un criterio, de modo que:
+
+    $$
+    \hat{p}_1=\frac{\mathbf{x}}{n_1}, \hat{p}_2=\frac{\mathbf{y}}{n_2}
+    $$son los estimadores de máxima verosimilitud de $p_1$ y $p_2$, respectivamente
+
+-   Consideramos un nivel de significancia estadística $\alpha$
+
+-   Calculamos el estadístico muestral, en este caso:
+
+    $$
+    Z = \frac{\hat{p}_1-\hat{p_2}}{SE}
+    $$
+
+    donde
+
+    $$
+    SE=\sqrt{\hat{p}(1-\hat{p})}\left ( \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\right )
+    $$
+
+    siendo $\hat{p}=\frac{\mathbf{x}+\mathbf{y}}{n_1+n_2}$
+
+# CH igualdad de proporciones
+
+-   Para valores grandes de $n_1$ y $n_2$, la distribución de $Z$ es $N(0,1)$
+
+-   Para un nivel de significancia $\alpha= 0.05$, buscamos el valor crítico $Z_{1-\alpha/2}$ para la distribución Normal
+
+-   Comparamos el valor del estadístico $Z=z$ calculado con el valor crítico:
+
+    -   Si $|Z| > Z_{1-\alpha/2}$, rechazamos $H_0$
+
+    -   Si $|Z| \leq Z_{1-\alpha/2}$, no rechazamos $H_0$
+
+# Ejemplo
+
+Supongamos que una empresa de marketing quiere evaluar la efectividad de dos campañas publicitarias diferentes (Campaña A y Campaña B) para atraer clientes. La empresa desea saber si hay una diferencia significativa en la proporción de clientes que responden positivamente a cada campaña.
+
+-   Campaña A:
+
+    -   Número de personas que recibieron la campaña: $500$
+
+    -   Número de personas que respondieron positivamente: $75$
+
+-   Campaña B:
+
+    -   Número de personas que recibieron la campaña: $600$
+
+    -   Número de personas que respondieron positivamente: $120$
+
+# Referencias
+
+Wasserman, L. (2013). All of Statistics: a Concise Course in Statistical Inference.
+
+Spiegel, M., & Stephens, L. (2009). Estadística--Serie Schaum. *Mc Graw-Hill*.
+
+Gomez Villegas, M. A. (2005). *Inferencia estadística*. Ediciones Díaz de Santos.
+
+Canavos, G. C., & Medal, E. G. U. (1987). *Probabilidad y estadística* (p. 651). México: McGraw Hill.

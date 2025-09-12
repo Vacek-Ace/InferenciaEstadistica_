@@ -1,0 +1,101 @@
+\ProvidesPackage{dslab-modelos}[2025/09/10 DSLAB Inferencia Estadística Beamer Theme]
+
+% Paquetes necesarios
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+
+% Definir colores personalizados similares al DSLAB
+\definecolor{dslab-blue}{RGB}{0, 180, 216}
+\definecolor{dslab-darkblue}{RGB}{0, 139, 159}
+\definecolor{dslab-darkerdblue}{RGB}{0, 115, 135}
+\definecolor{dslab-white}{RGB}{255, 255, 255}
+
+% Personalizar colores del tema
+\setbeamercolor{frametitle}{bg=dslab-blue, fg=dslab-white}
+\setbeamercolor{title}{bg=dslab-blue, fg=dslab-white}
+\setbeamercolor{structure}{fg=dslab-darkblue}
+\setbeamercolor{palette primary}{bg=dslab-blue, fg=dslab-white}
+\setbeamercolor{palette secondary}{bg=dslab-darkblue, fg=dslab-white}
+\setbeamercolor{palette tertiary}{bg=dslab-blue, fg=dslab-white}
+
+% Colores específicos para el footer
+\setbeamercolor{author in head/foot}{bg=dslab-darkerdblue, fg=dslab-white}
+\setbeamercolor{title in head/foot}{bg=dslab-darkblue, fg=dslab-white}
+\setbeamercolor{date in head/foot}{bg=dslab-blue, fg=dslab-white}
+
+% Configurar fuentes
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+
+% Personalizar el título de cada frame con logo
+\setbeamertemplate{frametitle}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1ex]{frametitle}
+    \hspace{0.5em}\insertframetitle
+    \hfill
+    \raisebox{-0.5ex}{\includegraphics[height=2ex]{../images/DSLab_logo_2.png}}
+    \hspace{0.5em}
+  \end{beamercolorbox}
+}
+
+% Configurar logos del título principal
+\newcommand{\dslabtitlegraphic}{
+  \titlegraphic{
+    \includegraphics[height=1cm]{../images/DSLab_logo_1.png}
+    \hspace{2cm}
+    \includegraphics[height=1.5cm]{../images/URJClogo.png}
+  }
+}
+
+% Configurar el pie de página personalizable
+\newcommand{\dslabfootline}[3]{
+  \setbeamertemplate{footline}{
+    \leavevmode%
+    \hbox{%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}#1
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}#2
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex]{date in head/foot}%
+        \hfill
+        \usebeamerfont{date in head/foot}#3
+        \hfill
+        \insertframenumber{} / \inserttotalframenumber
+        \hspace{1em}
+      \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+  }
+}
+
+% Comando específico para Modelos Estadísticos
+\newcommand{\modelosfootline}{
+  \dslabfootline{Víctor Aceña - Isaac Martín (DSLAB)}{Inferencia Estadística}{Curso 2025-2026}
+}
+
+% Configuración adicional para mejorar la apariencia
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+% Configurar colores adicionales para elementos específicos
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=dslab-darkblue}
+\setbeamercolor{item}{fg=dslab-darkblue}
+\setbeamercolor{subitem}{fg=dslab-blue}
+\setbeamercolor{subsubitem}{fg=dslab-blue}
+
+% Configurar bullets personalizados
+\setbeamertemplate{itemize item}{\color{dslab-darkblue}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{dslab-blue}$\circ$}
+\setbeamertemplate{itemize subsubitem}{\color{dslab-blue}$-$}
+
+% Configurar enumeraciones
+\setbeamertemplate{enumerate item}{\color{dslab-darkblue}\arabic{enumi}.}
+\setbeamertemplate{enumerate subitem}{\color{dslab-blue}\alph{enumii}.}
+
+% Comando para facilitar el uso del tema completo
+\newcommand{\usedslabmodelos}{
+  \dslabtitlegraphic
+  \modelosfootline
+}

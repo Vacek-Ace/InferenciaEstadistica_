@@ -1,0 +1,730 @@
+---
+title: "Estadística descriptiva. EDA"
+author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
+date: "Curso académico 2024-2025"
+
+bibliography: References.bib
+
+format: 
+  beamer: 
+    template: dslab.beamer.tex
+
+editor: visual
+---
+
+# Estadística descriptiva
+
+```{r echo=FALSE}
+#| echo: false
+
+default_chunk_hook  <- knitr::knit_hooks$get("chunk")
+
+latex_font_size <- c("Huge", "huge", "LARGE", "Large", 
+                     "large", "normalsize", "small", 
+                     "footnotesize", "scriptsize", "tiny")
+
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- default_chunk_hook(x, options)
+  if(options$size %in% latex_font_size) {
+    paste0("\n \\", options$size, "\n\n", 
+      x, 
+      "\n\n \\normalsize"
+    )
+  } else {
+    x
+  }
+})
+```
+
+-   Se ocupa de resumir y describir las características de un conjunto de datos mediante herramientas gráficas y numéricas, como tablas, gráficos, medias, medianas, varianzas, etc.
+
+-   Su objetivo es proporcionar una visión clara y comprensible de la estructura y características de los datos
+
+-   Ejemplo: Tiempo medio que tardan los alumnos de la asignatura de Inferencia Estadística del Grado en Ciencia e Ingeniería de Datos en llegar a la universidad
+
+# Datos
+
+![](images/penguins_data.png){fig-align="center" width="400"}
+
+# Tipos de variables
+
+-   **Cualitativas o categóricas**: Describen cualidades. Se dividen en:
+
+    -   **Nominales**. Sin orden específico. Ej: color de ojos
+
+    -   **Ordinales**. Tienen un orden. Ej: niveles de satisfacción
+
+-   **Cuantitativas**: Valores numéricos que se pueden medir. Pueden ser:
+
+    -   **Discretas**. Valores contables, como el número de hijos
+
+    -   **Continuas**. Pueden tomar cualquier valor dentro de un rango, como la altura o el peso.
+
+# Tipos de variables
+
+-   Marcas de tiempo o identificadores: Como por ejemplo la fecha y hora de una transacción o el código de un producto o el número de identidad.
+
+# Escalas de medición
+
+Una escala de medición define cómo se cuantifican o categorizan las variables recogidas sobre un conjunto de datos, influyendo en el análisis estadístico aplicable:
+
+-   **Nominal**: categorización sin orden inherente. Por ejemplo, el género, la nacionalidad o el tipo de sangre
+
+-   **Ordinal**: categorización con un orden lógico. Por ejemplo, el nivel educativo, o una clasificación de hoteles
+
+-   **Métrica**:
+
+    -   **Intervalo**: sin cero verdadero, por ejemplo la temperatura en Celsius.
+
+    -   **Razón**: con cero verdadero, por ejemplo los ingresos o la distancia.
+
+# Conversión entre escalas de medición
+
+-   Fechas a categóricas: convertir fechas exactas en mes, día de la semana, etc.
+
+-   Cuantitativas a cualitativas: crear clases o rangos a partir de datos numéricos. Por ejemplo convertir el nivel de ingresos en "bajo", "medio" y "alto".
+
+-   Variables calculadas: creación de nuevas variables a partir de las existentes. Por ejemplo, se crea el Índice de Masa Corporal (IMC) a partir de peso y altura.
+
+# Estadística descriptiva
+
+-   Aplicación de técnicas matemáticas para resumir un conjunto de datos
+
+-   Objetivo: Presentar los datos de manera clara mediante medidas de tendencia central (media, mediana, moda), medidas de dispersión (desviación estándar, varianza), y visualizaciones (tablas de frecuencia, gráficos de barras, histogramas, etc.).
+
+-   Sigue un enfoque más formal y estructurado, centrado en describir las características principales de un conjunto de datos
+
+-   Limitaciones: Se centra en los datos de manera resumida, sin necesariamente buscar patrones complejos, relaciones o anomalías.
+
+# Análisis exploratorio de datos (EDA)
+
+*"Exploratory data analysis can never be the whole story, but nothing else can serve as the foundation stone as the first step"*
+
+*"Exploratory Data Analysis is detective work"*
+
+John Tukey
+
+# Análisis exploratorio de datos
+
+-   Enfoque más amplio y flexible que combina herramientas matemáticas y estadísticas son técnicas gráficas para descubrir patrones, tendencias y relaciones en los datos
+
+-   Objetivo: Busca explora y entender los datos de manera más profunda e interactiva, generando hipótesis y obteniendo información antes de aplicar técnicas de modelado más formales
+
+-   Sigue un enfoque más experimental y visual, permitiendo descubrir patrones inesperados o relaciones ocultas. No hay un guión estricto para realizar un EDA (¡somos detectives!)
+
+-   Limitaciones: Para sacar conclusiones generales (no limitadas a la muestra) debe ser seguida por análisis más formales o inferenciales
+
+# Importancia del EDA
+
+Supongamos que tenemos los datos de natalidad desde 1977 hasta 2018. ¿Qué haríais con ellos?
+
+# Importancia del EDA
+
+[Estudio natalidad](https://www.eldiario.es/nidos/no-ninos-nacen-toca-dar-luz-semana-21-probable-hacerlo-lunes-viernes_1_6400307.html): https://www.eldiario.es/nidos/no-ninos-nacen-toca-dar-luz-semana-21-probable-hacerlo-lunes-viernes_1\_6400307.html
+
+![](images/natalidad1.png){fig-align="center" width="151" height="38"}
+
+![](images/natalidad2.png){fig-align="center" width="229"}
+
+# Estadística descriptiva
+
+-   Estudiemos algunas de las herramientas de la estadística descriptiva y el EDA
+
+-   Herramientas
+
+    -   Resúmenes numéricos: media, moda, mediana, cuantiles, tablas de frecuencia, etc
+
+    -   Métodos gráficos. diagramas de barras, histograma, boxplot, etc.
+
+-   En función de los datos (categóricos o continuos), se usarán unos métodos u otros
+
+```{r}
+library(dplyr)
+library(palmerpenguins)
+library(ggplot2)
+```
+
+# Dataset Palmer penguin
+
+<https://allisonhorst.github.io/palmerpenguins/articles/intro.html>
+
+![](images/palmen_penguins.png){fig-align="center" width="416"}
+
+# Dataset Palmer penguin
+
+```{r echo=FALSE}
+library(palmerpenguins)
+glimpse(penguins)
+```
+
+# Datos atípicos (outliers)
+
+-   Datos que no están en consonancia con el resto, que destaca por ser distinto del resto
+
+-   Causas:
+
+    -   Errores de medición (humano o del sistema). Ej: Peso de un paciente: 800 kg o un medidor manipulado
+
+    -   Contaminación: la muestra contiene datos de una población distinta a la de interés
+
+    -   Desviaciones naturales
+
+-   Solo se modifica el dato si es un error. Se busca el valor real y, si no es posible, se pone como missing
+
+# Datos atípicos
+
+¿Diferencia entre el valor atípico rojo y el azul?
+
+![](images/atipico_rojo_azul.png){fig-align="center" width="300"}
+
+# Datos faltantes (missing)
+
+-   Dato vacío, dato perdido, NA
+
+-   Causas:
+
+    -   Error en la medición, la transcripción
+
+    -   No se puede lograr el dato
+
+-   Acciones:
+
+    -   Trabajar únicamente con los datos sin valores faltantes (representan un % bajo del total de los datos)
+
+    -   Imputación de missing (media o mediana de la variable, el valor de los puntos más similares, predicción de un modelo de ML)
+
+    -   Agrupar los missings en una nueva categoría ¡fácilmente distinguible! Ej: 9999
+
+# Tabla de frecuencias
+
+-   **Tabla de frecuencias** o **tabla de contingencia**: Muestra, para cada valor que tome una variable categórica (o cada intervalo en una categorizada), o para cada combinación de valores de dos o más variables categóricas, el número de casos que aparecen con dicho valor o combinación de valores
+
+```{r echo=TRUE}
+#| size: scriptsize
+table(penguins$species)
+prop.table(table(penguins$species))
+```
+
+# Tabla de frecuencias
+
+Dada una variable $X$ con dominio $\{X_1,\dots,X_k\}$ que ha sido medida en una muestra de tamaño $n$ y denotemos por $n_i$ el número de elementos en la muestra que toman el valor $X_i$. La tabla de frecuencias correspondiente es:
+
+![](images/tabla_frecuencias.png){fig-align="center" width="450"}
+
+# Tabla de frecuencias
+
+¿Para qué tipos de variable sirve?
+
+# Tabla de frecuencias
+
+¿Para qué tipos de variable sirve?
+
+-   Categóricas nominales. Color de ojos.
+
+-   Categóricas ordinales. Grado de satisfacción
+
+-   Continuas. Altura.
+
+    -   Dividimos en intervalos: (0,140\],(140,155\],...,(210,225\]
+
+# Diagrama de barras
+
+-   Para variables cualitativas
+
+```{r echo=FALSE,out.width="60%",fig.align = 'center'}
+# Instalar y cargar los paquetes necesarios
+install.packages("palmerpenguins")
+install.packages("ggplot2")
+install.packages("cowplot")  # Para combinar gráficos
+
+library(palmerpenguins)
+library(ggplot2)
+library(cowplot)
+
+# Cargar el conjunto de datos de los pingüinos
+data("penguins")
+
+# Eliminar filas con datos faltantes
+penguins <- na.omit(penguins)
+
+# Gráfico de barras en frecuencia absoluta
+grafico_absoluto <- ggplot(penguins, aes(x = species)) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(title = "Frecuencia absoluta de especies",
+       x = "Especies", y = "Frecuencia absoluta") +
+  theme_minimal()
+
+# Gráfico de barras en frecuencia relativa
+grafico_relativo <- ggplot(penguins, aes(x = species)) +
+  geom_bar(aes(y = (..count..) / sum(..count..)), fill = "lightgreen", color = "black") +
+  labs(title = "Frecuencia relativa de especies",
+       x = "Especies", y = "Frecuencia relativa") +
+  scale_y_continuous(labels = scales::percent) +  # Convertir la escala en porcentaje
+  theme_minimal()
+
+# Combinar los dos gráficos en una misma figura
+graficos_combinados <- plot_grid(grafico_absoluto, grafico_relativo, labels = c("A", "B"))
+
+# Mostrar la figura combinada
+print(graficos_combinados)
+
+```
+
+No hay diferencia entre hacer la comparación con las frecuencias relativas o absolutas en este caso
+
+# Diagrama de barras
+
+¿Y si quisiéramos comparar a nuestros pingüinos con un grupo de otra isla?
+
+```{r echo=FALSE,out.width="70%",fig.align = 'center'}
+# Cargar paquetes necesarios
+library(ggplot2)
+library(cowplot)
+library(palmerpenguins)
+
+# Generar la muestra original de pingüinos
+datos_originales <- data.frame(species = penguins$species[complete.cases(penguins$species)])
+
+# Crear una nueva muestra de pingüinos con una distribución distinta
+set.seed(123)  # Fijar la semilla para reproducibilidad
+nueva_muestra <- data.frame(
+  species = sample(c("Adelie", "Chinstrap", "Gentoo"), size = 300, replace = TRUE, prob = c(0.4, 0.4, 0.2))
+)
+
+# Unir las dos muestras en un solo dataframe para facilitar la comparación
+datos_comparacion <- rbind(
+  data.frame(species = datos_originales$species, Muestra = "Palmer penguins"),
+  data.frame(species = nueva_muestra$species, Muestra = "Flower penguins")
+)
+# Gráfico de barras en frecuencia relativa comparando ambas muestras
+grafico_relativo_comparacion_stack <- ggplot(datos_comparacion, aes(x = species, fill = Muestra)) +
+  geom_bar(aes(y = (..count..) / sum(..count..)), position = "stack", color = "black") +
+  labs(title = "Diagrama de barras stack",
+       x = "Especies", y = "Frecuencia relativa") +
+  scale_y_continuous(labels = scales::percent) +  # Convertir la escala en porcentaje
+  scale_fill_manual(name = "Muestra", values = c("Palmer penguins" = "skyblue", "Flower penguins" = "orange")) +
+  theme_minimal()
+
+# Gráfico de barras en frecuencia relativa comparando ambas muestras
+grafico_relativo_comparacion <- ggplot(datos_comparacion, aes(x = species, fill = Muestra)) +
+  geom_bar(aes(y = (..count..) / sum(..count..)), position = "dodge", color = "black") +
+  labs(title = "Diagrama de barras agrupado",
+       x = "Especies", y = "Frecuencia relativa") +
+  scale_y_continuous(labels = scales::percent) +  # Convertir la escala en porcentaje
+  scale_fill_manual(name = "Muestra", values = c("Palmer penguins" = "skyblue", "Flower penguins" = "orange")) +
+  theme_minimal()
+
+# Combinar los dos gráficos en una misma figura
+graficos_combinados_comparacion <- plot_grid(grafico_relativo_comparacion, grafico_relativo_comparacion_stack)
+
+# Mostrar la figura combinada
+print(graficos_combinados_comparacion)
+
+
+```
+
+# Tabla de frecuencias (contingencia)
+
+```{r echo=FALSE,out.width="70%",fig.align = 'center'}
+#| size: scriptsize
+table(penguins$species,penguins$sex)
+
+# Cargar paquetes necesarios
+library(ggplot2)
+library(palmerpenguins)
+
+# Cargar el conjunto de datos de los pingüinos
+datos <- na.omit(penguins[, c("species", "sex")])  # Eliminar filas con datos faltantes en species o sex
+
+# Crear el gráfico de barras agrupado
+grafico_sexo_especie <- ggplot(datos, aes(x = species, fill = sex)) +
+  geom_bar(position = "dodge", color = "black") +
+  labs(title = "Distribución del Sexo de los Pingüinos por Especie",
+       x = "Especie", y = "Frecuencia",
+       fill = "Sexo") +
+  theme_minimal()
+
+# Mostrar el gráfico
+print(grafico_sexo_especie)
+
+```
+
+# Gráfico de tarta
+
+-   Para variables cualitativas
+
+-   También llamado diagrama de sectores
+
+```{r echo=FALSE,out.width="50%",fig.align = 'center'}
+#| size: scriptsize
+# Cargar paquetes necesarios
+library(ggplot2)
+library(palmerpenguins)
+library(dplyr)  # Para manipulación de datos
+
+# Cargar el conjunto de datos de los pingüinos
+datos <- na.omit(penguins$species)  # Eliminar valores faltantes en species
+
+# Crear una tabla de frecuencias para las especies
+tabla_especies <- as.data.frame(table(datos))
+colnames(tabla_especies) <- c("species", "count")
+
+# Calcular proporciones
+tabla_especies <- tabla_especies %>%
+  mutate(fraction = count / sum(count),
+         ymax = cumsum(fraction),
+         ymin = lag(cumsum(fraction), default = 0))
+
+# Crear el diagrama de tarta
+tarta_plot <- ggplot(tabla_especies, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = species)) +
+  geom_rect(alpha = 0.6) +
+  coord_polar(theta = "y") +
+  labs(title = "Distribución de Especies de Pingüinos") +
+  theme_void() +
+  scale_fill_manual(values = c("Adelie" = "purple", "Chinstrap" = "orange", "Gentoo" = "lightblue"))
+
+# Mostrar el diagrama de tarta
+print(tarta_plot)
+
+```
+
+**Problema**: ojo humano tiene problemas para percibir correctamente diferencias en sectores angulares
+
+# Histograma
+
+-   Para variables cuantitativas
+
+-   Refleja la distribución de los datos
+
+```{r echo=FALSE,out.width="65%",fig.align = 'center'}
+# Cargar paquetes necesarios
+library(ggplot2)
+library(palmerpenguins)
+
+# Cargar el conjunto de datos de los pingüinos
+datos <- na.omit(penguins)  # Eliminar valores faltantes en bill_length_mm
+
+# Crear el histograma
+histograma <- ggplot(datos, aes(x = bill_length_mm)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black") +
+  labs(title = "Distribución de la longitud del pico de los pingüinos",
+       x = "Longitud del Pico (mm)", y = "Frecuencia") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma)
+
+```
+
+¿Cómo se construye el histograma?
+
+# Resumen numérico de variables
+
+-   Medidas de centralidad
+
+-   Medidas de posición
+
+-   Medidas de dispersión
+
+# Resumen numérico de variables
+
+## Medidas de centralidad
+
+-   **Moda**: valor más frecuente de la distribución
+
+-   **Media**. Dada una muestra de $n$ observaciones $\mathbf{x}= (x_1,\dots,x_n)$ de la variable $X$ su media es
+
+    $$ \bar{x} = \frac{\sum_{i=1}^n x_i}{n}$$
+
+    Muy afectada por valores atípicos/extremos
+
+# Resumen numérico de variables
+
+## Medidas de centralidad
+
+-   **Mediana**: valor que ocupa la posición central de los datos, i.e., deja el 50% de los puntos a su izquierda (por debajo de él) y el otro 50% a la derecha (por encima de él). Sea $\mathbf{x}$ una muestra con $n$ observaciones, ordenados de menor a mayor, entonces:
+
+    -   Si $n$ es impar, la mediana es justamente el valor que ocupa justamente la posición central $\lfloor n/2 \rfloor +1$, $Med(\mathbf{x}) = x_{(\lfloor n/2 \rfloor + 1)}$
+
+    -   Si $n$ es par, la mediana será la media de los dos valores centrales, esto es, $Med(\mathbf{x}) = \frac{x_{( n/2 )}+x_{( n/2 + 1)}}{2}$
+
+    Medida robusta
+
+# Media, moda, mediana
+
+![[Microsiervos](https://www.microsiervos.com/archivo/matematicas/media-mediana-moda-salarios.html)](images/salarios-mmm.jpg){alt="https://www.microsiervos.com/archivo/matematicas/media-mediana-moda-salarios.html" fig-align="center" width="400"}
+
+# Resumen numérico de variables
+
+## Medidas de posición
+
+-   Valores **mínimo** y **máximo** de la variable: $x_{min}$, $x_{max}$
+
+-   Primer y tercer **cuartil**: Los valores que dejan por debajo un $p\%$ de los datos, siendo $p=25\%$ en el caso del primer cuartil ($Q_{1}$) y $p=75\%$ en el caso del tercer cuartil ($Q_3$). El segundo cuartil es la mediana.
+
+-   **Deciles**: Mismo concepto que los cuartiles pero de 10 en 10
+
+# Resumen numérico de variables
+
+**Medidas de dispersión**: ¿Cómo varían los datos en torno a los valores centrales?
+
+```{r echo=TRUE}
+#| size: scriptsize
+a <- c(1, 2, 3, 4, 5, 6, 7, 8 , 9, 10)
+b <- c(3, 6, 4, 5, 5, 6, 6, 5, 7, 8)
+cat("Media a: ", mean(a), ', Desviación típica a: ', round(sd(a),2), '\n',
+             "Media b: ", mean(b), ', Desviación típica b: ', round(sd(b),2))
+
+```
+
+![](images/dispersion.png){fig-align="center" width="270"}
+
+# Resumen numérico de variables
+
+## Medidas de dispersión
+
+-   **Rango** o **recorrido**: $Rango = x_{max} - x_{min}$
+
+-   **Varianza**: Mide la dispersión de los valores de la variable respecto a la media
+
+    -   Varianza **muestral**: $s^{2} =\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^{2}$
+
+    -   Varianza **poblacional**: $\sigma^{2} =\frac{1}{N} \sum_{i=1}^n (x_i - \mu)^{2}$ , siendo $N$ el tamaño de la población y $\mu$ su media
+
+-   **Desviación típica**: raíz cuadrada de la varianza muestral o poblacional.
+
+    -   Desviación típica **muestral**: $s = \sqrt{s^{2}}$
+
+    -   Desviación típica **poblacional**: $\sigma = \sqrt{\sigma^{2}}$
+
+    Interpretación más sencilla al medir la dispersión en las mismas unidades que la variable
+
+# Resumen numérico de variables cuantitativas
+
+## Medidas de dispersión
+
+-   **Rango intercuartílico**: diferencia entre el tercer y el primer cuartil $IQR = Q_3 - Q_1$
+
+-   **Coeficiente de variación**: representa la desviación típica en unidades de la media $CV = s / \bar{x}$. Se suele expresar en porcentaje. Por ejemplo, CV = 60% indica que el valor de la desviación típica es 0.6 veces la magnitud de la media.
+
+<!--# Importancia de la exploración y los gráficos. El cuarteto de Anscombe. https://www.research.autodesk.com/publications/same-stats-different-graphs/  -->
+
+# **Diagrama de cajas y bigotes (boxplot)**
+
+![](images/boxplot.png){fig-align="center"}
+
+# **Diagrama de cajas y bigotes (boxplot)**
+
+```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+# Cargar paquetes necesarios
+library(ggplot2)
+library(palmerpenguins)
+
+# Cargar el conjunto de datos de los pingüinos
+datos <- na.omit(penguins)  # Eliminar valores faltantes en species y bill_length_mm
+
+# Crear el boxplot
+boxplot_longitud_pico <- ggplot(datos, aes(x = species, y = bill_length_mm, fill = species)) +
+  geom_boxplot(color = "black") +
+  scale_fill_manual(values = c("Adelie" = "purple", "Chinstrap" = "orange", "Gentoo" = "lightblue")) +
+  labs(title = "Boxplot de la Longitud del Pico de los Pingüinos por Especie",
+       x = "Especie", y = "Longitud del Pico (mm)") +
+  theme_minimal()
+
+
+
+# Mostrar el boxplot
+print(boxplot_longitud_pico)
+
+```
+
+# Diagramas de dispersión
+
+```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+# Cargar paquetes necesarios
+library(ggplot2)
+library(palmerpenguins)
+
+# Cargar el conjunto de datos de los pingüinos
+datos <- na.omit(penguins)  # Eliminar valores faltantes
+
+
+# Crear el diagrama de dispersión
+dispersion_plot <- ggplot(datos, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 3) +
+  labs(title = "Diagrama de Dispersión de Longitud vs. Profundidad del Pico de los Pingüinos",
+       x = "Longitud del Pico (mm)", y = "Profundidad del Pico (mm)",
+       color = "Especie") +
+  theme_minimal()
+
+
+# Mostrar la figura
+print(dispersion_plot)
+
+```
+
+# Diagrama de dispersión
+
+```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+# Cargar paquetes necesarios
+library(ggplot2)
+library(palmerpenguins)
+
+# Cargar el conjunto de datos de los pingüinos
+datos <- na.omit(penguins)  # Eliminar valores faltantes
+
+# Crear el diagrama de dispersión
+dispersion_plot_sex <- ggplot(datos, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("Adelie" = "purple", "Chinstrap" = "orange", "Gentoo" = "lightblue")) +
+  labs(title = "Diagrama de Dispersión de Longitud vs. Profundidad del Pico de los Pingüinos",
+       x = "Longitud del Pico (mm)", y = "Profundidad del Pico (mm)",
+       color = "Especie") +
+  theme_minimal()
+
+
+# Mostrar la figura
+print(dispersion_plot_sex)
+
+```
+
+# Más y más y más
+
+-   R graph gallery <https://r-graph-gallery.com/>
+
+-   R Gallery book <https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/>
+
+-   ¿El mejor gráfico hecho? The Minard map <https://bigthink.com/strange-maps/229-vital-statistics-of-a-deadly-campaign-the-minard-map/>
+
+# Gráficos multivariante
+
+**Histogramas conjuntos**
+
+```{r echo=FALSE,out.width="100%",out.height="60%",fig.align = 'center'}
+#| size: scriptsize
+# library
+library(ggplot2)
+library(dplyr)
+library(pdp) #pima dataset
+
+p <- pima %>%
+  ggplot( aes(x=glucose, fill=diabetes)) +
+    geom_histogram( color="#e9ecef", alpha=0.4, position = 'identity') +
+    scale_fill_manual(values=c("black", "yellow")) +
+    theme_bw() +
+    labs(fill="")
+p
+```
+
+# Gráficos con categorías
+
+**Histogramas conjuntos**
+
+Origen del gráfico: [From Data to Viz](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html)
+
+```{r echo=FALSE,out.width="100%",out.height="60%",fig.align = 'center'}
+#| size: scriptsize
+# Libraries
+library(tidyverse)
+library(viridis)
+library(forcats)
+
+# Load dataset from github
+data_cia <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data_cia <- data_cia %>%
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0))
+
+# plot
+p <- data_cia %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(x=value, color=text, fill=text)) +
+    geom_histogram(alpha=0.6, binwidth = 5) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_minimal() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Assigned Probability (%)") +
+    facet_wrap(~text)
+p
+```
+
+# Gráficos con categorías
+
+Origen del gráfico: [From Data to Viz](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html)
+
+```{r echo=FALSE,out.width="100%",out.height="60%",fig.align = 'center'}
+#| size: scriptsize
+data_cia %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(x=text, y=value, fill=text)) +
+    geom_boxplot() +
+    geom_jitter(color="grey", alpha=0.3, size=0.9) +
+    scale_fill_viridis(discrete=TRUE) +
+    theme_light() +
+    theme(
+      legend.position="none"
+    ) +
+    coord_flip() +
+    xlab("") +
+    ylab("Assigned Probability (%)")
+
+```
+
+# ggpairs
+
+<https://r-charts.com/es/correlacion/ggpairs/>
+
+```{r echo=FALSE}
+library(GGally)
+ggpairs(iris,                 # Data frame
+        columns = 1:4,        # Columnas
+        aes(color = Species,  # Color por grupo (var. categórica)
+            alpha = 0.5))
+```
+
+# Más y más
+
+-   Gráficos multivariantes
+
+-   Gráficos de correlación
+
+-   Series temporales
+
+-   Mapas
+
+-   Pirámides de población
+
+-   QQplot
+
+-   etc
+
+# Más y más
+
+https://elartedeldato.com/
+
+https://rkabacoff.github.io/datavis/ Modern Data Visualization with R
+
+https://r-graph-gallery.com/ggplot2-package.html
+
+https://r-graph-gallery.com/
+
+https://www.data-to-viz.com/
+
+# Bibliografía de utilidad para el lector
+
+-   "Fundamentos de ciencia de datos con R" coordinado por [Gema Fernández-Avilés y José-María Montero](https://blog.uclm.es/gemafaviles/): https://cdr-book.github.io/
+
+-   Weiss, N. A., & Weiss, C. A. (2017). *Introductory statistics*. London: Pearson.
+
+-   "Estadística Aplicada a las Ciencias y la Ingeniería" escrito por [Emilio L. Cano](http://emilio.lcano.com/). https://emilopezcano.github.io/estadistica-ciencias-ingenieria/index.html
+
+-   R for Data Science: https://r4ds.hadley.nz/eda
+
+    -   Primera versión en castellano: https://es.r4ds.hadley.nz/

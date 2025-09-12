@@ -1,0 +1,16 @@
+---
+format:
+  pdf:
+    pdf-engine: weasyprint
+    include-before-body: portada.html
+    css: ../estilos.css
+---
+
+# Índice de Diapositivas
+
+- Tema 0: Introducción a los Modelos Estadísticos para la Predicción
+- Tema 1: Regresión Lineal Simple  
+- Tema 2: Regresión Lineal Múltiple
+- Tema 3: Ingeniería de Características
+- Tema 4: Selección de Variables, Regularización y Validación
+- Tema 5: Modelos Lineales Generalizados (GLM)

@@ -1,0 +1,429 @@
+---
+title: "Inferencia Estadística. Estimación puntual"
+author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
+date: "Curso académico 2024-2025"
+
+bibliography: References.bib
+
+format: 
+  beamer: 
+    template: dslab.beamer.tex
+
+editor: visual
+---
+
+# Un poco de repaso
+
+```{=html}
+<!--# La Figura 1.2
+ muestra la relación entre los conceptos de Población, Muestra, 
+Inferencia Estadística, Probabilida y Estadística Descriptiva. Estos 
+conceptos permiten a los estadísticos recolectar datos de manera 
+eficiente, describir los datos recolectados y hacer inferencias 
+significativas y precisas sobre la población a partir de la muestra. -->
+```
+![](images/dogma1.png){fig-align="left" width="233"}![](images/dogma2.png){fig-align="right" width="223"}
+
+-   $X$ es una variable aleatoria (¡de interés!) cuya función de distribución es conocida a excepción de determinados paramétros (Por ejemplo, $\mu$ y $\sigma$ en la distribución Normal)
+
+-   "Conocidos" (estimados) los paramétros (por ejemplo, $\overline{x}$ y $S$ para la Normal) --\> Función de distribución de probabilidad totalmente determinada y ¡a extraer información y sacar conclusiones!
+
+# Ejemplo Instagram
+
+-   Sabemos que el número de horas al día que pasan las personas en Instagram sigue una distribución Normal. Estamos interesados en conocer la media de horas.
+
+-   Variable aleatoria $X$: horas que pasan al día los estudiantes de la URJC en Instagram
+
+-   Población: Estudiantes de la URJC
+
+-   Para estimar la media $\mu$, se pregunta a 10 estudiantes al azar el número de horas que pasan al día $x_1,\dots,x_{10}$: $$2.5, 3.0, 1.5, 4.0, 2.0, 3.5, 2.8, 1.0, 4.5, 3.2$$
+
+<!--# horas_instagram <- c(2.5, 3.0, 1.5, 4.0, 2.0, 3.5, 2.8, 1.0, 4.5, 3.2) -->
+
+# Inferencia estadística paramétrica
+
+-   $X$ variable aleatoria (v.a.) con función de distribución $F_{\theta}$ conocida, que depende de un parámetro $\theta \in \Theta \subseteq \mathbb{R}$ desconocido, siendo $\Theta$ su espacio paramétrico
+
+-   El objetivo de la inferencia estadística es lograr buenas estimaciones/aproximaciones del parámetro $\theta$ en base a una muestra aleatoria simple (m.a.s.) $X_1,\dots,X_n$ de la población. $X_i, i=1,\dots,n$ son v.a. independientes e igualmente distribuidas $F_{\theta}$
+
+-   Con cada observación $x_1,\dots,x_n$ de la muestra aleatoria simple se puede hacer una estimación del parámetro desconocido $\theta$ --\> estadístico muestral o estimador
+
+# Estadístico muestral
+
+-   Formalmente, dada una variable aleatoria $X$ con función de distribución $F_{\theta}$, con $\theta$ desconocido, un estadístico o estimador $T=T(X_1,\dots,X_n)$ es una función real de la m.a.s. $(X_1,\dots,X_n)$ que estima el valor del parámetro desconocido $$T=T(X_1,\dots,X_n)=\hat{\theta}$$
+
+-   Ejemplos:
+
+    -   Media, mediana
+
+    -   Varianza, desviación estándar
+
+-   Un estadístico es una variable aleatoria, y por lo tanto, tiene asociada una distribución que se denomina **distribución muestral**
+
+# Distribución muestral
+
+Dado el mismo estadístico, la aplicación del mismo a distintas muestras concretas dará lugar a diferentes **estimaciones**
+
+**Ejemplo Instagram:**
+
+-   Estadístico media muestral $\overline{X}$
+
+-   Muestra A: $2.5, 3.0, 1.5, 4.0, 2.0, 3.5, 2.8, 1.0, 4.5, 3.2$ --\> $\overline{x}_A=2.8$
+
+-   Muestra B: $3.1, 2.7, 1.8, 4.2, 3.3, 2.4, 1.6, 4.0, 3.5, 2.9$ --\> $\overline{x}_B=2.95$
+
+-   Muestra C: $2.9, 3.6, 1.4, 4.1, 2.3, 3.0, 1.9, 4.4, 3.8, 2.2$ --\> $\overline{x}_C=2.96$
+
+La media muestral varía en las distintas muestras --\> es una variable aleatoria con una distribución de probabilidad. Caracterizaremos dichas distribuciones muestrales mediante su media y su varianza.
+
+# Ejemplo Instagram: estimadores
+
+-   Media: $T_1(X_1,\dots,X_{n})=\overline{X}=\frac{(X_1+\cdots+X_{n})}{n}$
+
+-   Mediana: $T_2(X_1,\dots,X_{n}) = \frac{X_{(n/2)}+X_{(n/2 + 1)}}{2}$
+
+-   Media del máximo y el mínimo: $T_3(X_1,\dots,X_{n})=\frac{max(X_1,\dots,X_{n}) + min(X_1,\dots,X_{n})}{2}$
+
+-   etc
+
+Distintos estadísticos pueden estimar el valor del mismo parámetro
+
+No todos los estadísticos sirven para estimar el mismo parámetro
+
+# Ejemplo Instagram: estimaciones
+
+La aplicación de cada estimador a la muestra ofrece una estimación diferente de la media poblacional $\mu$:
+
+-   Media: $T_1(x_1,\dots,x_{10})=\overline{x}=\frac{(2.5+ 3.0+1.5+4.0+ 2.0+3.5+2.8+ 1.0+ 4.5+ 3.2)}{10} = 2.8$
+
+-   Mediana: $T_2(x_1,\dots,x_{10}) = \frac{2.8+3.0}{2}=2.9$
+
+-   Media del máximo y el mínimo: $T_3(x_1,\dots,x_{10})=\frac{4.5 + 1}{2}=2.75$
+
+Así, se obtienen 3 estimaciones de la media poblacional: $\hat{\mu}_1 = 2.8$*,* $\hat{\mu}_2 = 2.9$*,* $\hat{\mu}_3=2.75$
+
+# Error de los estimadores
+
+-   En el tema 1 dijimos: $DATOS=MODELO + ERROR$
+
+-   Particularmente: $ERROR= |T(X_1,\dots,X_n) - \theta|$
+
+-   Queremos que el error sea lo mínimo posible, pero desconocemos $\theta$ --\> Pedimos ciertas propiedades a los estimadores para que sean adecuados para estimar un parámetro
+
+# Propiedades de los estimadores
+
+Supongamos una población Normal con media conocida $\mu=5$
+
+Se obtiene una muestra de 10000 observaciones y se calculan los 3 estadísticos que se muestran a continuación (azul, naranja y verde).
+
+¿Qué opinas?
+
+![](images/Estimadores_propiedades.png){fig-align="center" width="250"}
+
+# Propiedades de los estimadores
+
+-   **Insesgadez**. Un estimador es insesgado (o centrado) si, en promedio, coincide con el valor verdadero del parámetro que se estima. Es decir, el valor esperado del estimador es igual al parámetro poblacional: $E[\hat{\theta}=T(X_1,\dots,X_n)]=\theta$. Esto quiere decir que la distribución del estadístico muestral está centrada en el verdadero valor del parámetro
+
+-   **Eficiencia**. La varianza de un estimador debe ser lo más pequeña posible. Entre dos estimadores insesgados, el más eficiente es el que tiene menor varianza, es decir, el que proporciona estimaciones más precisas.
+
+# Propiedades de los estimadores
+
+-   **Consistencia**: Un estimador es consistente si, a medida que el tamaño de la muestra aumenta, la estimación se aproxima al valor verdadero del parámetro. Es decir: $$lim_{n\rightarrow \infty}P(|\hat{\theta}-\theta|\geq \delta)=0, \forall \delta>0$$ donde $n$ es el tamaño muestral
+
+-   **Suficiencia**: Un estimador del parámetro $\theta$ es suficiente si utiliza toda la información contenida en la muestra sobre el parámetro que se está estimando. Es decir, si la distribución de la muestra $X_1,\dots,X_n$ dado el estadístico $T$ es independiente del valor del parámetro desconocido. Esto es, se tiene la misma información sabiendo el valor del estadístico $T$ que conociendo todas las observaciones de la muestra
+
+    <!--# Por ejemplo, la media muestral es un estimador suficiente de la media poblacional para la Normal con varianza conocida. Si sé la media, puedo generarme las muestras que quiera con la distribución Normal. Conocer la muestra entera no me proporciona más info  -->
+
+# Repaso: Teorema Central del Límite
+
+El Teorema Central del Límite (TCL) establece que, bajo ciertas condiciones, la distribución de la suma (o el promedio) de un número (lo suficientemente grande) de variables aleatorias independientes e identicamente distribuidas tiende a seguir una distribución Normal, independientemente de la distribución original de las variables.
+
+Formalmente, el TCL establece que si, $X_1,X_2,\dots,X_n$ son variables aleatorias independientes e idénticamente distribuidas, con media $\mu$ y varianza $\sigma^{2}<\infty$, entonces para $n$ suficientemente grande se verifica $$\overline{X}\approx N\left(\mu,\frac{\sigma^{2}}{n}\right)$$
+
+# Distribuciones muestrales
+
+-   Usamos estadísticos para estimar los parámetros desconocidos
+
+-   Queremos que estos estadísticos tengan buenas propiedades
+
+-   Estos estadísticos son variables aleatorias con distribución de probabilidad
+
+\--\> Vamos a estudiar algunos de los estadísticos más comunes, sus distribuciones y características
+
+¡Ojo! Por el TCL, teniendo el tamaño muestral adecuado, sabremos que la distribución de los estadísticos será una Normal
+
+# Distribución media muestral
+
+Dadas $X_1,\dots,X_n$ variables aleatorias independientes e idénticamente distribuidas con media $\mu$ y varianza $\sigma^{2}$ conocida,
+
+la media muestral $$\overline{X}=\frac{X_1+\cdots+X_n}{n}$$
+
+tiene las siguiente esperanza (media) y varianza:
+
+-   $E[\overline{X}]=\mu$
+
+-   $V[\overline{X}] = \frac{\sigma^{2}}{n}$
+
+Entonces, con $n$ suficientemente grande, $\overline{X}\sim N\left(\mu,\frac{\sigma^{2}}{n} \right)$
+
+<!--# Distribución media muestral $E[\overline{X}] = E\left[\frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n} E\left[ \sum_{i=1}^n X_i\right] = \frac{1}{n}\sum_{i=1}^n E\left[  X_i\right]=\frac{1}{n}\sum_{i=1}^n \mu = \mu$  $V[\overline{X}] =  V\left[\frac{1}{n} \sum_{i=1}^n X_i \right] =\frac{1}{n^{2}} V\left[ \sum_{i=1}^n X_i\right]=\frac{1}{n^{2}}\sum_{i=1}^n  V\left[ X_i\right]=\frac{1}{n^{2}}\sum_{i=1}^n  \sigma^{2} = \frac{\sigma^{2}}{n}$ -->
+
+# Distribución varianza muestral
+
+La varianza muestral, que sirve para estimar la varianza poblacional, es:
+
+$$
+V^{2} = \frac{1}{n}\sum_{i=1}^n \left(X_i - \overline{X} \right)^{2}
+$$
+
+es una variable aleatoria con media:
+
+$E[V^{2}]=\frac{n-1}{n} \sigma^{2}$ --\>¡No es un estimador insesgado de la varianza poblacional!
+
+¿Ideas?
+
+# Distribución cuasivarianza muestral
+
+La cuasivarianza muestral, que sirve para estimar la varianza poblacional, es:
+
+$$
+S^{2} = \frac{1}{n-1}\sum_{i=1}^n \left(X_i - \overline{X} \right)^{2}
+$$
+
+es una variable aleatoria con media:
+
+$E[S^{2}]= \sigma^{2}$ --\>Estimador insesgado de la varianza poblacional
+
+$V[S^{2}]=\frac{2 \sigma^{4}}{n-1}$
+
+# Estimación puntual
+
+La **estimación puntual** es una técnica en estadística que consiste en utilizar los datos de una muestra para calcular un valor único, denominado **estimador puntual**, que se usa como mejor aproximación de un parámetro desconocido de la población. Nótese que la función de distribución de la población es conocida a excepción de dicho parámetro.
+
+La estimación puntual proporciona una forma simple y directa de hacer inferencias sobre parámetros poblacionales a partir de una muestra, aunque su simplicidad también implica que no proporciona información sobre la precisión o variabilidad de la estimación, aspectos que se abordan mediante la **estimación por intervalos** y otras técnicas inferenciales.
+
+# Estimador puntual de la media
+
+-   Media muestral $\overline{X}$ es un estimador insesgado para la media poblacional $\mu$, cuya distribución cumple que:
+
+    -   $E[\overline{X}] = \mu$
+
+    -   $V[\overline{X}] = \sigma^{2}/n$
+
+-   Dos casos:
+
+    -   Varianza conocida y $n$ suficientemente grande ($n \geq 30$): $\overline{X} \sim N(\mu, \sigma/\sqrt{n}) \Leftrightarrow \frac{\overline{X}-\mu}{\sigma/\sqrt{n}} \sim N(0,1)$
+
+    -   Varianza desconocida y $n$ suficientemente grande (se requiere normalidad), se utiliza $V^{2}$ y entonces $\frac{\overline{X}-\mu}{V/ \sqrt{n}} \sim t_{n-1}$ siendo $t_{n-1}$ la distribución t-Student con $n-1$ grados de libertad
+
+# Estimador puntual de la media
+
+-   Supongamos que se quiere estimar el gasto promedio que hacen los estudiantes en cultura
+
+-   Se selecciona una muestra aleatoria de 5 estudiantes cuyos gastos mensuales (en euros) son: 100, 50, 125, 20 y 40
+
+-   ¿Estimación puntual de la media?
+
+# Estimador puntual de la varianza
+
+-   Se usa la cuasivarianza porque es insesgado
+
+-   Cuasivarianza muestral $S^{2}=\frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^{2}$
+
+-   Su distribución cumple:
+
+    -   $E[S^{2}]=\sigma^{2}$
+
+    -   $V[S^{2}]=\frac{2\sigma^{4}}{n-1}$
+
+-   En poblaciones normales o con $n$ suficientemente grande cumple $$\frac{(n-1)S^{2}}{\sigma^{2}}\sim \chi^{2}_{n-1}$$
+
+    siendo $\chi^{2}_{n-1}$ la distribución chi-cuadrado con $n-1$ grados de libertad
+
+# Estimador puntual de la varianza
+
+-   Supongamos que se quiere estimar el gasto promedio que hacen los estudiantes en cultura
+
+-   Se selecciona una muestra aleatoria de 5 estudiantes cuyos gastos mensuales (en euros) son: 100, 50, 125, 20 y 40
+
+-   ¿Estimación puntual de la varianza?
+
+-   Supongamos que la muestra es de tamaño 500 y tenemos la media y la varianza estimadas. ¿Qué más sabemos?
+
+# Estimador puntual de la proporción
+
+Dadas $X_1,\dots,X_n$ variables aleatorias independientes e idénticamente distribuidas con una distribución Bernoulli de parámetro $p$. En este caso $\hat{p} = \overline{X}$ es un estimador insesgado para $p$ y su distribución muestral cumple:
+
+-   $E[\hat{p}] = p$
+
+-   $V[\hat{p}] = \frac{p(1-p)}{n}$
+
+Si $n\geq 30$, por el TCL se tiene que
+
+$$
+\hat{p}\sim N\left(p,\frac{p(1-p)}{n}\right) \Leftrightarrow \frac{\hat{p}-p}{\sqrt{p(1-p)/n}} \sim N(0,1)
+$$
+
+# Estimación puntual de la proporción
+
+-   En una encuesta a 100 personas, 70 dicen que prefieren estudiar de noche y 30 de día
+
+-   Se quiere estimar la proporción de personas que prefieren estudiar de noche
+
+-   ¿Estimación puntual de la proporción?
+
+# ¿Cómo hemos llegado a los estadísticos usados?
+
+-   Método de los momentos
+
+-   Método de la máxima verosimilitud
+
+# Método de los momentos
+
+El método de los momentos es una técnica utilizada en estadística para estimar los parámetros desconocidos $(\theta_1,\dots,\theta_k)$ de una distribución de probabilidad. Fue introducido por el estadístico *Karl Pearson* en 1984.
+
+Este método se basa en igualar los momentos muestrales (calculados a partir de los datos observados) con los momentos teóricos (expresados en términos de los parámetros de la distribución poblacional) y, con el sistema de ecuaciones resultantes, despejar los parámetros desconocidos. Así se logran los estimadores de los parámetros poblacionales desconocidos.
+
+# Momentos poblaciones
+
+En estadística, los **momentos poblaciones** de una distribución son medidas que describen diversas características de la misma, como su media, varianza, simetría y curtosis. Los momentos más comunes son:
+
+1.  Primer momento (media): $\mu = E[X]$
+
+2.  Segundo momento (varianza): $\mu_2 = E[X^{2}]$
+
+3.  Tercer momento (asimetría): $\mu_3 = E[X^{3}]$
+
+4.  Cuarto momento (curtosis): $\mu_4 = E[X^{4}]$
+
+<!-- -->
+
+k.  $k$-ésimo momento: $\mu_k = E[X^{k}]$
+
+Recordemos que:
+
+-   $\mu_k = E[X^{k}]=\sum_{i=1}^n x_i^{k}p_i$, siendo $p_i$ la probabilidad de cada valor del dominio de la v.a. en el caso discreto (función de masa)
+
+-   $\mu_k = E[X^{k}]=\int x^{k}f(x)dx$ siendo $f(x)$ la función de densidad en el caso continuo
+
+# Momento muestral
+
+Los momentos muestrales se definen como:
+
+$m_k=\frac{1}{n}\sum_{i=1}^n x_i^k$
+
+# Pasos del método de los momentos
+
+1.  **Calcular Momentos Muestrales**: Se calculan los momentos muestrales de los datos observados. El (k)-ésimo momento muestral se define como $m_k=\frac{1}{n}\sum_{i=1}^n x_i^k$ donde $n$ es el tamaño de la muestra y $x_i$ son los valores de la muestra
+
+2.  **Igualar Momentos Muestrales y Teóricos**: Se igualan los momentos muestrales con los momentos teóricos de la distribución. Los momentos teóricos se expresan en términos de los parámetros desconocidos que se desean estimar
+
+3.  **Resolver el Sistema de Ecuaciones**: Se resuelve el sistema de ecuaciones resultante para encontrar los estimadores de los parámetros desconocidos. Fíjate que tenemos $k$ ecuaciones y $k$ parámetros $(\theta_1,\dots,\theta_k)$.De modo que es posible despejar los parámetros de estas ecuaciones, quedando estos parámetros en función de los momentos. En estas ecuaciones se sustituyen los momentos poblacionales por sus correspondientes momentos poblacionales. Esto da como resultado estimaciones de esos parámetros.
+
+# Método de los momentos
+
+¡Veámos cómo obtener estimadores para los parámetros $\mu$ y $\sigma^{2}$ de la distribución Normal con el método de los momentos!
+
+# Método de los momentos
+
+**Ventajas**
+
+-   **Simplicidad**: El método de los momentos es relativamente sencillo de aplicar y no requiere técnicas complejas de optimización.
+
+-   **Intuición**: Ofrece una interpretación intuitiva de los parámetros en términos de momentos.
+
+**Limitaciones**
+
+-   **Precisión**: Los estimadores de los momentos no siempre son los estimadores más eficientes (no tienen la mínima varianza posible).
+
+-   **Aplicabilidad**: En algunas distribuciones complejas, los momentos pueden no existir o ser difíciles de calcular.
+
+-   **Consistencia**: Los estimadores de momentos no siempre son consistentes, especialmente en muestras pequeñas.
+
+# Método de la máxima verosimilitud
+
+-   El **método de la máxima verosimilitud** es una técnica estadística ampliamente utilizada para estimar los parámetros desconocidos de una distribución de probabilidad.
+
+-   Este método se basa en encontrar los valores de los parámetros que maximicen la función de verosimilitud, la cual mide la probabilidad de observar los datos dados los parámetros. Es decir, la idea básica es seleccionar el valor del parámetro que hace que los datos sean más probables.
+
+-   El método de máxima verosimilitud es el método más popular para obtener un estimador.
+
+# Método de la máxima verosimilitud
+
+Dado un modelo estadiıstico (es decir, una familia de distribuciones $f(\cdot|\theta), \theta \in \Theta$ donde $\theta$ es el parámetro del modelo), el método de máxima verosimilitud encuentra el valor del parámetro del modelo $\theta$ que maximiza la función de verosimilitud:
+
+$$\hat{\theta}(x)= \max_{\theta \in \Theta}L(\theta|\mathbf{x})
+$$
+
+Para una muestra aleatoria $\mathbf{x}=(x_1,\ldots,x_n)$ de una variable aleatoria $X$, la **verosimilitud** es proporcional al producto de las probabilidades asociadas a los valores individuales:
+
+$$
+\prod_jP(X=x_j)
+$$
+
+# Método de la máxima verosimilitud
+
+Cuando $X$ es una variable aleatoria continua, la verosimilitud es aproximadamente proporcional a $$ \prod_jf(x_j)$$
+
+donde $f$ es la función de densidad de $X$. Por lo tanto, la **verosimilitud** describe lo plausible que es un valor del parámetro poblacional, dadas unas observaciones concretas de la muestra
+
+# Método de la máxima verosimilitud
+
+**Función de Verosimilitud**: La función de verosimilitud, $L(\theta|\mathbf{x})$, para un conjunto de datos $\mathbf{x} = (x_1, x_2, \ldots, x_n)$ y un vector de parámetros $\theta$, es el producto de las funciones de densidad (o de probabilidad) de los datos observados, dadas las posibles realizaciones de $\theta$:
+
+$$
+  L(\theta|\mathbf{x}) = f(\mathbf{x}|\theta)=f(x_1,\ldots,x_n|\theta)=
+$$
+
+$$
+    =f(x_1|\theta)f(x_2|\theta)\ldots f(x_n|\theta)=\prod_{i=1}^n f(x_i| \theta)
+$$
+
+donde $f(x_i|\theta)$ es la función de densidad (o de probabilidad) de $x_i$ dado $\theta$.
+
+# Método de la máxima verosimilitud
+
+**Log-Verosimilitud**: Debido a que la función de verosimilitud puede implicar productos de muchos términos, es más práctico trabajar con su logaritmo natural, conocido como la log-verosimilitud: $$ \ell(\theta|\mathbf{x}) = \log L(\theta|\mathbf{x}) = \sum_{i=1}^n \log f(x_i|\theta) $$
+
+# Pasos del método de la máxima verosimilitud
+
+1.  **Especificar la Función de Verosimilitud**: Identificar la función de verosimilitud correspondiente a los datos observados y a la distribución supuesta.
+
+2.  **Calcular la Log-Verosimilitud**: Tomar el logaritmo natural de la función de verosimilitud para obtener la función de log-verosimilitud.
+
+3.  **Derivar y Resolver**: Derivar la función de log-verosimilitud con respecto a cada parámetro y resolver las ecuaciones obtenidas igualando a cero (puntos críticos) para encontrar los estimadores de máxima verosimilitud (EMV).
+
+4.  **Verificar Máximos**: Asegurarse de que las soluciones encontradas corresponden a máximos y no a mínimos o puntos de inflexión, típicamente verificando la segunda derivada.
+
+# Método de la máxima verosimilitud
+
+¡Veámos cómo obtener estimadores para los parámetros $\mu$ y $\sigma^{2}$ de la distribución Normal con el método de la máxima verosimilitud!
+
+# Método de la máxima verosimilitud
+
+**Ventajas**
+
+-   **Consistencia**: Los estimadores de máxima verosimilitud son consistentes
+-   **Eficiencia**: En muchos casos, los estimadores de máxima verosimilitud son eficientes, alcanzando la varianza mínima entre los estimadores insesgados.
+-   **Flexibilidad**: Se puede aplicar a una amplia gama de distribuciones y modelos complejos.
+-   **Invariantes**: Si $T$ es el estimador de máxima verosimilitud para $\theta$, entonces $\tau(T)$ es el estimador de máxima verosimilutd para $\tau(\theta)$ para cualquier función $\tau$.
+
+# Método de la máxima verosimilitud
+
+**Limitaciones**
+
+-   **Complejidad Computacional**: Encontrar los estimadores de máxima verosimilitud puede implicar resolver ecuaciones no lineales, lo cual puede ser complejo y requerir técnicas numéricas.
+
+-   **Existencia y Unicidad**: Los estimadores de máxima verosimilitud no siempre existen y, si existen, no siempre son únicos. En problemas reales, la derivada de la función de verosimilitud es, a veces, analíticamente intratable. En esos casos, se utilizan métodos iterativos para encontrar soluciones numéricas para las estimaciones de los parámetros.
+
+-   **Sesgo en Muestras Pequeñas**: Los estimadores pueden ser sesgados en muestras pequeñas, aunque el sesgo disminuye a medida que el tamaño de la muestra aumenta.
+
+# Referencias
+
+Gomez Villegas, M. A. (2005). *Inferencia estadística*. Ediciones Díaz de Santos.
+
+Spiegel, M., & Stephens, L. (2009). Estadística--Serie Schaum. *Mc Graw-Hill*.
+
+Wasserman, L. (2013). All of statistics: A concise course in statistical inference.
+
+Canavos, G. C., & Medal, E. G. U. (1987). *Probabilidad y estadística* (p. 651). México: McGraw Hill.
