@@ -1,0 +1,68 @@
+---
+title: "Ejercicios: Introducción a la Inferencia Estadística"
+subtitle: "Inferencia Estadística"
+author: 
+  - "Víctor Aceña Gil"
+  - "Isaac Martín de Diego"
+date: today
+lang: es
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+### Ejercicio 1
+
+**Pregunta**: Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.
+
+### Ejercicio 2
+
+**Pregunta**: Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.
+
+### Ejercicio 3
+
+**Pregunta**: Define los términos "población" y "muestra" y explica la diferencia entre ambos.
+
+### Ejercicio 4
+
+**Pregunta**: ¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?
+
+### Ejercicio 5
+
+**Pregunta**: Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.
+
+### Ejercicio 6
+
+**Pregunta**: Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.
+
+
+### Ejercicio 7
+
+**Pregunta**: Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población.
+
+### Ejercicio 8
+
+**Pregunta**: Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.
+
+
+### Ejercicio 9
+
+**Pregunta**: Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.
+
+### Ejercicio 10
+
+**Pregunta**: Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.
+
+---
+
+<div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666;">
+<img src="../../images/DSLab_logo_1.png" width="25px" style="vertical-align: middle; margin-right: 6px;">
+DSLAB - Universidad Rey Juan Carlos
+</div>

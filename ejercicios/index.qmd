@@ -1,0 +1,15 @@
+##  **Introducción**
+
+Este documento recopila una serie de ejercicios prácticos y teóricos diseñados para complementar la asignatura "Inferencia Estadística" del Grado en Ciencia e Ingeniería de datos. El objetivo de esta colección es afianzar los conocimientos adquiridos en cada tema, fomentando tanto la comprensión de los fundamentos teóricos como la habilidad para implementar y diagnosticar modelos en R.
+
+##  **Estructura de los Ejercicios**
+
+Los ejercicios están organizados por temas, siguiendo la estructura del curso. Para cada tema, encontrarás una mezcla de:
+
+- **Preguntas Conceptuales:** Diseñadas para reforzar la comprensión de la teoría subyacente.
+- **Problemas Prácticos con R:** Enfocados en la aplicación de las técnicas a conjuntos de datos reales o simulados.
+- **Ejercicios de Interpretación:** Centrados en la habilidad crítica de interpretar correctamente las salidas de los modelos estadísticos.
+
+##  **Requisitos Previos**
+
+Para abordar estos ejercicios, se asume que el estudiante ha estudiado el contenido teórico del tema correspondiente y posee un manejo básico del entorno de programación R y RStudio.

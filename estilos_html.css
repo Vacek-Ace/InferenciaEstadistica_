@@ -1,0 +1,91 @@
+/* ======================================================
+   Estilos Base para TODOS los Callouts
+   ====================================================== */
+
+.callout {
+  border-radius: 0.25rem; /* Bordes redondeados */
+  margin-bottom: 1.25rem; /* Espacio debajo de cada caja */
+  padding: 0.5rem; /* Relleno interior */
+  border-left-width: 0.5rem; /* Ancho del borde izquierdo de color */
+  border-left-style: solid;
+}
+
+/* ======================================================
+   Estilos Específicos por Tipo de Callout
+   ====================================================== */
+
+/* --- Note --- */
+.callout-note {
+  background-color: #f4f8fc;
+  border-left-color: #5d9af5;
+}
+
+/* --- Tip --- */
+.callout-tip {
+  background-color: #f2f9f2;
+  border-left-color: #5cb85c;
+}
+
+/* --- Important --- */
+.callout-important {
+  background-color: #fdf5f6;
+  border-left-color: #d9534f;
+}
+
+/* --- Caution --- */
+.callout-caution {
+  background-color: #fdf5f6;
+  border-left-color: #f0ad4e;
+}
+
+/* --- Warning --- */
+.callout-warning {
+  background-color: #fefaf7;
+  border-left-color: #f0ad4e;
+}
+
+
+/* Ocultar completamente el texto original y mostrar solo el nuevo */
+.quarto-title-meta .quarto-title-meta-heading {
+    position: relative;
+    text-indent: -9999px; /* Esconder texto original completamente */
+    overflow: hidden;
+}
+
+.quarto-title-meta .quarto-title-meta-heading::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-indent: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.075em;
+}
+
+/* Primer elemento - Autores */
+.quarto-title-meta > div:first-child .quarto-title-meta-heading::before {
+    content: "Autores";
+}
+
+/* Último elemento - Fecha */
+.quarto-title-meta > div:last-child .quarto-title-meta-heading::before {
+    content: "Fecha de publicación";
+}
+
+/* Alternativa si la estructura es diferente */
+.quarto-title-meta-heading:first-of-type::before {
+    content: "Autores";
+}
+
+.quarto-title-meta-heading:last-of-type::before {
+    content: "Fecha de publicación";
+}
+
+/* Asegurarse de que no hay espacios en blanco problemáticos */
+.quarto-title-meta .quarto-title-meta-heading {
+    white-space: nowrap;
+    height: auto;
+    line-height: normal;
+}

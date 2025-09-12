@@ -1,0 +1,27 @@
+project:
+  type: book
+  output-dir: ejercicios_pdf
+
+book:
+  # Metadatos para el PDF, pero no se mostrarán en la portada personalizada
+  # title: "Ejercicios de Modelos Estadísticos de Predicción"
+  # author: "Víctor Aceña Gil & Isaac Martín de Diego"
+  
+  # La lista de capítulos, que ahora no tienen YAML propio
+  chapters:
+    - index.qmd
+    - tema0_intro.qmd
+
+# --- Formato de Salida PDF (igual que el proyecto principal) ---
+format:
+  pdf:
+    documentclass: scrreprt
+    # Desactivamos el bloque de título automático de Quarto
+    title-block-banner: false 
+    # Opciones para la Tabla de Contenidos
+    toc: true
+    toc-depth: 3
+    toc-title: "Índice de Ejercicios"
+    number-sections: false
+    # Portada y estilo personalizado para HTML (ignorado en PDF)
+    include-before-body: portada.html
