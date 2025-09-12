@@ -1,0 +1,30 @@
+project:
+  type: book
+  output-dir: soluciones_html
+
+book:
+  title: "Problemas de Inferencia Estadística"
+  subtitle: "Ejercicios resueltos paso a paso"
+  author: 
+    - "Víctor Aceña Gil"
+    - "Isaac Martín de Diego"
+  date: last-modified
+  search: true
+  chapters:
+    - index.qmd
+    - tema0_intro_solucion.qmd
+    - tema1_EDA1_solucion.qmd
+    - tema1_EDA2_solucion.qmd
+  cover-image: ../../images/DSLab_logo_2.png
+
+format:
+  html:
+    theme: cerulean
+    lang: es-ES
+    css: soluciones.css
+  pdf:
+    documentclass: scrreprt
+    toc-title: "Índice de Soluciones"
+    number-sections: false
+
+editor: source

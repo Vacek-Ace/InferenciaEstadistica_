@@ -1,0 +1,238 @@
+/* ======================================================
+   Estilos Base para TODOS los Callouts
+   ====================================================== */
+
+.callout {
+  border-radius: 0.25rem;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem;
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+}
+
+/* ======================================================
+   Estilos Específicos por Tipo de Callout
+   ====================================================== */
+
+.callout-note {
+  background-color: #f4f8fc;
+  border-left-color: #5d9af5;
+}
+
+.callout-tip {
+  background-color: #f2f9f2;
+  border-left-color: #5cb85c;
+}
+
+.callout-important {
+  background-color: #fdf5f6;
+  border-left-color: #d9534f;
+}
+
+.callout-caution {
+  background-color: #fdf5f6;
+  border-left-color: #f0ad4e;
+}
+
+.callout-warning {
+  background-color: #fefaf7;
+  border-left-color: #f0ad4e;
+}
+
+/* ======================================================
+   Estilos para Soluciones - SIMPLE Y LIMPIO
+   ====================================================== */
+
+details {
+  margin: 2em 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+summary {
+  font-weight: normal;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin: 0 0 1em 0;
+  list-style: none;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  font-size: 0.9em;
+  display: inline-block;
+  min-width: 140px;
+  text-align: left;
+}
+
+summary:hover {
+  background-color: #e9ecef;
+}
+
+summary::marker {
+  display: none;
+}
+
+summary::after {
+  content: " ▼ Ver solución";
+  font-size: 0.9em;
+}
+
+details[open] summary::after {
+  content: " ▲ Ocultar solución";
+}
+
+/* Estructura separada para evitar que el botón se mueva */
+details {
+  margin: 2em 0;
+}
+
+summary {
+  font-weight: normal;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin: 0 0 1em 0;
+  list-style: none;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  font-size: 0.9em;
+  display: inline-block;
+  min-width: 140px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+/* Contenedor con línea continua cuando está abierto */
+details[open] {
+  border-left: 2px solid #e9ecef;
+  padding-left: 1.2em;
+  margin-left: 0;
+}
+
+/* El summary dentro del contenedor abierto mantiene su posición */
+details[open] summary {
+  margin-left: -1.2em;
+  margin-bottom: 1em;
+}
+
+/* Contenido sin bordes adicionales */
+details[open] > *:not(summary) {
+  padding: 0;
+  background-color: transparent;
+  margin: 0.5em 0;
+  line-height: 1.4;
+  border-left: none;
+}
+
+/* Espacios específicos para diferentes elementos */
+details p {
+  margin: 0.5em 0;
+}
+
+details ol, details ul {
+  margin: 0.5em 0 !important;
+  padding-left: 2.2em !important;
+  margin-left: 0.3em !important;
+  list-style-position: outside !important;
+}
+
+details ol {
+  list-style-type: decimal !important;
+}
+
+details ul {
+  list-style-type: disc !important;
+}
+
+details li {
+  margin: 0.3em 0 !important;
+  padding-left: 0.3em !important;
+  display: list-item !important;
+}
+
+/* Reducir espacio después de párrafos que terminan en : */
+details p:has(+ ol), details p:has(+ ul) {
+  margin-bottom: 0.25em;
+}
+
+/* ======================================================
+   Mejorar legibilidad del código
+   ====================================================== */
+
+.sourceCode {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+/* ======================================================
+   Estilos generales
+   ====================================================== */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+a {
+  color: #17a2b8;
+}
+
+a:hover {
+  color: #138496;
+}
+
+
+/* Ocultar completamente el texto original y mostrar solo el nuevo */
+.quarto-title-meta .quarto-title-meta-heading {
+    position: relative;
+    text-indent: -9999px; /* Esconder texto original completamente */
+    overflow: hidden;
+}
+
+.quarto-title-meta .quarto-title-meta-heading::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-indent: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.075em;
+}
+
+/* Primer elemento - Autores */
+.quarto-title-meta > div:first-child .quarto-title-meta-heading::before {
+    content: "Autores";
+}
+
+/* Último elemento - Fecha */
+.quarto-title-meta > div:last-child .quarto-title-meta-heading::before {
+    content: "Fecha de publicación";
+}
+
+/* Alternativa si la estructura es diferente */
+.quarto-title-meta-heading:first-of-type::before {
+    content: "Autores";
+}
+
+.quarto-title-meta-heading:last-of-type::before {
+    content: "Fecha de publicación";
+}
+
+/* Asegurarse de que no hay espacios en blanco problemáticos */
+.quarto-title-meta .quarto-title-meta-heading {
+    white-space: nowrap;
+    height: auto;
+    line-height: normal;
+}

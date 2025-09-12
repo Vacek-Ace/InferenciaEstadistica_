@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Ejercicio 1 – Problemas de Inferencia Estadística</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./tema1_EDA1_solucion.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="soluciones.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema0_intro_solucion.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Problemas de Inferencia Estadística</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link active" data-scroll-target="#ejercicio-2"><span class="header-section-number">2</span> Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3"><span class="header-section-number">3</span> Ejercicio 3</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4"><span class="header-section-number">4</span> Ejercicio 4</a></li>
+  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5"><span class="header-section-number">5</span> Ejercicio 5</a></li>
+  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6"><span class="header-section-number">6</span> Ejercicio 6</a></li>
+  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7"><span class="header-section-number">7</span> Ejercicio 7</a></li>
+  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8"><span class="header-section-number">8</span> Ejercicio 8</a></li>
+  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9"><span class="header-section-number">9</span> Ejercicio 9</a></li>
+  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10"><span class="header-section-number">10</span> Ejercicio 10</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Pregunta</strong>: Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.</p>
+<p><strong>Solución</strong>: La Ciencia de Datos es una disciplina interdisciplinaria que se centra en la extracción de conocimiento significativo a partir de grandes conjuntos de datos. Es crucial en un mundo impulsado por los datos, ya que permite tomar decisiones informadas y hacer predicciones basadas en el análisis de datos. La Ciencia de Datos combina elementos de estadística, informática y conocimiento específico del dominio para interpretar datos y aplicar este conocimiento en diversas áreas como la medicina, las finanzas y la tecnología. Su importancia radica en su capacidad para transformar datos crudos en información valiosa que puede impulsar la innovación y la eficiencia en múltiples campos.</p>
+<section id="ejercicio-2" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Ejercicio 2</h1>
+<p><strong>Pregunta</strong>: Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.</p>
+<p><strong>Solución</strong>: En la inferencia estadística, se utilizan diversas herramientas para analizar datos y hacer generalizaciones sobre una población a partir de muestras:</p>
+<ul>
+<li><strong>Pruebas de Hipótesis</strong>: Se utilizan para determinar si existe suficiente evidencia en una muestra de datos para inferir que una cierta condición es verdadera para toda la población.</li>
+<li><strong>Intervalos de Confianza</strong>: Proporcionan un rango estimado que es probable que contenga el valor de un parámetro desconocido de la población, con un cierto nivel de confianza.</li>
+<li><strong>Análisis de Varianza (ANOVA)</strong>: Permite comparar tres o más medias de grupos para determinar si al menos una de las medias es diferente de las demás.</li>
+<li><strong>Chi-cuadrado (χ²)</strong>: Es una prueba que mide la discrepancia entre los datos observados y los datos que se esperarían según un modelo específico.</li>
+<li><strong>T-test</strong>: Evalúa si las medias de dos grupos son estadísticamente diferentes entre sí.</li>
+<li><strong>Correlación</strong>: Mide la relación entre dos variables y la fuerza de esta relación.</li>
+<li><strong>Estadística Bayesiana</strong>: Utiliza la probabilidad para representar la incertidumbre sobre los parámetros del modelo y actualiza esta incertidumbre a medida que se obtienen más datos.</li>
+<li><strong>Métodos de Muestreo</strong>: Incluyen técnicas para seleccionar muestras representativas de la población para realizar inferencias estadísticas.</li>
+<li><strong>Métodos No Paramétricos</strong>: Son técnicas que no asumen una distribución específica de los datos y son útiles cuando no se cumplen los supuestos de los métodos paramétricos.</li>
+</ul>
+</section>
+<section id="ejercicio-3" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Ejercicio 3</h1>
+<p><strong>Pregunta</strong>: Define los términos “población” y “muestra” y explica la diferencia entre ambos.</p>
+<p><strong>Solución</strong>:</p>
+<ul>
+<li><p><strong>Población</strong>: Se refiere al conjunto completo de elementos o resultados que se están estudiando, del cual se desean obtener conclusiones. La población incluye a todos los individuos, mediciones, objetos o eventos que cumplen con un conjunto de especificaciones previamente definidas. Por ejemplo, si estamos estudiando la altura de los estudiantes de una universidad, la población sería la altura de <strong>todos</strong> los estudiantes de esa universidad.</p></li>
+<li><p><strong>Muestra</strong>: Es un subconjunto de la población que se selecciona para representarla. La muestra debe ser representativa de la población para que las inferencias hechas a partir de ella sean válidas. Por ejemplo, si elegimos a 100 estudiantes al azar de la universidad mencionada anteriormente, esos 100 estudiantes constituirían una muestra de la población.</p></li>
+</ul>
+<p>La <strong>diferencia principal</strong> entre ambos términos es el alcance. Mientras que la población es el grupo completo que se quiere estudiar, la muestra es solo una parte de ese grupo. Las muestras se utilizan porque a menudo es impracticable o imposible estudiar toda la población debido a limitaciones de tiempo, costo o logística. Por lo tanto, se selecciona una muestra para obtener estimaciones o pruebas sobre la población completa.</p>
+</section>
+<section id="ejercicio-4" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Ejercicio 4</h1>
+<p><strong>Pregunta</strong>: ¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?</p>
+<p><strong>Solución</strong>: Una <strong>distribución de probabilidad</strong> es una función matemática que describe la probabilidad de ocurrencia de los diferentes posibles resultados en un experimento. En otras palabras, asigna probabilidades a cada posible resultado de una variable aleatoria. Las distribuciones de probabilidad se relacionan con las variables cualitativas y cuantitativas de la siguiente manera:</p>
+<ul>
+<li><p><strong>Variables Cualitativas (o Categóricas)</strong>: Son aquellas que describen una cualidad o categoría y no tienen un orden o medida numérica inherente. Las distribuciones de probabilidad para estas variables son conocidas como <strong>distribuciones discretas</strong> y asignan probabilidades a resultados específicos. Un ejemplo es la <strong>distribución binomial</strong>, que puede modelar eventos como el lanzamiento de una moneda, donde los resultados son categóricos (cara o cruz).</p></li>
+<li><p><strong>Variables Cuantitativas</strong>: Son variables que se pueden medir en una escala numérica y tienen sentido hablar de valores mayores o menores. Las distribuciones de probabilidad asociadas a estas variables son <strong>distribuciones continuas</strong> y asignan probabilidades a intervalos de números. Por ejemplo, la <strong>distribución normal</strong> es una distribución continua que se utiliza comúnmente para modelar fenómenos naturales como la altura o el peso de individuos.</p></li>
+</ul>
+</section>
+<section id="ejercicio-5" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Ejercicio 5</h1>
+<p><strong>Pregunta</strong>: Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.</p>
+<p><strong>Solución</strong>: Imaginemos un conjunto de datos que representa las calificaciones de un grupo de estudiantes en un examen:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">=</span><span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">68</span>, <span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">95</span>, <span class="dv">89</span>, <span class="dv">75</span>, <span class="dv">80</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>datos</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 72 85 90 68 88 76 95 89 75 80</code></pre>
+</div>
+</div>
+<p><strong>Media</strong>: <span class="math display">\[
+   \text{Media} = \frac{72 + 85 + 90 + 68 + 88 + 76 + 95 + 89 + 75 + 80}{10} = \frac{818}{10} = 81.8
+   \]</span></p>
+<p><strong>Mediana</strong>: Ordenamos los datos: 68, 72, 75, 76, 80, 85, 88, 89, 90, 95. Como hay 10 valores, la mediana es el promedio de los dos valores centrales: <span class="math display">\[
+   \text{Mediana} = \frac{80 + 85}{2} = \frac{165}{2} = 82.5
+   \]</span></p>
+<p><strong>Moda</strong>: No hay un valor que se repita más de una vez, por lo que no hay moda en este conjunto de datos.</p>
+<p><strong>Rango</strong>: <span class="math display">\[
+   \text{Rango} = 95 - 68 = 27
+   \]</span></p>
+<p><strong>Varianza</strong>: Primero, calculamos la media de los cuadrados de las desviaciones respecto a la media: <span class="math display">\[
+   \sigma^2 = \frac{(72-81.8)^2 + (85-81.8)^2 + \ldots + (80-81.8)^2}{10} = 71.4
+   \]</span></p>
+<p><strong>Desviación Estándar</strong>: <span class="math display">\[
+   \sigma = \sqrt{71.4} \approx 8.45
+   \]</span></p>
+<p><strong>Cuartiles</strong>: - <strong>Primer Cuartil (Q1)</strong>: Valor en el percentil 25 (primera mitad inferior de los datos): <span class="math display">\[
+     Q1 = 75
+     \]</span> - <strong>Tercer Cuartil (Q3)</strong>: Valor en el percentil 75 (primera mitad superior de los datos): <span class="math display">\[
+     Q3 = 89
+     \]</span></p>
+<p>Resumen Descriptivo</p>
+<ul>
+<li><strong>Media</strong>: 81.8</li>
+<li><strong>Mediana</strong>: 82.5</li>
+<li><strong>Moda</strong>: No hay moda</li>
+<li><strong>Rango</strong>: 27</li>
+<li><strong>Varianza</strong>: 71.4</li>
+<li><strong>Desviación Estándar</strong>: 8.45</li>
+<li><strong>Primer Cuartil (Q1)</strong>: 75</li>
+<li><strong>Tercer Cuartil (Q3)</strong>: 89</li>
+</ul>
+<p>Este resumen descriptivo proporciona una visión clara y concisa de las características principales del conjunto de datos, permitiendo una mejor comprensión de su distribución y variabilidad.</p>
+</section>
+<section id="ejercicio-6" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Ejercicio 6</h1>
+<p><strong>Pregunta</strong>: Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.</p>
+<p><strong>Solución</strong>: La <strong>estadística descriptiva</strong> y la <strong>estadística inferencial</strong> son dos ramas principales de la estadística que tienen propósitos y métodos diferentes:</p>
+<ul>
+<li><p><strong>Estadística Descriptiva</strong>: Se centra en resumir y describir las características de un conjunto de datos. Utiliza medidas como la media, mediana, moda, rango y desviación estándar para dar una visión general de los datos. Por ejemplo, si tenemos los resultados de una prueba de matemáticas de una clase, la estadística descriptiva podría incluir el cálculo de la media de las calificaciones, la calificación más alta, la más baja y la variabilidad de las calificaciones.</p></li>
+<li><p><strong>Estadística Inferencial</strong>: Va más allá de la descripción de los datos y busca hacer predicciones o generalizaciones sobre una población basándose en una muestra de datos. Utiliza herramientas como pruebas de hipótesis, intervalos de confianza y regresión para inferir patrones y tomar decisiones. Por ejemplo, si queremos saber si un nuevo método de enseñanza es efectivo, podríamos aplicarlo a una muestra de estudiantes y usar la estadística inferencial para determinar si los resultados observados en la muestra pueden generalizarse a todos los estudiantes.</p></li>
+</ul>
+<p><strong>Solución</strong>:</p>
+</section>
+<section id="ejercicio-7" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Ejercicio 7</h1>
+<p><strong>Pregunta</strong>: Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población.</p>
+<p><strong>Solución</strong>: Para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población, consideremos el siguiente experimento:</p>
+<p><strong>Objetivo del Experimento</strong>: Estimar la proporción de personas en una ciudad que prefieren el transporte público sobre otros medios de transporte.</p>
+<p><strong>Población</strong>: Todos los residentes de la ciudad que son mayores de edad y utilizan algún medio de transporte para desplazarse.</p>
+<p><strong>Característica de Interés</strong>: Preferencia por el transporte público.</p>
+<p><strong>Procedimiento</strong>:</p>
+<ol type="1">
+<li><p><strong>Definición de la Población</strong>: Identificar a todos los residentes de la ciudad que son mayores de edad y utilizan algún medio de transporte.</p></li>
+<li><p><strong>Selección de la Muestra</strong>:</p>
+<ul>
+<li>Utilizar un registro actualizado de la población, como el padrón municipal, para obtener una lista de individuos.</li>
+<li>Seleccionar una muestra aleatoria de individuos utilizando un generador de números aleatorios.</li>
+<li>Determinar el tamaño de la muestra necesario para obtener resultados con un nivel de confianza y un margen de error deseado.</li>
+</ul></li>
+<li><p><strong>Recolección de Datos</strong>:</p>
+<ul>
+<li>Contactar a los individuos seleccionados y preguntarles si prefieren el transporte público sobre otros medios de transporte.</li>
+<li>Registrar las respuestas afirmativas y negativas.</li>
+</ul></li>
+<li><p><strong>Análisis de Datos</strong>:</p>
+<ul>
+<li>Calcular la proporción de respuestas afirmativas en la muestra.</li>
+<li>Utilizar esta proporción como una estimación puntual de la preferencia en la población total.</li>
+</ul></li>
+<li><p><strong>Estimación de la Población</strong>:</p>
+<ul>
+<li>Calcular un intervalo de confianza para la proporción estimada, lo que proporcionará un rango dentro del cual se espera que se encuentre la verdadera proporción de la población con un cierto nivel de confianza.</li>
+</ul></li>
+<li><p><strong>Conclusión</strong>:</p>
+<ul>
+<li>Presentar la proporción estimada y el intervalo de confianza como la estimación de la preferencia por el transporte público en la población.</li>
+<li>Discutir las limitaciones del estudio y la posibilidad de sesgo si la muestra no fue perfectamente aleatoria o si hubo una tasa de respuesta baja.</li>
+</ul></li>
+</ol>
+</section>
+<section id="ejercicio-8" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Ejercicio 8</h1>
+<p><strong>Pregunta</strong>: Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.</p>
+<p><strong>Solución</strong>: Teorema Central del Límite (TCL)</p>
+<p>El Teorema Central del Límite es un principio fundamental en estadística que establece que, bajo ciertas condiciones, la distribución de la suma de un gran número de variables aleatorias independientes y identicamente distribuidas (i.i.d.) tiende a aproximarse a una distribución normal (gaussiana), independientemente de la forma de la distribución original de las variables.</p>
+<p><strong>Enunciado del Teorema Central del Límite</strong></p>
+<p>Para una muestra de tamaño ( n ) tomada de una población con cualquier distribución de probabilidad con media ( ) y desviación estándar ( ), la distribución de la media muestral <span class="math inline">\(\bar{X}\)</span> se aproximará a una distribución normal a medida que ( n ) se haga grande. Matemáticamente, si ( X_1, X_2, …, X_n ) son variables aleatorias independientes e idénticamente distribuidas con media ( ) y desviación estándar ( ), entonces la media muestral <span class="math inline">\(\bar{X}\)</span> se distribuye aproximadamente como:</p>
+<p><span class="math display">\[
+\bar{X} \sim N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
+\]</span></p>
+<p><strong>Importancia y Relevancia en la Inferencia Estadística</strong></p>
+<ol type="1">
+<li><p><strong>Justificación del Uso de la Distribución Normal</strong>: El TCL permite justificar el uso de la distribución normal en la inferencia estadística. Incluso si la población original no está distribuida normalmente, la distribución de las medias muestrales se aproximará a una distribución normal si el tamaño de la muestra es suficientemente grande.</p></li>
+<li><p><strong>Construcción de Intervalos de Confianza</strong>: Permite construir intervalos de confianza para estimar parámetros poblacionales. Por ejemplo, al estimar la media poblacional, podemos utilizar la distribución normal para determinar un rango donde probablemente se encuentra la media verdadera.</p></li>
+<li><p><strong>Pruebas de Hipótesis</strong>: Facilita la realización de pruebas de hipótesis. Dado que la distribución de la media muestral es aproximadamente normal, se pueden aplicar métodos estadísticos basados en la normalidad para decidir si rechazar o no una hipótesis nula.</p></li>
+<li><p><strong>Simplificación de Cálculos</strong>: El TCL simplifica el análisis de datos, ya que permite trabajar con la distribución normal, que tiene propiedades bien definidas y es ampliamente comprendida y tabulada, facilitando los cálculos y la interpretación de los resultados.</p></li>
+<li><p><strong>Aplicación Universal</strong>: Es aplicable en una amplia gama de situaciones, desde la economía y la biología hasta la ingeniería y las ciencias sociales, siempre que se cumplan las condiciones necesarias (independencia y tamaño de muestra grande).</p></li>
+</ol>
+</section>
+<section id="ejercicio-9" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Ejercicio 9</h1>
+<p><strong>Pregunta</strong>: Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.</p>
+<p><strong>Solución</strong>: La <strong>estadística paramétrica</strong> y la <strong>estadística no paramétrica</strong> son dos enfoques de análisis estadístico que tienen diferentes supuestos y aplicaciones. La <strong>estadística paramétrica</strong> se utiliza cuando los datos se ajustan a ciertos supuestos y se conoce la distribución subyacente, lo que permite hacer inferencias más precisas si estos supuestos se cumplen. Por otro lado, la <strong>estadística no paramétrica</strong> es más flexible y se puede utilizar en una variedad más amplia de situaciones, especialmente cuando los datos no cumplen con los supuestos de los métodos paramétricos.</p>
+<ul>
+<li><p><strong>Estadística Paramétrica</strong>:</p>
+<ul>
+<li><strong>Supuestos</strong>: Asume que los datos de la muestra provienen de una población que sigue una distribución de probabilidad conocida, generalmente la distribución normal. También asume homogeneidad de varianzas y la independencia de las observaciones.</li>
+<li><strong>Uso</strong>: Se utiliza cuando se conoce la forma de la distribución subyacente de los datos o cuando se tiene una muestra grande que, por el Teorema Central del Límite, tiende a una distribución normal.</li>
+<li><strong>Ejemplos de Herramientas</strong>: T-test, ANOVA, regresión lineal.</li>
+<li><strong>Ejemplo de Uso</strong>: Si queremos comparar las alturas promedio de dos grupos de personas y sabemos que las alturas siguen una distribución normal, podríamos usar un T-test paramétrico.</li>
+</ul></li>
+<li><p><strong>Estadística No Paramétrica</strong>:</p>
+<ul>
+<li><strong>Supuestos</strong>: No hace suposiciones sobre la forma de la distribución de la población. Es útil cuando no se cumplen los suposiciones de normalidad o cuando se trata con muestras pequeñas.</li>
+<li><strong>Uso</strong>: Se aplica en situaciones donde no se conoce la distribución de los datos o cuando los datos son ordinales o nominales.</li>
+<li><strong>Ejemplos de Herramientas</strong>: Test de Wilcoxon, Test de Kruskal-Wallis, Test de Chi-cuadrado.</li>
+<li><strong>Ejemplo de Uso</strong>: Si queremos comparar las medianas de los tiempos de respuesta de dos grupos en una prueba y los datos son claramente no normales o son rangos en lugar de medidas, podríamos usar un test de Wilcoxon no paramétrico.</li>
+</ul></li>
+</ul>
+</section>
+<section id="ejercicio-10" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Ejercicio 10</h1>
+<p><strong>Pregunta</strong>: Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.</p>
+<p><strong>Solución</strong>: La inferencia estadística se basa en métodos que nos permiten hacer conclusiones sobre una población a partir de datos muestrales. Existen dos enfoques principales en la inferencia estadística: el enfoque frecuentista y el enfoque bayesiano. A continuación, se presentan las diferencias clave entre estos enfoques y ejemplos de aplicación para cada uno.</p>
+<p><strong>Enfoque Frecuentista</strong></p>
+<p><strong>Características Principales</strong>:</p>
+<ol type="1">
+<li><strong>Interpretación de Probabilidad</strong>: La probabilidad se interpreta como la frecuencia relativa de eventos en el largo plazo. Es decir, si un experimento se repite infinitas veces, la probabilidad de un evento es la proporción de veces que ocurre.</li>
+<li><strong>Estimación de Parámetros</strong>: Se basa en el concepto de estimación puntual y de intervalos de confianza. Los parámetros poblacionales se consideran fijos pero desconocidos, y los datos son aleatorios.</li>
+<li><strong>Pruebas de Hipótesis</strong>: Utiliza pruebas de hipótesis y valores p para decidir si rechazar la hipótesis nula. Las decisiones se basan en la frecuencia de observación de datos extremos bajo la suposición de que la hipótesis nula es verdadera.</li>
+<li><strong>No usa Información Priori</strong>: Los análisis frecuentistas no incorporan información previa sobre los parámetros; sólo se basan en los datos actuales.</li>
+</ol>
+<p><strong>Ejemplo de Aplicación Frecuentista</strong>:</p>
+<p>Imaginemos que una empresa desea saber si un nuevo medicamento es efectivo para reducir la presión arterial. Realizan un ensayo clínico donde:</p>
+<ul>
+<li><strong>Hipótesis Nula (H0)</strong>: El medicamento no tiene efecto en la presión arterial (la media de la reducción de la presión arterial es 0).</li>
+<li><strong>Hipótesis Alternativa (H1)</strong>: El medicamento reduce la presión arterial (la media de la reducción de la presión arterial es mayor que 0).</li>
+</ul>
+<p>El análisis frecuentista implicaría:</p>
+<ol type="1">
+<li>Recoger datos muestrales de pacientes.</li>
+<li>Calcular la media y la desviación estándar de la reducción en la presión arterial.</li>
+<li>Realizar una prueba t para comparar la media muestral con 0.</li>
+<li>Calcular el valor p para determinar la significancia estadística.</li>
+<li>Rechazar o no la hipótesis nula en función del valor p y el nivel de significancia establecido (por ejemplo, 0.05).</li>
+</ol>
+<p><strong>Enfoque Bayesiano</strong></p>
+<p><strong>Características Principales</strong>:</p>
+<ol type="1">
+<li><strong>Interpretación de Probabilidad</strong>: La probabilidad se interpreta como un grado de creencia o confianza sobre la ocurrencia de un evento, dado el conocimiento disponible.</li>
+<li><strong>Estimación de Parámetros</strong>: Los parámetros poblacionales se tratan como variables aleatorias con distribuciones de probabilidad. Utiliza la distribución a priori (información previa) y los datos observados para obtener la distribución a posteriori.</li>
+<li><strong>Actualización de Conocimientos</strong>: Aplica el Teorema de Bayes para actualizar la probabilidad a medida que se dispone de nueva información.</li>
+<li><strong>Incorporación de Información Priori</strong>: Utiliza información previa sobre los parámetros en forma de distribuciones a priori, que se combinan con la información de los datos para obtener las distribuciones a posteriori.</li>
+</ol>
+<p><strong>Ejemplo de Aplicación Bayesiana</strong>:</p>
+<p>Supongamos que un médico quiere estimar la probabilidad de que un paciente tenga una enfermedad dada, basándose en un resultado positivo de una prueba diagnóstica y en el conocimiento previo sobre la prevalencia de la enfermedad y la precisión de la prueba.</p>
+<ol type="1">
+<li><strong>Información a Priori</strong>: El médico tiene una estimación previa (a priori) de la prevalencia de la enfermedad (por ejemplo, 1% de la población tiene la enfermedad).</li>
+<li><strong>Datos Observados</strong>: La sensibilidad (probabilidad de un resultado positivo dado que el paciente tiene la enfermedad) es 90% y la especificidad (probabilidad de un resultado negativo dado que el paciente no tiene la enfermedad) es 95%.</li>
+<li><strong>Aplicación del Teorema de Bayes</strong>:
+<ul>
+<li>( P(E|+)): Probabilidad de tener la enfermedad dado un resultado positivo.</li>
+<li>( P(+|E)): Sensibilidad.</li>
+<li>( P(+| E)): Probabilidad de un falso positivo (1 - especificidad).</li>
+<li>( P(E)): Prevalencia de la enfermedad.</li>
+<li>( P(E)): Probabilidad de no tener la enfermedad (1 - prevalencia).</li>
+</ul></li>
+</ol>
+<p><span class="math display">\[
+P(E|+) = \frac{P(+|E) \cdot P(E)}{P(+|E) \cdot P(E) + P(+| \neg E) \cdot P(\neg E)}
+\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[
+P(E|+) = \frac{0.90 \cdot 0.01}{0.90 \cdot 0.01 + 0.05 \cdot 0.99} = \frac{0.009}{0.009 + 0.0495} = \frac{0.009}{0.0585} \approx 0.154
+\]</span></p>
+<p>El resultado indica que, dado un resultado positivo de la prueba, la probabilidad a posteriori de tener la enfermedad es aproximadamente 15.4%.</p>
+<p><strong>Conclusión</strong></p>
+<p><strong>Frecuentista</strong>:</p>
+<ul>
+<li>No utiliza información previa.</li>
+<li>Se basa en la frecuencia de los eventos.</li>
+<li>Adecuado para análisis donde no se dispone de información previa o se quiere evitar la subjetividad.</li>
+</ul>
+<p><strong>Bayesiano</strong>:</p>
+<ul>
+<li>Utiliza información previa (a priori).</li>
+<li>Actualiza las probabilidades a medida que se dispone de nueva información.</li>
+<li>Adecuado para situaciones donde la información previa es relevante y valiosa.</li>
+</ul>
+<p>Ambos enfoques son útiles y válidos, y la elección entre ellos depende del contexto del problema, la disponibilidad de información previa y las preferencias del investigador.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Prefacio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Prefacio</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./tema1_EDA1_solucion.html" class="pagination-link" aria-label="Cargar el conjunto de datos">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

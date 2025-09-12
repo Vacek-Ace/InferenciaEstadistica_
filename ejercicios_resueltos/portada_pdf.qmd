@@ -1,0 +1,7 @@
+---
+format:
+  pdf:
+    pdf-engine: weasyprint
+    include-before-body: portada.html
+    css: ../estilos.css
+---

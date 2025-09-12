@@ -1,0 +1,62 @@
+# Prefacio {.unnumbered}
+
+Este manual de soluciones complementa el libro **Inferencia Estadística** y está diseñado para proporcionar un apoyo integral al proceso de aprendizaje. Cada solución ha sido desarrollada con el mismo rigor teórico-práctico que caracteriza al curso, ofreciendo no solo la respuesta correcta, sino también el razonamiento estadístico y la interpretación práctica necesarios para una comprensión profunda.
+
+## Filosofía pedagógica
+
+Al igual que el libro principal, este manual sigue un enfoque **"teórico-práctico"** sin concesiones. Las soluciones están diseñadas para:
+
+- **Reforzar** la comprensión de los conceptos fundamentales mediante aplicaciones concretas
+- **Desarrollar** la intuición estadística a través de interpretaciones razonadas  
+- **Conectar** la teoría con la práctica mediante código R completamente funcional
+- **Fomentar** el pensamiento crítico sobre las limitaciones y supuestos de cada método
+
+## ¿Cómo usar este manual?
+
+Para maximizar el beneficio de este recurso:
+
+1. **Intentar primero**: Resuelve cada ejercicio por tu cuenta antes de consultar la solución
+2. **Estudiar el proceso**: No solo copies el código, entiende la lógica detrás de cada paso  
+3. **Experimentar**: Modifica los parámetros y observa cómo cambian los resultados
+4. **Reflexionar**: Considera las implicaciones prácticas de cada resultado obtenido
+
+## Metodología de las soluciones
+
+Cada solución incluye:
+
+- **Código R completo**: Totalmente ejecutable y comentado
+- **Explicaciones paso a paso**: Qué hace cada línea y por qué
+- **Interpretación de resultados**: Qué significan los números obtenidos
+- **Gráficos explicativos**: Visualización de conceptos clave
+- **Consejos prácticos**: Cuándo y cómo usar cada técnica
+
+::: {.callout-important}
+## Uso responsable
+
+Este manual es una herramienta de aprendizaje, no un sustituto del pensamiento propio. Utilízalo para verificar tu comprensión y mejorar tu técnica, pero siempre tras haber hecho un esfuerzo genuino por resolver los problemas de forma independiente.
+:::
+
+## Requisitos de software
+
+Para ejecutar las soluciones necesitas tener instalados los siguientes paquetes de R:
+
+```r
+# Paquetes principales
+install.packages(c(
+  "car",           # Diagnósticos avanzados
+  "MASS",          # Datasets y funciones estadísticas  
+  "glmnet",        # Regularización
+  "caret",         # Machine learning
+  "pROC",          # Curvas ROC
+  "fitdistrplus",  # Ajuste de distribuciones
+  "lmtest"         # Tests estadísticos
+))
+```
+
+::: {.callout-note title="Sobre los autores"}
+**Víctor Aceña Gil** es graduado en Matemáticas por la UNED, máster en Tratamiento Estadístico y Computacional de la Información por la UCM y la UPM, doctor en Tecnologías de la Información y las Comunicaciones por la URJC y profesor del departamento de Informática y Estadística de la URJC. Miembro del grupo de investigación de alto rendimiento en Fundamentos y Aplicaciones de la Ciencia de Datos, DSLAB, de la URJC. Pertenece al grupo de innovación docente, DSLAB-TI.
+
+**Isaac Martín de Diego** es diplomado en Estadística por la Universidad de Valladolid (UVA), licenciado en Ciencias y Técnicas Estadísticas por la Universidad Carlos III de Madrid (UC3M), doctor en Ingeniería Matemática por la UC3M, catedrático de Ciencias de la Computación e Inteligencia Artificial del departamento de Informática y Estadística de la URJC. Es fundador y coordinador del DSLAB y del DSLAB-TI.
+:::
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="Licencia de Creative Commons" style="border-width:0"/></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licencia de Creative Commons Atribución-CompartirIgual 4.0 Internacional</a>.

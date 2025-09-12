@@ -60,9 +60,7 @@ execute:
 
 **Pregunta**: Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.
 
----
-
-<div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666;">
-<img src="../../images/DSLab_logo_1.png" width="25px" style="vertical-align: middle; margin-right: 6px;">
+<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
+<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
 DSLAB - Universidad Rey Juan Carlos
 </div>
