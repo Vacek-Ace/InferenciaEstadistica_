@@ -105,9 +105,9 @@ unir_pdfs_soluciones <- function() {
 crear_soluciones_completas <- function() {
   cat("=== GENERANDO SOLUCIONES COMPLETAS ===\n")
   
-  # Verificar que estamos en la raíz del proyecto
-  if (!file.exists("_quarto.yml")) {
-    stop("Este script debe ejecutarse desde la raíz del proyecto")
+  # Verificar que estamos en la raíz del proyecto o que existe el directorio de ejercicios
+  if (!file.exists("ejercicios_resueltos") || !file.exists("ejercicios_resueltos/_quarto.yml")) {
+    stop("Este script debe ejecutarse desde la raíz del proyecto y debe existir ejercicios_resueltos/_quarto.yml")
   }
   
   tryCatch({
@@ -139,9 +139,9 @@ crear_soluciones_completas <- function() {
 generar_todas_soluciones <- function() {
   cat("=== GENERANDO TODAS LAS SOLUCIONES EN HTML ===\n")
   
-  # Verificar que estamos en la raíz del proyecto
-  if (!file.exists("_quarto.yml")) {
-    stop("Este script debe ejecutarse desde la raíz del proyecto")
+  # Verificar que estamos en la raíz del proyecto o que existe el directorio de ejercicios
+  if (!file.exists("ejercicios_resueltos") || !file.exists("ejercicios_resueltos/_quarto.yml")) {
+    stop("Este script debe ejecutarse desde la raíz del proyecto y debe existir ejercicios_resueltos/_quarto.yml")
   }
   
   tryCatch({
@@ -175,12 +175,10 @@ generar_todas_soluciones <- function() {
 # Función para generar una solución específica
 generar_solucion <- function(tema) {
   archivo <- paste0("tema", tema, "_soluciones.qmd")
-  if (tema == 1) archivo <- "tema1_regresion_simple_soluciones.qmd"
-  if (tema == 2) archivo <- "tema2_regresion_multiple_soluciones.qmd"
-  if (tema == 3) archivo <- "tema3_ingenieria_caracteristicas_soluciones.qmd"
-  if (tema == 4) archivo <- "tema4_seleccion_validacion_soluciones.qmd"
-  if (tema == 5) archivo <- "tema5_glm_soluciones.qmd"
-  if (tema == "avanzados") archivo <- "ejercicios_avanzados_soluciones.qmd"
+  if (tema == 1) archivo <- "tema0_intro_solucion.qmd"
+  if (tema == 2) archivo <- "tema1_EDA1_solucion.qmd"
+  if (tema == 3) archivo <- "tema1_EDA2_solucion.qmd"
+  
   
   cat("Generando solución:", archivo, "\n")
   

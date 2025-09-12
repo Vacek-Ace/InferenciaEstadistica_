@@ -41,15 +41,13 @@ Este manual es una herramienta de aprendizaje, no un sustituto del pensamiento p
 Para ejecutar las soluciones necesitas tener instalados los siguientes paquetes de R:
 
 ```r
-# Paquetes principales
+# Paquetes principales para análisis exploratorio de datos
 install.packages(c(
-  "car",           # Diagnósticos avanzados
-  "MASS",          # Datasets y funciones estadísticas  
-  "glmnet",        # Regularización
-  "caret",         # Machine learning
-  "pROC",          # Curvas ROC
-  "fitdistrplus",  # Ajuste de distribuciones
-  "lmtest"         # Tests estadísticos
+  "ggplot2",       # Visualización de datos
+  "dplyr",         # Manipulación de datos
+  "tidyr",         # Restructuración de datos
+  "readr",         # Lectura de archivos de datos
+  "nycflights13"   # Dataset de vuelos usado en ejercicios
 ))
 ```
 
