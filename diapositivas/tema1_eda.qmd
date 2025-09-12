@@ -1,15 +1,33 @@
 ---
-title: "Estadística descriptiva. EDA"
-author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
-date: "Curso académico 2024-2025"
-
-bibliography: References.bib
+title: "Análisis Exploratorio de Datos"
+author: "Víctor Aceña - Isaac Martín"
+institute: "DSLAB"
+date: last-modified
+bibliography: ../References.bib
 
 format: 
   beamer: 
-    template: dslab.beamer.tex
-
-editor: visual
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    navigation: horizontal
+    section-titles: false
+    toc: false
+    slide-level: 1
+    aspectratio: 169
+    header-includes: |
+      \usepackage{dslab-new}
+      \usedslabmodelos
+knitr:
+  opts_chunk:
+    fig.width: 6
+    fig.height: 4
+    fig.align: "center"
+    dev: "pdf"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 # Estadística descriptiva
@@ -44,7 +62,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 # Datos
 
-![](images/penguins_data.png){fig-align="center" width="400"}
+![](../images/penguins_data.png){fig-align="center" width="400"}
 
 # Tipos de variables
 
@@ -60,9 +78,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
     -   **Continuas**. Pueden tomar cualquier valor dentro de un rango, como la altura o el peso.
 
-# Tipos de variables
-
--   Marcas de tiempo o identificadores: Como por ejemplo la fecha y hora de una transacción o el código de un producto o el número de identidad.
+-   **Marcas de tiempo o identificadores**: Como por ejemplo la fecha y hora de una transacción o el código de un producto o el número de identidad.
 
 # Escalas de medición
 
@@ -122,9 +138,9 @@ Supongamos que tenemos los datos de natalidad desde 1977 hasta 2018. ¿Qué har�
 
 [Estudio natalidad](https://www.eldiario.es/nidos/no-ninos-nacen-toca-dar-luz-semana-21-probable-hacerlo-lunes-viernes_1_6400307.html): https://www.eldiario.es/nidos/no-ninos-nacen-toca-dar-luz-semana-21-probable-hacerlo-lunes-viernes_1\_6400307.html
 
-![](images/natalidad1.png){fig-align="center" width="151" height="38"}
+![](../images/natalidad1.png){fig-align="center" width="151" height="38"}
 
-![](images/natalidad2.png){fig-align="center" width="229"}
+![](../images/natalidad2.png){fig-align="center" width="229"}
 
 # Estadística descriptiva
 
@@ -148,11 +164,11 @@ library(ggplot2)
 
 <https://allisonhorst.github.io/palmerpenguins/articles/intro.html>
 
-![](images/palmen_penguins.png){fig-align="center" width="416"}
+![](../images/palmen_penguins.png){fig-align="center" width="416"}
 
 # Dataset Palmer penguin
 
-```{r echo=FALSE}
+```{r echo=FALSE, size="scriptsize"}
 library(palmerpenguins)
 glimpse(penguins)
 ```
@@ -175,7 +191,7 @@ glimpse(penguins)
 
 ¿Diferencia entre el valor atípico rojo y el azul?
 
-![](images/atipico_rojo_azul.png){fig-align="center" width="300"}
+![](../images/atipico_rojo_azul.png){fig-align="center" width="300"}
 
 # Datos faltantes (missing)
 
@@ -197,10 +213,10 @@ glimpse(penguins)
 
 # Tabla de frecuencias
 
--   **Tabla de frecuencias** o **tabla de contingencia**: Muestra, para cada valor que tome una variable categórica (o cada intervalo en una categorizada), o para cada combinación de valores de dos o más variables categóricas, el número de casos que aparecen con dicho valor o combinación de valores
+-   **Tabla de frecuencias** o **tabla de contingencia**: Muestra el número de casos que aparecen para cada valor de una variable categórica o combinación de valores de dos o más variables categóricas
 
-```{r echo=TRUE}
-#| size: scriptsize
+
+```{r echo=TRUE, size="scriptsize"}
 table(penguins$species)
 prop.table(table(penguins$species))
 ```
@@ -209,7 +225,12 @@ prop.table(table(penguins$species))
 
 Dada una variable $X$ con dominio $\{X_1,\dots,X_k\}$ que ha sido medida en una muestra de tamaño $n$ y denotemos por $n_i$ el número de elementos en la muestra que toman el valor $X_i$. La tabla de frecuencias correspondiente es:
 
-![](images/tabla_frecuencias.png){fig-align="center" width="450"}
+| Valores de $X$ | Frec. absoluta | Frec. relativa | Frec. acumulada | Frec. relativa acumulada |
+|:--------------:|:--------------:|:--------------:|:---------------:|:------------------------:|
+| $X_1$ | $n_1$ | $fr_1 = \frac{n_1}{n}$ | $F_1 = n_1$ | $Fr_1 = \frac{F_1}{n}$ |
+| $X_2$ | $n_2$ | $fr_2 = \frac{n_2}{n}$ | $F_2 = F_1 + n_2$ | $Fr_2 = \frac{F_2}{n}$ |
+| $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+| $X_k$ | $n_k$ | $fr_k = \frac{n_k}{n}$ | $F_k = F_{k-1} + n_k$ | $Fr_k = \frac{F_k}{n}$ |
 
 # Tabla de frecuencias
 
@@ -232,11 +253,6 @@ Dada una variable $X$ con dominio $\{X_1,\dots,X_k\}$ que ha sido medida en una 
 -   Para variables cualitativas
 
 ```{r echo=FALSE,out.width="60%",fig.align = 'center'}
-# Instalar y cargar los paquetes necesarios
-install.packages("palmerpenguins")
-install.packages("ggplot2")
-install.packages("cowplot")  # Para combinar gráficos
-
 library(palmerpenguins)
 library(ggplot2)
 library(cowplot)
@@ -252,7 +268,8 @@ grafico_absoluto <- ggplot(penguins, aes(x = species)) +
   geom_bar(fill = "skyblue", color = "black") +
   labs(title = "Frecuencia absoluta de especies",
        x = "Especies", y = "Frecuencia absoluta") +
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.title = element_text(size = 10))
 
 # Gráfico de barras en frecuencia relativa
 grafico_relativo <- ggplot(penguins, aes(x = species)) +
@@ -260,23 +277,28 @@ grafico_relativo <- ggplot(penguins, aes(x = species)) +
   labs(title = "Frecuencia relativa de especies",
        x = "Especies", y = "Frecuencia relativa") +
   scale_y_continuous(labels = scales::percent) +  # Convertir la escala en porcentaje
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.title = element_text(size = 10))
 
-# Combinar los dos gráficos en una misma figura
-graficos_combinados <- plot_grid(grafico_absoluto, grafico_relativo, labels = c("A", "B"))
+# Combinar los dos gráficos en una misma figura con más separación
+graficos_combinados <- plot_grid(grafico_absoluto, grafico_relativo, 
+                                labels = c("A", "B"),
+                                ncol = 2, 
+                                rel_widths = c(1, 1),
+                                align = "h")
 
 # Mostrar la figura combinada
 print(graficos_combinados)
 
 ```
 
-No hay diferencia entre hacer la comparación con las frecuencias relativas o absolutas en este caso
+No hay diferencia entre frecuencias relativas o absolutas en este caso
 
 # Diagrama de barras
 
 ¿Y si quisiéramos comparar a nuestros pingüinos con un grupo de otra isla?
 
-```{r echo=FALSE,out.width="70%",fig.align = 'center'}
+```{r echo=FALSE,out.width="60%",fig.align = 'center'}
 # Cargar paquetes necesarios
 library(ggplot2)
 library(cowplot)
@@ -296,74 +318,107 @@ datos_comparacion <- rbind(
   data.frame(species = datos_originales$species, Muestra = "Palmer penguins"),
   data.frame(species = nueva_muestra$species, Muestra = "Flower penguins")
 )
-# Gráfico de barras en frecuencia relativa comparando ambas muestras
-grafico_relativo_comparacion_stack <- ggplot(datos_comparacion, aes(x = species, fill = Muestra)) +
-  geom_bar(aes(y = (..count..) / sum(..count..)), position = "stack", color = "black") +
-  labs(title = "Diagrama de barras stack",
-       x = "Especies", y = "Frecuencia relativa") +
-  scale_y_continuous(labels = scales::percent) +  # Convertir la escala en porcentaje
-  scale_fill_manual(name = "Muestra", values = c("Palmer penguins" = "skyblue", "Flower penguins" = "orange")) +
-  theme_minimal()
 
-# Gráfico de barras en frecuencia relativa comparando ambas muestras
+# Gráfico de barras agrupado
 grafico_relativo_comparacion <- ggplot(datos_comparacion, aes(x = species, fill = Muestra)) +
   geom_bar(aes(y = (..count..) / sum(..count..)), position = "dodge", color = "black") +
   labs(title = "Diagrama de barras agrupado",
        x = "Especies", y = "Frecuencia relativa") +
-  scale_y_continuous(labels = scales::percent) +  # Convertir la escala en porcentaje
+  scale_y_continuous(labels = scales::percent) +
   scale_fill_manual(name = "Muestra", values = c("Palmer penguins" = "skyblue", "Flower penguins" = "orange")) +
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.title = element_text(size = 10),
+        axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9),
+        legend.title = element_text(size = 9),
+        legend.text = element_text(size = 8))
 
-# Combinar los dos gráficos en una misma figura
-graficos_combinados_comparacion <- plot_grid(grafico_relativo_comparacion, grafico_relativo_comparacion_stack)
+# Gráfico de barras stack (sin leyenda para evitar duplicación)
+grafico_relativo_comparacion_stack <- ggplot(datos_comparacion, aes(x = species, fill = Muestra)) +
+  geom_bar(aes(y = (..count..) / sum(..count..)), position = "stack", color = "black") +
+  labs(title = "Diagrama de barras stack",
+       x = "Especies", y = "Frecuencia relativa") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(name = "Muestra", values = c("Palmer penguins" = "skyblue", "Flower penguins" = "orange")) +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 10),
+        axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9),
+        legend.position = "none")  # Quitamos la leyenda de este gráfico
+
+# Combinar los dos gráficos con mejor espaciado
+graficos_combinados_comparacion <- plot_grid(grafico_relativo_comparacion, grafico_relativo_comparacion_stack,
+                                            ncol = 2, 
+                                            rel_widths = c(1.2, 0.8),  # El primer gráfico más ancho para la leyenda
+                                            align = "h")
 
 # Mostrar la figura combinada
 print(graficos_combinados_comparacion)
-
 
 ```
 
 # Tabla de frecuencias (contingencia)
 
-```{r echo=FALSE,out.width="70%",fig.align = 'center'}
-#| size: scriptsize
-table(penguins$species,penguins$sex)
+::: {.columns}
 
+::: {.column width="40%"}
+```{r echo=FALSE}
+# Cargar paquetes necesarios
+library(palmerpenguins)
+
+# Crear la tabla de contingencia
+tabla_contingencia <- table(penguins$species, penguins$sex)
+print(tabla_contingencia)
+```
+:::
+
+::: {.column width="60%"}
+```{r echo=FALSE, out.width="100%", fig.align='center'}
 # Cargar paquetes necesarios
 library(ggplot2)
 library(palmerpenguins)
 
 # Cargar el conjunto de datos de los pingüinos
-datos <- na.omit(penguins[, c("species", "sex")])  # Eliminar filas con datos faltantes en species o sex
+datos <- na.omit(penguins[, c("species", "sex")])
 
 # Crear el gráfico de barras agrupado
-grafico_sexo_especie <- ggplot(datos, aes(x = species, fill = sex)) +
+ggplot(datos, aes(x = species, fill = sex)) +
   geom_bar(position = "dodge", color = "black") +
-  labs(title = "Distribución del Sexo de los Pingüinos por Especie",
+  labs(title = "Distribución del Sexo por Especie",
        x = "Especie", y = "Frecuencia",
        fill = "Sexo") +
-  theme_minimal()
-
-# Mostrar el gráfico
-print(grafico_sexo_especie)
-
+  theme_minimal() +
+  theme(plot.title = element_text(size = 11),
+        axis.text = element_text(size = 9),
+        legend.text = element_text(size = 9),
+        legend.title = element_text(size = 10))
 ```
+:::
+
+:::
 
 # Gráfico de tarta
+
+::: {.columns}
+
+::: {.column width="40%"}
+
+\vspace{3cm}
 
 -   Para variables cualitativas
 
 -   También llamado diagrama de sectores
+:::
 
-```{r echo=FALSE,out.width="50%",fig.align = 'center'}
-#| size: scriptsize
+::: {.column width="60%"}
+```{r echo=FALSE, out.width="100%", fig.align = 'center'}
 # Cargar paquetes necesarios
 library(ggplot2)
 library(palmerpenguins)
-library(dplyr)  # Para manipulación de datos
+library(dplyr)
 
 # Cargar el conjunto de datos de los pingüinos
-datos <- na.omit(penguins$species)  # Eliminar valores faltantes en species
+datos <- na.omit(penguins$species)
 
 # Crear una tabla de frecuencias para las especies
 tabla_especies <- as.data.frame(table(datos))
@@ -381,12 +436,15 @@ tarta_plot <- ggplot(tabla_especies, aes(ymax = ymax, ymin = ymin, xmax = 4, xmi
   coord_polar(theta = "y") +
   labs(title = "Distribución de Especies de Pingüinos") +
   theme_void() +
-  scale_fill_manual(values = c("Adelie" = "purple", "Chinstrap" = "orange", "Gentoo" = "lightblue"))
+  scale_fill_manual(values = c("Adelie" = "purple", "Chinstrap" = "orange", "Gentoo" = "lightblue")) +
+  theme(plot.title = element_text(size = 11))
 
 # Mostrar el diagrama de tarta
 print(tarta_plot)
-
 ```
+:::
+
+:::
 
 **Problema**: ojo humano tiene problemas para percibir correctamente diferencias en sectores angulares
 
@@ -443,7 +501,7 @@ print(histograma)
 ## Medidas de centralidad
 
 -   **Mediana**: valor que ocupa la posición central de los datos, i.e., deja el 50% de los puntos a su izquierda (por debajo de él) y el otro 50% a la derecha (por encima de él). Sea $\mathbf{x}$ una muestra con $n$ observaciones, ordenados de menor a mayor, entonces:
-
+\vspace{0.5cm}
     -   Si $n$ es impar, la mediana es justamente el valor que ocupa justamente la posición central $\lfloor n/2 \rfloor +1$, $Med(\mathbf{x}) = x_{(\lfloor n/2 \rfloor + 1)}$
 
     -   Si $n$ es par, la mediana será la media de los dos valores centrales, esto es, $Med(\mathbf{x}) = \frac{x_{( n/2 )}+x_{( n/2 + 1)}}{2}$
@@ -452,7 +510,7 @@ print(histograma)
 
 # Media, moda, mediana
 
-![[Microsiervos](https://www.microsiervos.com/archivo/matematicas/media-mediana-moda-salarios.html)](images/salarios-mmm.jpg){alt="https://www.microsiervos.com/archivo/matematicas/media-mediana-moda-salarios.html" fig-align="center" width="400"}
+![[Microsiervos](https://www.microsiervos.com/archivo/matematicas/media-mediana-moda-salarios.html)](../images/salarios-mmm.jpg){alt="https://www.microsiervos.com/archivo/matematicas/media-mediana-moda-salarios.html" fig-align="center" width="400"}
 
 # Resumen numérico de variables
 
@@ -468,16 +526,58 @@ print(histograma)
 
 **Medidas de dispersión**: ¿Cómo varían los datos en torno a los valores centrales?
 
+::: {.columns}
+
+::: {.column width="50%"}
 ```{r echo=TRUE}
 #| size: scriptsize
-a <- c(1, 2, 3, 4, 5, 6, 7, 8 , 9, 10)
+a <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 b <- c(3, 6, 4, 5, 5, 6, 6, 5, 7, 8)
-cat("Media a: ", mean(a), ', Desviación típica a: ', round(sd(a),2), '\n',
-             "Media b: ", mean(b), ', Desviación típica b: ', round(sd(b),2))
-
 ```
 
-![](images/dispersion.png){fig-align="center" width="270"}
+**Serie a:**
+
+- Media: `r mean(a)`
+- Desviación típica: `r round(sd(a), 2)`
+
+**Serie b:**
+
+- Media: `r mean(b)`  
+- Desviación típica: `r round(sd(b), 2)`
+:::
+
+::: {.column width="50%"}
+```{r echo=FALSE, out.width="100%", fig.align='center'}
+# Crear los datos
+a <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+b <- c(3, 6, 4, 5, 5, 6, 6, 5, 7, 8)
+
+# Crear dataframe para ggplot
+library(ggplot2)
+datos <- data.frame(
+  index = rep(1:10, 2),
+  valores = c(a, b),
+  serie = rep(c("Serie a", "Serie b"), each = 10)
+)
+
+# Crear el gráfico
+ggplot(datos, aes(x = index, y = valores, color = serie)) +
+  geom_point(size = 3) +
+  geom_line(alpha = 0.7, size = 1) +
+  facet_wrap(~serie, ncol = 2) +
+  labs(x = "Índice", y = "Valores", 
+       title = "Comparación de dispersión") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 11),
+        axis.text = element_text(size = 8),
+        strip.text = element_text(size = 10))
+```
+:::
+
+:::
+
+Ambas tienen la misma media pero diferente variabilidad
 
 # Resumen numérico de variables
 
@@ -511,11 +611,11 @@ cat("Media a: ", mean(a), ', Desviación típica a: ', round(sd(a),2), '\n',
 
 # **Diagrama de cajas y bigotes (boxplot)**
 
-![](images/boxplot.png){fig-align="center"}
+![](../images/boxplot.png){fig-align="center"}
 
 # **Diagrama de cajas y bigotes (boxplot)**
 
-```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+```{r echo=FALSE,out.width="70%",fig.align = 'center'}
 # Cargar paquetes necesarios
 library(ggplot2)
 library(palmerpenguins)
@@ -540,7 +640,7 @@ print(boxplot_longitud_pico)
 
 # Diagramas de dispersión
 
-```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+```{r echo=FALSE,out.width="70%",fig.align = 'center'}
 # Cargar paquetes necesarios
 library(ggplot2)
 library(palmerpenguins)
@@ -565,7 +665,7 @@ print(dispersion_plot)
 
 # Diagrama de dispersión
 
-```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+```{r echo=FALSE,out.width="70%",fig.align = 'center'}
 # Cargar paquetes necesarios
 library(ggplot2)
 library(palmerpenguins)
@@ -600,7 +700,7 @@ print(dispersion_plot_sex)
 
 **Histogramas conjuntos**
 
-```{r echo=FALSE,out.width="100%",out.height="60%",fig.align = 'center'}
+```{r echo=FALSE,out.width="100%",out.height="70%",fig.align = 'center'}
 #| size: scriptsize
 # library
 library(ggplot2)
@@ -622,7 +722,7 @@ p
 
 Origen del gráfico: [From Data to Viz](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html)
 
-```{r echo=FALSE,out.width="100%",out.height="60%",fig.align = 'center'}
+```{r echo=FALSE,out.width="80%",out.height="70%",fig.align = 'center'}
 #| size: scriptsize
 # Libraries
 library(tidyverse)
@@ -659,7 +759,7 @@ p
 
 Origen del gráfico: [From Data to Viz](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html)
 
-```{r echo=FALSE,out.width="100%",out.height="60%",fig.align = 'center'}
+```{r echo=FALSE,out.width="80%",out.height="70%",fig.align = 'center'}
 #| size: scriptsize
 data_cia %>%
   mutate(text = fct_reorder(text, value)) %>%
@@ -681,7 +781,7 @@ data_cia %>%
 
 <https://r-charts.com/es/correlacion/ggpairs/>
 
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="80%",out.height="70%"}
 library(GGally)
 ggpairs(iris,                 # Data frame
         columns = 1:4,        # Columnas
