@@ -556,12 +556,12 @@ A continuación, se presentan algunos de los estimadores más utilizados en esta
 
 La **media muestral** es uno de los estimadores más comunes para la **media poblacional** $\mu$. Representa el promedio de los valores en la muestra.
 
-\[
+$$
 \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
-\]
+$$
 
-- **\(n\)**: Tamaño de la muestra.
-- **\(x_i\)**: Valores individuales en la muestra.
+- **$n$**: Tamaño de la muestra.
+- **$x_i$**: Valores individuales en la muestra.
 
 **Interpretación**: La media muestral proporciona una estimación central de los datos de la muestra y, bajo ciertas condiciones, es un buen estimador de la media poblacional.
 
@@ -569,12 +569,12 @@ La **media muestral** es uno de los estimadores más comunes para la **media pob
 
 La **proporción muestral** estima la **proporción poblacional** $p$. Es especialmente útil en estudios de encuestas y análisis de características categóricas.
 
-\[
+$$
 \hat{p} = \frac{\text{Número de éxitos en la muestra}}{n}
-\]
+$$
 
 - **Número de éxitos**: Cantidad de observaciones que cumplen con la característica de interés.
-- **\(n\)**: Tamaño de la muestra.
+- **$n$**: Tamaño de la muestra.
 
 **Interpretación**: La proporción muestral indica la fracción de la muestra que posee una determinada característica, proporcionando una estimación directa de la proporción en la población.
 
@@ -582,13 +582,13 @@ La **proporción muestral** estima la **proporción poblacional** $p$. Es especi
 
 La **cuasivarianza** estima la **varianza poblacional** $\sigma^2$. Mide la dispersión de los datos alrededor de la media muestral.
 
-\[
+$$
 s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
-\]
+$$
 
-- **\(n\)**: Tamaño de la muestra.
-- **\(x_i\)**: Valores individuales en la muestra.
-- **\(\bar{x}\)**: Media muestral.
+- **$n$**: Tamaño de la muestra.
+- **$x_i$**: Valores individuales en la muestra.
+- **$\bar{x}$**: Media muestral.
 
 **Interpretación**: La cuasivarianza cuantifica la variabilidad de los datos en la muestra, proporcionando información sobre la dispersión de los valores individuales respecto a la media.
 
@@ -601,12 +601,12 @@ Los estimadores poseen ciertas **propiedades** que determinan su calidad y adecu
 
 Un estimador es **insesgado** si su valor esperado es igual al parámetro que estima. Es decir, en promedio, el estimador no sobreestima ni subestima el parámetro poblacional.
 
-\[
+$$
 E(\hat{\theta}) = \theta
-\]
+$$
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: La media muestral \(\bar{x}\) es un estimador insesgado de la media poblacional \(\mu\). Esto implica que, en promedio, la media muestral coincide con la media poblacional, garantizando que \(\bar{x}\) no tiende a sobrestimar ni subestimar el valor real de \(\mu\). Para ilustrar la **insesgadez** de la media muestral, realizaremos una simulación en R con 1000 repeticiones de una distribución normal \(N(50, 10)\), donde compararemos la media de las medias muestrales con la media poblacional para verificar que ambas son prácticamente iguales.
+**Ejemplo**: La media muestral $\bar{x}$ es un estimador insesgado de la media poblacional $\mu$. Esto implica que, en promedio, la media muestral coincide con la media poblacional, garantizando que $\bar{x}$ no tiende a sobrestimar ni subestimar el valor real de $\mu$. Para ilustrar la **insesgadez** de la media muestral, realizaremos una simulación en R con 1000 repeticiones de una distribución normal $N(50, 10)$, donde compararemos la media de las medias muestrales con la media poblacional para verificar que ambas son prácticamente iguales.
 :::
 
 
@@ -685,7 +685,7 @@ El gráfico resultante muestra la distribución de las medias muestrales obtenid
 
 - **Línea Verde (Media Verdadera)**: Indica la media poblacional $\mu = 50$. Es el valor al cual esperamos que las medias muestrales se acerquen en promedio.
 
-- **Línea Azul (Media de las Medias Muestrales)**: Representa la media de todas las medias muestrales calculadas en la simulación. Debería estar muy cercana a la media poblacional, confirmando que \(\bar{x}\) es un estimador insesgado de \(\mu\).
+- **Línea Azul (Media de las Medias Muestrales)**: Representa la media de todas las medias muestrales calculadas en la simulación. Debería estar muy cercana a la media poblacional, confirmando que $\bar{x}$ es un estimador insesgado de $\mu$.
 
 Este gráfico visualiza cómo, a pesar de la variabilidad inherente en cada muestra individual, la media de las medias muestrales converge hacia la media poblacional, demostrando la **insesgadez** de la media muestral.
 
@@ -695,12 +695,12 @@ Este gráfico visualiza cómo, a pesar de la variabilidad inherente en cada mues
 
 Entre los estimadores insesgados, el **eficiente** es aquel que tiene la menor varianza posible. Un estimador eficiente proporciona estimaciones más precisas al reducir la dispersión en torno al valor del parámetro poblacional.
 
-\[
+$$
 \text{Var}(\hat{\theta}_1) \leq \text{Var}(\hat{\theta}_2)
-\]
+$$
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: Dentro de los estimadores insesgados de la media, la **media muestral** \(\bar{x}\) es más eficiente que la **mediana muestral**. Para demostrar la **eficiencia** de la media muestral, compararemos la varianza de ambos estimadores utilizando una simulación de 1000 repeticiones de una distribución normal \(N(50, 10)\).
+**Ejemplo**: Dentro de los estimadores insesgados de la media, la **media muestral** $\bar{x}$ es más eficiente que la **mediana muestral**. Para demostrar la **eficiencia** de la media muestral, compararemos la varianza de ambos estimadores utilizando una simulación de 1000 repeticiones de una distribución normal $N(50, 10)$.
 :::
 
 A continuación, presentamos una simulación en R para comparar la varianza de la media y la mediana muestral.
@@ -853,14 +853,14 @@ En resumen, el gráfico demuestra que la varianza de la media muestral tiende a 
 
 Un estimador es **consistente** si, a medida que el tamaño de la muestra aumenta, el estimador converge en probabilidad al verdadero valor del parámetro poblacional.
 
-\[
+$$
 \hat{\theta}_n \xrightarrow{P} \theta \quad \text{cuando} \quad n \rightarrow \infty
-\]
+$$
 
 Esto implica que, con muestras suficientemente grandes, el estimador proporcionará una estimación arbitrariamente cercana al parámetro que se desea estimar
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: La **media muestral** \(\bar{x}\) es un estimador consistente de la **media poblacional** \(\mu\). Para demostrar la **consistencia** de \(\bar{x}\), realizaremos una simulación en R donde generaremos múltiples muestras de una distribución normal \(N(50, 10)\) con diferentes tamaños de muestra, y observaremos cómo la media muestral se aproxima cada vez más a la media poblacional \(\mu\) conforme aumenta el tamaño de la muestra \(n\). Específicamente, utilizaremos tamaños de muestra que van desde 10 hasta 1000 en incrementos de 10, y realizaremos 1000 repeticiones para cada tamaño de muestra.
+**Ejemplo**: La **media muestral** $\bar{x}$ es un estimador consistente de la **media poblacional** $\mu$. Para demostrar la **consistencia** de $\bar{x}$, realizaremos una simulación en R donde generaremos múltiples muestras de una distribución normal $N(50, 10)$ con diferentes tamaños de muestra, y observaremos cómo la media muestral se aproxima cada vez más a la media poblacional $\mu$ conforme aumenta el tamaño de la muestra $n$. Específicamente, utilizaremos tamaños de muestra que van desde 10 hasta 1000 en incrementos de 10, y realizaremos 1000 repeticiones para cada tamaño de muestra.
 :::
 
 
@@ -899,7 +899,7 @@ datos_convergencia <- data.frame(
 
 **1. Generación de Muestras y Cálculo de Medias Muestrales:**
 
-- `media_convergente <- sapply(n_values, function(n) { ... })`: Para cada tamaño de muestra \(n\) en `n_values`, se genera una muestra aleatoria de tamaño \(n\) de una distribución normal \(N(\mu, \sigma)\) y se calcula su media muestral.
+- `media_convergente <- sapply(n_values, function(n) { ... })`: Para cada tamaño de muestra $n$ en `n_values`, se genera una muestra aleatoria de tamaño $n$ de una distribución normal $N(\mu, \sigma)$ y se calcula su media muestral.
 
 **2. Almacenamiento de Resultados:**
 
@@ -924,26 +924,26 @@ ggplot(datos_convergencia, aes(x = Tamaño_Muestra, y = Media_Muestral)) +
 
 El gráfico resultante muestra cómo la media muestral se comporta a medida que aumenta el tamaño de la muestra. Observamos lo siguiente:
 
-- **Línea Azul (Media Muestral):** Representa la media muestral obtenida para cada tamaño de muestra \(n\). A medida que \(n\) incrementa, las fluctuaciones en las medias muestrales tienden a reducirse, acercándose más al valor verdadero de la media poblacional $\mu = 50$.
+- **Línea Azul (Media Muestral):** Representa la media muestral obtenida para cada tamaño de muestra $n$. A medida que $n$ incrementa, las fluctuaciones en las medias muestrales tienden a reducirse, acercándose más al valor verdadero de la media poblacional $\mu = 50$.
 
-- **Línea Verde Discontinua (Media Poblacional):** Indica el valor verdadero de la media poblacional. Es el punto al cual esperamos que la media muestral converja conforme \(n\) aumenta.
+- **Línea Verde Discontinua (Media Poblacional):** Indica el valor verdadero de la media poblacional. Es el punto al cual esperamos que la media muestral converja conforme $n$ aumenta.
 
-La simulación demuestra que, al incrementar el tamaño de la muestra, la **media muestral** \(\bar{x}\) se aproxima cada vez más a la **media poblacional** \(\mu\). Esto confirma la propiedad de **consistencia** de la media muestral, ya que \(\bar{x}\) converge en probabilidad a \(\mu\) cuando \(n \rightarrow \infty\).
+La simulación demuestra que, al incrementar el tamaño de la muestra, la **media muestral** $\bar{x}$ se aproxima cada vez más a la **media poblacional** $\mu$. Esto confirma la propiedad de **consistencia** de la media muestral, ya que $\bar{x}$ converge en probabilidad a $\mu$ cuando $n \rightarrow \infty$.
 
 Además, esta propiedad asegura que, con muestras suficientemente grandes, podemos confiar en que la media muestral proporcionará una estimación precisa del parámetro poblacional, reduciendo la incertidumbre asociada a la variabilidad muestral.
 
 
 ### Suficiencia
 
-Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador \( T(X) \) es **suficiente** para un parámetro \( \theta \) si la distribución condicional de la muestra \( X \) dado el estimador \( T(X) \) no depende de \( \theta \). En otras palabras, \( T(X) \) captura toda la información relevante de la muestra sobre \( \theta \).
+Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador $ T(X) $ es **suficiente** para un parámetro $ \theta $ si la distribución condicional de la muestra $ X $ dado el estimador $ T(X) $ no depende de $ \theta $. En otras palabras, $ T(X) $ captura toda la información relevante de la muestra sobre $ \theta $.
 
-Además, según el **Teorema de Factorización de Fisher**, un estadístico \( T(X) \) es suficiente para \( \theta \) si y solo si la **función de densidad** \( f(x|\theta) \) puede factorizarse de la siguiente manera:
+Además, según el **Teorema de Factorización de Fisher**, un estadístico $ T(X) $ es suficiente para $ \theta $ si y solo si la **función de densidad** $ f(x|\theta) $ puede factorizarse de la siguiente manera:
 
-\[
+$$
 f(x|\theta) = g(T(x), \theta) \cdot h(x)
-\]
+$$
 
-donde \( g(T(x), \theta) \) es una función que depende de la muestra \( x \) únicamente a través de \( T(x) \) y del parámetro \( \theta \), mientras que \( h(x) \) es una función que depende de la muestra \( x \) pero no del parámetro \( \theta \).
+donde $ g(T(x), \theta) $ es una función que depende de la muestra $ x $ únicamente a través de $ T(x) $ y del parámetro $ \theta $, mientras que $ h(x) $ es una función que depende de la muestra $ x $ pero no del parámetro $ \theta $.
 
 #### Propiedades de Estimadores Suficientes {-}
 
@@ -973,33 +973,33 @@ donde \( g(T(x), \theta) \) es una función que depende de la muestra \( x \) ú
 La propiedad de **suficiencia** asegura que un estimador captura toda la información necesaria de la muestra respecto al parámetro de interés, evitando la pérdida de información y optimizando el proceso de estimación. Comprender y identificar estimadores suficientes es esencial para desarrollar inferencias estadísticas sólidas y eficientes.
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: La **media muestral** \(\bar{x}\) es un estimador suficiente de la **media poblacional** \(\mu\) en una Distribución Normal \(N(\mu, \sigma)\) con \(\sigma^2\) conocida.
+**Ejemplo**: La **media muestral** $\bar{x}$ es un estimador suficiente de la **media poblacional** $\mu$ en una Distribución Normal $N(\mu, \sigma)$ con $\sigma^2$ conocida.
 :::
 
-Utilizamos el **Teorema de Factorización de Fisher** para demostrar que \(\bar{x}\) es un estadístico suficiente para \(\mu\).
+Utilizamos el **Teorema de Factorización de Fisher** para demostrar que $\bar{x}$ es un estadístico suficiente para $\mu$.
 
 **Función de Densidad de la Distribución Normal**:
 
-La función de densidad para una distribución normal \(N(\mu, \sigma^2)\) es:
+La función de densidad para una distribución normal $N(\mu, \sigma^2)$ es:
 
-\[
+$$
 f(x|\mu) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)
-\]
+$$
 
 **Factorización de la Función de Densidad**:
 
 Podemos factorizar la función de densidad de la siguiente manera:
 
-\[
+$$
 f(x|\mu) = \left( \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right) \right) \cdot \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right)
-\]
+$$
 
 Donde:
 
-- \( g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right) \) depende de los datos solo a través de \(\bar{x}\) y del parámetro \(\mu\).
-- \( h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right) \) depende de los datos \(x\) pero no de \(\mu\).
+- $ g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right) $ depende de los datos solo a través de $\bar{x}$ y del parámetro $\mu$.
+- $ h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right) $ depende de los datos $x$ pero no de $\mu$.
 
-Según el **Teorema de Factorización de Fisher**, esto implica que \(\bar{x}\) es un estadístico suficiente para \(\mu\), ya que la función de densidad se factoriza en una función que depende de los datos solo a través de \(\bar{x}\) y otra que no depende de \(\mu\).
+Según el **Teorema de Factorización de Fisher**, esto implica que $\bar{x}$ es un estadístico suficiente para $\mu$, ya que la función de densidad se factoriza en una función que depende de los datos solo a través de $\bar{x}$ y otra que no depende de $\mu$.
 
 ## Conclusión
 
@@ -1009,13 +1009,13 @@ A través de ejemplos y simulaciones realizadas en R, abordamos diversos tipos d
 
 Adicionalmente, exploramos las propiedades de los estimadores más comunes:
 
-- **Insesgadez**: Se verificó que la media muestral \(\bar{x}\) es un estimador insesgado de la media poblacional \(\mu\). En promedio, la media muestral converge al valor real del parámetro, lo cual se demostró mediante simulaciones.
+- **Insesgadez**: Se verificó que la media muestral $\bar{x}$ es un estimador insesgado de la media poblacional $\mu$. En promedio, la media muestral converge al valor real del parámetro, lo cual se demostró mediante simulaciones.
   
 - **Eficiencia**: Comparando la media y la mediana muestral, observamos que la media tiene una menor varianza, lo que la convierte en un estimador más eficiente en nuestra muestra simulada.
 
 - **Consistencia**: Simulaciones con tamaños de muestra crecientes mostraron que la media muestral se aproxima cada vez más a la media poblacional, confirmando su consistencia a medida que el tamaño de la muestra aumenta.
 
-- **Suficiencia**: Aplicando el **Teorema de Factorización de Fisher**, demostramos que la media muestral es un estimador suficiente para la media de una población normal. Este concepto asegura que \(\bar{x}\) utiliza toda la información relevante de la muestra sin perder ningún detalle necesario para estimar con precisión el parámetro poblacional.
+- **Suficiencia**: Aplicando el **Teorema de Factorización de Fisher**, demostramos que la media muestral es un estimador suficiente para la media de una población normal. Este concepto asegura que $\bar{x}$ utiliza toda la información relevante de la muestra sin perder ningún detalle necesario para estimar con precisión el parámetro poblacional.
 
 **Implicaciones Prácticas**:
 

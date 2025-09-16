@@ -2438,9 +2438,13 @@ window.Quarto = {
 <li><strong>Varianza de la Variable Aleatoria:</strong> La varianza nos da una idea de la dispersión de los valores alrededor de la media.</li>
 </ol>
 </div>
-<p>Para analizar esta variable aleatoria, definimos matemáticamente los posibles valores que puede tomar la variable (X = x_i) y las correspondientes probabilidades (P(X = x_i) = p_i), donde <span class="math inline">\(i \in \{1, 2, 3, 4\}\)</span>. En R, almacenamos los posibles valores (x_i) en el vector <code>x</code> y las probabilidades asociadas (p_i) en el vector <code>p</code>, como se muestra a continuación:</p>
-<p>[ X = {x_i} = {0, 1, 2, 3} ]</p>
-<p>[ P = {p_i} = {, , , } ]</p>
+<p>Para analizar esta variable aleatoria, definimos matemáticamente los posibles valores que puede tomar la variable <span class="math inline">\(X = x_i\)</span> y las correspondientes probabilidades <span class="math inline">\(P(X = x_i) = p_i\)</span>, donde <span class="math inline">\(i \in \{1, 2, 3, 4\}\)</span>. En R, almacenamos los posibles valores <span class="math inline">\(x_i\)</span> en el vector <code>x</code> y las probabilidades asociadas <span class="math inline">\(p_i\)</span> en el vector <code>p</code>, como se muestra a continuación:</p>
+<p><span class="math display">\[
+X = \{x_i\} = \{0, 1, 2, 3\}
+\]</span></p>
+<p><span class="math display">\[
+P = \{p_i\} = \left\{\frac{1}{8}, \frac{3}{8}, \frac{3}{8}, \frac{1}{8}\right\}
+\]</span></p>
 <p>Estos vectores se utilizan luego para realizar cálculos estadísticos sobre la variable aleatoria:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definición de los vectores de valores y probabilidades</span></span>
@@ -2448,7 +2452,9 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Para confirmar que las probabilidades están correctamente normalizadas, verificamos que su suma sea igual a 1, lo cual se representa matemáticamente como:</p>
-<p>[ _{i=1}^{n} p_i = 1 ]</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n} p_i = 1
+\]</span></p>
 <p>Implementamos esta verificación en R de la siguiente manera:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Suma de probabilidades</span></span>
@@ -2459,7 +2465,9 @@ window.Quarto = {
 </div>
 </div>
 <p>Calculamos la probabilidad de obtener menos de 2 caras. Matemáticamente, esta probabilidad se calcula sumando las probabilidades de los eventos donde el número de caras es menor que 2:</p>
-<p>[ P(X &lt; 2) = <em>{x_i &lt; 2} p_i = </em>{i=1}^{2} p_i ]</p>
+<p><span class="math display">\[
+P(X &lt; 2) = \sum_{x_i &lt; 2} p_i = \sum_{i=1}^{2} p_i
+\]</span></p>
 <p>Implementamos esta probabilidad en R de la siguiente manera:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidad de obtener menos de 2 caras</span></span>
@@ -2470,7 +2478,9 @@ window.Quarto = {
 </div>
 </div>
 <p>La media o esperanza matemática se calcula utilizando la expresión:</p>
-<p>[ E(X) = _{i=1}^{n} x_i p_i ]</p>
+<p><span class="math display">\[
+E(X) = \sum_{i=1}^{n} x_i p_i
+\]</span></p>
 <p>Para determinar la media de la variable aleatoria:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Media de la variable aleatoria</span></span>
@@ -2481,7 +2491,9 @@ window.Quarto = {
 </div>
 </div>
 <p>La varianza se calcula con la expresión:</p>
-<p>[ Var(X) = E(X^2) - [E(X)]^2 = <em>{i=1}^{n} (x_i^2 p_i) - (</em>{i=1}^{n} x_i p_i)^2 ]</p>
+<p><span class="math display">\[
+Var(X) = E(X^2) - [E(X)]^2 = \sum_{i=1}^{n} (x_i^2 p_i) - \left(\sum_{i=1}^{n} x_i p_i\right)^2
+\]</span></p>
 <p>En R se puede implementar como:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Varianza de la variable aleatoria</span></span>
@@ -2552,7 +2564,7 @@ f(x)=\begin{cases}
 <div class="rmdinfo">
 <p>Fíjate que la salida de la integral incluye el error cometido. Esto es porque el ordenador utiliza métodos numéricos (no exactos) para obtener la integral. por eso después para usar el valor lo extraemos con <code>$value</code>. Por otra parte, podemos meter como argumento de la función <code>integrate</code> funciones creadas “al vuelo”.</p>
 </div>
-<p>Para calcular la probabilidad de que la variable aleatoria sea menor que 3, es decir <span class="math inline">\(P\{X\le 3\}\)</span>, evaluamos ( F(x) ) en ( x = 3 ):</p>
+<p>Para calcular la probabilidad de que la variable aleatoria sea menor que 3, es decir <span class="math inline">\(P\{X\le 3\}\)</span>, evaluamos $ F(x) $ en $ x = 3 $:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;La probabilidad de que X sea menor o igual que 3 es %.2f.</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">Fdist</span>(<span class="dv">3</span>)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2560,7 +2572,9 @@ f(x)=\begin{cases}
 </div>
 </div>
 <p>Para calcular la probabilidad de que la variable aleatoria esté entre 1.5 y 2, necesitamos integrar la función de densidad en ese intervalo. Matemáticamente, esto se expresa como:</p>
-<p>[ P(1.5 X ) = _{1.5}^{2} f(x) , dx ]</p>
+<p><span class="math display">\[
+P(1.5 \leq X \leq 2) = \int_{1.5}^{2} f(x) \, dx
+\]</span></p>
 <p>En R, realizamos el cálculo mediante función <code>integrate</code> de R para evaluar la integral entre 1.5 y 2.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;La probabilidad de que X esté entre 1.5 y 2 es %.2f.</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">integrate</span>(f, <span class="fl">1.5</span>, <span class="dv">2</span>)<span class="sc">$</span>value))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2569,8 +2583,10 @@ f(x)=\begin{cases}
 </div>
 </div>
 <p>Podemos comprobar que este resultado es equivalente si empleamos la función de distribución:</p>
-<p>[ P(1.5 X ) = F(2) - F(1.5) ]</p>
-<p>Donde ( F(2) ) es la probabilidad de que la variable aleatoria sea menor o igual que 2, y ( F(1.5) ) es la probabilidad de que la variable aleatoria sea menor o igual que 1.5. Restar estas dos probabilidades nos da la probabilidad de que la variable aleatoria esté entre 1.5 y 2.</p>
+<p><span class="math display">\[
+P(1.5 \leq X \leq 2) = F(2) - F(1.5)
+\]</span></p>
+<p>Donde $ F(2) $ es la probabilidad de que la variable aleatoria sea menor o igual que 2, y $ F(1.5) $ es la probabilidad de que la variable aleatoria sea menor o igual que 1.5. Restar estas dos probabilidades nos da la probabilidad de que la variable aleatoria esté entre 1.5 y 2.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>diferencia <span class="ot">&lt;-</span> <span class="fu">Fdist</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">Fdist</span>(<span class="fl">1.5</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2579,8 +2595,10 @@ f(x)=\begin{cases}
 <pre><code>La probabilidad de que X esté entre 1.5 y 2 es 0.11.</code></pre>
 </div>
 </div>
-<p>En el contexto de la variable aleatoria definida por la función de densidad ( f(x) ), la esperanza se calcula como:</p>
-<p>[ E(X) = _{-}^{} x f(x) , dx ]</p>
+<p>En el contexto de la variable aleatoria definida por la función de densidad $ f(x) $, la esperanza se calcula como:</p>
+<p><span class="math display">\[
+E(X) = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
+\]</span></p>
 <p>Podemos calcular la esperanza de la variable aleatoria utilizando la función <code>integrate</code> de R para evaluar la integral <span class="math inline">\(\int_{0}^{4} x \cdot f(x) \, dx\)</span>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Ex <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">*</span><span class="fu">f</span>(x), <span class="dv">0</span>, <span class="dv">4</span>)<span class="sc">$</span>value</span>
@@ -2590,9 +2608,11 @@ f(x)=\begin{cases}
 <pre><code>La media de la variable aleatoria es 2.67.</code></pre>
 </div>
 </div>
-<p>En el contexto de la variable aleatoria definida por la función de densidad ( f(x) ), la varianza se calcula como:</p>
-<p>[ Var(X) = E(X^2) - [E(X)]^2 ]</p>
-<p>Aplicando este concepto, primero calculamos ( E(X^2) ) utilizando la función de densidad y luego calculamos la varianza utilizando la expresión anterior:</p>
+<p>En el contexto de la variable aleatoria definida por la función de densidad $ f(x) $, la varianza se calcula como:</p>
+<p><span class="math display">\[
+Var(X) = E(X^2) - [E(X)]^2
+\]</span></p>
+<p>Aplicando este concepto, primero calculamos $ E(X^2) $ utilizando la función de densidad y luego calculamos la varianza utilizando la expresión anterior:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Ex2 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">f</span>(x), <span class="dv">0</span>, <span class="dv">4</span>)<span class="sc">$</span>value</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Vx <span class="ot">&lt;-</span> Ex2<span class="sc">-</span>Ex<span class="sc">^</span><span class="dv">2</span></span>
@@ -2616,10 +2636,10 @@ f(x)=\begin{cases}
 <h3 class="anchored" data-anchor-id="funciones-disponibles">Funciones disponibles</h3>
 <p>En R, cada distribución discreta cuenta con cuatro funciones asociadas, que permiten realizar distintos cálculos estadísticos:</p>
 <ul>
-<li><code>dxxx(x, ...)</code> calcula la función de masa de probabilidad, (f(x)), para un valor dado de (x).</li>
-<li><code>pxxx(q, ...)</code> obtiene la función de distribución acumulada, (F(x)), hasta un punto (q).</li>
-<li><code>qxxx(p, ...)</code> determina el cuantil para el cual la probabilidad (P(X q)) es igual a (p).</li>
-<li><code>rxxx(n, ...)</code> genera (n) números aleatorios siguiendo la distribución especificada.</li>
+<li><code>dxxx(x, ...)</code> calcula la función de masa de probabilidad, <span class="math inline">\(f(x)\)</span>, para un valor dado de <span class="math inline">\(x\)</span>.</li>
+<li><code>pxxx(q, ...)</code> obtiene la función de distribución acumulada, <span class="math inline">\(F(x)\)</span>, hasta un punto <span class="math inline">\(q\)</span>.</li>
+<li><code>qxxx(p, ...)</code> determina el cuantil para el cual la probabilidad <span class="math inline">\(P(X \leq q)\)</span> es igual a <span class="math inline">\(p\)</span>.</li>
+<li><code>rxxx(n, ...)</code> genera <span class="math inline">\(n\)</span> números aleatorios siguiendo la distribución especificada.</li>
 </ul>
 <p>Reemplace <code>xxx</code> por el identificador correspondiente de la distribución que desea utilizar. A continuación, se presentan los identificadores para las seis distribuciones discretas básicas en R:</p>
 <ul>
@@ -2642,20 +2662,24 @@ f(x)=\begin{cases}
 <li><code>prob</code> (<span class="math inline">\(p\)</span>): la probabilidad de éxito en cada ensayo.</li>
 </ul>
 <p>La probabilidad de obtener exactamente <span class="math inline">\(x\)</span> éxitos se calcula como:</p>
-<p>[ P(X = x) = p^x (1 - p)^{n - x} ]</p>
+<p><span class="math display">\[
+P(X = x) = \binom{n}{x} p^x (1 - p)^{n - x}
+\]</span></p>
 <div class="rmdpractica">
 <p>Supongamos que la probabilidad de que un estudiante acabe un grado en Ciencias es de <span class="math inline">\(0.4\)</span>. Tomamos al azar un grupo de 5 estudiantes. ¿Cuál es la probabilidad de que ninguno obtenga el grado? ¿Y la probabilidad de que al menos dos lo obtengan?</p>
 </div>
 <p>Para calcular la probabilidad de un número específico de éxitos en una distribución binomial, utilizamos la función <code>dbinom</code> en R. Esta función devuelve la probabilidad de obtener un número determinado de éxitos (<code>x</code>) en un número fijo de ensayos independientes (<code>size</code>), cada uno con la misma probabilidad de éxito (<code>prob</code>).</p>
 <p>En el contexto de nuestro ejemplo, si queremos calcular la probabilidad de que ninguno de los 5 estudiantes termine su grado en Ciencias (considerando que la probabilidad de que un estudiante termine es de 0.4), podemos configurar <code>dbinom</code> con los siguientes parámetros: <code>x = 0</code> (ningún estudiante termina), <code>size = 5</code> (cinco ensayos o estudiantes) y <code>prob = 0.4</code> (la probabilidad de éxito, es decir, que un estudiante termine).</p>
 <p>La fórmula matemática que <code>dbinom</code> utiliza para calcular esta probabilidad es:</p>
-<p>[ P(X = x) = p^x (1 - p)^{n - x} ]</p>
+<p><span class="math display">\[
+P(X = x) = \binom{n}{x} p^x (1 - p)^{n - x}
+\]</span></p>
 <p>Donde:</p>
 <ul>
-<li>(X) es la variable aleatoria que representa el número de éxitos (estudiantes que terminan el grado).</li>
-<li>(n = 5) es el número total de ensayos (estudiantes).</li>
-<li>(x = 0) es el número de éxitos para los que queremos calcular la probabilidad.</li>
-<li>(p = 0.4) es la probabilidad de éxito en cada ensayo.</li>
+<li><span class="math inline">\(X\)</span> es la variable aleatoria que representa el número de éxitos (estudiantes que terminan el grado).</li>
+<li><span class="math inline">\(n = 5\)</span> es el número total de ensayos (estudiantes).</li>
+<li><span class="math inline">\(x = 0\)</span> es el número de éxitos para los que queremos calcular la probabilidad.</li>
+<li><span class="math inline">\(p = 0.4\)</span> es la probabilidad de éxito en cada ensayo.</li>
 </ul>
 <p>Al aplicar estos valores en la fórmula, calculamos la probabilidad específica para nuestro escenario:</p>
 <div class="cell">
@@ -2668,9 +2692,13 @@ f(x)=\begin{cases}
 <p>Para calcular la probabilidad de que el número de éxitos sea mayor a un valor específico en una distribución binomial, podemos utilizar la función <code>pbinom</code> de R. Esta función devuelve la probabilidad acumulada de obtener un número de éxitos menor o igual a <code>q</code> en una serie de ensayos.</p>
 <p>En nuestro ejemplo, si queremos saber la probabilidad de que más de un estudiante (es decir, al menos dos) termine su grado en Ciencias, podemos calcular la complementaria de la probabilidad de que uno o ninguno lo logre. Esto se puede hacer utilizando <code>1 - pbinom(q = 1, size = 5, prob = 0.4)</code>, donde <code>q = 1</code> representa el umbral máximo de estudiantes (uno) que no queremos superar para nuestro cálculo complementario.</p>
 <p>La función <code>pbinom</code> utiliza la siguiente fórmula para calcular la probabilidad acumulada:</p>
-<p>[ P(X q) = _{k=0}^{q} p^k (1 - p)^{n - k} ]</p>
+<p><span class="math display">\[
+P(X \leq q) = \sum_{k=0}^{q} \binom{n}{k} p^k (1 - p)^{n - k}
+\]</span></p>
 <p>Al restar este resultado de 1, obtenemos la probabilidad de que más de un estudiante (al menos dos) termine el grado:</p>
-<p>[ P(X &gt; q) = 1 - P(X q) ]</p>
+<p><span class="math display">\[
+P(X &gt; q) = 1 - P(X \leq q)
+\]</span></p>
 <p>Por lo tanto, el siguiente bloque de código calcula la probabilidad de que al menos dos estudiantes terminen el grado:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>prob_dos_grado <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span>
@@ -2690,7 +2718,7 @@ f(x)=\begin{cases}
 <pre><code>La probabilidad de que al menos dos estudiantes terminen el grado es 0.6630.</code></pre>
 </div>
 </div>
-<p>realiza directamente el cálculo de (P(X &gt; 1)) para nuestra distribución binomial, donde (X) es el número de estudiantes que terminan el grado, <code>size = 5</code> es el número total de estudiantes considerados, y <code>prob = 0.4</code> es la probabilidad de que un estudiante dado termine el grado.</p>
+<p>realiza directamente el cálculo de <span class="math inline">\(P(X &gt; 1)\)</span> para nuestra distribución binomial, donde <span class="math inline">\(X\)</span> es el número de estudiantes que terminan el grado, <code>size = 5</code> es el número total de estudiantes considerados, y <code>prob = 0.4</code> es la probabilidad de que un estudiante dado termine el grado.</p>
 <p>Finalmente, otra manera de abordar el cálculo de la probabilidad de que al menos dos estudiantes terminen su grado es sumar directamente las probabilidades de obtener 2, 3, 4 o 5 estudiantes que terminan el grado. Esto se puede hacer sumando las probabilidades individuales para cada uno de estos casos.</p>
 <p>Utilizamos <code>dbinom</code> para calcular la probabilidad de cada número específico de éxitos (en este caso, de 2 a 5 éxitos) y luego sumamos estos valores. Esto nos proporciona la probabilidad total de que al menos dos estudiantes, entre los cinco considerados, terminen el grado en Ciencias. El parámetro <code>size = 5</code> define el número total de ensayos (estudiantes), y <code>prob = 0.4</code> es la probabilidad de éxito individual (un estudiante terminando el grado).</p>
 <p>El código siguiente ejecuta este cálculo:</p>
@@ -2714,7 +2742,9 @@ f(x)=\begin{cases}
 <li><code>prob</code> (<span class="math inline">\(p\)</span>): la probabilidad de éxito en ese ensayo.</li>
 </ul>
 <p>La probabilidad de obtener exactamente <span class="math inline">\(x\)</span> en un experimento de Bernoulli se calcula como:</p>
-<p>[ P(X = x) = p^x (1 - p)^{1 - x} ]</p>
+<p><span class="math display">\[
+P(X = x) = p^x (1 - p)^{1 - x}
+\]</span></p>
 <div class="rmdpractica">
 <p>Supongamos que lanzamos una moneda con una probabilidad de 0.6 de obtener cara (éxito). ¿Cuál es la probabilidad de que salga cara (éxito)? ¿Cuál es la probabilidad de que salga cruz (fracaso)?</p>
 </div>
@@ -2738,21 +2768,23 @@ f(x)=\begin{cases}
 </section>
 <section id="distribución-de-poisson" class="level3">
 <h3 class="anchored" data-anchor-id="distribución-de-poisson">Distribución de Poisson</h3>
-<p>La distribución de Poisson se utiliza para modelar el número de eventos que ocurren en un intervalo de tiempo fijo cuando estos eventos ocurren con una tasa media constante y de manera independiente entre sí. Esta distribución se define completamente por su parámetro () (lambda), que representa la tasa media de ocurrencia de los eventos por intervalo.</p>
-<p>Para un valor dado (k), la probabilidad de observar exactamente (k) eventos se calcula como:</p>
-<p>[ P(X = k) = ]</p>
+<p>La distribución de Poisson se utiliza para modelar el número de eventos que ocurren en un intervalo de tiempo fijo cuando estos eventos ocurren con una tasa media constante y de manera independiente entre sí. Esta distribución se define completamente por su parámetro <span class="math inline">\(\lambda\)</span> (lambda), que representa la tasa media de ocurrencia de los eventos por intervalo.</p>
+<p>Para un valor dado <span class="math inline">\(k\)</span>, la probabilidad de observar exactamente <span class="math inline">\(k\)</span> eventos se calcula como:</p>
+<p><span class="math display">\[
+P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}
+\]</span></p>
 <p>Donde:</p>
 <ul>
-<li>(X) es la variable aleatoria que representa el número de eventos,</li>
-<li>() es la tasa media de eventos por intervalo,</li>
-<li>(k) es el número de ocurrencias del evento.</li>
+<li><span class="math inline">\(X\)</span> es la variable aleatoria que representa el número de eventos,</li>
+<li><span class="math inline">\(\lambda\)</span> es la tasa media de eventos por intervalo,</li>
+<li><span class="math inline">\(k\)</span> es el número de ocurrencias del evento.</li>
 </ul>
 <p>Las funciones principales en R para trabajar con esta distribución son <code>dpois</code> para la función de probabilidad y <code>ppois</code> para la función de distribución acumulada.</p>
 <div class="rmdpractica">
 <p>En una parada de autobús llegan de media cuatro autobuses cada hora. ¿Cuál es la probabilidad de que en una hora pasen más de 8?</p>
 </div>
 <p>En el contexto de una parada de autobús donde llegan de media cuatro autobuses cada hora, podemos usar la distribución de Poisson para modelar la probabilidad de diferentes números de llegadas. Para calcular la probabilidad de que lleguen más de 8 autobuses en una hora, podemos usar la función <code>ppois</code> con <code>lower.tail = FALSE</code>, que nos da la probabilidad de que el número de llegadas sea mayor que un valor dado (en este caso, 8 autobuses).</p>
-<p>La función <code>ppois(8, lambda = 4, lower.tail = FALSE)</code> calculará la probabilidad de que el número de autobuses que llegan en una hora sea mayor que 8, dado que la tasa media (()) es de 4 autobuses por hora.</p>
+<p>La función <code>ppois(8, lambda = 4, lower.tail = FALSE)</code> calculará la probabilidad de que el número de autobuses que llegan en una hora sea mayor que 8, dado que la tasa media (<span class="math inline">\(\lambda\)</span>) es de 4 autobuses por hora.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>prob_8buses <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="dv">8</span>, <span class="at">lambda =</span> <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;La probabilidad de que el número de autobuses que llegan en una hora sea mayor que 8 es %.4f.</span><span class="sc">\n</span><span class="st">&quot;</span>, prob_8buses))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2764,8 +2796,8 @@ f(x)=\begin{cases}
 <div class="rmdpractica">
 <p>Supongamos que, en promedio, se cometen 2 errores tipográficos por página en un libro. ¿Cuál es la probabilidad de que en una página no haya errores?</p>
 </div>
-<p>En este ejemplo, queremos calcular la probabilidad de que en una página específica no haya errores tipográficos, sabiendo que la tasa media (()) es de 2 errores por página.</p>
-<p>La función <code>dpois</code> nos permitirá calcular la probabilidad de observar exactamente (k = 0) errores en una página, dado que la tasa media de errores es (= 2).</p>
+<p>En este ejemplo, queremos calcular la probabilidad de que en una página específica no haya errores tipográficos, sabiendo que la tasa media (<span class="math inline">\(\lambda\)</span>) es de 2 errores por página.</p>
+<p>La función <code>dpois</code> nos permitirá calcular la probabilidad de observar exactamente <span class="math inline">\(k = 0\)</span> errores en una página, dado que la tasa media de errores es <span class="math inline">\(\lambda = 2\)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>prob_no_errors <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> <span class="dv">2</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;La probabilidad de que no haya errores en una página es %.4f.</span><span class="sc">\n</span><span class="st">&quot;</span>, prob_no_errors))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2784,7 +2816,9 @@ f(x)=\begin{cases}
 <li><code>prob</code> (<span class="math inline">\(p\)</span>): la probabilidad de éxito en cada ensayo.</li>
 </ul>
 <p>La probabilidad se calcula como:</p>
-<p>[ P(X = x) = p^k (1 - p)^x ]</p>
+<p><span class="math display">\[
+P(X = x) = \binom{x + k - 1}{k - 1} p^k (1 - p)^x
+\]</span></p>
 <div class="rmdpractica">
 <p>Supongamos que lanzamos una moneda con probabilidad de 0.4 de éxito (cara). Queremos saber la probabilidad de que ocurran 3 fracasos antes de que consigamos 2 éxitos.</p>
 </div>
@@ -2815,7 +2849,9 @@ f(x)=\begin{cases}
 <li><code>prob</code> (<span class="math inline">\(p\)</span>): la probabilidad de éxito en cada ensayo.</li>
 </ul>
 <p>La probabilidad de obtener exactamente <span class="math inline">\(x\)</span> fracasos antes del primer éxito se calcula como:</p>
-<p>[ P(X = x) = (1 - p)^x p ]</p>
+<p><span class="math display">\[
+P(X = x) = (1 - p)^x p
+\]</span></p>
 <p>Donde <span class="math inline">\(p\)</span> es la probabilidad de éxito en cada ensayo y <span class="math inline">\(x\)</span> es el número de fracasos.</p>
 <div class="rmdpractica">
 <p>Supongamos que lanzamos una moneda con una probabilidad de 0.7 de obtener cara (éxito). Queremos calcular la probabilidad de que haya exactamente 2 fracasos antes de obtener la primera cara.</p>
@@ -2854,11 +2890,13 @@ f(x)=\begin{cases}
 </div>
 <p>Los parámetros para <code>dhyper</code> en este caso son: <code>x = 1</code> (un directivo a favor entre los seleccionados), <code>m = 30</code> (total de directivos a favor en el comité), <code>n = 20</code> (total de directivos en contra), y <code>k = 5</code> (número de directivos seleccionados para ir al café).</p>
 <p>La probabilidad se calcula como:</p>
-<p>[ P(X = x) = ]</p>
+<p><span class="math display">\[
+P(X = x) = \frac{\binom{m}{x} \binom{N - m}{k - x}}{\binom{N}{k}}
+\]</span></p>
 <p>Donde:</p>
 <ul>
-<li>(N = m + n) es el total de la población o el tamaño del comité.</li>
-<li>(X) es la variable aleatoria que representa el número de directivos a favor seleccionados.</li>
+<li><span class="math inline">\(N = m + n\)</span> es el total de la población o el tamaño del comité.</li>
+<li><span class="math inline">\(X\)</span> es la variable aleatoria que representa el número de directivos a favor seleccionados.</li>
 </ul>
 <p>Aplicamos la función <code>dhyper</code> para obtener la probabilidad:</p>
 <div class="cell">
@@ -2879,10 +2917,10 @@ f(x)=\begin{cases}
 <h3 class="anchored" data-anchor-id="funciones-disponibles-1">Funciones disponibles</h3>
 <p>En R, cada distribución continua tiene asociadas cuatro funciones principales que facilitan la realización de cálculos estadísticos importantes:</p>
 <ul>
-<li><code>dxxx(x, ...)</code> calcula la función de densidad de probabilidad, (f(x)), para un valor dado de (x).</li>
-<li><code>pxxx(q, ...)</code> obtiene la función de distribución acumulada, (F(x)), hasta un punto (q).</li>
-<li><code>qxxx(p, ...)</code> determina el cuantil para el cual la probabilidad (P(X q)) es igual a (p).</li>
-<li><code>rxxx(n, ...)</code> genera (n) números aleatorios que siguen la distribución especificada.</li>
+<li><code>dxxx(x, ...)</code> calcula la función de densidad de probabilidad, <span class="math inline">\(f(x)\)</span>, para un valor dado de <span class="math inline">\(x\)</span>.</li>
+<li><code>pxxx(q, ...)</code> obtiene la función de distribución acumulada, <span class="math inline">\(F(x)\)</span>, hasta un punto <span class="math inline">\(q\)</span>.</li>
+<li><code>qxxx(p, ...)</code> determina el cuantil para el cual la probabilidad <span class="math inline">\(P(X \leq q)\)</span> es igual a <span class="math inline">\(p\)</span>.</li>
+<li><code>rxxx(n, ...)</code> genera <span class="math inline">\(n\)</span> números aleatorios que siguen la distribución especificada.</li>
 </ul>
 <p>Reemplace <code>xxx</code> por el identificador correspondiente de la distribución que desea utilizar. A continuación, se presentan los identificadores para algunas de las distribuciones continuas comunes en R:</p>
 <ul>
@@ -2899,7 +2937,7 @@ f(x)=\begin{cases}
 <li><code>weibull</code>: Distribución Weibull.</li>
 </ul>
 <p>Las funciones en R para distribuciones continuas permiten calcular la densidad de probabilidad (<code>dxxx</code>), la probabilidad acumulada (<code>pxxx</code>), cuantiles (<code>qxxx</code>), y generar muestras aleatorias (<code>rxxx</code>). A diferencia de las distribuciones discretas, donde <code>dxxx</code> devuelve una probabilidad puntual, en las continuas proporciona la densidad en un punto, reflejando la concentración de probabilidad, no una probabilidad exacta. Este diseño consistente facilita la identificación y aplicación correcta de cada función para análisis y modelización estadística eficaz.</p>
-<p>Para la distribución uniforme utilizamos las funciones <code>dunif</code> y <code>punif</code>, con los argumentos <code>min</code> y <code>max</code> para los parámetros (a) y (b) respectivamente. <code>dunif(x, min, max)</code> ofrece el valor de la densidad de probabilidad en el punto <code>x</code>, mientras que <code>punif(q, min, max)</code> calcula la probabilidad de que una variable aleatoria uniforme sea menor o igual a <code>q</code>.</p>
+<p>Para la distribución uniforme utilizamos las funciones <code>dunif</code> y <code>punif</code>, con los argumentos <code>min</code> y <code>max</code> para los parámetros <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> respectivamente. <code>dunif(x, min, max)</code> ofrece el valor de la densidad de probabilidad en el punto <code>x</code>, mientras que <code>punif(q, min, max)</code> calcula la probabilidad de que una variable aleatoria uniforme sea menor o igual a <code>q</code>.</p>
 </section>
 <section id="distribución-uniforme" class="level3">
 <h3 class="anchored" data-anchor-id="distribución-uniforme">Distribución Uniforme</h3>
@@ -2911,7 +2949,9 @@ f(x)=\begin{cases}
 <li><code>max</code>: el límite superior del intervalo.</li>
 </ul>
 <p>La función de densidad de la distribución uniforme continua se define como:</p>
-<p>[ f(x) = , a x b ]</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{b - a} \quad \text{para} \, a \leq x \leq b
+\]</span></p>
 <p>Donde <span class="math inline">\(a\)</span> es el límite inferior y <span class="math inline">\(b\)</span> es el límite superior.</p>
 <div class="rmdpractica">
 <p>Supongamos que seleccionamos al azar un número entre 0 y 10. Queremos calcular la probabilidad de que ese número caiga exactamente en 5, y luego queremos generar y visualizar 1000 números aleatorios que sigan una distribución uniforme entre 0 y 10.</p>
@@ -2946,13 +2986,15 @@ f(x)=\begin{cases}
 </section>
 <section id="distribución-exponencial" class="level3">
 <h3 class="anchored" data-anchor-id="distribución-exponencial">Distribución exponencial</h3>
-<p>La distribución exponencial es utilizada comúnmente para modelar el tiempo que transcurre entre eventos sucesivos en un proceso con tasa constante. En R, las funciones <code>dexp</code> para la densidad y <code>pexp</code> para la distribución acumulativa manejan estas consultas, utilizando el parámetro de tasa <code>rate</code>, que corresponde a (1/) en la formulación matemática de la distribución.</p>
+<p>La distribución exponencial es utilizada comúnmente para modelar el tiempo que transcurre entre eventos sucesivos en un proceso con tasa constante. En R, las funciones <code>dexp</code> para la densidad y <code>pexp</code> para la distribución acumulativa manejan estas consultas, utilizando el parámetro de tasa <code>rate</code>, que corresponde a <span class="math inline">\(1/\beta\)</span> en la formulación matemática de la distribución.</p>
 <div class="rmdpractica">
 <p>El tiempo en horas que se tarda en llegar desde la empresa de mantenimiento de aerogeneradores hasta una determinada instalación sigue una distribución exponencial de parámetro <span class="math inline">\(\beta=2\)</span>. ¿Cuál es la probabilidad de que un operario tarde más de tres horas en llegar a la instalación?</p>
 </div>
 <p>La función <code>pexp(3, rate = 2, lower.tail = FALSE)</code> calculará esta probabilidad, donde <code>3</code> es el tiempo en horas que queremos evaluar, <code>rate = 2</code> es el parámetro de la distribución exponencial, y <code>lower.tail = FALSE</code> indica que buscamos la probabilidad de que el tiempo sea mayor que 3 horas.</p>
 <p>La fórmula correspondiente para la función de distribución acumulativa de la exponencial en este contexto es:</p>
-<p>[ P(T &gt; t) = 1 - F(t) = e^{-t} ]</p>
+<p><span class="math display">\[
+P(T &gt; t) = 1 - F(t) = e^{-\beta t}
+\]</span></p>
 <p>Aplicando nuestros valores:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>prob_mas_3h <span class="ot">&lt;-</span> <span class="fu">pexp</span>(<span class="dv">3</span>, <span class="at">rate =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
@@ -2963,9 +3005,9 @@ f(x)=\begin{cases}
 </div>
 </div>
 <p>Este comando proporciona la probabilidad de que el tiempo hasta el próximo evento (en este caso, la llegada del operario) sea mayor que 3 horas.</p>
-<p>Supongamos que el tiempo de respuesta de un servidor web sigue una distribución exponencial con una tasa de 0.5 respuestas por segundo, es decir, el tiempo medio de respuesta es de 2 segundos ((= 2)). Queremos calcular la probabilidad de que el servidor responda en menos de 1 segundo.</p>
+<p>Supongamos que el tiempo de respuesta de un servidor web sigue una distribución exponencial con una tasa de 0.5 respuestas por segundo, es decir, el tiempo medio de respuesta es de 2 segundos (<span class="math inline">\(\beta = 2\)</span>). Queremos calcular la probabilidad de que el servidor responda en menos de 1 segundo.</p>
 <div class="rmdpractica">
-<p>El tiempo de respuesta de un servidor web sigue una distribución exponencial con parámetro (= 2). ¿Cuál es la probabilidad de que el servidor responda en menos de 1 segundo?</p>
+<p>El tiempo de respuesta de un servidor web sigue una distribución exponencial con parámetro <span class="math inline">\(\beta = 2\)</span>. ¿Cuál es la probabilidad de que el servidor responda en menos de 1 segundo?</p>
 </div>
 <p>Podemos usar la función <code>pexp</code> con el parámetro <code>lower.tail = TRUE</code>, que calcula la probabilidad acumulada de que el tiempo de respuesta sea <strong>menor</strong> que 1 segundo.</p>
 <div class="cell">
@@ -2980,11 +3022,11 @@ f(x)=\begin{cases}
 <pre><code>La probabilidad de que el servidor responda en menos de 1 segundo es 0.3935.</code></pre>
 </div>
 </div>
-<p>La distribución exponencial también se utiliza para modelar el tiempo hasta la falla de dispositivos, como bombillas. Supongamos que el tiempo de vida de una bombilla sigue una distribución exponencial con un promedio de vida útil de 1000 horas (lo que implica que el parámetro (= 1000)). Queremos calcular la probabilidad de que una bombilla dure más de 1500 horas.</p>
+<p>La distribución exponencial también se utiliza para modelar el tiempo hasta la falla de dispositivos, como bombillas. Supongamos que el tiempo de vida de una bombilla sigue una distribución exponencial con un promedio de vida útil de 1000 horas (lo que implica que el parámetro <span class="math inline">\(\beta = 1000\)</span>). Queremos calcular la probabilidad de que una bombilla dure más de 1500 horas.</p>
 <div class="rmdpractica">
-<p>El tiempo de vida útil de una bombilla sigue una distribución exponencial con parámetro (= 1000). ¿Cuál es la probabilidad de que una bombilla dure más de 1500 horas?</p>
+<p>El tiempo de vida útil de una bombilla sigue una distribución exponencial con parámetro <span class="math inline">\(\beta = 1000\)</span>. ¿Cuál es la probabilidad de que una bombilla dure más de 1500 horas?</p>
 </div>
-<p>En este caso, podemos usar la función <code>pexp</code> para calcular la probabilidad de que la vida útil de una bombilla sea mayor a 1500 horas. Dado que el parámetro de tasa <code>rate</code> en R es la inversa de (), el valor de <code>rate</code> será (1/1000).</p>
+<p>En este caso, podemos usar la función <code>pexp</code> para calcular la probabilidad de que la vida útil de una bombilla sea mayor a 1500 horas. Dado que el parámetro de tasa <code>rate</code> en R es la inversa de <span class="math inline">\(\beta\)</span>, el valor de <code>rate</code> será <span class="math inline">\(1/1000\)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">1000</span>  <span class="co"># Tasa inversa del tiempo medio de vida</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="dv">1500</span>  <span class="co"># Tiempo que queremos evaluar</span></span>
@@ -2996,11 +3038,13 @@ f(x)=\begin{cases}
 <section id="distribución-normal" class="level3">
 <h3 class="anchored" data-anchor-id="distribución-normal">Distribución normal</h3>
 <p>La distribución normal es una de las distribuciones más importantes en estadística, utilizada para modelar fenómenos naturales, sociales y de investigación científica cuando los datos se distribuyen en forma de campana alrededor de un promedio. En R, las funciones <code>dnorm</code> y <code>pnorm</code> nos permiten trabajar con la densidad y la distribución acumulativa de la normal, respectivamente, sin necesidad de tipificar manualmente las variables, ya que podemos especificar directamente la media (<code>mean</code>) y la desviación estándar (<code>sd</code>). Su función de densidad de probabilidad es:</p>
-<p>[ f(x | , ) = e^{ - } ]</p>
+<p><span class="math display">\[
+f(x | \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{ - \frac{(x - \mu)^2}{2\sigma^2} }
+\]</span></p>
 <p>Para calcular probabilidades acumuladas y encontrar cuantiles en una distribución normal, podemos usar las funciones <code>pnorm</code> y <code>qnorm</code> en R, que incorporan estos cálculos matemáticos internamente:</p>
 <ul>
-<li><code>pnorm(x, mean, sd)</code> calcula la probabilidad (P(X x)) para una variable normal (X) con media <code>mean</code> y desviación estándar <code>sd</code>.</li>
-<li><code>qnorm(p, mean, sd)</code> encuentra el valor (x) tal que (P(X x) = p).</li>
+<li><code>pnorm(x, mean, sd)</code> calcula la probabilidad <span class="math inline">\(P(X \leq x)\)</span> para una variable normal <span class="math inline">\(X\)</span> con media <code>mean</code> y desviación estándar <code>sd</code>.</li>
+<li><code>qnorm(p, mean, sd)</code> encuentra el valor <span class="math inline">\(x\)</span> tal que <span class="math inline">\(P(X \leq x) = p\)</span>.</li>
 </ul>
 <div class="rmdpractica">
 <p>El peso de los paquetes que contienen los pedidos que recibe un laboratorio se distribuye según una distribución normal de media <span class="math inline">\(1.8\)</span> y desviación típica <span class="math inline">\(0.5\)</span> kg. ¿Cuál es la probabilidad de que un paquete esté entre 1 y 2 kilos?¿Por debajo de qué peso estarán probablemente al menos el 95% de los paquetes? Por último, realiza una simulación de 100 paquetes y haz un histograma.</p>

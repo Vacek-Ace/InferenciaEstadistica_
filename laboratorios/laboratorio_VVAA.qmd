@@ -61,15 +61,15 @@ Queremos evaluar las siguientes cuestiones:
 4. **Varianza de la Variable Aleatoria:** La varianza nos da una idea de la dispersión de los valores alrededor de la media.
 :::
 
-Para analizar esta variable aleatoria, definimos matemáticamente los posibles valores que puede tomar la variable \(X = x_i\) y las correspondientes probabilidades \(P(X = x_i) = p_i\), donde $i \in \{1, 2, 3, 4\}$. En R, almacenamos los posibles valores \(x_i\) en el vector `x` y las probabilidades asociadas \(p_i\) en el vector `p`, como se muestra a continuación:
+Para analizar esta variable aleatoria, definimos matemáticamente los posibles valores que puede tomar la variable $X = x_i$ y las correspondientes probabilidades $P(X = x_i) = p_i$, donde $i \in \{1, 2, 3, 4\}$. En R, almacenamos los posibles valores $x_i$ en el vector `x` y las probabilidades asociadas $p_i$ en el vector `p`, como se muestra a continuación:
 
-\[
+$$
 X = \{x_i\} = \{0, 1, 2, 3\}
-\]
+$$
 
-\[
+$$
 P = \{p_i\} = \left\{\frac{1}{8}, \frac{3}{8}, \frac{3}{8}, \frac{1}{8}\right\}
-\]
+$$
 
 Estos vectores se utilizan luego para realizar cálculos estadísticos sobre la variable aleatoria:
 
@@ -81,9 +81,9 @@ p <- c(1/8, 3/8, 3/8, 1/8)
 
 Para confirmar que las probabilidades están correctamente normalizadas, verificamos que su suma sea igual a 1, lo cual se representa matemáticamente como:
 
-\[
+$$
 \sum_{i=1}^{n} p_i = 1
-\]
+$$
 
 Implementamos esta verificación en R de la siguiente manera:
 
@@ -96,9 +96,9 @@ cat(sprintf("La suma de las probabilidades es %.2f.\n", suma_probabilidades))
 
 Calculamos la probabilidad de obtener menos de 2 caras. Matemáticamente, esta probabilidad se calcula sumando las probabilidades de los eventos donde el número de caras es menor que 2:
 
-\[
+$$
 P(X < 2) = \sum_{x_i < 2} p_i = \sum_{i=1}^{2} p_i 
-\]
+$$
 
 Implementamos esta probabilidad en R de la siguiente manera:
 
@@ -110,9 +110,9 @@ cat(sprintf("La probabilidad de obtener menos de 2 caras es %.2f.\n", probabilid
 
 La media o esperanza matemática se calcula utilizando la expresión:
 
-\[
+$$
 E(X) = \sum_{i=1}^{n} x_i p_i
-\]
+$$
 
 Para determinar la media de la variable aleatoria:
 
@@ -124,9 +124,9 @@ cat(sprintf("La media de la variable aleatoria es %.2f.\n", media))
 
 La varianza se calcula con la expresión:
 
-\[
+$$
 Var(X) = E(X^2) - [E(X)]^2 = \sum_{i=1}^{n} (x_i^2 p_i) - \left(\sum_{i=1}^{n} x_i p_i\right)^2
-\]
+$$
 
 En R se puede implementar como:
 
@@ -208,7 +208,7 @@ cat(sprintf("La integral de f(x) es %.2f.\n", integral_total$value))
 Fíjate que la salida de la integral incluye el error cometido. Esto es porque el ordenador utiliza métodos numéricos (no exactos) para obtener la integral. por eso después para usar el valor lo extraemos con `$value`. Por otra parte, podemos meter como argumento de la función `integrate` funciones creadas "al vuelo".
 :::
 
-Para calcular la probabilidad de que la variable aleatoria sea menor que 3, es decir $P\{X\le 3\}$, evaluamos \( F(x) \) en \( x = 3 \):
+Para calcular la probabilidad de que la variable aleatoria sea menor que 3, es decir $P\{X\le 3\}$, evaluamos $ F(x) $ en $ x = 3 $:
 
 ```{r}
 cat(sprintf("La probabilidad de que X sea menor o igual que 3 es %.2f.\n", Fdist(3)))
@@ -216,9 +216,9 @@ cat(sprintf("La probabilidad de que X sea menor o igual que 3 es %.2f.\n", Fdist
 
 Para calcular la probabilidad de que la variable aleatoria esté entre 1.5 y 2, necesitamos integrar la función de densidad en ese intervalo. Matemáticamente, esto se expresa como:
 
-\[
+$$
 P(1.5 \leq X \leq 2) = \int_{1.5}^{2} f(x) \, dx
-\]
+$$
 
 En R, realizamos el cálculo mediante función `integrate` de R para evaluar la integral entre 1.5 y 2.
 
@@ -228,11 +228,11 @@ cat(sprintf("La probabilidad de que X esté entre 1.5 y 2 es %.2f.\n", integrate
 
 Podemos comprobar que este resultado es equivalente si empleamos la función de distribución:
 
-\[
+$$
 P(1.5 \leq X \leq 2) = F(2) - F(1.5)
-\]
+$$
 
-Donde \( F(2) \) es la probabilidad de que la variable aleatoria sea menor o igual que 2, y \( F(1.5) \) es la probabilidad de que la variable aleatoria sea menor o igual que 1.5. Restar estas dos probabilidades nos da la probabilidad de que la variable aleatoria esté entre 1.5 y 2.
+Donde $ F(2) $ es la probabilidad de que la variable aleatoria sea menor o igual que 2, y $ F(1.5) $ es la probabilidad de que la variable aleatoria sea menor o igual que 1.5. Restar estas dos probabilidades nos da la probabilidad de que la variable aleatoria esté entre 1.5 y 2.
 
 ```{r}
 diferencia <- Fdist(2) - Fdist(1.5)
@@ -241,11 +241,11 @@ cat(sprintf("La probabilidad de que X esté entre 1.5 y 2 es %.2f.\n", diferenci
 ```
 
 
-En el contexto de la variable aleatoria definida por la función de densidad \( f(x) \), la esperanza se calcula como:
+En el contexto de la variable aleatoria definida por la función de densidad $ f(x) $, la esperanza se calcula como:
 
-\[
+$$
 E(X) = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
-\]
+$$
 
 Podemos calcular la esperanza de la variable aleatoria utilizando la función `integrate` de R para evaluar la integral $\int_{0}^{4} x \cdot f(x) \, dx$:
 
@@ -256,14 +256,14 @@ cat(sprintf("La media de la variable aleatoria es %.2f.\n", Ex))
 ```
 
 
-En el contexto de la variable aleatoria definida por la función de densidad \( f(x) \), la varianza se calcula como:
+En el contexto de la variable aleatoria definida por la función de densidad $ f(x) $, la varianza se calcula como:
 
-\[
+$$
 Var(X) = E(X^2) - [E(X)]^2
-\]
+$$
 
 
-Aplicando este concepto, primero calculamos \( E(X^2) \) utilizando la función de densidad y luego calculamos la varianza utilizando la expresión anterior:
+Aplicando este concepto, primero calculamos $ E(X^2) $ utilizando la función de densidad y luego calculamos la varianza utilizando la expresión anterior:
 
 ```{r}
 Ex2 <- integrate(function(x) x^2*f(x), 0, 4)$value
@@ -298,10 +298,10 @@ En esta sección, abordaremos modelos específicos como la distribución binomia
 
 En R, cada distribución discreta cuenta con cuatro funciones asociadas, que permiten realizar distintos cálculos estadísticos:
 
-- `dxxx(x, ...)` calcula la función de masa de probabilidad, \(f(x)\), para un valor dado de \(x\).
-- `pxxx(q, ...)` obtiene la función de distribución acumulada, \(F(x)\), hasta un punto \(q\).
-- `qxxx(p, ...)` determina el cuantil para el cual la probabilidad \(P(X \leq q)\) es igual a \(p\).
-- `rxxx(n, ...)` genera \(n\) números aleatorios siguiendo la distribución especificada.
+- `dxxx(x, ...)` calcula la función de masa de probabilidad, $f(x)$, para un valor dado de $x$.
+- `pxxx(q, ...)` obtiene la función de distribución acumulada, $F(x)$, hasta un punto $q$.
+- `qxxx(p, ...)` determina el cuantil para el cual la probabilidad $P(X \leq q)$ es igual a $p$.
+- `rxxx(n, ...)` genera $n$ números aleatorios siguiendo la distribución especificada.
 
 Reemplace `xxx` por el identificador correspondiente de la distribución que desea utilizar. A continuación, se presentan los identificadores para las seis distribuciones discretas básicas en R:
 
@@ -327,9 +327,9 @@ Para utilizar `dbinom`, necesitamos especificar:
 
 La probabilidad de obtener exactamente $x$ éxitos se calcula como:
 
-\[
+$$
 P(X = x) = \binom{n}{x} p^x (1 - p)^{n - x}
-\]
+$$
 
 
 :::{.rmdpractica data-latex=""}
@@ -345,16 +345,16 @@ En el contexto de nuestro ejemplo, si queremos calcular la probabilidad de que n
 
 La fórmula matemática que `dbinom` utiliza para calcular esta probabilidad es:
 
-\[
+$$
 P(X = x) = \binom{n}{x} p^x (1 - p)^{n - x}
-\]
+$$
 
 Donde:
 
-- \(X\) es la variable aleatoria que representa el número de éxitos (estudiantes que terminan el grado).
-- \(n = 5\) es el número total de ensayos (estudiantes).
-- \(x = 0\) es el número de éxitos para los que queremos calcular la probabilidad.
-- \(p = 0.4\) es la probabilidad de éxito en cada ensayo.
+- $X$ es la variable aleatoria que representa el número de éxitos (estudiantes que terminan el grado).
+- $n = 5$ es el número total de ensayos (estudiantes).
+- $x = 0$ es el número de éxitos para los que queremos calcular la probabilidad.
+- $p = 0.4$ es la probabilidad de éxito en cada ensayo.
 
 Al aplicar estos valores en la fórmula, calculamos la probabilidad específica para nuestro escenario:
 
@@ -370,15 +370,15 @@ En nuestro ejemplo, si queremos saber la probabilidad de que más de un estudian
 
 La función `pbinom` utiliza la siguiente fórmula para calcular la probabilidad acumulada:
 
-\[
+$$
 P(X \leq q) = \sum_{k=0}^{q} \binom{n}{k} p^k (1 - p)^{n - k}
-\]
+$$
 
 Al restar este resultado de 1, obtenemos la probabilidad de que más de un estudiante (al menos dos) termine el grado:
 
-\[
+$$
 P(X > q) = 1 - P(X \leq q)
-\]
+$$
 
 Por lo tanto, el siguiente bloque de código calcula la probabilidad de que al menos dos estudiantes terminen el grado:
 
@@ -401,7 +401,7 @@ prob_dos_grado_v2 <- pbinom(q = 1, size = 5, prob = 0.4, lower.tail = FALSE)
 cat(sprintf("La probabilidad de que al menos dos estudiantes terminen el grado es %.4f.\n", prob_dos_grado_v2))
 ```
 
-realiza directamente el cálculo de \(P(X > 1)\) para nuestra distribución binomial, donde \(X\) es el número de estudiantes que terminan el grado, `size = 5` es el número total de estudiantes considerados, y `prob = 0.4` es la probabilidad de que un estudiante dado termine el grado.
+realiza directamente el cálculo de $P(X > 1)$ para nuestra distribución binomial, donde $X$ es el número de estudiantes que terminan el grado, `size = 5` es el número total de estudiantes considerados, y `prob = 0.4` es la probabilidad de que un estudiante dado termine el grado.
 
 
 Finalmente, otra manera de abordar el cálculo de la probabilidad de que al menos dos estudiantes terminen su grado es sumar directamente las probabilidades de obtener 2, 3, 4 o 5 estudiantes que terminan el grado. Esto se puede hacer sumando las probabilidades individuales para cada uno de estos casos.
@@ -431,9 +431,9 @@ En la distribución de Bernoulli:
 
 La probabilidad de obtener exactamente $x$ en un experimento de Bernoulli se calcula como:
 
-\[
+$$
 P(X = x) = p^x (1 - p)^{1 - x}
-\]
+$$
 
 ::: {.rmdpractica data-latex=""}
 Supongamos que lanzamos una moneda con una probabilidad de 0.6 de obtener cara (éxito). ¿Cuál es la probabilidad de que salga cara (éxito)? ¿Cuál es la probabilidad de que salga cruz (fracaso)?
@@ -453,19 +453,19 @@ cat(sprintf("La probabilidad de fracaso (cruz) es %.4f.\n", prob_0))
 ```
 
 ### Distribución de Poisson
-La distribución de Poisson se utiliza para modelar el número de eventos que ocurren en un intervalo de tiempo fijo cuando estos eventos ocurren con una tasa media constante y de manera independiente entre sí. Esta distribución se define completamente por su parámetro \(\lambda\) (lambda), que representa la tasa media de ocurrencia de los eventos por intervalo.
+La distribución de Poisson se utiliza para modelar el número de eventos que ocurren en un intervalo de tiempo fijo cuando estos eventos ocurren con una tasa media constante y de manera independiente entre sí. Esta distribución se define completamente por su parámetro $\lambda$ (lambda), que representa la tasa media de ocurrencia de los eventos por intervalo.
 
-Para un valor dado \(k\), la probabilidad de observar exactamente \(k\) eventos se calcula como:
+Para un valor dado $k$, la probabilidad de observar exactamente $k$ eventos se calcula como:
 
-\[
+$$
 P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}
-\]
+$$
 
 Donde:
 
-- \(X\) es la variable aleatoria que representa el número de eventos,
-- \(\lambda\) es la tasa media de eventos por intervalo,
-- \(k\) es el número de ocurrencias del evento.
+- $X$ es la variable aleatoria que representa el número de eventos,
+- $\lambda$ es la tasa media de eventos por intervalo,
+- $k$ es el número de ocurrencias del evento.
 
 Las funciones principales en R para trabajar con esta distribución son `dpois` para la función de probabilidad y `ppois` para la función de distribución acumulada.
 
@@ -477,7 +477,7 @@ probabilidad de que en una hora pasen más de 8?
 
 En el contexto de una parada de autobús donde llegan de media cuatro autobuses cada hora, podemos usar la distribución de Poisson para modelar la probabilidad de diferentes números de llegadas. Para calcular la probabilidad de que lleguen más de 8 autobuses en una hora, podemos usar la función `ppois` con `lower.tail = FALSE`, que nos da la probabilidad de que el número de llegadas sea mayor que un valor dado (en este caso, 8 autobuses).
 
-La función `ppois(8, lambda = 4, lower.tail = FALSE)` calculará la probabilidad de que el número de autobuses que llegan en una hora sea mayor que 8, dado que la tasa media (\(\lambda\)) es de 4 autobuses por hora. 
+La función `ppois(8, lambda = 4, lower.tail = FALSE)` calculará la probabilidad de que el número de autobuses que llegan en una hora sea mayor que 8, dado que la tasa media ($\lambda$) es de 4 autobuses por hora. 
 
 ```{r}
 prob_8buses <- ppois(8, lambda = 4, lower.tail = FALSE)
@@ -490,9 +490,9 @@ Otro escenario común para aplicar la distribución de Poisson es el modelado de
 Supongamos que, en promedio, se cometen 2 errores tipográficos por página en un libro. ¿Cuál es la probabilidad de que en una página no haya errores?
 :::
 
-En este ejemplo, queremos calcular la probabilidad de que en una página específica no haya errores tipográficos, sabiendo que la tasa media (\(\lambda\)) es de 2 errores por página.
+En este ejemplo, queremos calcular la probabilidad de que en una página específica no haya errores tipográficos, sabiendo que la tasa media ($\lambda$) es de 2 errores por página.
 
-La función `dpois` nos permitirá calcular la probabilidad de observar exactamente \(k = 0\) errores en una página, dado que la tasa media de errores es \(\lambda = 2\).
+La función `dpois` nos permitirá calcular la probabilidad de observar exactamente $k = 0$ errores en una página, dado que la tasa media de errores es $\lambda = 2$.
 
 ```{r}
 prob_no_errors <- dpois(0, lambda = 2)
@@ -512,9 +512,9 @@ Para utilizar `dnbinom`, necesitamos especificar:
 
 La probabilidad se calcula como:
 
-\[
+$$
 P(X = x) = \binom{x + k - 1}{k - 1} p^k (1 - p)^x
-\]
+$$
 
 ::: {.rmdpractica data-latex=""}
 Supongamos que lanzamos una moneda con probabilidad de 0.4 de éxito (cara). Queremos saber la probabilidad de que ocurran 3 fracasos antes de que consigamos 2 éxitos.
@@ -546,9 +546,9 @@ Para utilizar `dgeom`, necesitamos especificar:
 
 La probabilidad de obtener exactamente $x$ fracasos antes del primer éxito se calcula como:
 
-\[
+$$
 P(X = x) = (1 - p)^x p
-\]
+$$
 
 Donde $p$ es la probabilidad de éxito en cada ensayo y $x$ es el número de fracasos.
 
@@ -596,14 +596,14 @@ Los parámetros para `dhyper` en este caso son: `x = 1` (un directivo a favor en
 
 La probabilidad se calcula como:
 
-\[
+$$
 P(X = x) = \frac{\binom{m}{x} \binom{N - m}{k - x}}{\binom{N}{k}}
-\]
+$$
 
 Donde:
 
-- \(N = m + n\) es el total de la población o el tamaño del comité.
-- \(X\) es la variable aleatoria que representa el número de directivos a favor seleccionados.
+- $N = m + n$ es el total de la población o el tamaño del comité.
+- $X$ es la variable aleatoria que representa el número de directivos a favor seleccionados.
 
 Aplicamos la función `dhyper` para obtener la probabilidad:
 
@@ -624,10 +624,10 @@ En esta parte, nos centraremos en distribuciones continuas claves como la distri
 
 En R, cada distribución continua tiene asociadas cuatro funciones principales que facilitan la realización de cálculos estadísticos importantes:
 
-- `dxxx(x, ...)` calcula la función de densidad de probabilidad, \(f(x)\), para un valor dado de \(x\).
-- `pxxx(q, ...)` obtiene la función de distribución acumulada, \(F(x)\), hasta un punto \(q\).
-- `qxxx(p, ...)` determina el cuantil para el cual la probabilidad \(P(X \leq q)\) es igual a \(p\).
-- `rxxx(n, ...)` genera \(n\) números aleatorios que siguen la distribución especificada.
+- `dxxx(x, ...)` calcula la función de densidad de probabilidad, $f(x)$, para un valor dado de $x$.
+- `pxxx(q, ...)` obtiene la función de distribución acumulada, $F(x)$, hasta un punto $q$.
+- `qxxx(p, ...)` determina el cuantil para el cual la probabilidad $P(X \leq q)$ es igual a $p$.
+- `rxxx(n, ...)` genera $n$ números aleatorios que siguen la distribución especificada.
 
 Reemplace `xxx` por el identificador correspondiente de la distribución que desea utilizar. A continuación, se presentan los identificadores para algunas de las distribuciones continuas comunes en R:
 
@@ -645,7 +645,7 @@ Reemplace `xxx` por el identificador correspondiente de la distribución que des
 
 Las funciones en R para distribuciones continuas permiten calcular la densidad de probabilidad (`dxxx`), la probabilidad acumulada (`pxxx`), cuantiles (`qxxx`), y generar muestras aleatorias (`rxxx`). A diferencia de las distribuciones discretas, donde `dxxx` devuelve una probabilidad puntual, en las continuas proporciona la densidad en un punto, reflejando la concentración de probabilidad, no una probabilidad exacta. Este diseño consistente facilita la identificación y aplicación correcta de cada función para análisis y modelización estadística eficaz.
 
-Para la distribución uniforme utilizamos las funciones `dunif` y `punif`, con los argumentos `min` y `max` para los parámetros \(a\) y \(b\) respectivamente. `dunif(x, min, max)` ofrece el valor de la densidad de probabilidad en el punto `x`, mientras que `punif(q, min, max)` calcula la probabilidad de que una variable aleatoria uniforme sea menor o igual a `q`.
+Para la distribución uniforme utilizamos las funciones `dunif` y `punif`, con los argumentos `min` y `max` para los parámetros $a$ y $b$ respectivamente. `dunif(x, min, max)` ofrece el valor de la densidad de probabilidad en el punto `x`, mientras que `punif(q, min, max)` calcula la probabilidad de que una variable aleatoria uniforme sea menor o igual a `q`.
 
 ### Distribución Uniforme
 
@@ -659,9 +659,9 @@ Para utilizar `dunif`, necesitamos especificar:
 
 La función de densidad de la distribución uniforme continua se define como:
 
-\[
+$$
 f(x) = \frac{1}{b - a} \quad \text{para} \, a \leq x \leq b
-\]
+$$
 
 Donde $a$ es el límite inferior y $b$ es el límite superior.
 
@@ -691,7 +691,7 @@ hist(random_uniform, probability = TRUE, main = "Distribución Uniforme",
 
 ### Distribución exponencial
 
-La distribución exponencial es utilizada comúnmente para modelar el tiempo que transcurre entre eventos sucesivos en un proceso con tasa constante. En R, las funciones `dexp` para la densidad y `pexp` para la distribución acumulativa manejan estas consultas, utilizando el parámetro de tasa `rate`, que corresponde a \(1/\beta\) en la formulación matemática de la distribución.
+La distribución exponencial es utilizada comúnmente para modelar el tiempo que transcurre entre eventos sucesivos en un proceso con tasa constante. En R, las funciones `dexp` para la densidad y `pexp` para la distribución acumulativa manejan estas consultas, utilizando el parámetro de tasa `rate`, que corresponde a $1/\beta$ en la formulación matemática de la distribución.
 
 
 :::{.rmdpractica data-latex=""}
@@ -704,9 +704,9 @@ La función `pexp(3, rate = 2, lower.tail = FALSE)` calculará esta probabilidad
 
 La fórmula correspondiente para la función de distribución acumulativa de la exponencial en este contexto es:
 
-\[
+$$
 P(T > t) = 1 - F(t) = e^{-\beta t}
-\]
+$$
 
 Aplicando nuestros valores:
 
@@ -719,10 +719,10 @@ cat(sprintf("La probabilidad de que un operario tarde más de tres horas en lleg
 Este comando proporciona la probabilidad de que el tiempo hasta el próximo evento (en este caso, la llegada del operario) sea mayor que 3 horas.
 
 
-Supongamos que el tiempo de respuesta de un servidor web sigue una distribución exponencial con una tasa de 0.5 respuestas por segundo, es decir, el tiempo medio de respuesta es de 2 segundos (\(\beta = 2\)). Queremos calcular la probabilidad de que el servidor responda en menos de 1 segundo.
+Supongamos que el tiempo de respuesta de un servidor web sigue una distribución exponencial con una tasa de 0.5 respuestas por segundo, es decir, el tiempo medio de respuesta es de 2 segundos ($\beta = 2$). Queremos calcular la probabilidad de que el servidor responda en menos de 1 segundo.
 
 :::{.rmdpractica data-latex=""}
-El tiempo de respuesta de un servidor web sigue una distribución exponencial con parámetro \(\beta = 2\). ¿Cuál es la probabilidad de que el servidor responda en menos de 1 segundo?
+El tiempo de respuesta de un servidor web sigue una distribución exponencial con parámetro $\beta = 2$. ¿Cuál es la probabilidad de que el servidor responda en menos de 1 segundo?
 :::
 
 Podemos usar la función `pexp` con el parámetro `lower.tail = TRUE`, que calcula la probabilidad acumulada de que el tiempo de respuesta sea **menor** que 1 segundo.
@@ -738,13 +738,13 @@ cat(sprintf("La probabilidad de que el servidor responda en menos de 1 segundo e
 ```
 
 
-La distribución exponencial también se utiliza para modelar el tiempo hasta la falla de dispositivos, como bombillas. Supongamos que el tiempo de vida de una bombilla sigue una distribución exponencial con un promedio de vida útil de 1000 horas (lo que implica que el parámetro \(\beta = 1000\)). Queremos calcular la probabilidad de que una bombilla dure más de 1500 horas.
+La distribución exponencial también se utiliza para modelar el tiempo hasta la falla de dispositivos, como bombillas. Supongamos que el tiempo de vida de una bombilla sigue una distribución exponencial con un promedio de vida útil de 1000 horas (lo que implica que el parámetro $\beta = 1000$). Queremos calcular la probabilidad de que una bombilla dure más de 1500 horas.
 
 :::{.rmdpractica data-latex=""}
-El tiempo de vida útil de una bombilla sigue una distribución exponencial con parámetro \(\beta = 1000\). ¿Cuál es la probabilidad de que una bombilla dure más de 1500 horas?
+El tiempo de vida útil de una bombilla sigue una distribución exponencial con parámetro $\beta = 1000$. ¿Cuál es la probabilidad de que una bombilla dure más de 1500 horas?
 :::
 
-En este caso, podemos usar la función `pexp` para calcular la probabilidad de que la vida útil de una bombilla sea mayor a 1500 horas. Dado que el parámetro de tasa `rate` en R es la inversa de \(\beta\), el valor de `rate` será \(1/1000\).
+En este caso, podemos usar la función `pexp` para calcular la probabilidad de que la vida útil de una bombilla sea mayor a 1500 horas. Dado que el parámetro de tasa `rate` en R es la inversa de $\beta$, el valor de `rate` será $1/1000$.
 
 ```{r}
 rate <- 1/1000  # Tasa inversa del tiempo medio de vida
@@ -763,14 +763,14 @@ prob_mas_1500h <- pexp(time, rate = rate, lower.tail = FALSE)
 
 La distribución normal es una de las distribuciones más importantes en estadística, utilizada para modelar fenómenos naturales, sociales y de investigación científica cuando los datos se distribuyen en forma de campana alrededor de un promedio. En R, las funciones `dnorm` y `pnorm` nos permiten trabajar con la densidad y la distribución acumulativa de la normal, respectivamente, sin necesidad de tipificar manualmente las variables, ya que podemos especificar directamente la media (`mean`) y la desviación estándar (`sd`). Su función de densidad de probabilidad es:
 
-\[
+$$
 f(x | \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{ - \frac{(x - \mu)^2}{2\sigma^2} }
-\]
+$$
 
 Para calcular probabilidades acumuladas y encontrar cuantiles en una distribución normal, podemos usar las funciones `pnorm` y `qnorm` en R, que incorporan estos cálculos matemáticos internamente:
 
-- `pnorm(x, mean, sd)` calcula la probabilidad \(P(X \leq x)\) para una variable normal \(X\) con media `mean` y desviación estándar `sd`.
-- `qnorm(p, mean, sd)` encuentra el valor \(x\) tal que \(P(X \leq x) = p\).
+- `pnorm(x, mean, sd)` calcula la probabilidad $P(X \leq x)$ para una variable normal $X$ con media `mean` y desviación estándar `sd`.
+- `qnorm(p, mean, sd)` encuentra el valor $x$ tal que $P(X \leq x) = p$.
 
 :::{.rmdpractica data-latex=""}
 El peso de los paquetes que contienen los pedidos que recibe un laboratorio
