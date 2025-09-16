@@ -1,10 +1,12 @@
-# Ejercicio 1
+# Introducción a la Inferencia Estadística
+
+### Ejercicio 1
 
 **Pregunta**: Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.
 
 **Solución**: La Ciencia de Datos es una disciplina interdisciplinaria que se centra en la extracción de conocimiento significativo a partir de grandes conjuntos de datos. Es crucial en un mundo impulsado por los datos, ya que permite tomar decisiones informadas y hacer predicciones basadas en el análisis de datos. La Ciencia de Datos combina elementos de estadística, informática y conocimiento específico del dominio para interpretar datos y aplicar este conocimiento en diversas áreas como la medicina, las finanzas y la tecnología. Su importancia radica en su capacidad para transformar datos crudos en información valiosa que puede impulsar la innovación y la eficiencia en múltiples campos.
 
-# Ejercicio 2
+### Ejercicio 2
 
 **Pregunta**: Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.
 
@@ -22,7 +24,7 @@
 - **Métodos No Paramétricos**: Son técnicas que no asumen una distribución específica de los datos y son útiles cuando no se cumplen los supuestos de los métodos paramétricos.
 
 
-# Ejercicio 3
+### Ejercicio 3
 
 **Pregunta**: Define los términos "población" y "muestra" y explica la diferencia entre ambos.
 
@@ -34,7 +36,7 @@
 
 La **diferencia principal** entre ambos términos es el alcance. Mientras que la población es el grupo completo que se quiere estudiar, la muestra es solo una parte de ese grupo. Las muestras se utilizan porque a menudo es impracticable o imposible estudiar toda la población debido a limitaciones de tiempo, costo o logística. Por lo tanto, se selecciona una muestra para obtener estimaciones o pruebas sobre la población completa.
 
-# Ejercicio 4
+### Ejercicio 4
 
 **Pregunta**: ¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?
 
@@ -45,7 +47,7 @@ La **diferencia principal** entre ambos términos es el alcance. Mientras que la
 - **Variables Cuantitativas**: Son variables que se pueden medir en una escala numérica y tienen sentido hablar de valores mayores o menores. Las distribuciones de probabilidad asociadas a estas variables son **distribuciones continuas** y asignan probabilidades a intervalos de números. Por ejemplo, la **distribución normal** es una distribución continua que se utiliza comúnmente para modelar fenómenos naturales como la altura o el peso de individuos.
 
 
-# Ejercicio 5
+### Ejercicio 5
 
 **Pregunta**: Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.
 
@@ -110,7 +112,7 @@ Resumen Descriptivo
 
 Este resumen descriptivo proporciona una visión clara y concisa de las características principales del conjunto de datos, permitiendo una mejor comprensión de su distribución y variabilidad.
 
-# Ejercicio 6
+### Ejercicio 6
 
 **Pregunta**: Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.
 
@@ -123,7 +125,7 @@ Este resumen descriptivo proporciona una visión clara y concisa de las caracter
 **Solución**:
 
 
-# Ejercicio 7
+### Ejercicio 7
 
 **Pregunta**: Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población. 
 
@@ -166,7 +168,7 @@ Este resumen descriptivo proporciona una visión clara y concisa de las caracter
 
 
 
-# Ejercicio 8
+### Ejercicio 8
 
 **Pregunta**: Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.
 
@@ -199,7 +201,7 @@ $$
 
 
 
-# Ejercicio 9
+### Ejercicio 9
 
 **Pregunta**: Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.
 
@@ -221,7 +223,7 @@ $$
 
 
 
-# Ejercicio 10
+### Ejercicio 10
 
 **Pregunta**: Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.
 

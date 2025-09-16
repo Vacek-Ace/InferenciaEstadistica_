@@ -35,8 +35,9 @@ book:
   title: "Problemas de Modelos Estadísticos para la Predicción"
   subtitle: "Ejercicios resueltos paso a paso"
   author: 
-    - name: "Víctor Aceña Gil"
-    - name: "Isaac Martín de Diego"
+    - "Víctor Aceña Gil"
+    - "Isaac Martín de Diego"
+    - "Carmen Lancho Martín"
   chapters:
     - index.qmd
     - tema0_intro_solucion.qmd
