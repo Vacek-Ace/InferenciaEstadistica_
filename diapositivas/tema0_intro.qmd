@@ -1,6 +1,6 @@
 ---
 title: "Introducción a la Inferencia Estadística"
-author: "Víctor Aceña - Isaac Martín"
+author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
 institute: "DSLAB"
 date: last-modified
 bibliography: ../References.bib
