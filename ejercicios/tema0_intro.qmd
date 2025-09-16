@@ -1,3 +1,5 @@
+# Introducción a la Inferencia Estadística
+
 ### Ejercicio 1
 
 **Pregunta**: Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.

@@ -1,9 +1,10 @@
 ---
-title: "Ejercicio propuesto: City Bike NYC"
+title: "Ejercicio propuesto: Proyecto City Bike NYC"
 subtitle: "Inferencia Estadística"
 author: 
   - "Víctor Aceña Gil"
   - "Isaac Martín de Diego"
+  - "Carmen Lancho Martín"
 date: today
 lang: es
 format: 

@@ -1,0 +1,843 @@
+---
+title: "Laboratorio de Estadística Descriptiva"
+subtitle: "Inferencia Estadística"
+author: 
+  - "Víctor Aceña Gil"
+  - "Isaac Martín de Diego"
+  - "Carmen Lancho Martín"
+date: today
+lang: es
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      eval = TRUE, 
+                      warning = FALSE,
+                      message = FALSE,
+                      error = TRUE)
+``` 
+
+# Introducción y definición de objetivos
+
+El archivo lab.xlsx contiene una recopilación de datos del laboratorio de una fábrica de quesos, utilizada para demostrar cómo realizar un análisis descriptivo exhaustivo. A través de ejemplos de código prácticos, se ilustra el proceso de examinar y entender este conjunto de datos.
+
+
+# Importación de datos y carga de paquetes
+
+Para comenzar nuestro análisis descriptivo, necesitamos cargar una serie de paquetes en R que facilitarán la manipulación de datos, la creación de gráficos, y la presentación de tablas. Estos paquetes incluyen 'tidyverse' para la manipulación de datos, 'summarytools' y 'corrplot' para análisis estadísticos, 'GGally' para gráficos de pares, 'gt' y 'flextable' para tablas avanzadas, y 'knitr' para la integración de R con documentos de texto.
+
+```{r}
+library(tidyverse)
+library(summarytools)
+library(GGally)
+library(gt)
+library(flextable)
+library(knitr) 
+library(corrplot)
+```
+
+A continuación, descargaremos y leeremos los datos de nuestro estudio. Primero, usamos 'download.file()' para obtener el archivo 'lab.xlsx' desde una URL específica. Luego, con el paquete 'readxl', leemos el archivo Excel y transformamos los datos de fecha al formato adecuado para su análisis en R.
+
+```{r}
+# URL para descargar el archivo directamente
+url_correcta <- "https://raw.githubusercontent.com/URJCDSLab/LaboratoriosRInferenciaEstadistica/main/data/lab.xlsx"
+
+# Descargar el archivo (asegúrate de que la carpeta "datos" exista)
+download.file(url = url_correcta, 
+              destfile = "datos/lab.xlsx", 
+              mode = "wb") # El modo "wb" es importante para archivos binarios como .xlsx
+
+# 'readxl::read_excel("lab.xlsx")' lee el archivo Excel 'lab.xlsx' que acabamos de descargar.
+# 'readxl' es un paquete en R que proporciona funciones para leer archivos Excel.
+lab <- readxl::read_excel("datos/lab.xlsx") |> 
+  # 'mutate(fecha = as.Date(fecha))' transforma la columna 'fecha' a formato de fecha.
+  # 'mutate()' es una función del paquete dplyr que se utiliza para añadir nuevas variables o transformar las existentes.
+  # 'as.Date()' convierte los datos a formato de fecha.
+  mutate(fecha = as.Date(fecha))
+
+```
+
+
+# Diccionario de datos
+
+En esta sección, presentamos un diccionario de datos que detalla cada variable contenida en nuestro conjunto de datos 'lab.xlsx'. Este diccionario es esencial para entender la naturaleza y el tipo de información que cada variable representa. Las variables abarcan desde identificadores y fechas de producción hasta medidas específicas de calidad y características del queso. Este entendimiento es crucial para el análisis posterior y la interpretación de los resultados.
+
+* `fecha`: Fecha de producción
+* `codigo`: Un identificador de la pieza
+* `est`: Extracto seco total (%)
+* `mg`: Materia grasa (%)
+* `sal`: Cantidad de sal (mg/100g)
+* `ph`: pH medido
+* `ebacteria`: Recuento de un tipo de bacterias
+* `analista`: Identificador del analista
+* `tipo`: Tipo de queso (A, B, C)
+* `bacteriax`: Recuento de otro tipo de bacterias
+* `imperfecciones`: Recuento de imperfecciones en una inspección visual
+
+# Muestra del dataset
+
+Ahora, vamos a echar un vistazo a las primeras filas de nuestro dataset para obtener una comprensión inicial de los datos con los que estamos trabajando. Este paso es crucial para familiarizarnos con el tipo de datos y para verificar que la importación se haya realizado correctamente. Utilizaremos funciones del paquete 'dplyr' para seleccionar las primeras 10 filas del dataframe 'lab', y luego el paquete 'gt' para presentar estos datos de una manera clara y estructurada.
+
+```{r}
+# 'lab |> slice_head(n=10)' selecciona las primeras 10 filas del dataframe 'lab'.
+# 'lab' es el dataframe que se ha leído y preparado en los pasos anteriores.
+# '|>' es el operador de tubería en R que permite pasar el resultado de una función a la siguiente.
+lab |>  
+  # 'slice_head(n=10)' es una función del paquete dplyr que selecciona las primeras 'n' filas del dataframe.
+  # En este caso, selecciona las primeras 10 filas.
+  slice_head(n=10) |> 
+
+  # 'gt()' es una función del paquete gt que crea una tabla elegante y bien formateada.
+  # Convierte el resultado del dataframe reducido a una tabla que puede ser más fácilmente formateada y presentada.
+  gt()
+
+```
+
+
+# Análisis exploratorio de datos
+
+Iniciaremos nuestro análisis exploratorio de datos (EDA) para obtener una comprensión profunda del conjunto de datos del laboratorio. Este proceso nos permitirá descubrir patrones, detectar anomalías, probar hipótesis y verificar supuestos a través de diversos métodos estadísticos y gráficos.
+
+## Datos univariantes
+
+Comenzaremos nuestro análisis exploratorio de datos con un enfoque en los datos univariantes. Este enfoque nos permite entender la distribución y frecuencia de cada variable individualmente.
+
+### Tablas de frecuencias
+
+Iniciamos nuestro EDA con un enfoque en los datos univariantes, creando tablas de frecuencias para obtener una visión general de la distribución de nuestras variables categóricas.
+
+Primero, generamos una tabla de frecuencias para la variable 'tipo', calculando la frecuencia absoluta y relativa de cada categoría. Esto nos ayuda a entender cómo se distribuyen los distintos tipos de queso en nuestro dataset.
+
+```{r}
+# 'tabla_frecuencias <- lab |> count(tipo) |>' crea una tabla de frecuencias a partir del dataframe 'lab'.
+tabla_frecuencias <- lab |> 
+  # 'count(tipo)' cuenta el número de ocurrencias de cada valor único en la columna 'tipo'.
+  # Esta función agrupa por 'tipo' y luego cuenta las ocurrencias en cada grupo.
+  count(tipo) |> 
+  # 'mutate()' añade nuevas columnas al dataframe.
+  # 'f = n/nrow(lab)' calcula la frecuencia relativa de cada 'tipo', dividiendo el conteo de cada tipo por el número total de filas en 'lab'.
+  mutate(f = n/nrow(lab),
+         # 'N = cumsum(n)' calcula la frecuencia acumulada (conteo acumulativo) para cada 'tipo'.
+         N = cumsum(n),
+         # 'F = cumsum(f)' calcula la frecuencia relativa acumulada.
+         F = cumsum(f)) 
+
+# 'knitr::kable(tabla_frecuencias, digits = 4)' utiliza la función kable de knitr para crear una tabla bien formateada.
+# 'digits = 4' especifica que los números se redondeen a 4 dígitos decimales.
+knitr::kable(tabla_frecuencias, digits = 4)
+
+```
+
+A continuación, creamos una tabla de frecuencias para 'imperfecciones', proporcionando una visión clara de cómo se distribuyen las imperfecciones observadas en los quesos. Esta tabla también incluye la frecuencia relativa acumulada para cada categoría.
+
+```{r}
+# Calcula la tabla de frecuencias de la variable 'imperfecciones' en el dataframe 'lab'.
+table(lab$imperfecciones) |> 
+  # Convierte la tabla de frecuencias en un dataframe.
+  as.data.frame() |> 
+  # Añade una nueva columna 'F' calculando la frecuencia relativa acumulada.
+  # Esto se logra sumando las frecuencias (Freq) acumulativamente y dividiéndolas por el número total de filas en 'lab'.
+  mutate(F = cumsum(Freq)/nrow(lab)) |> 
+  # Convierte el dataframe resultante en una tabla 'gt' para formateo y estilización avanzados.
+  gt() |> 
+  # Cambia las etiquetas de las columnas a notación matemática.
+  cols_label(Var1 = "\\(x_i\\)",  # Cambia el nombre de 'Var1' a 'x_i' (representando valores individuales).
+             Freq = "\\(n_i\\)",  # Cambia 'Freq' a 'n_i' (representando la frecuencia de cada valor).
+             F = "\\(F_i\\)") |>  # Cambia 'F' a 'F_i' (representando la frecuencia relativa acumulada de cada valor).
+  # Formatea los números a mostrar tres decimales.
+  fmt_number(3, decimals = 3) |> 
+  # Aplica un estilo de texto en negrita a las filas específicas (3 y 5) en el cuerpo de la tabla.
+  tab_style(style = list(
+    cell_text(weight = "bold")),  
+    locations = cells_body(rows = c(3, 5)))
+```
+
+
+
+
+
+### Gráficos de barras
+
+Ahora, visualizamos la distribución de las categorías mediante gráficos de barras. Estos gráficos son una herramienta efectiva para representar visualmente la frecuencia de cada categoría en nuestras variables categóricas.
+
+Este gráfico de barras muestra la frecuencia absoluta de cada tipo de queso en nuestro dataset. Es una forma sencilla y directa de visualizar la cantidad de cada tipo de queso.
+
+```{r}
+# Inicia una visualización de ggplot con 'lab' como el dataframe y 'tipo' como variable en el eje x.
+lab |> 
+  ggplot(aes(x = tipo)) +
+  # Añade un gráfico de barras, rellenando las barras con el color #CB0017.
+  geom_bar(fill = "#CB0017") +
+  # Aplica un tema predeterminado en blanco y negro para la visualización.
+  theme_bw() + 
+  # Establece los títulos del gráfico, eje x, y eje y.
+  labs(title = "Tipos de queso", 
+       x = "Tipo",
+       y = "Frecuencia absoluta")
+```
+
+Aquí, empleamos un enfoque ligeramente diferente al invertir el orden de las barras para la variable 'imperfecciones', lo que nos permite examinar la distribución desde otra perspectiva.
+
+```{r}
+# 'fct_rev' invierte el orden de los factores para que el gráfico se muestre en orden inverso.
+# 'as_factor' convierte la columna 'imperfecciones' en un factor si no lo es ya.
+lab |> 
+  mutate(imperfecciones = fct_rev(as_factor(imperfecciones))) |> 
+  # Inicio de la creación del gráfico con ggplot2, especificando los datos y mapeando
+  # la variable 'imperfecciones' en el eje y.
+  ggplot(aes(y = imperfecciones)) +
+  # 'geom_bar' añade barras al gráfico. 'fill' especifica el color de relleno de las barras.
+  geom_bar(fill = "#CB0017") +
+  # Aplica un tema blanco y negro al gráfico para un diseño más limpio y profesional.
+  theme_bw() +
+  # Personaliza las etiquetas de los ejes y el título del gráfico. 'expression' permite
+  # usar expresiones matemáticas en las etiquetas.
+  labs(x = expression("Frecuencia absoluta ("*n[i]*")"),
+       y = "Número de imperfecciones")
+```
+
+En este gráfico, exploramos la proporción relativa de los tipos de quesos en nuestro conjunto de datos, utilizando un gráfico de barras que muestra las proporciones en forma de porcentajes. Además, se incluye un gradiente de color en las barras para mostrar las frecuencias absolutas.
+
+```{r}
+# Inicia una visualización de ggplot con 'lab' como el dataframe, 'tipo' como variable en el eje x,
+# y calcula la proporción (after_stat(prop)) para el eje y. Agrupación establecida para cálculos de proporción.
+ggplot(lab, aes(x = tipo, y =  after_stat(prop), group = 1)) +
+  # Añade un gráfico de barras con conteo como estadística y rellena las barras basado en el conteo de 'tipo'.
+  geom_bar(aes(fill = after_stat(count)), stat = "count") +
+  # Escala el eje y para mostrar las etiquetas como porcentajes.
+  scale_y_continuous(labels = scales::percent) +  # Convierte las etiquetas de y en porcentajes
+  # Aplica un tema predeterminado en blanco y negro para la visualización.
+  theme_bw() + 
+  # Establece los títulos del gráfico, eje x, y eje y.
+  labs(title = "Tipos de queso", 
+       x = "Tipo",
+       y = "Frecuencia relativa") +
+  # Añade un degradado de color a las barras basado en la frecuencia de conteo, desde 'skyblue' a '#CB0017'.
+  scale_fill_gradient("Frecuencia", low = "skyblue", high = "#CB0017")  # Opcional: color de relleno basado en la frecuencia
+
+```
+
+Este gráfico muestra la proporción de análisis realizados por cada analista. Utilizamos un enfoque diferente al ordenar los analistas por su proporción y representar tanto la proporción relativa como el conteo absoluto en el gráfico.
+
+```{r}
+# Primero, calcula las proporciones y conserva el conteo original
+# 'lab' es el dataframe que contiene los datos.
+# 'count(analista)' cuenta cuántas veces aparece cada 'analista'.
+# 'mutate(prop = n / sum(n))' añade una nueva columna 'prop' que representa la proporción relativa.
+analista_prop <- lab %>%
+  count(analista) %>%
+  mutate(prop = n / sum(n))
+
+# Luego, usa ggplot para visualizar
+# 'ggplot()' inicia la construcción de un gráfico.
+# 'aes(x = reorder(analista, prop), y = prop, fill = n)' define las estéticas:
+# 'x = reorder(analista, prop)' ordena los analistas en el eje x según su proporción.
+# 'y = prop' asigna la proporción relativa al eje y.
+# 'fill = n' usa el conteo original para el color de las barras.
+ggplot(analista_prop, aes(x = reorder(analista, prop), y = prop, fill = n)) +
+  
+  # 'geom_bar(stat = "identity")' crea un gráfico de barras. 
+  # 'stat = "identity"' indica que ya se proporcionaron las alturas de las barras (proporciones).
+  geom_bar(stat = "identity") +
+  
+  # 'scale_y_continuous(labels = scales::percent)' configura el eje y para mostrar las etiquetas como porcentajes.
+  scale_y_continuous(labels = scales::percent) +
+
+  # 'theme_bw()' aplica un tema visual en blanco y negro al gráfico.
+  theme_bw() +
+
+  # 'labs()' establece los títulos y etiquetas del gráfico.
+  # 'title', 'x', 'y' definen el título del gráfico y los títulos de los ejes x e y respectivamente.
+  labs(title = "Tipos de analista", x = "Tipo", y = "Frecuencia relativa") +
+
+  # 'scale_fill_gradient()' define un degradado de color para las barras.
+  # 'low' y 'high' especifican los colores para los valores bajos y altos del conteo respectivamente.
+  scale_fill_gradient("Frecuencia", low = "skyblue", high = "#CB0017")
+
+
+```
+
+### Histogramas
+
+A continuación, nos enfocamos en los histogramas, una herramienta crucial para entender la distribución de nuestras variables cuantitativas. Estos gráficos nos permitirán observar la forma y la dispersión de los datos.
+
+Primero, generamos un histograma para la variable 'ph', utilizando el color 'steelblue' para las barras, lo que nos permite observar la distribución del pH en los quesos.
+
+```{r}
+# 'lab |> ggplot(aes(ph)) +' inicia la construcción de un gráfico utilizando ggplot2 con datos del dataframe 'lab'.
+lab |> ggplot(aes(ph)) +
+  # 'aes(ph)' establece la estética del gráfico, asignando la variable 'ph' del dataframe 'lab' al eje x.
+  
+  # 'geom_histogram()' añade un histograma al gráfico. Un histograma es útil para visualizar la distribución de una variable continua.
+  geom_histogram(
+    fill = "steelblue",  # 'fill = "steelblue"' establece el color de relleno de las barras del histograma a azul acero.
+    bins = 15,           # 'bins = 15' especifica el número de barras (o "bins") que el histograma debe tener.
+    col = "white"        # 'col = "white"' define el color del borde de las barras del histograma como blanco.
+  ) +
+  
+  # 'theme_bw()' aplica un tema en blanco y negro al gráfico.
+  # Este tema proporciona un contraste visual claro y es popular por su simplicidad y legibilidad.
+  theme_bw()
+
+```
+
+A continuación, creamos otro histograma para 'ph', esta vez utilizando un enfoque más tradicional con la función `hist()` de R, proporcionando un estilo diferente y más opciones de personalización.
+
+```{r}
+hist(lab$ph, 
+     col = "#CB0017", 
+     # 'main' define el título principal del gráfico.
+     main = "Histograma pH",
+     # 'bins' establece el número de barras a mostrar en el gráfico
+     bins = 15,
+     # 'xlab' y 'ylab' definen los títulos de los ejes X e Y, respectivamente.
+     xlab = "pH", 
+     ylab = "Frecuencia",
+     # 'border' establece el color del borde de las barras del histograma a blanco.
+     border = "white")
+```
+
+### Box-plot
+
+Ahora, emplearemos box-plots para examinar la dispersión y los valores atípicos en nuestras variables cuantitativas. Estos gráficos nos ofrecen una visión detallada de la distribución de los datos.
+
+Utilizamos un box-plot para visualizar la distribución de la variable 'ph' en nuestro conjunto de datos, proporcionando una clara representación de la mediana, los cuartiles y los valores atípicos.
+
+```{r}
+# 'lab |> ggplot(aes(x= "ph", y = ph)) +' inicia una visualización ggplot2 usando el dataframe 'lab'.
+lab |> 
+  ggplot(aes(x= "ph", y = ph)) +  # Configura las estéticas del gráfico.
+    # 'aes()' define cómo se asignarán variables a estéticas visuales en el gráfico.
+    # 'x= "ph"' establece una constante para el eje x. 
+    # 'y = ph' asigna la columna 'ph' del dataframe 'lab' al eje y.
+
+  # 'geom_boxplot()' añade un gráfico de cajas al gráfico.
+  # Esta función crea un diagrama de cajas que es útil para visualizar la distribución de una variable cuantitativa.
+  geom_boxplot()+ 
+
+  # 'theme_bw()' aplica un tema en blanco y negro para la visualización.
+  # Este tema proporciona un fondo claro y líneas oscuras, lo que resulta en un gráfico con alto contraste y fácil de leer.
+  theme_bw()
+
+```
+
+
+### Análisis numérico
+
+Procedemos a realizar un análisis numérico detallado de nuestras variables, empleando estadísticas descriptivas para obtener una comprensión más profunda de los datos.
+
+Calculamos estadísticas descriptivas para todas las variables numéricas en nuestro conjunto de datos, excluyendo la variable 'codigo'. Este paso nos proporciona un resumen numérico detallado de las características de los datos.
+
+```{r}
+lab |> select(where(is.numeric), -codigo) |>  # Selecciona solo las variables numéricas, excluyendo 'codigo'
+  drop_na() |>  # Elimina filas con valores NA
+    descr() # 'descr' es la función que se aplica. Calcula estadísticas descriptivas para todas las variables numéricas.
+```
+
+
+### Tipificación
+
+En esta sección, nos enfocamos en la tipificación de nuestros datos, un proceso que nos permite estandarizar las variables y compararlas en una escala común.
+
+Aquí, calculamos y examinamos los puntajes z para la variable 'ph'. Esto nos permite entender cómo se distribuyen los valores de 'ph' en relación con la media y la desviación estándar de la muestra.
+
+```{r}
+# 'z_ph <- scale(lab$ph)' calcula el puntaje z para la columna 'ph' del dataframe 'lab'.
+z_ph <- scale(lab$ph)
+  # 'scale()' es una función en R que estandariza los datos.
+  # Resta la media y divide por la desviación estándar, resultando en datos con una media de 0 y una desviación estándar de 1.
+  # Esto es útil para normalizar datos, especialmente en preparación para ciertos análisis estadísticos.
+
+# 'mean(z_ph)' calcula la media de los puntajes z de 'ph'.
+mean(z_ph)
+```
+
+Dado que los datos han sido estandarizados, la media debería ser muy cercana a 0. Esto verifica que la estandarización se ha realizado correctamente.
+  
+```{r}
+# 'sd(z_ph)' calcula la desviación estándar de los puntajes z de 'ph'.
+sd(z_ph)
+
+
+```
+
+La desviación estándar de los datos estandarizados debería ser cercana a 1. Esto también sirve como verificación de la estandarización.
+
+
+### Discretización 
+
+Finalmente, abordamos la discretización de nuestras variables, un método que nos permite convertir variables cuantitativas en categorías, facilitando ciertos tipos de análisis.
+
+Comenzamos creando categorías para la variable 'est', dividiéndola en 8 intervalos. Luego, contamos la frecuencia de observaciones en cada intervalo para obtener una visión clara de cómo se distribuyen los valores de 'est'.
+
+```{r}
+# Transforma 'lab' creando una nueva columna 'clases_est' que clasifica 'est' en 8 intervalos
+lab |> 
+  mutate(clases_est = cut(est, breaks = 8)) |> 
+  # Cuenta la frecuencia de cada clase en 'clases_est'
+  count(clases_est)
+
+# Utiliza 'knitr::kable' para crear una tabla formateada de la tabla de proporciones de 'imperfecciones'
+knitr::kable(
+  # Calcula la tabla de proporciones para la columna 'imperfecciones' en 'lab'
+  prop.table(table(lab$imperfecciones)), 
+  # Redondea los números a 4 decimales
+  digits = 4
+)
+
+```
+
+En este paso, generamos intervalos para 'ph' y creamos una tabla de frecuencias para estos intervalos, incluyendo la frecuencia relativa y acumulada.
+
+```{r}
+# Genera un histograma de la columna 'ph' del dataframe 'lab', pero no lo dibuja (plot = FALSE).
+# El resultado se guarda en 'histo', que contiene, entre otros, los límites de los intervalos (breaks).
+histo <- hist(lab$ph, plot = FALSE)
+
+# Actualiza el dataframe 'lab' mediante 'mutate' para añadir una nueva columna 'clase'.
+# 'cut' se utiliza para dividir la columna 'ph' en intervalos basados en los límites encontrados en 'histo$breaks'.
+lab <- lab |> 
+  mutate(clase = cut(ph, breaks = histo$breaks))
+
+# Añade un nivel adicional "(6.4,6.45]" a los factores de la columna 'clase'.
+# Esto es para incluir valores específicos que no estaban originalmente en los intervalos generados por 'hist' porque su suma es frecuencia es 0.
+levels(lab$clase) <- c(levels(lab$clase), "(6.4,6.45]")
+
+# Calcula la tabla de frecuencias para 'lab$clase' y la convierte en un dataframe.
+tabla_frecuencias <- as.data.frame(table(lab$clase))
+
+# Añade una columna para la frecuencia relativa (f) y los acumulados (N y F) redondeado a 0.
+tabla_frecuencias <- tabla_frecuencias |> 
+  mutate(
+    f = round(Freq / sum(Freq), 4), # Frecuencia relativa redondeada a cuatro decimales
+    N = cumsum(Freq),               # Frecuencia acumulada
+    F = round(cumsum(f), 4)         # Frecuencia relativa acumulada redondeada a cuatro decimales
+  )
+
+# Usa 'flextable' para crear una tabla flexible a partir de 'tabla_frecuencias'.
+flextable(tabla_frecuencias) |>
+  # Personaliza los encabezados de la tabla.
+   flextable::set_header_labels(
+      Var1 = "Clase",
+      Freq = "n",
+      f = "Frecuencia Relativa",
+      N = "Frecuencia Acumulada",
+      F = "Frecuencia Relativa Acumulada"
+  )
+
+
+```
+
+
+
+
+
+## Datos bivariantes
+
+Ahora, exploraremos las relaciones bivariantes en nuestro conjunto de datos, observando cómo las variables interactúan entre sí. Esto incluye examinar las relaciones entre pares de variables tanto discretas como continuas.
+
+### Tablas de contingencia: Variables discretas
+
+Primero, analizaremos las variables discretas creando tablas de contingencia, que nos ayudarán a entender las relaciones entre distintas categorías.
+
+Este código genera una tabla de contingencia absoluta entre 'analista' y 'tipo'. Nos permite ver cuántas veces cada tipo de queso ha sido analizado por cada analista.
+
+```{r}
+# Crea una tabla de contingencia absoluta entre las variables 'analista' y 'tipo' y la muestra en formato Markdown
+kable(table(lab$analista, lab$tipo))
+```
+
+Aquí, creamos una tabla de contingencia que muestra las frecuencias relativas para las mismas variables, proporcionando una perspectiva porcentual de la relación entre 'analista' y 'tipo'.
+
+```{r}
+# Crea una tabla de contingencia relativa (frecuencias relativas) para las mismas variables y la muestra con dos decimales
+kable(prop.table(table(lab$analista, lab$tipo)), digits = 2)
+```
+
+Este fragmento utiliza la función `ctable` del paquete 'summarytools' para crear una tabla de contingencia más avanzada, que nos dará una visión detallada de la frecuencia de cada combinación de 'tipo' y 'analista'.
+
+```{r}
+# Crea una tabla de contingencia usando la función 'ctable' del paquete 'summarytools'.
+tabla_contingencia <- summarytools::ctable(lab$tipo, lab$analista)
+  # 'summarytools::ctable' es una función del paquete 'summarytools' que se utiliza para crear tablas de contingencia.
+  # 'lab$tipo' y 'lab$analista' son las dos variables del dataframe 'lab' que se están comparando.
+  # La tabla de contingencia resultante mostrará la frecuencia de cada combinación de 'tipo' y 'analista'.
+
+```
+
+#### Distribuciones condicionadas
+
+En esta subsección, nos centramos en las distribuciones condicionadas dentro de nuestra tabla de contingencia para obtener insights más específicos.
+
+Este código filtra la tabla de contingencia para mostrar solo las entradas correspondientes a 'analista_13', permitiéndonos examinar de cerca los tipos de quesos que este analista ha revisado.
+
+```{r}
+
+# Selecciona la primera tabla de la lista 'tabla_contingencia', la convierte en un tibble y filtra por 'analista_13'.
+tabla_contingencia[[1]] |> 
+  # 'as_tibble()' convierte la tabla (que probablemente sea una matriz o dataframe) en un tibble, que es un tipo de dataframe moderno en R.
+  as_tibble() |> 
+  # 'filter(analista == 'analista_13')' filtra las filas donde la columna 'analista' es igual a 'analista_13'.
+  filter(analista == 'analista_13')
+
+```
+
+Aquí, realizamos un filtrado similar para la variable 'tipo', centrándonos específicamente en el tipo 'A' para ver qué analistas han trabajado con este tipo de queso.
+
+```{r}
+# Selecciona la primera tabla de la lista 'tabla_contingencia', la convierte en un tibble y filtra por 'tipo == 'A''.
+tabla_contingencia[[1]] |> 
+  # 'as_tibble()' convierte la tabla en un tibble.
+  as_tibble() |> 
+  # 'filter(tipo == 'A')' filtra las filas donde la columna 'tipo' es igual a 'A'.
+  filter(tipo == 'A')
+```
+
+
+### Tablas de contingencia: Variables continuas
+
+Ahora, nos movemos hacia las variables continuas, transformándolas en categorías y examinando sus relaciones a través de tablas de contingencia.
+
+Este fragmento de código primero determina los intervalos para las variables 'ph' y 'est' y luego crea una tabla de contingencia para estas variables categorizadas. La inclusión de totales nos proporciona una comprensión completa de cómo se distribuyen estas variables en relación con las demás.
+
+```{r}
+# Genera histogramas para las variables 'ph' y 'est' sin mostrar los gráficos, para determinar los intervalos de clase
+histo <- hist(lab$ph, plot = FALSE)
+histo2 <- hist(lab$est, plot = FALSE, breaks = 4)
+# Clasifica las variables 'ph' y 'est' en categorías basadas en los intervalos anteriores y añade estas categorías al dataframe
+lab <- lab |> 
+  mutate(clase_ph = cut(ph, breaks = histo$breaks)) |> 
+  mutate(clase_est = cut(est, breaks = histo2$breaks))
+# Ajusta manualmente los niveles de la variable 'clase_ph' para incluir un intervalo específico
+levels(lab$clase_ph) <- c(levels(lab$clase_ph), "(6.4,6.45]")
+
+# Crea una tabla de contingencia entre las categorías de 'ph' y 'est', añadiendo totales con addmargins(), y la muestra
+tabla <- table(lab$clase_ph, lab$clase_est) |> addmargins()
+tabla |> kable()
+```
+
+
+### Covarianza y correlación
+
+Finalmente, analizamos las relaciones numéricas entre variables mediante el cálculo de la covarianza y la correlación.
+
+Este código calcula la matriz de covarianza para todas las variables numéricas en nuestro conjunto de datos, proporcionando una visión de cómo varían conjuntamente las variables.
+
+```{r}
+lab |> select(where(is.numeric), -codigo) |>  # Selecciona solo las variables numéricas, excluyendo 'codigo'
+  drop_na() |>  # Elimina filas con valores NA
+  cov() |>  # Calcula la matriz de covarianzas
+  round(2)  # Redondea los resultados a 2 decimales
+```
+
+A continuación, calculamos y redondeamos la matriz de correlación para las mismas variables, que nos muestra la fuerza y la dirección de las relaciones lineales entre ellas.
+
+```{r}
+lab |> select(where(is.numeric), -codigo) |>  # Selecciona solo las variables numéricas, excluyendo 'codigo'
+  drop_na() |>  # Elimina filas con valores NA
+  cor() |>  # Calcula la matriz de correlación
+  round(2)  # Redondea los resultados a 2 decimales
+```
+
+Finalmente, visualizamos la matriz de correlación usando el método de 'ellipse', lo que facilita la interpretación visual de estas correlaciones.
+
+```{r}
+# 'lab |> select(where(is.numeric), -codigo)' selecciona las columnas numéricas del dataframe 'lab', excluyendo la columna 'codigo'.
+lab |> 
+  select(where(is.numeric), -codigo) |> 
+  # 'drop_na()' elimina todas las filas que contienen valores NA (faltantes).
+  drop_na() |> 
+  # 'cor()' calcula la matriz de correlación entre las columnas numéricas seleccionadas.
+  cor() |> 
+  # 'round(2)' redondea los coeficientes de correlación a dos decimales.
+  round(2) |> 
+  # 'corrplot()' visualiza la matriz de correlación.
+  corrplot(
+    method = "ellipse",  # 'method = "ellipse"' utiliza elipses para representar los coeficientes de correlación.
+    type = "lower",      # 'type = "lower"' muestra solo la mitad inferior de la matriz de correlación.
+    addCoef.col = "steelblue",  # 'addCoef.col = "steelblue"' establece el color de los coeficientes de correlación.
+    diag = FALSE         # 'diag = FALSE' omite la diagonal principal de la matriz, que siempre es 1.
+  )
+```
+
+
+### Gráficos de barras
+
+En esta sección, utilizamos gráficos de barras para explorar las relaciones entre dos variables categóricas, 'tipo' y 'analista'. Estos gráficos nos permiten visualizar la frecuencia de cada categoría de manera efectiva.
+
+Este gráfico de barras muestra la cantidad de cada tipo de queso analizado por cada analista, proporcionando una visión general de la distribución de los trabajos entre los analistas.
+
+```{r}
+# Gráficos de barras para frecuencias conjuntas
+# Crea un gráfico de barras para las variables 'tipo' y 'analista' usando ggplot2
+lab |> # Toma el dataframe 'lab'
+  ggplot(aes(x = tipo, fill = analista)) + # Inicializa ggplot2, asignando 'tipo' al eje x y coloreando por 'analista'
+  geom_bar() + # Añade un gráfico de barras, que por defecto cuenta la cantidad de cada 'tipo'
+  theme_bw() # Aplica un tema en blanco y negro para una visualización más clara y profesional
+```
+
+
+Este código mejora el gráfico de barras anterior separando las barras para cada analista dentro de cada tipo de queso, lo que facilita comparar la carga de trabajo de los analistas para cada tipo.
+
+```{r}
+lab |> # Toma el dataframe 'lab'
+  ggplot(aes(x = tipo, fill = analista)) + # Inicializa ggplot2, asignando 'tipo' al eje x y coloreando por 'analista'
+  geom_bar(position = position_dodge()) + # Añade un gráfico de barras con barras separadas por 'analista' dentro de cada 'tipo'
+  theme_bw() # Aplica un tema en blanco y negro para una visualización más clara y profesional
+```
+
+### Histogramas
+
+Los histogramas nos ayudan a comprender la distribución de variables continuas. Aquí, exploramos la variable 'ph' en función de la categoría de 'tipo'.
+
+Este histograma muestra la distribución del pH para diferentes tipos de queso, con colores distintos para cada tipo, lo que nos permite comparar visualmente cómo varía el pH entre los tipos.
+
+```{r}
+# Crear un histograma de 'ph' con colores basados en 'tipo'
+ggplot(lab, aes(x = ph, fill = tipo)) +
+  # Añadir la capa de histograma
+  geom_histogram(
+    bins = 15, 
+    alpha = 0.7,  # Ajusta la transparencia para mejor visualización
+    position = 'identity'  # Superpone las barras
+  ) +
+  # Definir los títulos de los ejes y el gráfico
+  labs(
+    title = "Histograma de pH por Tipo", 
+    x = "pH", 
+    y = "Frecuencia"
+  ) +
+  # Aplicar un tema
+  theme_bw() +
+  # Añadir leyenda (automáticamente generada por ggplot)
+  guides(fill=guide_legend(title="Tipo"))
+```
+
+
+### Gráficos de dispersión
+
+Los gráficos de dispersión son fundamentales para visualizar y entender las relaciones entre dos variables continuas.
+
+Este gráfico muestra la relación entre 'est' y 'mg', proporcionando una visión general de cómo estas dos variables se relacionan en todo el conjunto de datos.
+
+```{r}
+# Gráfico de dispersión
+# Crea un gráfico de dispersión para las variables 'est' y 'ph'
+lab |> 
+  # 'ggplot()' inicia una gráfica utilizando el paquete ggplot2. 'aes()' define las estéticas del gráfico, asignando 'est' al eje x y 'mg' al eje y.
+  ggplot(aes(x = est, y = mg)) +
+  # 'geom_point()' añade capas de puntos al gráfico, lo que crea un gráfico de dispersión con puntos representando las combinaciones de 'est' y 'mg'.
+  geom_point()
+
+```
+
+Añadimos una línea de tendencia a nuestro gráfico de dispersión para resaltar la relación general entre 'est' y 'mg', lo que puede indicar la presencia de una correlación.
+
+```{r}
+# Gráfico de dispersión
+# Crea un gráfico de dispersión para las variables 'est' y 'mg'
+lab |> 
+  # 'ggplot()' inicia una gráfica utilizando el paquete ggplot2. 'aes()' define las estéticas del gráfico, asignando 'est' al eje x y 'mg' al eje y.
+  ggplot(aes(x = est, y = mg)) +
+  # 'geom_point()' añade capas de puntos al gráfico, lo que crea un gráfico de dispersión con puntos representando las combinaciones de 'est' y 'mg'.
+  geom_point() +
+  # 'geom_smooth()' añade una línea de tendencia o ajuste al gráfico. Por defecto, realiza un ajuste de regresión lineal que muestra la tendencia general entre 'est' y 'mg'.
+  geom_smooth(method = lm) +
+  # 'labs()' permite personalizar las etiquetas del gráfico, como el título. Aquí se establece el título del gráfico.
+  labs(title = "Gráfico de dispersión con ajuste de regresión")
+
+```
+
+Este gráfico mejora los anteriores al colorear los puntos según el tipo de queso y añadir una línea de ajuste, lo que nos permite ver cómo la relación entre 'est' y 'mg' varía entre los diferentes tipos. (Paradoja de Simpson)
+
+```{r}
+# Gráfico de dispersión
+# Crea un gráfico de dispersión para las variables 'est' y 'ph'
+lab |> 
+  # 'ggplot()' inicia una gráfica utilizando el paquete ggplot2. 'aes()' define las estéticas del gráfico, asignando 'est' al eje x y 'mg' al eje y.  Además, la estética 'col' se usa para colorear los puntos según el valor de la variable 'tipo'.
+  ggplot(aes(x = est, y = mg, col = tipo)) +
+  # 'geom_point()' añade capas de puntos al gráfico, lo que crea un gráfico de dispersión con puntos representando las combinaciones de 'est' y 'mg'.
+    geom_point() +
+  # 'geom_smooth()' añade una línea de tendencia o ajuste al gráfico. Realiza un ajuste de regresión lineal que muestra la tendencia general entre 'est' y 'mg', para cada valor de la varaible tipo.
+  geom_smooth(method = lm) +
+  # 'labs()' permite personalizar las etiquetas del gráfico, como el título. Aquí se establece el título del gráfico.
+  labs(title = "Gráfico de dispersión con ajuste de regresión")
+```
+
+### Box-plot
+
+Los box-plots nos ofrecen una forma clara de ver la distribución de una variable continua entre diferentes categorías.
+
+Este box-plot muestra la distribución del pH para diferentes tipos de queso, lo que nos ayuda a entender la variabilidad del pH en cada tipo.
+
+```{r}
+# Gráficos de cajas por grupos
+lab |> 
+  ggplot(aes(x = tipo, y = ph)) +  # Define las variables para el eje x ('tipo') y el eje y ('ph')
+  geom_boxplot() +  # Crea un gráfico de cajas
+  theme_bw() +  # Utiliza un tema en blanco y negro para el gráfico
+  labs(title = "pH por tipo de queso")  # Añade un título al gráfico
+```
+
+Este código genera box-plots del pH para cada analista, añadiendo puntos individuales coloreados por tipo de queso, proporcionando una visión detallada de la variabilidad del pH según el analista y el tipo.
+
+```{r}
+# Gráficos de cajas por grupos eje y color 
+lab |> 
+  ggplot(aes(x = analista, y = ph)) +  # Establece 'analista' en el eje x y 'ph' en el eje y
+  geom_boxplot() +  # Genera el gráfico de cajas
+  geom_jitter(aes(col = tipo), alpha = 0.2) +  # Añade puntos individuales para mostrar la distribución, con color por 'tipo'
+  theme_bw() +  # Aplica un tema en blanco y negro
+  labs(title = "pH por analista")  # Asigna un título al gráfico
+```
+
+### Gráfico resumen
+
+Este código crea una serie completa de gráficos bivariantes que muestran cómo cada par de variables seleccionadas ('ph', 'est', 'mg', 'sal') se relacionan entre sí, con una distinción de colores basada en la variable categórica 'tipo'. Es una manera eficiente de obtener una visión general de las relaciones entre múltiples variables en un conjunto de datos y es especialmente útil para identificar patrones, correlaciones y posibles anomalías.
+
+```{r}
+# 'ggpairs()' es una función del paquete GGally que crea pares de gráficos para cada combinación de variables.
+ggpairs(
+    # 'lab |> select(ph, est, mg, sal, tipo)' selecciona las columnas específicas 'ph', 'est', 'mg', 'sal' y 'tipo' del dataframe 'lab'.
+    lab |> select(ph, est, mg, sal, tipo),
+    # 'aes(col = tipo)' define las estéticas para el gráfico, en este caso, asignando diferentes colores a cada valor de 'tipo'.
+    aes(col = tipo)
+)
+```
+
+### Análisis numérico
+
+Aquí, nos centramos en el análisis numérico para obtener estadísticas descriptivas de nuestro conjunto de datos.
+
+#### Vector de medias
+
+Calculamos la media de todas las variables numéricas en el conjunto de datos para obtener una visión general de las tendencias centrales.
+
+```{r}
+lab |>  select(where(is.numeric), -codigo) |>   # Selecciona todas las columnas numéricas menos el código
+  drop_na() |>  # Elimina las filas con valores NA
+  summarise(across(everything(), mean))  # Calcula la media para las columnas seleccionadas
+```
+
+#### Resumen numérico 
+
+Este código proporciona un resumen estadístico detallado de la variable 'mg', desglosado por cada tipo de queso, lo que nos permite comparar las características de 'mg' entre los diferentes tipos.
+
+```{r}
+# Resumen numérico de una variable continua para cada categoría de otra discreta
+# 'with(lab, stby(mg, tipo, descr))' aplica una función a un subconjunto de datos dentro del dataframe 'lab'.
+with(
+  # 'lab' es el dataframe que contiene los datos.
+  lab, 
+  # 'stby()' es una función que aplica otra función ('descr' en este caso) a subconjuntos de datos.
+  # Aquí se aplica 'descr' a la variable 'mg', agrupada por los valores de 'tipo'.
+  stby(
+    # 'mg' es la variable a la que se le aplicará la función 'descr'.
+    mg, 
+    # 'tipo' es la variable de agrupación. 'descr' se aplicará por separado a los grupos definidos por 'tipo'.
+    tipo, 
+    # 'descr' es la función que se aplica. Calcula estadísticas descriptivas para 'mg' dentro de cada grupo de 'tipo'.
+    descr
+  )
+)
+```
+
+### Regresión
+
+Finalmente, utilizamos modelos de regresión lineal para explorar las relaciones entre variables continuas.
+
+Este fragmento de código muestra un gráfico de dispersión de 'est' en función de 'mg' con una línea de regresión, resaltando la relación lineal entre estas variables.
+
+```{r}
+# Recta de refresión de la variable 'est' en función de 'mg'
+lab |> 
+  slice(1:15) |>  # Selecciona los primeros 15 registros
+  select(mg, est) |>  # Selecciona las columnas 'mg' y 'est'
+  ggplot(aes(x=mg, y = est)) +  # Define las variables para el gráfico
+  geom_point() +  # Añade puntos al gráfico
+  theme_bw() +  # Aplica un tema en blanco y negro
+  geom_smooth(method = lm, se = FALSE)  # Añade una línea de regresión lineal sin intervalo de confianza
+```
+
+Este código crea un modelo lineal para predecir 'est' a partir de 'mg' y proporciona un resumen detallado del modelo, incluyendo estadísticas como el R-cuadrado y los coeficientes.
+
+```{r}
+# Creación y resumen de un modelo lineal para 'est' en función de 'mg'
+mod <- lab |> 
+  slice(1:15) |>  # Selecciona los primeros 15 registros
+  select(mg, est) |>  # Selecciona las variables 'mg' y 'est'
+  with(lm(est ~ mg))  # Crea un modelo lineal de 'est' en función de 'mg'
+
+# Muestra un resumen del modelo lineal
+# Esto incluye estadísticas como el R-cuadrado, los coeficientes del modelo, sus errores estándar, valores t y p-valores.
+# Es útil para evaluar la calidad del ajuste y la significancia de las variables.
+summary(mod)
+```
+
+Aquí, filtramos el conjunto de datos para incluir solo el tipo 'C' de queso y luego ajustamos un modelo lineal, lo que nos permite ver cómo la relación entre 'est' y 'mg' difiere para este tipo específico.
+
+```{r}
+# Recta de refresión de la variable 'est' en función de 'mg' filtrando por tipo 'C'
+lab |> 
+  # 'filter(tipo == "C")' filtra el dataframe para incluir solo las filas donde la columna 'tipo' es igual a "C".
+  filter(tipo == "C") |> 
+  # 'ggplot(aes(x = mg, y = est))' inicia la creación de un gráfico ggplot2, definiendo 'mg' como la variable del eje x y 'est' como la del eje y.
+  ggplot(aes(x = mg, y = est)) +
+  # 'geom_point()' añade una capa de puntos al gráfico, mostrando la relación entre 'mg' y 'est' para las observaciones donde 'tipo' es "C".
+  geom_point() +
+  # 'geom_smooth(method = "lm")' añade una línea de ajuste lineal al gráfico. 'method = "lm"' indica que se usa un modelo lineal para el ajuste.
+  geom_smooth(method = "lm")
+
+```
+
+En esta parte del análisis, nos enfocamos en construir un modelo de regresión lineal para un subconjunto específico de nuestro conjunto de datos, permitiéndonos explorar la relación entre 'est' y 'mg' para un tipo particular de queso, proporcionando un resumen detallado del modelo.
+
+```{r}
+# 'modelo <- lm(est ~ mg, data = lab, subset = tipo == "C")' crea un modelo lineal.
+modelo <- lm(
+    # 'est ~ mg' define la fórmula del modelo, donde 'est' es la variable dependiente y 'mg' la variable independiente.
+    est ~ mg, 
+    # 'data = lab' especifica que los datos para el modelo provienen del dataframe 'lab'.
+    data = lab, 
+    # 'subset = tipo == "C"' restringe el análisis a las filas del dataframe donde 'tipo' es igual a "C".
+    subset = tipo == "C"
+)
+# 'summary(modelo)' proporciona un resumen del modelo lineal ajustado.
+# Esto incluye estadísticas como el R-cuadrado, los coeficientes del modelo, sus errores estándar, valores t y p-valores.
+# Es útil para evaluar la calidad del ajuste y la significancia de las variables.
+summary(modelo)
+```
+
+# Conclusiones 
+
+El Análisis Exploratorio de Datos (EDA) en este laboratorio ha servido como marco de trabajo integral para aplicar y demostrar conceptos estadísticos esenciales. A través de este enfoque, hemos explorado y analizado los datos desde múltiples perspectivas, utilizando una variedad de técnicas y métodos estadísticos.
+
+## Aplicación del EDA y sus Componentes
+
+1. **Tablas de Frecuencias y Contingencia**: Dentro del marco del EDA, las tablas de frecuencias y de contingencia han proporcionado una visión inicial y fundamental de la distribución y las relaciones entre las variables categóricas en nuestros datos.
+
+2. **Diversidad de Técnicas de Visualización**: Hemos empleado gráficos como histogramas, gráficos de barras, de dispersión y box plots para visualizar y comprender mejor las características de los datos. Cada tipo de gráfico ha aportado insights únicos, revelando distribuciones, relaciones y patrones clave.
+
+3. **Medidas de Tendencia Central y Dispersión**: Como parte del EDA, la evaluación de la media, mediana, rango y desviación estándar ha sido crucial para resumir y describir las características centrales y la variabilidad de los datos.
+
+4. **Identificación de Correlaciones y Modelado de Regresión**: El análisis de correlaciones y la aplicación de modelos de regresión lineal han sido fundamentales para entender la interacción entre variables, proporcionando una base para inferencias más profundas y predicciones.
+
+5. **Enfoque Integral del EDA**: La implementación del EDA ha permitido un análisis sistemático y profundo del conjunto de datos, abarcando desde la identificación inicial de patrones y valores atípicos hasta la evaluación de relaciones complejas y tendencias.
+
+
+En resumen, este laboratorio ha demostrado cómo los elementos teóricos de la estadística descriptiva pueden ser aplicados eficazmente para el análisis de datos. El EDA Nos permite no solo comprender los datos a un nivel superficial, sino también descubrir las historias y los patrones que yacen en su interior, preparando el terreno para análisis estadísticos más avanzados.
+
+<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
+<img src="../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
+DSLAB - Universidad Rey Juan Carlos
+</div>

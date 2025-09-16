@@ -37,6 +37,9 @@ book:
   chapters:
     - index.qmd
     - tema0_intro.qmd
+    - tema1_EDA1.qmd
+    - tema1_EDA2.qmd
+    - tema1_EDA3.qmd
 
 format:
   pdf:

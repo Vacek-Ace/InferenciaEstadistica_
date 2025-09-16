@@ -4,6 +4,7 @@ subtitle: "Inferencia Estadística"
 author: 
   - "Víctor Aceña Gil"
   - "Isaac Martín de Diego"
+  - "Carmen Lancho Martín"
 date: today
 lang: es
 format: 
