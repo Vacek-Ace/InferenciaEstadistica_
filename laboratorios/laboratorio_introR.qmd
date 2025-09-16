@@ -1129,114 +1129,191 @@ el análisis, incrustando el código dentro del propio informe. Tenemos así
 la narrativa y el código en el mismo sitio, y el informe se genera cuando se necesita,
 estando actualizado automáticamente.
 
-El flujo de trabajo sería el siguiente (véase la figura \@ref(fig:workflow)): los contenidos se encuentran en ficheros fuente (código, datos, imágenes, ...). Estos ficheros fuente, se compilan y producen los materiales en los
+El flujo de trabajo sería el siguiente: los contenidos se encuentran en ficheros fuente (código, datos, imágenes, ...). Estos ficheros fuente, se compilan y producen los materiales en los
 formatos necesarios. Los cambios se hacen una vez, y todos los materiales son
 actualizados adecuadamente.
 
+Para utilizar este enfoque, utilizamos archivos **Quarto**, el sistema moderno de publicación científica y técnica de código abierto.
 
-```{r workflow, echo=FALSE, fig.cap="Flujo de trabajo reproducible", echo=FALSE, purl=FALSE, fig.width=6, fig.asp=0.6, fig.align='center', out.width="80%", results='hold',purl=FALSE}
-knitr::include_graphics("img/workflow2.png")
-```
+## ¿Qué es Quarto?
 
-Para utilizar este enfoque, utilizamos archivos R Markdown
+Quarto es la nueva generación de R Markdown, desarrollado por Posit. Es un sistema de publicación que unifica y amplía el ecosistema R Markdown, con soporte nativo para múltiples lenguajes (R, Python, Julia, Observable JS) y mejores capacidades de publicación.
 
-Markdown es un tipo de ficheros de texto pensado para que se pueda leer bajo
-cualquier circunstancia, con una sintaxis muy simple que permite leerlo
-directamente por las personas, o ser convertido por un ordenador 
-en otro formato más elaborado, como por ejemplo HTML
-(página web) o Microsoft Word. En RStudio, se pueden crear ficheros **R Markdown**
-utilizando esta sintaxis para
-las explicaciones de nuestro análisis, e incluir dentro "trozos" (_chunks_) de
-código de forma que al generar el informe, el resultado de ese código queda
-incluido en el documento de salida. Así, si una vez terminado el informe se nos ha olvidado,
-por ejemplo,
-incluir un gráfico, sólo tenemos que añadir las líneas de código que lo crean y
-volver a generar el informe.
+## Creando documentos Quarto
 
-Para crear un nuevo documento R Markdown en RStudio, seleccionamos _R Markdown ..._ en el
+Para crear un nuevo documento Quarto en RStudio, seleccionamos _Quarto Document..._ en el
 icono de nuevo archivo de la barra de herramientas o en el menú _File_. Hay varios tipos
-de tipos de archivo, seleccionamos: _Document_ (documento). Empezamos con formato 
-HTML (se puede cambiar después).
+de tipos de archivo, seleccionamos: _Document_ (documento). Podemos elegir entre diferentes formatos 
+de salida (HTML, PDF, Word) desde el inicio.
 
-Una vez hacemos clic en el botón _OK_ de la ventana _New R Markdown_, se abre en 
-el editor de RStudio un archivo R Markdown con una estructura básica a modo de plantilla, véase la figura
-\@ref(fig:rsmd3). Los elementos principales de un archivo R Markdown aparecen en esta plantilla:
+Una vez hacemos clic en el botón _Create_ de la ventana _New Quarto Document_, se abre en 
+el editor de RStudio un archivo Quarto (.qmd) con una estructura básica a modo de plantilla. Los elementos principales de un archivo Quarto son:
 
-- Encabezado YAML (1): Constituyen la configuración del documento, y controlan sobre todo las opciones de salida, cómo será el resultado. Este encabezado se encuentra entre dos líneas con tres guiones (`---`),
-donde se expresan las opciones como `opcion: valor`, y estos valores además se pueden anidar.
+### Encabezado YAML
 
-- Texto formateado (2): Con una sintaxis muy sencilla, podemos dar formato al texto, como negritas, listas, etc.
+Constituyen la configuración del documento, y controlan sobre todo las opciones de salida. Este encabezado se encuentra entre dos líneas con tres guiones (`---`):
 
-- Fragmentos de código (_chunks_) (3): Al generar el documento, se ejecutará el código dentro de estos
-fragmentos, y en el documento resultante se mostrará el resultado. En cada fragmento de código al situar el ratón sobre ellos aparecen tres botones que nos sirven para configurar las opciones del chunk, ejecutar todos los chunks anteriores y ejecutar el chunk actual.
-
-La barra de herramientas del editor ofrece nuevas opciones:
-
-- El botón _Knit_ (tejer) (4) "renderiza" el documento R Markdown produciendo el archivo de salida configurado. Se puede desplegar un menú para cambiar el formato de salida y otras opciones.
-
-- El botón de opciones (5) permite realizar algunos ajustes generales de entrada y salida.
-
-- El botón _Insert_ (6) nos permite insertar un nuevo fragmento de código. Se pueden insertar fragmentos
-de otros lenguajes diferentes a R, pero en este curso no lo haremos.
-
-- Con las flechas de navegación (7) podemos movernos entre los _chunks_ del 
-documento. También
-podemos usar el selector de esquema (8) para ir a un fragmento de código o 
-apartado concreto del documento.
-
-- Desde el menú _Run_ (9) se puede ejecutar el código de los distintos _chunks_.
-
-- El menú _Publish_ nos permitiría publicar el documento en algún servicio como [_RPubs_](https://rpubs.com) (10)
-
-- El botón _Outline_ (11) muestra un esquema para navegar por el documento (12), donde aparecerán los encabezados formateados con Markdown.
-
-
-```{r rsmd3, fig.cap="Estructura de un documento R Markdown y opciones del editor", echo=FALSE, purl=FALSE, fig.width=6, fig.asp=0.6, fig.align='center', out.width="100%", results='hold', purl=FALSE} 
-knitr::include_graphics("img/rsmd3.png")
+```yaml
+---
+title: "Mi Análisis"
+author: "Tu Nombre"
+date: today
+format: 
+  html:
+    toc: true
+    theme: cosmo
+  pdf:
+    documentclass: article
+execute:
+  warning: false
+  echo: true
+---
 ```
 
-Para generar el documento, guardamos el documento en cualquier carpeta de nuestro
-proyecto y utilizamos el icono de
-"bordado" (_knit_). Si en vez de pulsarlo directamente hacemos clic en el
-triángulo de la derecha, podemos seleccionar el formato de salida (html, pdf o Word). 
-El archivo de destino, con extensión .html, .pdf o .docx según el caso,
-quedará guardado en la carpeta donde se encuentre el archivo R Markdown.
+### Texto formateado
 
-Hay una guía rápida de
-Markdown (_Markdown Quick Reference_) disponible en el menú de ayuda de RStudio, así como enlaces a dos
-_Cheatsheets_: _R Markdown Cheatsheet_ y _R Markdown Reference Guide_. Esta última es
-la más completa y donde encontraremos todas las opciones disponibles. 
+Con una sintaxis Markdown mejorada, podemos dar formato al texto:
 
-Hay muchas opciones para hacer informes impactantes, pero para hacer las prácticas
-es suficiente con escribir el texto explicativo y poner el código adecuado en
-los chunks, de forma que se genere un informe sencillo. 
+- **Negritas** con `**texto**`
+- *Cursivas* con `*texto*`
+- `código inline` con backticks
+- Enlaces: `[texto](URL)`
+- Listas numeradas y con viñetas
 
-Para mostrar tablas formateadas, en vez de como output de la consola, puedes
-utilizar la función `kable` del paquete `knitr`.
+### Fragmentos de código (chunks)
 
-Podemos usar el editor visual que nos permite
-ir viendo en tiempo real el texto formateado, con lo que no tenemos
-que estar generando el output continuamente para ver "cómo queda". Podemos
-cambiar entre el editor de texto plano y el editor visual con el icono que
-aparece en la parte superior derecha del editor.
+En Quarto, los chunks se definen con:
 
-Consulta el documento [Visual R Markdown](https://rstudio.github.io/visual-markdown-editing/#/) para
-conocer todas las opciones.
+```{r}
+#| label: mi-chunk
+#| echo: true
+#| warning: false
+
+# Tu código R aquí
+summary(cars)
+```
 
 
-:::{.rmdpractica data-latex=""}
-Crea un archivo R Markdown. Basándote en la plantilla, cambia los textos de
-los encabezados. Añade _chunks_ para hacer algunas de las cosas que hemos
-hecho en esta práctica:
+## Opciones de chunks en Quarto
 
-* Importar datos
-* Transformar datos
-* Mostrar datos (con la función `kable`)
-* Explorar datos
+Quarto utiliza una sintaxis más clara para las opciones de chunks con `#|`:
 
-Experimenta con las opciones de los _chunks_.
+- `#| echo: false` - No mostrar el código
+- `#| eval: false` - No ejecutar el código
+- `#| include: false` - No incluir ni código ni resultados
+- `#| warning: false` - Suprimir advertencias
+- `#| message: false` - Suprimir mensajes
+- `#| fig-cap: "Título del gráfico"` - Añadir título a figuras
+- `#| label: nombre-chunk` - Etiquetar el chunk
+- `#| output-location: column` - Controlar ubicación de salida
 
+## Renderizado de documentos
+
+Para generar el documento, guardamos el archivo .qmd en nuestro proyecto y utilizamos:
+
+- El botón _Render_ en RStudio (equivalente al anterior _Knit_)
+- El comando `quarto render documento.qmd` desde la terminal
+- `Ctrl+Shift+K` (atajo de teclado)
+
+## Formatos de salida
+
+Quarto ofrece múltiples formatos de salida mejorados:
+
+### HTML
+```yaml
+format:
+  html:
+    toc: true
+    toc-location: left
+    code-fold: true
+    theme: cosmo
+    embed-resources: true
+```
+
+### PDF
+```yaml
+format:
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    include-in-header: 
+      - text: |
+          \usepackage{fvextra}
+          \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+```
+
+### Word
+```yaml
+format:
+  docx:
+    reference-doc: custom-reference.docx
+    toc: true
+```
+
+### Presentaciones
+```yaml
+format:
+  revealjs:
+    theme: dark
+    transition: slide
+```
+
+## Ventajas de Quarto sobre R Markdown
+
+1. **Sintaxis más clara**: Las opciones de chunks con `#|` son más legibles
+2. **Mejor soporte multilenguaje**: R, Python, Julia, Observable JS nativamente
+3. **Formatos de salida mejorados**: Mejor HTML, PDF más confiable, nuevos formatos
+4. **Publicación integrada**: Quarto Pub, GitHub Pages, Netlify, etc.
+5. **Editor visual mejorado**: Mejor experiencia de edición
+6. **Proyectos y sitios web**: Capacidades avanzadas para proyectos complejos
+
+## Tablas y visualización
+
+Para mostrar tablas formateadas, puedes usar:
+
+```{r}
+#| label: tabla-ejemplo
+#| tbl-cap: "Resumen de datos"
+
+library(knitr)
+kable(head(mtcars))
+
+# O mejor aún, con gt para tablas más elegantes
+library(gt)
+gt(head(mtcars))
+```
+
+## Editor visual
+
+Quarto mantiene y mejora el editor visual de RStudio, permitiendo:
+- Edición WYSIWYG
+- Inserción de tablas, imágenes y referencias
+- Mejor manejo de ecuaciones matemáticas
+- Soporte para diagramas (Mermaid, Graphviz)
+
+:::{.callout-tip}
+## Práctica recomendada
+
+Crea un archivo Quarto (.qmd). Experimenta con:
+
+* Diferentes formatos de salida (HTML, PDF, Word)
+* Chunks de R con distintas opciones usando `#|`
+* Callouts (cuadros de información)
+* Tablas con `gt` o `kable`
+* Gráficos con títulos y opciones de visualización
+* Referencias cruzadas a figuras y tablas
+
+Utiliza `quarto render` para generar tu documento en diferentes formatos.
 :::
+
+## Recursos adicionales
+
+- [Guía oficial de Quarto](https://quarto.org/docs/guide/)
+- [Galería de Quarto](https://quarto.org/docs/gallery/)
+- [Migración de R Markdown a Quarto](https://quarto.org/docs/faq/rmarkdown.html)
+- Cheatsheet de Quarto disponible en RStudio
+
+Quarto representa el futuro de la investigación reproducible, ofreciendo todas las capacidades de R Markdown con mejoras significativas en usabilidad, flexibilidad y opciones de publicación.
 
 
 <div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
