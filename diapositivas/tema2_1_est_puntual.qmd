@@ -1,5 +1,5 @@
 ---
-title: "Estimación puntual"
+title: "Estadística paramétrica. Estimación puntual"
 author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
 institute: "DSLAB"
 date: last-modified
@@ -306,17 +306,25 @@ Este método se basa en igualar los momentos muestrales (calculados a partir de 
 
 En estadística, los **momentos poblaciones** de una distribución son medidas que describen diversas características de la misma, como su media, varianza, simetría y curtosis. Los momentos más comunes son:
 
-1.  Primer momento (media): $\mu = E[X]$
+::: {.columns}
+::: {.column width="60%"}
+1.  **Primer momento (media):**
+    $\mu = E[X]$
+2.  **Segundo momento:**
+    $\mu_2 = E[X^{2}]$
+3.  **Tercer momento (asimetría):**
+    $\mu_3 = E[X^{3}]$
+4.  **Cuarto momento (curtosis):**
+    $\mu_4 = E[X^{4}]$
+:::
+::: {.column width="40%"}
+<br>
+... y en general:
 
-2.  Segundo momento (varianza): $\mu_2 = E[X^{2}]$
-
-3.  Tercer momento (asimetría): $\mu_3 = E[X^{3}]$
-
-4.  Cuarto momento (curtosis): $\mu_4 = E[X^{4}]$
-
-<!-- -->
-
-k.  $k$-ésimo momento: $\mu_k = E[X^{k}]$
+**k-ésimo momento:**
+$\mu_k = E[X^{k}]$
+:::
+:::
 
 Recordemos que:
 
@@ -327,8 +335,7 @@ Recordemos que:
 # Momento muestral
 
 Los momentos muestrales se definen como:
-
-$m_k=\frac{1}{n}\sum_{i=1}^n x_i^k$
+$$m_k=\frac{1}{n}\sum_{i=1}^n x_i^k$$
 
 # Pasos del método de los momentos
 

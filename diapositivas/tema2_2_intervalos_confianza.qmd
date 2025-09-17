@@ -1,15 +1,33 @@
 ---
 title: "Estadística paramétrica. Intervalos de confianza"
-author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
-date: "Curso académico 2024-2025"
-
-bibliography: References.bib
+author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
+institute: "DSLAB"
+date: last-modified
+bibliography: ../References.bib
 
 format: 
   beamer: 
-    template: dslab.beamer.tex
-
-editor: visual
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    navigation: horizontal
+    section-titles: false
+    toc: false
+    slide-level: 1
+    aspectratio: 169
+    header-includes: |
+      \usepackage{dslab-new}
+      \usedslabmodelos
+knitr:
+  opts_chunk:
+    fig.width: 6
+    fig.height: 4
+    fig.align: "center"
+    dev: "pdf"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 # ¿De dónde venimos?
@@ -139,7 +157,7 @@ $$
 
 Nótese que, como la distribución Normal es simétrica: $z_{1-\alpha/2}=-z_{\alpha/2}$
 
-![](images/Normal_uppertail.png){fig-align="center" width="220"}
+![](../images/Normal_uppertail.png){fig-align="center" width="220"}
 
 # IC para la media con var conocida
 
@@ -194,9 +212,9 @@ Pensemos juntos...¿qué factores pueden influir en la longitud intervalo de con
 # Aclaración cuantiles
 
 ::: {layout-ncol="2"}
-![Cola superior](images/Normal_uppertail.png){alt="Cola superior" width="220"}
+![Cola superior](../images/Normal_uppertail.png){alt="Cola superior" width="220"}
 
-![Cola inferior (en R: lower.tail = TRUE)](images/Normal_lowertail.png){alt="Cola inferior (en R: lower.tail = TRUE)" width="217"}
+![Cola inferior (en R: lower.tail = TRUE)](../images/Normal_lowertail.png){alt="Cola inferior (en R: lower.tail = TRUE)" width="217"}
 :::
 
 En R, el parámetro `lower.tail` (en funciones del tipo `pnorm()`, `qnorm()`) nos permite elegir la cola:
@@ -222,7 +240,7 @@ La distribución t-student $t_{n}$ tiene un único parámetro $n > 0$ llamado gr
 
 -   Data $T\sim t_{n}$ para $n >1$, $E[T]=0$ y para $n >2$, $V[T]=\frac{n}{n-2}$
 
-![](images/t_student.png){fig-align="center" width="270"}
+![](../images/t_student.png){fig-align="center" width="270"}
 
 # Distribución $t$-Student
 
@@ -336,28 +354,41 @@ $$
 
 <!--# Es decir, por el Teorema Central del Límite, con $n$ lo suficientemente grande, aunque no sepamos la distribución, podemos asumir una distribución $N(\mu,\sigma^{2})$ y entonces podemos usar las cantidades pivotales estudiadas previamente. Aquí, si la varianza es desconocida, habría que estudiar la t-student pero como cuando n grande, la t-Student es como la Normal, realmente no hay diferencia -->
 
-# IC para la media para la proporción
+# IC para la proporción: Planteamiento
 
-Sea una muestra aleatoria simple $(X_1,\dots,X_n)$ de tamaño $n$ obtenida de $X$, siguiendo una distribución de Bernoulli con parámetro $p$. Esto es:
+Sea una muestra aleatoria simple $(X_1,\dots,X_n)$ de tamaño $n$ obtenida de una población $X$ que sigue una distribución de Bernoulli con parámetro $p$. Las propiedades de esta distribución son:
 
 $$
 \mu=E[X]=p \hspace{2cm}
 \sigma^2=Var[X]=p(1-p)
 $$
 
-Además, supongamos que $n \geq 30$. Entonces, por el TCL se tiene que la cantidad pivotal para $\hat{p}=\bar{X}$ cumple la siguiente propiedad:
+Si el tamaño muestral es grande ($n \geq 30$), el Teorema Central del Límite (TCL) nos asegura que el estimador $\hat{p}=\bar{X}$ se aproxima a una Normal.
+
+Esto nos permite construir una cantidad pivotal con distribución conocida:
 
 $$
 Z=\frac{\hat{p}-p}{\sqrt{\hat{p}(1-\hat{p})/n}}\sim  N(0,1)
 $$
 
-EL intervalo de confianza con nivel de confianza $1-\alpha$ para estimar una proporción poblacional $p$ es:
+# IC para la proporción: Fórmula final
+
+A partir de la cantidad pivotal $Z \sim N(0,1)$, podemos despejar el parámetro $p$ para construir el intervalo.
+
+El **intervalo de confianza** con un nivel de confianza $1-\alpha$ para la proporción poblacional $p$ es:
 
 $$
+\Large
 IC_{1-\alpha}(p)=\left ( \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \right )
 $$
 
-# IC para la media para la proporción
+Donde:
+
+- $\hat{p}$ es la proporción observada en la muestra.
+- $z_{\alpha/2}$ es el valor crítico de la distribución Normal estándar (ej. 1.96 para el 95%).
+- El término de la raíz es el error estándar estimado.
+
+# IC para la proporción
 
 -   Si el tamaño muestral no es lo suficientemente grande y no se puede aplicar el Teorema Central del Límite --\> hay que comprobar la normalidad de los datos
 
@@ -365,7 +396,7 @@ $$
 
 -   En caso contrario, tendrían que buscarse alternativas
 
-# IC para la media para la proporción
+# IC para la proporción
 
 Supongamos que estamos realizando una encuesta para determinar la proporción de personas que apoyan una nueva política ambiental en una ciudad. Hemos encuestado a 1000 personas, y 560 de ellas han respondido que apoyan la nueva política.
 
@@ -381,9 +412,9 @@ Queremos calcular un intervalo de confianza del $95\%$ para la proporción de ap
 
 Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability - J. Neyman
 
-![](images/IC_Neyman.png){fig-align="center" width="450"}
+![](../images/IC_Neyman.png){fig-align="center" width="450"}
 
-Notación en este artículo: ![](images/paste-8574FE82.png){width="200"}
+Notación en este artículo: ![](../images/paste-8574FE82.png){width="200"}
 
 # Interpretación de los IC
 
@@ -397,7 +428,7 @@ Notación en este artículo: ![](images/paste-8574FE82.png){width="200"}
 
 # Interpretación de los IC
 
-![](images/IC_simulacion.png){fig-align="center" width="300"}
+![](../images/IC_simulacion.png){fig-align="center" width="300"}
 
 -   ¿Cuántos intervalos de confianza, de entre los 100 contienen al verdadero valor del parámetro?
 
