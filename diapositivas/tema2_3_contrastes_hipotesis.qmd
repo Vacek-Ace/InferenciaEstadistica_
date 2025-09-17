@@ -1,15 +1,33 @@
 ---
-title: "Contrastes de hipótesis"
-author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
-date: "Curso académico 2024-2025"
-
-bibliography: References.bib
+title: "Estadística paramétrica. Contrastes de hipótesis"
+author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
+institute: "DSLAB"
+date: last-modified
+bibliography: ../References.bib
 
 format: 
   beamer: 
-    template: dslab.beamer.tex
-
-editor: visual
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    navigation: horizontal
+    section-titles: false
+    toc: false
+    slide-level: 1
+    aspectratio: 169
+    header-includes: |
+      \usepackage{dslab-new}
+      \usedslabmodelos
+knitr:
+  opts_chunk:
+    fig.width: 6
+    fig.height: 4
+    fig.align: "center"
+    dev: "pdf"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 # Contrastes de hipótesis
@@ -104,7 +122,7 @@ Supongamos que el rectorado de la URJC afirma que menos del $20\%$ de los estudi
 
     $$H_0: p = 0.20  \ \ \text{vs}  \ \ H_1: p \neq 0.20$$
 
-![](images/RA_RC_CH.png){fig-align="center" width="450"}
+![](../images/RA_RC_CH.png){fig-align="center" width="450"}
 
 # Pasos en un contraste de hipótesis
 
@@ -237,7 +255,7 @@ Supongamos que estamos evaluando la efectividad de un nuevo medicamento.
 
 # Ejemplo. Errores Tipo I y II
 
-![](images/type-i-and-type-ii-errors-simplified.jpg){fig-align="center" width="400"}
+![](../images/type-i-and-type-ii-errors-simplified.jpg){fig-align="center" width="400"}
 
 # Relación entre errores de tipo I y II
 
@@ -253,7 +271,7 @@ Supongamos que estamos evaluando la efectividad de un nuevo medicamento.
 
 La siguiente tabla refleja la relación entre los dos tipos de errores en relación con la decisión del contraste y la verdadera situación en la población:
 
-![](images/tabla_erroresIyII.png)
+![](../images/tabla_erroresIyII.png)
 
 # Relación entre errores de tipo I y II
 
@@ -435,7 +453,7 @@ El $t$-test de forma gráfica (¡y divertida!) gracias a las ilustraciones de Al
 
 <https://twitter.com/allison_horst/status/1216411185240690688>
 
-![](images/allison_horst_t_test.jpeg){fig-align="center" width="309"}
+![](../images/allison_horst_t_test.jpeg){fig-align="center" width="309"}
 
 # Ejemplo
 
