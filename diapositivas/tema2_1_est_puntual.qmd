@@ -1,15 +1,33 @@
 ---
-title: "Inferencia Estadística. Estimación puntual"
-author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
-date: "Curso académico 2024-2025"
-
-bibliography: References.bib
+title: "Estimación puntual"
+author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
+institute: "DSLAB"
+date: last-modified
+bibliography: ../References.bib
 
 format: 
   beamer: 
-    template: dslab.beamer.tex
-
-editor: visual
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    navigation: horizontal
+    section-titles: false
+    toc: false
+    slide-level: 1
+    aspectratio: 169
+    header-includes: |
+      \usepackage{dslab-new}
+      \usedslabmodelos
+knitr:
+  opts_chunk:
+    fig.width: 6
+    fig.height: 4
+    fig.align: "center"
+    dev: "pdf"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 # Un poco de repaso
@@ -22,7 +40,7 @@ conceptos permiten a los estadísticos recolectar datos de manera
 eficiente, describir los datos recolectados y hacer inferencias 
 significativas y precisas sobre la población a partir de la muestra. -->
 ```
-![](images/dogma1.png){fig-align="left" width="233"}![](images/dogma2.png){fig-align="right" width="223"}
+![](../images/dogma1.png){fig-align="left" width="233"}![](../images/dogma2.png){fig-align="right" width="223"}
 
 -   $X$ es una variable aleatoria (¡de interés!) cuya función de distribución es conocida a excepción de determinados paramétros (Por ejemplo, $\mu$ y $\sigma$ en la distribución Normal)
 
@@ -118,7 +136,7 @@ Se obtiene una muestra de 10000 observaciones y se calculan los 3 estadísticos 
 
 ¿Qué opinas?
 
-![](images/Estimadores_propiedades.png){fig-align="center" width="250"}
+![](../images/Estimadores_propiedades.png){fig-align="center" width="250"}
 
 # Propiedades de los estimadores
 
