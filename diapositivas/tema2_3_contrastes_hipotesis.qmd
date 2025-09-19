@@ -84,17 +84,28 @@ Ejemplo:
 
 Supongamos que una empresa de educación en línea afirma que sus estudiantes pasan en promedio al menos $4$ horas diarias estudiando en su plataforma. Queremos comprobar si esta afirmación es cierta basándonos en una muestra de estudiantes
 
--   La hipótesis nula es la afirmación que queremos poner a prueba y que asumimos verdadera inicialmente. En este caso, la hipótesis nula es que la media del tiempo de estudio diario es de al menos $4$ horas.
+\vspace{0.5cm}
 
-    $$
-     H_0: \mu \geq 4 \text{ horas}
-    $$
+::: {.columns}
 
--   La hipótesis alternativa es lo que queremos demostrar y se contrapone a la hipótesis nula. En este caso, queremos ver si el tiempo de estudio diario es menor de $4$ horas. Fíjate que la empresa podría estar "inflando" sus resultados y lo "intersante" en este caso es "demostrar" que realmente los alumnos pasan menos tiempo en la plataforma.
+::: {.column width="50%"}
 
-    $$
-    H_1: \mu < 4 \text{ horas}
-    $$
+- La hipótesis nula es la afirmación que queremos poner a prueba y que asumimos verdadera inicialmente. En este caso, la hipótesis nula es que la media del tiempo de estudio diario es de al menos $4$ horas.
+
+$$
+    H_0: \mu \geq 4 \text{ horas}
+$$
+
+:::
+
+::: {.column width="50%"}
+- La hipótesis alternativa es lo que queremos demostrar y se contrapone a la hipótesis nula. En este caso, queremos ver si el tiempo de estudio diario es menor de $4$ horas. Fíjate que la empresa podría estar "inflando" sus resultados y lo "intersante" en este caso es "demostrar" que realmente los alumnos pasan menos tiempo en la plataforma.
+
+$$
+H_1: \mu < 4 \text{ horas}
+$$
+:::
+:::
 
 # Ejemplo H0 vs H1 proporción poblacional
 
@@ -121,6 +132,8 @@ Supongamos que el rectorado de la URJC afirma que menos del $20\%$ de los estudi
 -   Bilaterales. Se contrasta la igualdad y se rechaza si queda a la derecha o a la izquierda en la distribución del estadístico bajo $H_0$
 
     $$H_0: p = 0.20  \ \ \text{vs}  \ \ H_1: p \neq 0.20$$
+
+# Tipos de contrastes
 
 ![](../images/RA_RC_CH.png){fig-align="center" width="450"}
 
@@ -156,7 +169,29 @@ Supongamos que el rectorado de la URJC afirma que menos del $20\%$ de los estudi
 
 # Pasos en un contraste de hipótesis
 
-Tenemos por tanto que el $p-valor$ es una medida que nos dice cuán probable sería obtener nuestros datos observados si la hipótesis nula fuera verdadera. En otras palabras, mide la evidencia en contra de $H_0$. Si el $p-valor$ es pequeño (generalmente menor que $0.05$), tenemos razones para rechazar $H_0$. Si es grande, no tenemos suficiente evidencia para rechazarla
+Tenemos por tanto que el $p-valor$ es una medida que nos dice cuán probable sería obtener nuestros datos observados si la hipótesis nula fuera verdadera. En otras palabras, mide la evidencia en contra de $H_0$. Si el $p-valor$ es pequeño (generalmente menor que $0.05$), tenemos razones para rechazar $H_0$. Si es grande, no tenemos suficiente evidencia para rechazarla.
+
+# El Veredicto del Contraste 
+
+Un contraste de hipótesis es como un juicio y el **p-valor** es la fuerza de la evidencia presentada..
+
+:::{.callout-tip icon="false" title="Analogía del juicio"}
+
+-   **Hipótesis Nula ($H_0$):** El acusado es inocente (principio de presunción de inocencia).
+
+-   **Evidencia:** Tus datos muestrales.
+
+-   **p-valor:** La probabilidad de que la evidencia en tu contra sea tan fuerte por puro azar (si realmente fueras inocente).
+
+-   **Veredicto:**
+    -   **p-valor bajo:** Evidencia muy incriminatoria. Se supera la "duda razonable" ($\alpha$).
+        -   **Veredicto $\rightarrow$ Culpable (Rechazamos $H_0$).**
+    -   **p-valor alto:** Evidencia débil, circunstancial. No se supera la "duda razonable".
+        -   **Veredicto $\rightarrow$ No culpable (No podemos rechazar $H_0$).**
+
+:::
+
+Declarar a alguien "no culpable" no es lo mismo que declararlo "inocente". Simplemente, no teníamos pruebas suficientes para condenarlo. De igual forma, **no rechazar $H_0$ no la convierte en verdadera**, solo significa que no teníamos evidencia suficiente en su contra.
 
 # Ejemplo para la media
 
@@ -271,7 +306,11 @@ Supongamos que estamos evaluando la efectividad de un nuevo medicamento.
 
 La siguiente tabla refleja la relación entre los dos tipos de errores en relación con la decisión del contraste y la verdadera situación en la población:
 
-![](../images/tabla_erroresIyII.png)
+|                   | **Verdadera Situación: $H_0$ correcta** | **Verdadera Situación: $H_0$ incorrecta** |
+|:------------------|:---------------------------------------|:------------------------------------------|
+| **No rechazar $H_0$** | Sin error ($1-\alpha$)                 | Error de Tipo II ($\beta$)                |
+| **Rechazar $H_0$** | Error de Tipo I ($\alpha$)           | Sin error ($1-\beta=$ potencia)          |
+
 
 # Relación entre errores de tipo I y II
 
@@ -353,7 +392,7 @@ Es decir, decidimos si rechazamos o no la hipótesis nula en función del valor 
 
 # Ejemplo
 
-Supón que queremos probar si la edad media de los profesores de la URJC es igual a $50$ años con una desviación estándar conocida de $10$ años, y tienes una muestra de $36$ observaciones con una media muestral de $52$
+Supón que queremos probar si la edad media de los profesores de la URJC es igual a $50$ años con una desviación estándar conocida de $10$ años, y tienes una muestra de $36$ observaciones con una media muestral de $52$.
 
 # CH para la media (var desconocida, Normal)
 
@@ -485,29 +524,32 @@ Formulamos las hipótesis:
 
 -   Hipótesis alternativa $H_1$: Las proporciones de las dos poblaciones son diferentes $p_1 \neq p_2$
 
-# CH igualdad de proporciones
+# CH igualdad de proporciones (Planteamiento)
 
--   Consideremos dos m.a.s. de tamaño $n_1$ y $n_2$, siendo $\mathbf{x}$ y $\mathbf{y}$ el número de observaciones que cumplen un criterio, de modo que:
+Para comparar dos proporciones, partimos de dos muestras aleatorias de tamaños $n_1$ y $n_2$.
 
-    $$
-    \hat{p}_1=\frac{\mathbf{x}}{n_1}, \hat{p}_2=\frac{\mathbf{y}}{n_2}
-    $$son los estimadores de máxima verosimilitud de $p_1$ y $p_2$, respectivamente
+- **Estimadores:** Si $\mathbf{x}$ e $\mathbf{y}$ son los "éxitos" en cada muestra, las proporciones muestrales son:
+  $$
+  \hat{p}_1=\frac{\mathbf{x}}{n_1} \quad \text{y} \quad \hat{p}_2=\frac{\mathbf{y}}{n_2}
+  $$
 
--   Consideramos un nivel de significancia estadística $\alpha$
+- **Hipótesis a contrastar** (con un nivel de significación $\alpha$):
+  - $H_0: p_1 = p_2$ (Las proporciones poblacionales son iguales).
+  - $H_1: p_1 \neq p_2$ (Son distintas).
 
--   Calculamos el estadístico muestral, en este caso:
+# CH igualdad de proporciones (Estadístico)
 
-    $$
-    Z = \frac{\hat{p}_1-\hat{p_2}}{SE}
-    $$
+Para decidir sobre $H_0$, calculamos un estadístico de prueba que, bajo $H_0$, sigue una distribución conocida.
 
-    donde
+- **Estadístico Z:**
+  $$
+  Z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1-\hat{p}) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}}
+  $$
 
-    $$
-    SE=\sqrt{\hat{p}(1-\hat{p})}\left ( \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\right )
-    $$
-
-    siendo $\hat{p}=\frac{\mathbf{x}+\mathbf{y}}{n_1+n_2}$
+- **Proporción combinada ($\hat{p}$):** El error estándar se calcula usando una proporción conjunta que asume que $H_0$ es cierta:
+  $$
+  \hat{p}=\frac{\mathbf{x}+\mathbf{y}}{n_1+n_2}
+  $$
 
 # CH igualdad de proporciones
 
