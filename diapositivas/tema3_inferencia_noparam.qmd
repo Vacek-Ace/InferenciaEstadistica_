@@ -1,18 +1,36 @@
 ---
 title: "Inferencia no paramétrica"
-author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
-date: "Curso académico 2024-2025"
-
-bibliography: References.bib
+author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
+institute: "DSLAB"
+date: last-modified
+bibliography: ../References.bib
 
 format: 
   beamer: 
-    template: dslab.beamer.tex
-
-editor: visual
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    navigation: horizontal
+    section-titles: false
+    toc: false
+    slide-level: 1
+    aspectratio: 169
+    header-includes: |
+      \usepackage{dslab-new}
+      \usedslabmodelos
+knitr:
+  opts_chunk:
+    fig.width: 6
+    fig.height: 4
+    fig.align: "center"
+    dev: "pdf"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
-# Inferencia no paramétrica
+# Contrastes de hipótesis no paramétricos
 
 **¿Qué son?** Los contrastes no paramétricos son métodos estadísticos utilizados para probar hipótesis cuando no se cumplen los supuestos necesarios para los contrastes paramétricos (por ejemplo, la normalidad)
 
@@ -26,7 +44,7 @@ editor: visual
 
 <!--# It is impossible to exactly predict the outcome of the next trial of any of the above or similar cases. All the same, it is our common experience that these outcomes of random trials exhibit certain patterns of regularity in long sequences. These patterns of regularity are called statistical laws governing the outcomes. For example, if the same coin is tossed again and again, the ratio of number of heads to the total number of tosses seems to stabilize to a number p (0 ≤ p ≤ 1) as the number of tosses increases indefinitely. We call the coin fair or unbiased if p happens to be 1/2. This number p, which may be thought to be intrinsic to the coin in question, is called the probability of obtaining a head at a trial and may be said to be the statistical law governing the outcomes of the random experiment consisting of tossing this coin. In general, the purpose of statistical inference is to discover the statistical laws governing the outcomes of a random experiment by repeated performance of the experiment or by making repeated observations of a phenomenon -->
 
-# Inferencia no paramétrica
+# Contrastes de hipótesis no paramétricos
 
 -   **Aplicaciones**:
 
@@ -52,7 +70,7 @@ editor: visual
 
 -   Esta prueba compara las frecuencias observadas en la tabla de contingencia con las frecuencias esperadas bajo la hipótesis de independencia
 
-![](images/tabla_contigencia_indep.png){fig-align="center" width="400"}
+![](../images/tabla_contigencia_indep.png){fig-align="center" width="400"}
 
 <!--# Chapter 8 nonparametric_statistics_a_step-by-step_approach -->
 
@@ -113,7 +131,7 @@ Como ocurría en los contrastes de hipótesis paramétricos, comparamos el $p-va
 
 # Distribución Chi-cuadrado
 
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="80%"}
 # Valores para la variable x
 x <- seq(0, 15, length.out = 500)
 
@@ -290,7 +308,7 @@ F_n(x) =
 ```
 # Función de distribución empírica
 
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="70%"}
 # Cálculo de la FDE usando R
 library(ggplot2)
 
@@ -314,7 +332,7 @@ ggplot(resultados_fde, aes(x = x, y = FDE)) +
   geom_step(color = "black", size = 1.5) + # Gráfico de escalones
   labs(title = "Función de Distribución Empírica", 
        x = "x", 
-       y = "F_n(x)") +
+       y = expression(F[n](x))) +
   theme_minimal() 
 ```
 
@@ -322,7 +340,7 @@ ggplot(resultados_fde, aes(x = x, y = FDE)) +
 
 Con muchos datos:
 
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="70%"}
 # Cargar la librería
 library(ggplot2)
 
@@ -347,19 +365,14 @@ ggplot(resultados_fde, aes(x = x, y = FDE)) +
   geom_step(color = "black", size = 1.5) + # Gráfico de escalones
   labs(title = "Función de Distribución Empírica", 
        x = "x", 
-       y = "F_n(x)") +
+       y = expression(F[n](x))) +
   theme_minimal() + # Tema minimalista
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10)
-  ) +
   xlim(min(X) - 3, max(X) + 3) + # Limitar el eje x
   ylim(0, 1) # Limitar el eje y
 
 ```
 
-# **Prueba de Kolmogorov-Smirnov** para dos muestras
+# Prueba de Kolmogorov-Smirnov para dos muestras
 
 <!--# Nonparametric-Statistics-Theory-and-Methods pag 129 (139 del pdf) -->
 
@@ -373,7 +386,7 @@ ggplot(resultados_fde, aes(x = x, y = FDE)) +
 
     -   $H_1$: Las dos muestras provienen de distribuciones diferentes
 
-# **Prueba de Kolmogorov-Smirnov** para dos muestras
+# Prueba de Kolmogorov-Smirnov para dos muestras
 
 <!--# ESTE LO QUIERO CAMBIAR Y PONERLO COMO EN VILLEGAS -->
 
@@ -387,14 +400,11 @@ ggplot(resultados_fde, aes(x = x, y = FDE)) +
     D = \sup_x |F_{n_1}(x) - F_{n_2}(x)|
     $$
 
-    donde, $F_{n_1}(x)$ y $F_{n_2}(x)$ son las funciones de distribución empírica de las dos muestras
+    donde, $F_{n_1}(x)$ y $F_{n_2}(x)$ son las funciones de distribución empírica de las dos muestras.
 
-# **Prueba de Kolmogorov-Smirnov** para dos muestras
+# Prueba de Kolmogorov-Smirnov para dos muestras
 
 ```{r echo =FALSE}
-# Cargar paquetes
-library(ggplot2)
-
 # Generar datos de dos distribuciones
 set.seed(123)
 data1 <- rnorm(50, mean = 0, sd = 1) # Muestra 1 (distribución normal con media 0)
@@ -434,13 +444,13 @@ legend("topleft", legend = c("F(x) teórica", "G(x) teórica", "FDE F_n1", "FDE 
 
 ```
 
-# **Prueba de Kolmogorov-Smirnov** para dos muestras
+# Prueba de Kolmogorov-Smirnov para dos muestras
 
 -   El $p-valor$ se determina utilizando la distribución del estadístico $D$ bajo la hipótesis nula de que ambas muestras provienen de la misma distribución
 
 -   El cálculo exacto del $p-valor$ para la prueba de K-S no es trivial y generalmente se realiza mediante métodos numéricos o tablas pre-calculadas. Sin embargo, se puede aproximar utilizando la distribución asintótica del estadístico $D$
 
-# **Prueba de Kolmogorov-Smirnov** para dos muestras
+# Prueba de Kolmogorov-Smirnov para dos muestras
 
 -   Para muestras grandes, el $p-valor$ se puede aproximar usando la fórmula:
 
@@ -456,7 +466,7 @@ legend("topleft", legend = c("F(x) teórica", "G(x) teórica", "FDE F_n1", "FDE 
 
     $$
      Q_{KS}(\lambda) = 2 \sum_{k=1}^{\infty} (-1)^{k-1} e^{-2k^2 \lambda^2} 
-    $$donde $\lambda = \sqrt{n} D$
+    $$ donde $\lambda = \sqrt{n} D$
 
 # Prueba de Mann-Whitney U
 
@@ -476,7 +486,7 @@ legend("topleft", legend = c("F(x) teórica", "G(x) teórica", "FDE F_n1", "FDE 
 
 Queremos contrastar si el tratamiento $A$ y el tratamiento $B$ tienen el mismo efecto
 
-![](images/EJ_u_mann_whitney.png){fig-align="center" width="400"}
+![](../images/EJ_u_mann_whitney.png){fig-align="center" width="400"}
 
 # Prueba de Mann-Whitney U
 
@@ -484,14 +494,12 @@ Queremos contrastar si el tratamiento $A$ y el tratamiento $B$ tienen el mismo e
 
 -   A continuación se asignan rangos a estos valores. Los empates se gestionan otorgando a los valores iguales el rango promedio
 
--   Se calcula el estadístico del contraste tal y como sigue:
+-   Se calcula el estadístico del contraste tal y como sigue para cada muestra ($i=1, 2$):
 
     $$
-    U_1 = n_1 n_2 + \frac{n_1 (n_1 + 1)}{2} - R_{1}
+    U_i = n_1 n_2 + \frac{n_i (n_i + 1)}{2} - R_{i}
     $$
 
-    $$
-    U_2 = n_1 n_2 + \frac{n_2 (n_2 + 1)}{2} - R_{2}$$\
     donde:
 
     -   $n_{1}$ y $n_{2}$ son los tamaños de las dos muestras
@@ -502,16 +510,31 @@ Queremos contrastar si el tratamiento $A$ y el tratamiento $B$ tienen el mismo e
 
 # Prueba de Mann-Whitney U
 
--   El $p-valor$ se determina comparando el estadístico $U$ con una distribución de referencia para U (tabla de Mann-Whitney)
+1. Para Muestras Pequeñas (Método Exacto)
 
--   Si el tamaño muestral es grande, se puede determinar la significatividad mediante la aproximación normal para grandes tamaños de muestra:
+- El **p-valor** se obtiene comparando el estadístico **U** con los valores críticos de una **tabla de referencia de Mann-Whitney** o mediante software estadístico.
 
-    $$Z = \frac{U - E(U)}{\sqrt{Var(U)}} \sim N(0,1)$$ siendo
+2. Para Muestras Grandes (Aproximación a la Normal) 
 
-    $$E(U) = \frac{n_1 n_2}{2} \ \ \ \ \ \ \ \ \ Var(U) = \frac{n_1 n_2 (n_1 + n_2 +1)}{12}$$\
-    Y podemos calcular el $p-valor$ como hemos hecho en métodos anteriores: $p-valor=P(Z>z)$. Siendo $z$ el valor del estadístico calculado en las muestras
+- Si las muestras son grandes (ej. $n_1, n_2 > 20$), la distribución de U se aproxima a una normal.
+- Se estandariza el estadístico U calculando el valor **$Z_{calc}$**:
+    $$
+    Z_{calc} = \frac{U - E(U)}{\sqrt{Var(U)}}
+    $$
+- Donde la media y la varianza esperadas son:
+    $$
+    E(U) = \frac{n_1 n_2}{2} \quad ; \quad Var(U) = \frac{n_1 n_2 (n_1 + n_2 + 1)}{12}
+    $$
 
--   Comparamos el $p-valor$ p con el nivel de significancia $\alpha$, generalmente $0.05$. Si $p-valor < \alpha$, se rechaza la hipótesis nula.
+# Prueba de Mann-Whitney U
+
+3. Regla de Decisión
+
+- El p-valor obtenido (ya sea por el método exacto o por aproximación) se compara con un **nivel de significancia $\alpha$**, usualmente 0.05.
+
+- Si **p-valor $< \alpha$** --\> **Se rechaza la hipótesis nula ($H_0$)**.
+
+- **En la práctica**: Rechazar $H_0$ significa que existe evidencia estadística para afirmar que las dos muestras provienen de poblaciones diferentes (es decir, hay una diferencia significativa).
 
 # Ejemplo
 
@@ -552,7 +575,7 @@ Las hipótesis son:
 
     donde $N$ es el tamaño total de la muestra (suma de los tamaños de las $k$ muestras), $R_i$ es la suma de los rangos de la $i$-ésima muestra, $n_i$ es el tamaño de la $i$-ésima muestra y $k$ es el número de muestras
 
--   <!--# Cuando hay empates, H se divide por un valor corrector -->
+   <!--# Cuando hay empates, H se divide por un valor corrector -->
 
 # Prueba de Kruskal-Wallis
 
@@ -664,8 +687,6 @@ Se quiere determinan si existe diferencia entre alguno de los 3 grupos.
 
 # Prueba de rangos de signos de Wilcoxon
 
-**Procedimiento:**
-
 1.  **Calcular las diferencias** entre cada par de observaciones
 
 2.  **Ordenar las diferencias** en valor absoluto y asignarles rangos, ignorando las diferencias que sean cero
@@ -674,17 +695,11 @@ Se quiere determinan si existe diferencia entre alguno de los 3 grupos.
 
 4.  **Calcular la suma de los rangos positivos** y la suma de los rangos negativos
 
-# Prueba de rangos de signos de Wilcoxon
+5.  **Determinar el estadístico de prueba**: El estadístico de Wilcoxon es el menor de las dos sumas de rangos: $T= min(\sum R_{+}, \sum R_{-})$
 
-5.  **Determinar el estadístico de prueba**: El estadístico de Wilcoxon es el menor de las dos sumas de rangos:
+siendo $R_{+}$ la suma de los rangos con diferencias positivas y $R_{-}$ la suma de los rangos con diferencias negativas
 
-    $$
-    T= min(\sum R_{+}, \sum R_{-})
-    $$
-
-    siendo $R_{+}$ la suma de los rangos con diferencias positivas y $R_{-}$ la suma de los rangos con diferencias negativas
-
-6.  **Significatividad.** Se compara el estadístico de prueba$T$ con los valores críticos de la tabla de Wilcoxon para determinar la significancia estadística
+6.  **Significatividad.** Se compara el estadístico de prueba $T$ con los valores críticos de la tabla de Wilcoxon para determinar la significancia estadística
 
 # Prueba de rangos de signos de Wilcoxon
 
@@ -700,7 +715,7 @@ $$
 E(T) = \frac{n(n+1)}{4} \ \ \ \ \ \ Var(T) = \frac{n(n+1)(2n+1)}{24}
 $$
 
-con $n$ el número de muestras pareadas
+con $n$ el número de muestras pareadas.
 
 Con ello, $p-valor=P(Z>z_{\alpha/2})$
 
