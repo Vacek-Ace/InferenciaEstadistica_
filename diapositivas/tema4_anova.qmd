@@ -1,15 +1,33 @@
 ---
 title: "Análisis de la varianza"
-author: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
-date: "Curso académico 2024-2025"
-
-bibliography: References.bib
+author: "Víctor Aceña - Isaac Martín - Carmen Lancho"
+institute: "DSLAB"
+date: last-modified
+bibliography: ../References.bib
 
 format: 
   beamer: 
-    template: dslab.beamer.tex
-
-editor: visual
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    navigation: horizontal
+    section-titles: false
+    toc: false
+    slide-level: 1
+    aspectratio: 169
+    header-includes: |
+      \usepackage{dslab-new}
+      \usedslabmodelos
+knitr:
+  opts_chunk:
+    fig.width: 6
+    fig.height: 4
+    fig.align: "center"
+    dev: "pdf"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 # Introducción
@@ -58,7 +76,7 @@ editor: visual
 
 3.  **F-test**: Se realiza una prueba $F$ de Fisher para evaluar la relación entre las varianzas. Si la varianza entre los grupos es significativamente mayor que la varianza dentro de los grupos, esto sugiere que hay diferencias significativas entre las medias de los grupos
 
-4.  **Análisis de resultados**: Si la prueba $F$ indica que hay diferencias significativas, se pueden realizar pruebas adicionales para identificar entre qué grupos existen estas diferencias.
+4.  **Análisis de resultados**: Si la prueba $F$ indica que hay diferencias significativas, se pueden realizar pruebas adicionales para identificar entre qué grupos existen estas diferencias
 
 # ANOVA
 
@@ -86,7 +104,7 @@ editor: visual
 
 # Distribución $F$
 
-![](images/f_snedecor.png){fig-align="center" width="413"}
+![](../images/f_snedecor.png){fig-align="center" width="413"}
 
 # Modelo con un factor
 
@@ -103,7 +121,7 @@ editor: visual
 
 Tenemos una variable aleatoria $Y$ que toma valores reales y una variable cualitativa o factor $X$ con $k$ niveles $1,2,\ldots,i,\ldots,k$. La variable $Y$ toma valores $Y_{ij}, j=1,\ldots,n_i$ en el nivel $i$ del factor $X$, siendo $n_i$ el número de observaciones en el nivel $i$ del factor $X$
 
-![](images/Modelo_un_factor_ANOVA.png){fig-align="center" width="190"}
+![](../images/Modelo_un_factor_ANOVA.png){fig-align="center" width="190"}
 
 <!--# Tamaño de los grupos. La igualdad del tamaño en cada categoría de X no es necesaria, no es una hipótesis de la ANOVA, pero hay que tener cuidado con que sean muy distintos por temas de potencia del test -->
 
@@ -215,7 +233,7 @@ siendo $df_B=k-1$ son los grados de libertad entre los grupos y $df_W=N-k$ son l
 
 Una vez se dispone de toda esta información, es común representarla en forma de tabla, en la llamada *Tabla ANOVA*:
 
-![](images/ANOVA_tabla.png){fig-align="center" width="450"}
+![](../images/ANOVA_tabla.png){fig-align="center" width="450"}
 
 # Modelo con un factor
 
@@ -416,7 +434,7 @@ Donde:
 
 En este caso, la tabla ANOVA queda como sigue:
 
-![](images/ANOVA_2factores_sin.png){fig-align="center" width="450"}
+![](../images/ANOVA_2factores_sin.png){fig-align="center" width="450"}
 
 # Modelo con dos factores sin interacción
 
@@ -446,7 +464,7 @@ Donde $(\alpha\beta)_{ij}$ representa el efecto de interacción entre el nivel $
 
 En este caso, la tabla ANOVA añade el factor de interacción:
 
-![](images/ANOVA_2factores_con_interaccion.png){fig-align="center" width="450"}
+![](../images/ANOVA_2factores_con_interaccion.png){fig-align="center" width="450"}
 
 # Modelo con dos factores con interacción
 
@@ -574,9 +592,7 @@ $FDR = \frac{\text{nº of falsely rejected null hypotheses}}{\text{total nº of 
 
 <!--# Resumen con una metáfora. Holm actúa como un guardia de seguridad que asegura que nadie no autorizado entre al edificio: prefiere ser estricto y dejar pasar pocos errores. BH es como un auditor que permite a varios entrar, pero asegura que la proporción de intrusos en el edificio sea baja. -->
 
-Se trata de un procedimiento step-up
-
-**Procedimiento:**
+Se trata de un procedimiento step-up:
 
 1.  Se calculan los p-valores de todas las comparaciones
 
@@ -588,7 +604,7 @@ Se trata de un procedimiento step-up
 
 # Ejemplo
 
-![Ejemplo del libro Field, A., Field, Z., & Miles, J. (2012). Discovering statistics using R.](images/multiple_comp_example.png){fig-align="center" width="450"}
+![Ejemplo del libro Field, A., Field, Z., & Miles, J. (2012). Discovering statistics using R.](../images/multiple_comp_example.png){fig-align="center" width="450"}
 
 # Método de Tukey HSD
 
