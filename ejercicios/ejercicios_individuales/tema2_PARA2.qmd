@@ -1,0 +1,78 @@
+---
+title: "Ejercicios: Estimación y contraste paramétrico 2"
+subtitle: "Inferencia Estadística"
+author: 
+  - "Víctor Aceña Gil"
+  - "Isaac Martín de Diego"
+  - "Carmen Lancho Martín"
+date: today
+lang: es
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+### Ejercicio 1: Propiedades de los estimadores
+Sera $X_1,\ldots,X_3$ y $X_4$ una muestra aletatoria de tamaño cuatro de una población cuya distribución es exponencial con parámetros $\theta$ desconocido. De las siguientes estadísticas, ¿cuáles son estimadores insesgados de $\theta$?
+$$
+T_1=\frac{1}{3}(X_1+X_2)+\frac{1}{6}(X_3+X_4)
+$$
+$$
+T_2=\frac{(4X_1+3X_2+2X_3+1X_4)}{5}
+$$
+$$
+T_1=\frac{(X_1+X_2+X_3+X_4)}{4}
+$$
+
+### Ejercicio 2: Propiedades de los estimadores
+En un experimento binomial se observan $x$ éxitos en $n$ ensayos independientes. Se propone el siguiente estadístico como estimador del parámetro de proporción $p$:
+$$
+T=\frac{x}{n}
+$$
+Se pide demostrar que el estadístico $T$ es un estimador consistente del parámetro binomial $p$.
+
+### Ejercicio 3: Método de Máxima Verosimilitud
+Sea $X_1\,\ldots,X_n$ una muestra aleatoria de una población cuya distribución es de Poisson con parámetro $\lambda$. Obtener el estimador de máxima verosimilitud de $\lambda$.
+
+### Ejercicio 4: Tamaño muestral
+Una empresa quiere realizar una encuesta para estimar el nivel de satisfacción de sus clientes con un nuevo producto. La empresa desea que la estimación tenga un nivel de confianza del 95% y un margen de error del 5%. Basado en estudios previos, se espera que la proporción de clientes satisfechos sea aproximadamente del 70%. ¿Cuál es el tamaño muestral mínimo necesario para la encuesta?
+
+### Ejercicio 5: Intervalos de confianza
+Una empresa quiere comparar la efectividad de dos programas de entrenamiento distintos para sus empleados. Para ello, selecciona dos grupos independientes de empleados y aplica un programa de entrenamiento diferente a cada grupo. Después del entrenamiento, se mide el rendimiento de cada empleado. Los resultados son los siguientes:
+
+- Grupo 1 (Programa A): 15 empleados, media de rendimiento = 80, desviación estándar = 10
+- Grupo 2 (Programa B): 12 empleados, media de rendimiento = 75, desviación estándar = 12
+
+Se desea calcular un intervalo de confianza del 95% para la diferencia de las medias de rendimiento entre los dos programas de entrenamiento.
+
+### Ejercicio 6: Contraste de Hipótesis
+Realiza un contraste de hipótesis para el problema planteado en el ejercicio anterior y proporciona un $p-valor$.
+
+### Ejercicio 7: Estimación en el muestreo
+Mediante el empleo de `R`, genera 100 muestras, cada una de tamaño 15, de una distribución normal de media 120 y desviación estándar 8. Para cada muestra, construye un IC del $95\%$ para la $\sigma^2$. ¿Cuántos de estos intervalos contienen el verdadero valor de 64 para $\sigma^2$? ¿Este resultado está de acuerdo con lo que esperabas? Debes comenzar por derivar el IC para la varianza poblacional $\sigma^{2}$. Para ello, recuerda que la cuasivarianza muestral
+$$ s^{2} = \frac{1}{n-1} \sum_{i=1}^{n}(x_i - \bar{x})^{2}$$
+es un estimador insesgado para la varianza poblacional $\sigma^{2}$ y que, bajo condiciones de normalidad, 
+$$s^{2} \sim \frac{\sigma^{2} \chi^{2}_{n-1}} {n-1}.$$
+
+
+
+### Ejercicio 8: Muestreo
+Una compañía de auditoría está llevando a cabo una revisión de los balances contables reportados por un banco. Quieren estimar la proporción de cuentas para las cuales existe una discrepancia entre lo reportado por el cliente y el banco. Se decide realizar un muestreo para obtener una estimación precisa de esta proporción. Se sabe que la proporción real de cuentas con discrepancias es desconocida, pero la compañía de auditoría quiere obtener una estimación con un nivel de confianza del 99%. Además, desean que el margen de error máximo en la estimación sea de 0.01 unidades. ¿Cuántas cuentas deberán seleccionarse para satisfacer estos requisitos?
+
+### Ejercicio 9: Contraste de Hipótesis
+Supongamos que un jugador de fútbol afirma que su tasa de éxito en los tiros de penali es superior al $70\%$. Sin embargo, un analista deportivo cree que la tasa de éxito es menor que eso. Para probar su hipótesis, el analista revisa los datos de los últimos $50$ tiros de penaltis del jugador y encuentra que lograron marcar en $30$ de ellos. ¿Quién tiene razón?
+
+### Ejercicio 10: Datos 
+Se desea investigar si la edad media de los clientes de un banco excede los 40 años. Se realiza un análisis estadístico utilizando datos de una campaña de marketing bancario. Se calcula un intervalo de confianza para la edad promedio de los clientes basado en una muestra aleatoria de 1000 clientes. Posteriormente, se lleva a cabo un contraste de hipótesis para determinar si la edad media es mayor que 40 años, utilizando un nivel de significancia del 5%. Emplea para resolver este ejercicio los datos de la base de datos `bank` del repositorio UCI.
+
+<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
+<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
+DSLAB - Universidad Rey Juan Carlos
+</div>

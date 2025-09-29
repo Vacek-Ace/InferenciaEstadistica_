@@ -32,14 +32,23 @@ project:
   output-dir: ejercicios_pdf
 
 book:
-  title: "Ejercicios de Modelos Estadísticos de Predicción"
-  author: "Víctor Aceña Gil & Isaac Martín de Diego"
+  title: "Ejercicios de Inferencia Estadística"
+  author: 
+    - "Víctor Aceña Gil"
+    - "Isaac Martín de Diego"
+    - "Carmen Lancho Martín"
   chapters:
     - index.qmd
     - tema0_intro.qmd
     - tema1_EDA1.qmd
     - tema1_EDA2.qmd
     - tema1_EDA3.qmd
+    - tema2_IC1.qmd
+    - tema2_CH1.qmd
+    - tema2_PARA1.qmd
+    - tema2_PARA2.qmd
+    - tema3_NOPARA1.qmd
+    - tema4_ANOVA1.qmd
 
 format:
   pdf:

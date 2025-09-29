@@ -1,0 +1,49 @@
+# Estimación y contraste paramétrico
+
+### Ejercicio 1: Definición de Estadístico
+¿Qué es un estadístico? Da un ejemplo de un estadístico comúnmente utilizado en la estadística descriptiva.
+
+### Ejercicio 2: Estimación Puntual
+
+Supongamos que tienes una muestra aleatoria de tamaño $n = 10$ de una población con media desconocida $\mu$ y varianza conocida $\sigma^2 = 25$. La muestra es: $x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}$
+Calcula la estimación puntual de la media poblacional $\mu$ utilizando la media muestral.
+
+### Ejercicio 3: Propiedades de los Estimadores
+
+Demuestra que la media muestral es un estimador insesgado de la media poblacional $\mu$. 
+
+### Ejercicio 4: Método de los Momentos
+
+Dado el siguiente conjunto de datos: $x = \{2, 4, 3, 5, 6, 4, 3, 5\}$
+Utiliza el método de los momentos para estimar la media $\mu$ y la varianza $\sigma^2$ de la población.
+
+### Ejercicio 5: Método de la Máxima Verosimilitud
+
+Supongamos que tenemos una muestra aleatoria de tamaño $n$ de una distribución exponencial con parámetro $\lambda$. Deriva el estimador de máxima verosimilitud para $\lambda$.
+
+### Ejercicio 6: Estimación por Intervalo
+
+Para la misma muestra del Ejercicio 2 ($x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}$), calcula un intervalo de confianza del 95% para la media poblacional $\mu$, asumiendo que la varianza poblacional es conocida y es igual a 25.
+
+### Ejercicio 7: Contraste de Hipótesis (Prueba Z)
+
+Supón que quieres probar si la media poblacional $\mu$ es igual a 10. Utiliza la muestra del Ejercicio 2 y realiza un contraste de hipótesis con un nivel de significación $\alpha = 0.05$.
+
+### Ejercicio 8: Contraste de Hipótesis (Prueba T)
+
+Para una muestra aleatoria de tamaño $n = 15$ de una población con distribución normal pero con varianza desconocida, $$x = \{15, 17, 16, 14, 18, 16, 15, 17, 16, 18, 15, 17, 16, 14, 18\}$$
+realiza un contraste de hipótesis para verificar si la media poblacional es diferente de 16 con un nivel de significación $\alpha = 0.05$.
+
+### Ejercicio 9: Contraste de Hipótesis (Prueba Chi-Cuadrado)
+
+Una muestra de tamaño $n = 20$ de una población con varianza desconocida es $x = \{5, 7, 9, 6, 8, 10, 7, 9, 8, 10, 5, 7, 9, 6, 8, 10, 7, 9, 8, 10\}$
+Realiza un contraste de hipótesis para probar si la varianza poblacional es igual a 4 con un nivel de significación $\alpha = 0.05$. Recuerda que $\frac{s^{2}(n-1)}{\sigma^{2}} \sim \chi^{2}_{n-1}$, es decir, el estadístico, insesgado para la varianza poblacional $\sigma^{2}$, $\frac{s^{2}(n-1)}{\sigma^{2}}$ se distribuye como una $\chi^{2}_{n-1}$, siendo $n$ el tamaño muestral, $s^{2}$ la cuasivarianza muestral.
+
+### Ejercicio 10: Contraste de Hipótesis (Comparación de Dos Medias)
+
+Tienes dos muestras independientes:
+
+- Muestra A: $$x_A = \{23, 21, 22, 24, 25, 23, 24, 22, 23, 24\}$$
+- Muestra B: $$x_B = \{18, 19, 17, 20, 18, 19, 18, 19, 20, 18\}$$
+
+Realiza un contraste de hipótesis para verificar si las medias de las dos poblaciones de las cuales se extrajeron las muestras son diferentes. Usa un nivel de significación $\alpha = 0.05$.

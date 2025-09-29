@@ -4,8 +4,6 @@ project:
 
 book:
   # Metadatos para el PDF, pero no se mostrarán en la portada personalizada
-  # title: "Ejercicios de Modelos Estadísticos de Predicción"
-  # author: "Víctor Aceña Gil & Isaac Martín de Diego"
   
   # La lista de capítulos, que ahora no tienen YAML propio
   chapters:
@@ -14,6 +12,12 @@ book:
     - tema1_EDA1.qmd
     - tema1_EDA2.qmd
     - tema1_EDA3.qmd
+    - tema2_IC1.qmd
+    - tema2_CH1.qmd
+    - tema2_PARA1.qmd
+    - tema2_PARA2.qmd
+    - tema3_NOPARA1.qmd
+    - tema4_ANOVA1.qmd
 
 # --- Formato de Salida PDF (igual que el proyecto principal) ---
 format:

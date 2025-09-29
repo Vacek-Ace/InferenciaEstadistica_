@@ -1,0 +1,195 @@
+---
+title: "Ejercicios: Análisis de Varianza"
+subtitle: "Inferencia Estadística"
+author: 
+  - "Víctor Aceña Gil"
+  - "Isaac Martín de Diego"
+  - "Carmen Lancho Martín"
+date: today
+lang: es
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+### Ejercicio 1
+
+Se realizó un experimento para investigar si hay diferencias significativas en el tiempo de reacción ante un estímulo visual entre tres grupos de participantes que fueron sometidos a diferentes niveles de iluminación: normal, baja y alta. Se registraron los tiempos de reacción (en milisegundos) para cada participante en cada grupo. Los datos obtenidos se muestran a continuación:
+
+**Grupo Normal:** 40, 45, 38, 42, 39  
+**Grupo Baja:** 48, 50, 55, 52, 51  
+**Grupo Alta:** 35, 37, 32, 40, 36  
+
+Usando un nivel de significancia de 0.05, ¿hay diferencias significativas en el tiempo de reacción entre los tres grupos?
+
+### Ejercicio 2
+
+Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los estudiantes URJC en un examen final. Los dos factores considerados son el tipo de método de estudio (Método Tradicional y Método Moderno) y el ambiente de estudio (Ambiente Silencioso y Ambiente con Ruido). Para ello, se seleccionan 5 estudiantes aleatoriamente para cada combinación de métodos y ambientes, y se registra su puntuación en el examen final.
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Ambiente / Método | Método Tradicional | Método Moderno |
+|-------------------|---------------------|----------------|
+| Silencioso        | 85, 90, 88, 92, 87  | 91, 93, 89, 94, 92 |
+| Con Ruido         | 70, 75, 72, 78, 73  | 77, 79, 74, 80, 76 |
+
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en las puntuaciones del examen debido al tipo de método de estudio, al ambiente de estudio, y a la interacción entre ambos factores.
+
+### Ejercicio 3
+
+Un equipo de investigadores quiere evaluar el efecto de dos factores en la satisfacción laboral de los empleados. Los dos factores considerados son el tipo de horario de trabajo (Horario Flexible y Horario Fijo) y el tipo de entorno de trabajo (Oficina Abierta y Oficina Cerrada). Se seleccionan 5 empleados aleatoriamente para cada combinación de horarios y entornos, y se registra su puntuación de satisfacción laboral en una escala de 1 a 100.
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Entorno / Horario   | Horario Flexible | Horario Fijo  |
+|---------------------|------------------|---------------|
+| Oficina Abierta     | 78, 82, 85, 80, 84  | 60, 65, 58, 63, 61 |
+| Oficina Cerrada     | 88, 90, 87, 85, 89  | 70, 73, 75, 72, 71 |
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en la satisfacción laboral debido al tipo de horario de trabajo, al entorno de trabajo, y a la interacción entre ambos factores.
+
+
+### Ejercicio 4
+Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los estudiantes en una prueba de matemáticas. Los dos factores considerados son el método de enseñanza (Tradicional y Moderno) y el tipo de material de apoyo (Libro, Video, Software, Sin material). Se seleccionan 3 estudiantes aleatoriamente para cada combinación de métodos y materiales, y se registra su puntuación en la prueba de matemáticas.
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Material / Método  | Método Tradicional | Método Moderno |
+|--------------------|---------------------|----------------|
+| Libro              | 75, 80, 85          | 90, 92, 88     |
+| Video              | 70, 72, 78          | 85, 87, 84     |
+| Software           | 65, 68, 70          | 80, 83, 79     |
+| Sin material       | 60, 62, 65          | 75, 77, 73     |
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en las puntuaciones de la prueba de matemáticas debido al método de enseñanza, al tipo de material de apoyo, y a la interacción entre ambos factores.
+
+### Ejercicio 5
+¿Es posible simplificar el modelo anterior eliminado la iteración? ¿Es posible eliminar alguno de los efectos individuales? De ser así, construye el nuevo modelo. ¿Dónde aparecen las principales diferencias en la puntuación? Plantea un constraste de hipótesis de igualdad de distribuciones. Plantea un intervalo de confianza para la diferencia de medias.
+
+
+### Ejercicio 6
+
+Una empresa de manufactura quiere evaluar el efecto de dos factores en la durabilidad de un producto. Los dos factores considerados son el tipo de material utilizado (Material A y Material B) y la temperatura de fabricación (Baja, Media y Alta). Se seleccionan 4 muestras aleatoriamente para cada combinación de materiales y temperaturas, y se mide la durabilidad en días. Los datos obtenidos se muestran en la siguiente tabla:
+
+| Temperatura / Material | Material A       | Material B       |
+|------------------------|------------------|------------------|
+| Baja                   | 15, 18, 16, 17   | 14, 17, 16, 15   |
+| Media                  | 20, 22, 21, 19   | 19, 18, 20, 21   |
+| Alta                   | 25, 27, 26, 24   | 23, 22, 24, 25   |
+
+Se realiza un ANOVA de dos factores y se aplica la prueba de Tukey HSD.
+
+```{r anova_61}
+# Datos de durabilidad
+durabilidad <- c(15, 18, 16, 17, 14, 17, 16, 15, 
+                 20, 22, 21, 19, 19, 18, 20, 21, 
+                 25, 27, 26, 24, 23, 22, 24, 25)
+
+# Factor de material
+material <- factor(rep(c("A", "B"), each = 12))
+
+# Factor de temperatura
+temperatura <- factor(rep(c("Baja", "Media", "Alta"), each = 4, times = 2))
+
+# Crear un data frame con los datos
+datos <- data.frame(durabilidad, material, temperatura)
+
+# Realizar ANOVA de dos factores
+modelo <- aov(durabilidad ~ material * temperatura, data = datos)
+
+# Resumen del modelo
+summary(modelo)
+```
+
+En esta salida:
+
+- El factor "material" no es significativo (p > 0.05).
+- El factor "temperatura" es significativo (p < 0.05).
+- La interacción "material:temperatura" no es significativa (p > 0.05).
+
+Realizamos la prueba post-hoc de Tukey HSD de comparación de medias:
+
+```{r tuk6}
+# Realizar la prueba de Tukey HSD
+tukey <- TukeyHSD(modelo)
+
+# Mostrar los resultados
+print(tukey)
+```
+A la vista de los resultados:  ¿Qué contrastes de hipótesis tiene sentido plantear para realizar un experimento en el futuro?
+
+### Ejercicio 7
+
+ Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los empleados en una tarea de productividad. Los dos factores considerados son el tipo de capacitación (Capacitación A y Capacitación B) y el horario de trabajo (Turno de Mañana, Turno de Tarde y Turno de Noche). Para ello, se seleccionan 3 empleados aleatoriamente para cada combinación de capacitación y horario, y se registra su rendimiento en la tarea (en puntos).
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Horario / Capacitación | Capacitación A      | Capacitación B      |
+|------------------------|---------------------|---------------------|
+| Mañana                 | 78, 82, 81          | 85, 87, 88          |
+| Tarde                  | 72, 75, 74          | 80, 82, 83          |
+| Noche                  | 65, 68, 66          | 60, 62, 61          |
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en el rendimiento de los empleados debido al tipo de capacitación, al horario de trabajo, y a la interacción entre ambos factores.
+
+### Ejercicio 8
+Aplica un método de comparación de medias al ejercicio anterior para estudiar dónde se encuentran las diferencias estadísticamente significativas.
+
+
+### Ejercicio 9
+
+Un investigador quiere evaluar el efecto de tres diferentes dietas en el aumento de peso de ratones. Para ello, selecciona al azar 15 ratones y los divide en tres grupos de 5 ratones cada uno. Cada grupo es alimentado con una dieta diferente durante un período de 8 semanas. Al final del experimento, se mide el aumento de peso (en gramos) de cada ratón. Los datos obtenidos se muestran a continuación:
+
+**Dieta A:** 20, 21, 19, 23, 22  
+**Dieta B:** 30, 32, 29, 31, 33  
+**Dieta C:** 25, 27, 26, 24, 28  
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en el aumento de peso entre las dietas utilizando el método de Bonferroni para comparaciones múltiples.
+
+### Ejercicio 10
+Un investigador quiere evaluar el efecto de tres factores en el rendimiento de un motor: el tipo de combustible (Gasolina, Diésel, Eléctrico), la temperatura (Baja, Media, Alta) y la presión (Baja, Media, Alta). Para ello, se mide el rendimiento del motor (en kilovatios) bajo todas las combinaciones posibles de estos factores. Los datos obtenidos se muestran a continuación:
+
+| Combustible | Temperatura | Presión | Rendimiento |
+|-------------|--------------|---------|-------------|
+| Gasolina    | Baja         | Baja    | 150         |
+| Gasolina    | Baja         | Media   | 160         |
+| Gasolina    | Baja         | Alta    | 155         |
+| Gasolina    | Media        | Baja    | 165         |
+| Gasolina    | Media        | Media   | 170         |
+| Gasolina    | Media        | Alta    | 168         |
+| Gasolina    | Alta         | Baja    | 160         |
+| Gasolina    | Alta         | Media   | 158         |
+| Gasolina    | Alta         | Alta    | 162         |
+| Diésel      | Baja         | Baja    | 140         |
+| Diésel      | Baja         | Media   | 145         |
+| Diésel      | Baja         | Alta    | 148         |
+| Diésel      | Media        | Baja    | 150         |
+| Diésel      | Media        | Media   | 155         |
+| Diésel      | Media        | Alta    | 152         |
+| Diésel      | Alta         | Baja    | 148         |
+| Diésel      | Alta         | Media   | 150         |
+| Diésel      | Alta         | Alta    | 149         |
+| Eléctrico   | Baja         | Baja    | 130         |
+| Eléctrico   | Baja         | Media   | 135         |
+| Eléctrico   | Baja         | Alta    | 138         |
+| Eléctrico   | Media        | Baja    | 140         |
+| Eléctrico   | Media        | Media   | 145         |
+| Eléctrico   | Media        | Alta    | 142         |
+| Eléctrico   | Alta         | Baja    | 138         |
+| Eléctrico   | Alta         | Media   | 140         |
+| Eléctrico   | Alta         | Alta    | 139         |
+
+Estudia el efecto de cada uno de los factores en el rendimiento, así como el efecto de las posibles interacciones.
+
+<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
+<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
+DSLAB - Universidad Rey Juan Carlos
+</div>
