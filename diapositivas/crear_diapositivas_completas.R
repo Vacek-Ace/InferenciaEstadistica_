@@ -93,34 +93,39 @@ verificar_y_crear_diapositivas <- function() {
   # Definir archivos esperados y sus fuentes
   temas_config <- list(
     list(
-      archivo_pdf = "diapositivas/diapositivas_pdf/tema0_introduccion.pdf",
-      archivo_qmd = "diapositivas/tema0_introduccion.qmd",
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema0_intro.pdf",
+      archivo_qmd = "diapositivas/tema0_intro.qmd",
       nombre = "Tema 0: Introducción"
     ),
     list(
-      archivo_pdf = "diapositivas/diapositivas_pdf/tema1_regresionlineal.pdf",
-      archivo_qmd = "diapositivas/tema1_regresionlineal.qmd", 
-      nombre = "Tema 1: Regresión Lineal Simple"
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema1_eda.pdf",
+      archivo_qmd = "diapositivas/tema1_eda.qmd",
+      nombre = "Tema 1: EDA"
     ),
     list(
-      archivo_pdf = "diapositivas/diapositivas_pdf/tema2_regresionmultiple.pdf",
-      archivo_qmd = "diapositivas/tema2_regresionmultiple.qmd",
-      nombre = "Tema 2: Regresión Lineal Múltiple"
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema2_1_est_puntual.pdf",
+      archivo_qmd = "diapositivas/tema2_1_est_puntual.qmd",
+      nombre = "Tema 2.1: Estimación puntual"
     ),
     list(
-      archivo_pdf = "diapositivas/diapositivas_pdf/tema3_ingenieriacaracteristicas.pdf",
-      archivo_qmd = "diapositivas/tema3_ingenieriacaracteristicas.qmd",
-      nombre = "Tema 3: Ingeniería de Características"
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema2_2_intervalos_confianza.pdf",
+      archivo_qmd = "diapositivas/tema2_2_intervalos_confianza.qmd",
+      nombre = "Tema 2.2: Intervalos de confianza"
     ),
     list(
-      archivo_pdf = "diapositivas/diapositivas_pdf/tema4_seleccionvariables.pdf",
-      archivo_qmd = "diapositivas/tema4_seleccionvariables.qmd",
-      nombre = "Tema 4: Selección de Variables"
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema2_3_contrastes_hipotesis.pdf",
+      archivo_qmd = "diapositivas/tema2_3_contrastes_hipotesis.qmd",
+      nombre = "Tema 2.3: Contrastes de hipótesis"
     ),
     list(
-      archivo_pdf = "diapositivas/diapositivas_pdf/tema5_glm.pdf",
-      archivo_qmd = "diapositivas/tema5_glm.qmd",
-      nombre = "Tema 5: GLM"
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema3_contraste_noparam.pdf",
+      archivo_qmd = "diapositivas/tema3_contraste_noparam.qmd",
+      nombre = "Tema 3: Contrastes no paramétricos"
+    ),
+    list(
+      archivo_pdf = "diapositivas/diapositivas_pdf/tema4_anova.pdf",
+      archivo_qmd = "diapositivas/tema4_anova.qmd",
+      nombre = "Tema 4: ANOVA"
     )
   )
   
@@ -183,12 +188,14 @@ calcular_paginas_temas <- function(archivos_temas) {
   
   # Calcular página de inicio de cada tema
   temas_info <- list(
-    "tema0" = "Introduccion a los Modelos Estadisticos",
-    "tema1" = "Regresion Lineal Simple", 
-    "tema2" = "Regresion Lineal Multiple",
-    "tema3" = "Ingenieria de Caracteristicas",
-    "tema4" = "Seleccion de Variables y Regularizacion",
-    "tema5" = "Modelos Lineales Generalizados"
+    "portada" = "Portada",
+    "tema0" = "Tema 0: Introducción",
+    "tema1" = "Tema 1: EDA",
+    "tema2_1" = "Tema 2.1: Estimación puntual",
+    "tema2_2" = "Tema 2.2: Intervalos de confianza",
+    "tema2_3" = "Tema 2.3: Contrastes de hipótesis",
+    "tema3" = "Tema 3: Contrastes no paramétricos",
+    "tema4" = "Tema 4: ANOVA"
   )
   
   for (archivo in archivos_temas) {
@@ -362,14 +369,14 @@ agregar_bookmarks_laterales <- function(archivo_pdf, paginas_temas) {
 #' Función para obtener archivos de temas
 obtener_archivos_temas <- function() {
   archivos_esperados <- c(
-    "diapositivas/diapositivas_pdf/tema0_introduccion.pdf",
-    "diapositivas/diapositivas_pdf/tema1_regresionlineal.pdf", 
-    "diapositivas/diapositivas_pdf/tema2_regresionmultiple.pdf",
-    "diapositivas/diapositivas_pdf/tema3_ingenieriacaracteristicas.pdf",
-    "diapositivas/diapositivas_pdf/tema4_seleccionvariables.pdf",
-    "diapositivas/diapositivas_pdf/tema5_glm.pdf"
+    "diapositivas/diapositivas_pdf/tema0_intro.pdf",
+    "diapositivas/diapositivas_pdf/tema1_eda.pdf",
+    "diapositivas/diapositivas_pdf/tema2_1_est_puntual.pdf",
+    "diapositivas/diapositivas_pdf/tema2_2_intervalos_confianza.pdf",
+    "diapositivas/diapositivas_pdf/tema2_3_contrastes_hipotesis.pdf",
+    "diapositivas/diapositivas_pdf/tema3_contraste_noparam.pdf",
+    "diapositivas/diapositivas_pdf/tema4_anova.pdf"
   )
-  
   return(archivos_esperados[file.exists(archivos_esperados)])
 }
 

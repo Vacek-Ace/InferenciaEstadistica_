@@ -1,0 +1,321 @@
+---
+lang: es
+format:
+  pdf:
+    pdf-engine: weasyprint
+    title-block-banner: false 
+    toc: true
+    toc-title: "Índice guía de estudio"
+    include-before-body: portada.html
+    css: ../estilos.css
+---
+
+# Introducción a la asignatura
+
+La **estadística** es una disciplina esencial en el mundo moderno, permitiendo a los profesionales transformar grandes volúmenes de datos en conocimientos valiosos. En un entorno donde la cantidad de datos crece rápidamente, la capacidad de tomar decisiones informadas basadas en estos datos se vuelve crucial. Esta asignatura, diseñada para el Grado en Ciencia e Ingeniería de Datos, busca proporcionar una comprensión sólida de los principios y métodos fundamentales de la estadística.
+
+La **inferencia estadística** es una metodología poderosa y bien fundamentada matemáticamente que permite a los analistas hacer predicciones, estimaciones y tomar decisiones a partir de datos incompletos o inciertos. Esta capacidad es importantísima en ciencia de datos, ya que los conceptos de inferencia estadística son la base de un análisis riguroso y de la toma de decisiones basada en datos.
+
+A lo largo del curso, los estudiantes explorarán los conceptos clave de la inferencia estadística, desde los fundamentos teóricos hasta las aplicaciones prácticas. Se estudiarán temas como la estimación de parámetros, pruebas de hipótesis y análisis de la varianza, siempre con un enfoque práctico que facilite la interpretación y aplicación de los resultados en situaciones reales. Cada tema incluirá ejemplos, ejercicios y aplicaciones prácticas que ayudarán a los estudiantes a consolidar sus conocimientos y habilidades.
+
+
+## Objetivos de la asignatura
+
+Proveer a los estudiantes de los conocimientos y habilidades necesarios para realizar y evaluar inferencias a partir de datos. Esto incluye aplicar métodos de estimación puntual, estimación por intervalos y contraste de hipótesis en distintos contextos y utilizar herramientas estadísticas para analizar datos. Los estudiantes también desarrollarán competencias para interpretar y comunicar resultados de forma clara y rigurosa, con el apoyo de software estadístico para implementar las técnicas estudiadas.
+
+## Temario de la asignatura
+
+- Tema 1: Introducción a la Inferencia Estadística
+- Tema 2: Estadística Descriptiva. Análisis Exploratorio de Datos.  
+- Tema 3: Inferencia paramétrica
+  - Tema 3.1: Estimación puntual
+  - Tema 3.2: Intervalos de confianza
+  - Tema 3.3: Contrastes de hipótesis
+- Tema 4: Inferencia no paramétrica
+- Tema 5: Análisis de la varianza
+
+# Desarrollo de la asignatura
+
+Con 15 semanas de clase y 2 clases por semana (generalmente 1 dedicada a teoría y 1 a práctica aunque esto puede variar en función de las necesidades de los alumnos), se estable la siguiente configuración de la asignatura. Nótese que en los apuntes de esta asignatura se incluyen códigos que el alumno puede ir implementando tema por tema para realizar las prácticas correspondientes.
+
+
+## SEMANA 1: Presentación y primeros pasos
+
+**Contenidos principales**:
+
+- Presentación de la asignatura: guía docente, evaluación y metodología
+- Introducción al concepto de inferencia estadística y su importancia
+- Instalación y primeros pasos con R y RStudio
+- Operaciones básicas en R: vectores, funciones elementales, lectura de datos
+
+**Objetivos de aprendizaje**:
+
+- Comprender la estructura y objetivos de la asignatura
+- Familiarizarse con el entorno de trabajo R/RStudio
+- Realizar operaciones básicas de manipulación de datos
+
+**Trabajo autónomo**: Instalar software, explorar la interfaz de RStudio, practicar con ejemplos básicos de R
+
+## SEMANA 2: Fundamentos de EDA
+
+**Contenidos principales**:
+
+- Tipos de variables: cualitativas y cuantitativas
+- Estadística descriptiva univariante: medidas de centralización y dispersión
+- Tablas de frecuencias y representaciones gráficas básicas
+- Implementación en R: `summary()`, `table()`, `hist()`, `boxplot()`
+
+**Objetivos de aprendizaje**:
+
+- Identificar y clasificar tipos de variables
+- Calcular e interpretar medidas descriptivas básicas
+- Crear visualizaciones exploratorias en R
+
+**Trabajo autónomo**: Practicar con datasets de ejemplo (`iris`, `mtcars`), realizar ejercicios de cálculo de estadísticos
+
+## SEMANA 3: Análisis exploratorio avanzado
+
+**Contenidos principales**:
+
+- Análisis bidimensional: tablas de contingencia, correlación
+- Visualización avanzada: gráficos de dispersión, matrices de correlación
+- Detección de valores atípicos y datos faltantes
+- Introducción a paquetes útiles: `dplyr`, `ggplot2`
+
+**Objetivos de aprendizaje**:
+
+- Analizar relaciones entre variables
+- Crear visualizaciones efectivas para comunicar hallazgos
+- Identificar problemas en los datos (outliers, missings)
+
+**Trabajo autónomo**: Explorar datasets de repositorios abiertos (UCI, Kaggle), generar informes exploratorios
+
+## SEMANA 4: Práctica intensiva de EDA
+
+**Contenidos principales**:
+
+- Laboratorio práctico con conjuntos de datos reales
+- Transformaciones de variables
+- Generación de hipótesis a partir de la exploración
+- Buenas prácticas en la presentación de resultados
+
+**Objetivos de aprendizaje**:
+
+- Realizar un análisis exploratorio completo de forma autónoma
+- Formular preguntas de investigación basadas en los datos
+- Documentar el proceso de análisis de forma clara
+
+**Trabajo autónomo**: Completar análisis exploratorio de dataset asignado, preparar presentación de hallazgos
+
+## SEMANA 5: Cierre de EDA y preparación para inferencia
+
+**Contenidos principales**:
+
+- Laboratorio: finalización de análisis exploratorios
+- Repaso de variables aleatorias y distribuciones de probabilidad
+- Conceptos de población, muestra y muestreo
+- Distribuciones muestrales: introducción al Teorema Central del Límite
+
+**Objetivos de aprendizaje**:
+
+- Consolidar conocimientos de EDA
+- Conectar estadística descriptiva con inferencia
+- Comprender el concepto de distribución muestral
+
+**Trabajo autónomo**: Repasar distribuciones de probabilidad, ejercicios de cálculo de probabilidades
+
+## SEMANA 6: Estimación puntual I
+
+**Contenidos principales**:
+
+- Concepto de estimador y sus propiedades (insesgadez, eficiencia, consistencia)
+- Métodos de estimación: método de los momentos
+- Método de máxima verosimilitud
+- Estimadores comunes: media, proporción, varianza
+
+**Objetivos de aprendizaje**:
+
+- Entender qué es un estimador y cómo evaluar su calidad
+- Aplicar el método de los momentos y máxima verosimilitud
+- Calcular estimadores puntuales para parámetros básicos
+
+**Trabajo autónomo**: Ejercicios teóricos de obtención de estimadores, demostración de propiedades
+
+## SEMANA 7: Estimación puntual II
+
+**Contenidos principales**:
+
+- Laboratorio de simulación: comportamiento de estimadores
+- Comparación de estimadores mediante simulación Monte Carlo
+- Aplicaciones prácticas: estimación en diferentes contextos
+- Ejercicios teóricos de demostración de propiedades
+
+**Objetivos de aprendizaje**:
+
+- Visualizar empíricamente las propiedades de los estimadores
+- Implementar simulaciones en R para estudiar estimadores
+- Resolver problemas teóricos sobre estimación puntual
+
+**Trabajo autónomo**: Completar ejercicios propuestos, preparar simulaciones adicionales
+
+## SEMANA 8: Intervalos de confianza I
+
+**Contenidos principales**:
+
+- Concepto de intervalo de confianza e interpretación
+- Nivel de confianza vs nivel de significación
+- Intervalos para la media (varianza conocida y desconocida)
+- Intervalos para proporciones y diferencia de medias
+
+**Objetivos de aprendizaje**:
+
+- Comprender e interpretar correctamente un intervalo de confianza
+- Construir intervalos de confianza para diferentes parámetros
+- Entender el efecto del tamaño muestral y nivel de confianza
+
+**Trabajo autónomo**: Ejercicios de construcción de intervalos, problemas de interpretación
+
+## SEMANA 9: Intervalos de confianza II - TRABAJO 1
+
+**Contenidos principales**:
+
+- Aplicaciones prácticas de intervalos de confianza
+- Intervalos para varianza y cociente de varianzas
+
+**Objetivos de aprendizaje**:
+
+- Aplicar correctamente intervalos de confianza en contextos reales
+- Interpretar y comunicar resultados de forma rigurosa
+- Demostrar dominio de la estimación por intervalos
+
+**Trabajo autónomo**: Preparación para el trabajo presencial, repaso de técnicas de intervalos
+
+## SEMANA 10: Contrastes de hipótesis I
+
+**Contenidos principales**:
+
+- Fundamentos de los contrastes: hipótesis nula y alternativa
+- Errores tipo I y tipo II, potencia del contraste
+- p-valor: cálculo e interpretación
+- Contrastes para la media con varianza conocida (test Z)
+
+**Objetivos de aprendizaje**:
+
+- Plantear correctamente hipótesis estadísticas
+- Comprender la lógica del contraste de hipótesis
+- Calcular e interpretar el p-valor
+
+**Trabajo autónomo**: Ejercicios de planteamiento de hipótesis, cálculo de errores tipo I y II
+
+## SEMANA 11: Contrastes de hipótesis II - Contrastes no paramétricos I
+
+**Contenidos principales**:
+
+- Contrastes para la media con varianza desconocida (test t)
+- Contrastes para proporciones y diferencias
+- Ejercicios teóricos y prácticos de contrastes paramétricos
+- **Introducción a contrastes no paramétricos**: concepto y cuándo usarlos
+
+**Objetivos de aprendizaje**:
+
+- Aplicar contrastes paramétricos básicos
+- Identificar situaciones donde usar métodos no paramétricos
+- Resolver problemas completos de contraste
+
+**Trabajo autónomo**: Completar ejercicios de contrastes, preparar casos prácticos
+
+## SEMANA 12: Contrastes no paramétricos II - ANOVA I
+
+**Contenidos principales**:
+
+- Tests no paramétricos principales: Wilcoxon, Mann-Whitney, Kruskal-Wallis
+- Test de Kolmogorov-Smirnov, chi-cuadrado de bondad de ajuste
+- Ejercicios prácticos de tests no paramétricos en R
+- **Introducción al ANOVA**: motivación y modelo de un factor
+
+**Objetivos de aprendizaje**:
+
+- Aplicar tests no paramétricos según el contexto
+- Comprender cuándo usar ANOVA
+- Plantear el modelo ANOVA de un factor
+
+**Trabajo autónomo**: Ejercicios de selección y aplicación de tests no paramétricos
+
+## SEMANA 13: Análisis de la varianza
+
+**Contenidos principales**:
+
+- ANOVA de un factor: tabla ANOVA, test F
+- Supuestos del modelo y diagnóstico (normalidad, homocedasticidad)
+- Comparaciones múltiples: métodos post-hoc (Tukey, Bonferroni)
+- ANOVA de dos factores con y sin interacción
+- Implementación completa en R
+
+**Objetivos de aprendizaje**:
+
+- Realizar e interpretar un ANOVA completo
+- Verificar supuestos del modelo
+- Aplicar métodos de comparaciones múltiples
+- Interpretar interacciones entre factores
+
+**Trabajo autónomo**: Ejercicios de ANOVA, análisis de casos prácticos
+
+## SEMANA 14: Trabajo final colectivo
+
+**Contenidos principales**:
+
+- **TRABAJO 2 (Práctica final colectiva)**: ambas sesiones dedicadas al proyecto
+- Los equipos trabajan en un análisis estadístico completo
+- Supervisión y resolución de dudas por parte del profesor
+- Integración de todos los conceptos del curso
+
+**Objetivos de aprendizaje**:
+
+- Realizar un análisis estadístico completo de forma autónoma
+- Trabajar en equipo en un proyecto de análisis de datos
+- Comunicar resultados de forma profesional
+
+**Trabajo autónomo**: Finalización del proyecto grupal, preparación de la presentación/informe final
+
+## SEMANA 15: Cierre y repaso
+
+**Contenidos principales**:
+
+- Revisión de conceptos clave de toda la asignatura
+- Resolución de dudas generales
+- Ejercicios tipo examen
+- Recomendaciones para preparar el examen final
+- Cierre del curso
+
+**Objetivos de aprendizaje**:
+
+- Consolidar todos los conocimientos adquiridos
+- Identificar áreas que requieren refuerzo
+- Prepararse adecuadamente para el examen final
+
+**Trabajo autónomo**: Repaso integral del temario, resolución de exámenes de años anteriores
+
+# Bibliografía
+
+A continuación se recomiendan una serie de libros de referencia:
+
+- Canavos, G. C., & Medal, E. G. U. (1987). Probabilidad y estadística (p. 651). México: McGraw Hill.
+
+- Gómez Villegas, M. A. (2005). Inferencia estadística. Ediciones Díaz de Santos
+
+- Wasserman, L. (2013). All of statistics: a concise course in statistical inference. Springer Science & Business Media.
+
+- Corder, G. W., & Foreman, D. I. (2014). Nonparametric statistics: A step-by-step approach. John Wiley & Sons.
+
+- Murphy, K. P. (2012). Machine learning: a probabilistic perspective. MIT press.
+
+- "Fundamentos de ciencia de datos con R" coordinado por Gema Fernández-Avilés y José-María Montero. https://cdr-book.github.io/
+
+
+# Recursos y repositorios de datos
+
+A lo largo del curso se trabajará con conjuntos de datos reales obtenidos de repositorios abiertos como:
+
+- UCI Machine Learning Repository: https://archive.ics.uci.edu/
+- Kaggle Datasets: https://www.kaggle.com/datasets
+- Otros repositorios según necesidades específicas del temario

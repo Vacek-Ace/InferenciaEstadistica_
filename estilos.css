@@ -423,3 +423,26 @@ pre {
     body { -webkit-print-color-adjust: exact; }
     .portada { height: 29.7cm !important; }
 }
+
+/* IMPORTANTE: Asegúrate de que el contenedor padre tenga position relative */
+.portada {
+    position: relative; /* CRUCIAL para que funcione el texto lateral */
+    /* mantén el resto de tus estilos de .portada */
+}
+
+.portada-container {
+    position: relative; /* También aquí por si acaso */
+    /* mantén el resto de tus estilos de .portada-container */
+}
+
+/* TEXTO VERTICAL CORREGIDO */
+.portada-info-lateral {
+    position: absolute;
+    top: 550px;  /* Ajusta según necesites */
+    right: 40px;
+    transform: rotate(90deg);
+    transform-origin: right bottom;
+    font-size: 11px;
+    color: #e0e0e0;
+    white-space: nowrap;
+}

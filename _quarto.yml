@@ -1,0 +1,9 @@
+project:
+  type: default
+
+format:
+  pdf:
+    documentclass: beamer
+    toc: false
+    number-sections: false
+    output-dir: diapositivas/diapositivas_pdf

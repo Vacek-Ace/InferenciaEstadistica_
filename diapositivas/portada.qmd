@@ -8,9 +8,11 @@ format:
 
 # Índice de Diapositivas
 
-- Tema 0: Introducción a los Modelos Estadísticos para la Predicción
-- Tema 1: Regresión Lineal Simple  
-- Tema 2: Regresión Lineal Múltiple
-- Tema 3: Ingeniería de Características
-- Tema 4: Selección de Variables, Regularización y Validación
-- Tema 5: Modelos Lineales Generalizados (GLM)
+- Tema 0: Introducción a la Inferencia Estadística
+- Tema 1: Estadística Descriptiva. Análisis Exploratorio de Datos.  
+- Tema 2: Inferencia paramétrica
+  - Tema 2.1: Estimación puntual
+  - Tema 2.2: Intervalos de confianza
+  - Tema 2.3: Contrastes de hipótesis
+- Tema 3: Inferencia no paramétrica
+- Tema 4: Análisis de la varianza
