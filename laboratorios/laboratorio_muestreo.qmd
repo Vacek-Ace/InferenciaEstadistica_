@@ -1,24 +1,4 @@
----
-title: "Laboratorio de Muestreo y Estimadores"
-subtitle: "Inferencia Estadística"
-author: 
-  - "Víctor Aceña Gil"
-  - "Isaac Martín de Diego"
-  - "Carmen Lancho Martín"
-date: today
-lang: es
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: false
-    theme: cosmo
-    embed-resources: true
-execute:
-  warning: false
-  message: false
----
-
+# Laboratorio de Muestreo y Estimadores
 
 ```{r setup, include=FALSE, purl=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
@@ -38,7 +18,7 @@ library(ggplot2)
 ```
 
 
-# Objetivo {-}
+## Objetivo {-}
 
 El objetivo principal de este laboratorio es aprender a aplicar técnicas de **muestreo estadístico** y a calcular **estimaciones puntuales** de parámetros poblacionales a partir de una muestra. Como objetivos secundarios tenemos:
 
@@ -48,7 +28,7 @@ El objetivo principal de este laboratorio es aprender a aplicar técnicas de **m
 4. Saber interpretar los resultados obtenidos y su implicación en la inferencia sobre la población.
 
 
-# Introducción
+## Introducción
 
 En esta sección, introduciremos los conceptos básicos de **muestreo estadístico** y **estimación**. El muestreo es el proceso mediante el cual seleccionamos una parte de la población para obtener información sobre el todo. Los **estimadores** son las herramientas que utilizamos para aproximar los parámetros poblacionales (como la media o la proporción) a partir de la muestra obtenida.
 
@@ -58,11 +38,11 @@ Veremos los siguientes conceptos:
 2. Definición de estimadores y su diferencia con los parámetros poblacionales.
 3. Propiedades deseables de los estimadores: insesgadez, eficiencia, consistencia.
 
-# Tipos de Muestreo
+## Tipos de Muestreo
 
 Existen diferentes métodos de muestreo que podemos utilizar dependiendo de la situación y la naturaleza de la población. A continuación, se describen brevemente los métodos más comunes:
 
-## Muestreo Aleatorio Simple (MAS)
+### Muestreo Aleatorio Simple (MAS)
 
 El **muestreo aleatorio simple** es el método más sencillo. Cada elemento de la población tiene la misma probabilidad de ser seleccionado. Es ideal para poblaciones pequeñas y homogéneas.
 
@@ -72,8 +52,8 @@ El **muestreo aleatorio simple** es el método más sencillo. Cada elemento de l
 
 ```{r}
 set.seed(123)
-poblacion <- 1:100  # Población de 100 estudiantes
-muestra <- sample(poblacion, size = 20, replace = FALSE)  # Seleccionar una muestra aleatoria de 20
+poblacion <- 1:100  ## Población de 100 estudiantes
+muestra <- sample(poblacion, size = 20, replace = FALSE)  ## Seleccionar una muestra aleatoria de 20
 
 ```
 
@@ -96,13 +76,13 @@ En este ejemplo, realizamos un **muestreo aleatorio simple** en una población d
 Este método garantiza que cada estudiante en la población tenga la misma probabilidad de ser seleccionado para la muestra, asegurando una **representación equitativa** y **aleatoria** de la población en la muestra.
 
 ```{r}
-# Crear un dataframe con la información de la población y la muestra
+## Crear un dataframe con la información de la población y la muestra
 data_proporcion <- data.frame(
   Categoria = c("Población", "Muestra"),
   Tamano = c(length(poblacion), length(muestra))
 )
 
-# Crear el gráfico de barras
+## Crear el gráfico de barras
 ggplot(data_proporcion, aes(x = Categoria, y = Tamano, fill = Categoria)) +
   geom_bar(stat = "identity", width = 0.5) +
   scale_fill_manual(values = c("Población" = "steelblue", "Muestra" = "orange")) +
@@ -128,7 +108,7 @@ Sin embargo, puede no ser el método adecuado para poblaciones grandes o cuando 
 
 
 
-## Muestreo Estratificado
+### Muestreo Estratificado
 
 El **muestreo estratificado** se utiliza cuando la población no es homogénea, pero sabemos que podemos dividirla en grupos (estratos) homogéneos. De cada estrato, se selecciona una muestra aleatoria. Este método es útil cuando los subgrupos dentro de la población tienen características que afectan el estudio y queremos asegurarnos de que estén representados adecuadamente.
 
@@ -137,17 +117,17 @@ El **muestreo estratificado** se utiliza cuando la población no es homogénea, 
 :::
 
 ```{r}
-# Simulación de una población de estudiantes clasificados por carrera
+## Simulación de una población de estudiantes clasificados por carrera
 set.seed(123)
 poblacion <- data.frame(
-  id = 1:100,  # Identificación de estudiantes
+  id = 1:100,  ## Identificación de estudiantes
   carrera = sample(c("Ingeniería", "Medicina", "Derecho", "Ciencias Sociales"), 100, replace = TRUE)
 )
 
-# Tamaño de la muestra total
+## Tamaño de la muestra total
 n_muestra <- 20
 
-# Muestreo estratificado: número de estudiantes seleccionados por carrera
+## Muestreo estratificado: número de estudiantes seleccionados por carrera
 muestra_estratificada <- poblacion |> 
   group_by(carrera) |> 
   sample_n(size = round(n_muestra * n() / nrow(poblacion)), replace = FALSE)
@@ -177,7 +157,7 @@ En este ejemplo, realizamos un **muestreo estratificado** en una población de 1
 
 Este método asegura que cada carrera esté representada adecuadamente en la muestra final, mejorando la **representatividad** y **precisión** de las estimaciones obtenidas a partir de la muestra.
 
-### Detalle de las Funciones Utilizadas {-}
+#### Detalle de las Funciones Utilizadas {-}
 
 1. **`sample_n()`**:
    
@@ -194,31 +174,31 @@ Este método asegura que cada carrera esté representada adecuadamente en la mue
 Este enfoque de muestreo estratificado mejora la **exactitud** y **eficiencia** de las estimaciones estadísticas al asegurar que todos los subgrupos importantes de la población estén adecuadamente representados en la muestra.
 
 ```{r}
-# Calcular la proporción de cada carrera en la población
+## Calcular la proporción de cada carrera en la población
 proporcion_poblacion <- poblacion |>
   count(carrera) |>
   mutate(prop_poblacion = n / sum(n)) |>
   select(carrera, prop_poblacion)
 
-# Calcular la proporción de cada carrera en la muestra, pero con respecto al total de la muestra (n_muestra)
+## Calcular la proporción de cada carrera en la muestra, pero con respecto al total de la muestra (n_muestra)
 proporcion_muestra <- muestra_estratificada |>
   count(carrera) |>
   mutate(prop_muestra = n / sum(n_muestra)) |>
   select(carrera, prop_muestra)
 
-# Unir las proporciones de población y muestra
+## Unir las proporciones de población y muestra
 proporciones_comparadas <- left_join(proporcion_poblacion, proporcion_muestra, by = "carrera")
 
-# Convertir a formato largo para ggplot
+## Convertir a formato largo para ggplot
 proporciones_long <- proporciones_comparadas |>
   pivot_longer(cols = starts_with("prop"), names_to = "Conjunto", values_to = "Proporción")
 
-# Renombrar las categorías para hacerlas más claras en el gráfico
+## Renombrar las categorías para hacerlas más claras en el gráfico
 proporciones_long$Conjunto <- recode(proporciones_long$Conjunto,
                                      "prop_poblacion" = "Población",
                                      "prop_muestra" = "Muestra Estratificada")
 
-# Crear el gráfico de barras comparando las proporciones
+## Crear el gráfico de barras comparando las proporciones
 ggplot(proporciones_long, aes(x = carrera, y = Proporción * 100, fill = Conjunto)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Comparación de Proporciones Relativas: Población vs Muestra Estratificada",
@@ -248,15 +228,15 @@ Este tipo de muestreo es ideal cuando:
 
 Sin embargo, el muestreo estratificado requiere **conocer previamente la estructura** de la población para identificar los estratos, lo que puede no ser viable si no tenemos esta información disponible. En poblaciones pequeñas o homogéneas, puede ser más adecuado el **muestreo aleatorio simple**.
 
-## Comparación entre MAS y Muestreo Estratificado
+### Comparación entre MAS y Muestreo Estratificado
 
 Vamos a realizar una comparación entre el Muestreo Aleatorio Simple (MAS) y el Muestreo Estratificado. Para ello, tomaremos muestras repetidamente de la población y compararemos la proporción de estudiantes de "Ingeniería" en cada muestra utilizando ambos métodos.
 
-### Simulación de Muestras Repetidas
+#### Simulación de Muestras Repetidas
 
 Para entender mejor las diferencias entre MAS y el Muestreo Estratificado, realizaremos una **simulación** en la que extraeremos **100 muestras** utilizando cada método. En cada muestra, calcularemos la **proporción de estudiantes de "Ingeniería"**. Este enfoque nos permitirá observar cómo varían las estimaciones según el método de muestreo utilizado.
 
-#### Procedimiento de la Simulación {-}
+##### Procedimiento de la Simulación {-}
 
 1. **Configuración Inicial**:
    - **Número de Repeticiones** `n_reps`: 100
@@ -275,18 +255,18 @@ Para entender mejor las diferencias entre MAS y el Muestreo Estratificado, reali
 
 
 ```{r, fig.width=7, fig.height=5, dpi=600}
-# Parámetros de la simulación
-n_reps <- 100  # Número de repeticiones
-n_muestra <- 20  # Tamaño de la muestra total
+## Parámetros de la simulación
+n_reps <- 100  ## Número de repeticiones
+n_muestra <- 20  ## Tamaño de la muestra total
 
-# Función para obtener la proporción de "Ingeniería" en MAS
+## Función para obtener la proporción de "Ingeniería" en MAS
 mas_sim <- function() {
   muestra_mas <- sample(poblacion$id, size = n_muestra, replace = FALSE)
   prop_ing_mas <- mean(poblacion$carrera[muestra_mas] == "Ingeniería")
   return(prop_ing_mas)
 }
 
-# Función para obtener la proporción de "Ingeniería" en Muestreo Estratificado
+## Función para obtener la proporción de "Ingeniería" en Muestreo Estratificado
 estrat_sim <- function() {
   muestra_estrat <- poblacion |> 
     group_by(carrera) |> 
@@ -295,19 +275,19 @@ estrat_sim <- function() {
   return(prop_ing_estrat)
 }
 
-# Simulación
+## Simulación
 set.seed(123)
 resultados_mas <- replicate(n_reps, mas_sim())
 resultados_estrat <- replicate(n_reps, estrat_sim())
 
-# Crear un data frame con los resultados
+## Crear un data frame con los resultados
 resultados <- data.frame(
   rep = 1:n_reps,
   MAS = resultados_mas,
   Estratificado = resultados_estrat
 )
 
-# Graficar los resultados de MAS y Estratificado
+## Graficar los resultados de MAS y Estratificado
 ggplot(resultados, aes(x = rep)) +
   geom_line(aes(y = MAS, color = "MAS"), size = 1) +
   geom_line(aes(y = Estratificado, color = "Estratificado"), size = 1) +
@@ -325,12 +305,12 @@ Este gráfico de líneas compara la proporción de estudiantes de **Ingeniería*
 - **Eje X**: Representa el número de repeticiones de la muestra (de 1 a 100).
 - **Eje Y**: Representa la proporción de estudiantes de Ingeniería en cada muestra.
 
-### Elementos del Gráfico {-}
+#### Elementos del Gráfico {-}
 
 - **Línea Azul (MAS)**: Muestra la proporción de Ingeniería obtenida a través del Muestreo Aleatorio Simple en cada una de las 100 repeticiones.
 - **Línea Verde (Estratificado)**: Muestra la proporción de Ingeniería obtenida a través del Muestreo Estratificado en cada una de las 100 repeticiones.
 
-### Observaciones {-}
+#### Observaciones {-}
 
 1. **Variabilidad**:
    - **MAS**: La línea azul presenta una mayor variabilidad en la proporción de Ingeniería entre las diferentes muestras. Esto indica que las proporciones obtenidas pueden fluctuar significativamente alrededor de la proporción real en la población.
@@ -340,7 +320,7 @@ Este gráfico de líneas compara la proporción de estudiantes de **Ingeniería*
    - **MAS**: Al ser un método completamente aleatorio, las muestras pueden no reflejar de manera precisa la estructura de la población, lo que resulta en fluctuaciones más amplias en las proporciones.
    - **Estratificado**: Al garantizar una representación proporcional de cada estrato (en este caso, cada carrera), el muestreo estratificado logra una mayor consistencia en las proporciones obtenidas en cada repetición.
 
-### Implicaciones {-}
+#### Implicaciones {-}
 
 - **Precisión y Representatividad**:
   - El **muestreo estratificado** proporciona una representación más precisa y consistente de subgrupos específicos dentro de la población, reduciendo la variabilidad de las estimaciones en comparación con el Muestreo Aleatorio Simple.
@@ -349,12 +329,12 @@ Este gráfico de líneas compara la proporción de estudiantes de **Ingeniería*
   - Cuando es importante asegurar la representatividad de subgrupos específicos (como una carrera particular), el muestreo estratificado es preferible debido a su mayor consistencia y menor variabilidad en las estimaciones.
   - Por otro lado, el **MAS** puede ser adecuado en situaciones donde la población es homogénea o cuando se busca simplicidad, aunque a costa de una mayor variabilidad en las estimaciones.
 
-### Conclusión {-}
+#### Conclusión {-}
 
 Este gráfico demuestra que el **muestreo estratificado** es más efectivo para obtener proporciones consistentes y representativas de subgrupos específicos dentro de una población. Al reducir la variabilidad en las estimaciones, este método mejora la precisión de las inferencias estadísticas realizadas a partir de la muestra, lo que es fundamental para obtener conclusiones fiables en estudios estadísticos.
 
 
-## Muestreo por Conglomerados
+### Muestreo por Conglomerados
 
 El **muestreo por conglomerados** se utiliza cuando la población está naturalmente dividida en grupos o **conglomerados** (por ejemplo, aulas, escuelas, barrios). En lugar de muestrear individuos de toda la población, se seleccionan aleatoriamente algunos conglomerados y se muestrean todos (o una muestra) los individuos dentro de esos conglomerados seleccionados. Este método es útil cuando es difícil o costoso enumerar a todos los individuos de la población, pero es más fácil listar los conglomerados.
 
@@ -363,23 +343,23 @@ El **muestreo por conglomerados** se utiliza cuando la población está naturalm
 :::
 
 ```{r}
-# Simulación de una población de estudiantes clasificados por aula
+## Simulación de una población de estudiantes clasificados por aula
 set.seed(123)
 poblacion <- data.frame(
-  id = 1:100,  # Identificación de estudiantes
+  id = 1:100,  ## Identificación de estudiantes
   aula = sample(paste("Aula", 1:10), 100, replace = TRUE)
 )
 
-# Tamaño de la muestra total
+## Tamaño de la muestra total
 n_muestra <- 20
 
-# Número de conglomerados a seleccionar (por ejemplo, 2 aulas)
+## Número de conglomerados a seleccionar (por ejemplo, 2 aulas)
 n_conglomerados <- 2
 
-# Seleccionar aleatoriamente los conglomerados
+## Seleccionar aleatoriamente los conglomerados
 conglomerados_seleccionados <- sample(unique(poblacion$aula), size = n_conglomerados)
 
-# Seleccionar todos los estudiantes dentro de los conglomerados seleccionados
+## Seleccionar todos los estudiantes dentro de los conglomerados seleccionados
 muestra_conglomerados <- poblacion |>
   filter(aula %in% conglomerados_seleccionados)
 ```
@@ -399,26 +379,26 @@ En este ejemplo, realizamos un **muestreo por conglomerados** en una población 
 Este método asegura que la muestra esté concentrada en los conglomerados seleccionados, lo que puede ser eficiente en términos de costos y logística cuando los conglomerados son internamente heterogéneos pero homogéneos entre sí.
 
 ```{r}
-# Contar el número de estudiantes por aula en la población
+## Contar el número de estudiantes por aula en la población
 poblacion_aulas <- poblacion |>
   count(aula) |>
   mutate(Tipo = "Población")
 
-# Contar el número de estudiantes por aula en la muestra por conglomerados
+## Contar el número de estudiantes por aula en la muestra por conglomerados
 muestra_aulas <- muestra_conglomerados |>
   count(aula) |>
   mutate(Tipo = "Muestra Conglomerados")
 
-# Unir los datos para el gráfico
+## Unir los datos para el gráfico
 comparacion_aulas <- bind_rows(poblacion_aulas, muestra_aulas)
 
-# Definir el orden de las aulas correctamente, como "Aula 1", "Aula 2", etc.
+## Definir el orden de las aulas correctamente, como "Aula 1", "Aula 2", etc.
 orden_aulas <- paste("Aula", 1:10)
 
-# Convertir la variable 'aula' en factor con el orden deseado
+## Convertir la variable 'aula' en factor con el orden deseado
 comparacion_aulas$aula <- factor(comparacion_aulas$aula, levels = orden_aulas)
 
-# Crear el gráfico de barras
+## Crear el gráfico de barras
 ggplot(comparacion_aulas, aes(x = aula, y = n, fill = Tipo)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Comparación de Distribución de Estudiantes por Aula",
@@ -442,49 +422,49 @@ Este tipo de muestreo es ideal cuando:
 
 Sin embargo, puede no ser el método adecuado si los conglomerados son **internamente homogéneos**, ya que podría aumentar la **variabilidad de las estimaciones**.
 
-## Muestreo Sistemático
+### Muestreo Sistemático
 
 El **muestreo sistemático** se utiliza cuando la población está **ordenada** de cierta manera (por ejemplo, lista alfabética, numérica). En lugar de seleccionar elementos al azar de toda la población, se elige un punto de inicio aleatorio y luego se seleccionan elementos a intervalos regulares a partir de ese punto. Este método es útil cuando se desea una **distribución uniforme** de la muestra a lo largo de la población y cuando es más sencillo aplicar una regla sistemática de selección que un muestreo completamente aleatorio.
 
-Para implementar el muestreo sistemático, se utiliza el parámetro $k$, conocido como el **intervalo de muestreo**, que se calcula dividiendo el tamaño de la población $N$ entre el tamaño de la muestra deseada $n$:
+Para implementar el muestreo sistemático, se utiliza el parámetro$k$, conocido como el **intervalo de muestreo**, que se calcula dividiendo el tamaño de la población$N$entre el tamaño de la muestra deseada$n$:
 
 $$k = \frac{N}{n}$$
 
-Donde $N$ es el tamaño total de la población y  $n$ el de la muestra.
+Donde$N$es el tamaño total de la población y $n$el de la muestra.
 
-### Pasos para el Muestreo Sistemático {-}
+#### Pasos para el Muestreo Sistemático {-}
 
-1. **Calcular el intervalo $k$**:  
-   $$k = \frac{N}{n}$$
+1. **Calcular el intervalo$k$**:  
+  $$k = \frac{N}{n}$$
 
 2. **Seleccionar un punto de inicio aleatorio**:  
-   Se elige un número aleatorio entre 1 y $k$ para determinar el primer elemento de la muestra.
+   Se elige un número aleatorio entre 1 y$k$para determinar el primer elemento de la muestra.
 
-3. **Seleccionar cada $k$-ésimo elemento**:  
-   A partir del punto de inicio, se selecciona cada $k$-ésimo elemento para formar la muestra.
+3. **Seleccionar cada$k$-ésimo elemento**:  
+   A partir del punto de inicio, se selecciona cada$k$-ésimo elemento para formar la muestra.
 
 :::{.rmdpractica data-latex=""}
 **Ejemplo**: Supongamos que queremos seleccionar cada 5º estudiante de una lista ordenada de 100 estudiantes. Primero, calculamos el intervalo `k = 5` y luego seleccionamos un punto de inicio aleatorio entre 1 y 5. A partir de ese punto, tomamos cada 5º estudiante para formar la muestra.
 :::
 
 ```{r}
-# Simulación de una población ordenada de estudiantes
+## Simulación de una población ordenada de estudiantes
 set.seed(123)
 poblacion <- data.frame(
-  id = 1:100,  # Identificación de estudiantes
+  id = 1:100,  ## Identificación de estudiantes
   nombre = paste("Estudiante", 1:100)
 )
 
-# Tamaño de la muestra total
+## Tamaño de la muestra total
 n_muestra <- 20
 
-# Calcular el intervalo k
+## Calcular el intervalo k
 k <- floor(nrow(poblacion) / n_muestra)
 
-# Seleccionar un punto de inicio aleatorio entre 1 y k
+## Seleccionar un punto de inicio aleatorio entre 1 y k
 inicio <- sample(1:k, 1)
 
-# Seleccionar cada k-ésimo estudiante a partir del punto de inicio
+## Seleccionar cada k-ésimo estudiante a partir del punto de inicio
 indices <- seq(from = inicio, to = nrow(poblacion), by = k)
 muestra_sistematico <- poblacion[indices, ]
 ```
@@ -502,7 +482,7 @@ En este ejemplo, realizamos un **muestreo sistemático** de una población orden
 5. **Seleccionar cada `k`-ésimo estudiante**: Usamos la función `seq()` para generar una secuencia de índices desde el punto de inicio hasta el tamaño de la población, con un intervalo de `k`. Luego, seleccionamos esos estudiantes para formar la muestra sistemática.
 
 ```{r}
-# Añadir una columna para indicar si el estudiante está en la muestra
+## Añadir una columna para indicar si el estudiante está en la muestra
 poblacion$Muestra_Sistematico <- ifelse(poblacion$id %in% muestra_sistematico$id, "Sí", "No")
 
 ggplot(poblacion, aes(x = id, y = 1)) +
@@ -529,32 +509,32 @@ Este tipo de muestreo es ideal cuando:
 
 Sin embargo, puede no ser el método adecuado si existe un **patrón periódico** en la población que coincide con el intervalo de muestreo, lo que podría sesgar la muestra.
 
-# Estimadores
+## Estimadores
 
 En esta sección, profundizaremos en los conceptos fundamentales relacionados con los **estimadores** y sus **propiedades** en el contexto del muestreo estadístico. Comprender estos conceptos es esencial para realizar inferencias precisas sobre una población a partir de una muestra.
 
-## ¿Qué es un Estimador?
+### ¿Qué es un Estimador?
 
 Un **estimador** es una regla, fórmula o función utilizada para calcular una **estimación** de un **parámetro poblacional** basándose en los datos de una **muestra**. Los estimadores son funciones de los datos muestrales y permiten inferir características de la población completa sin necesidad de examinar todos sus elementos.
 
-### Características de los Estimadores
+#### Características de los Estimadores
 
-- **Función de la Muestra**: Un estimador es una función matemática que toma los datos de la muestra como entrada y produce una estimación del parámetro poblacional. Por ejemplo, la media muestral $\bar{x}$ se calcula sumando todos los valores de la muestra y dividiendo entre el tamaño de la muestra.
+- **Función de la Muestra**: Un estimador es una función matemática que toma los datos de la muestra como entrada y produce una estimación del parámetro poblacional. Por ejemplo, la media muestral$\bar{x}$se calcula sumando todos los valores de la muestra y dividiendo entre el tamaño de la muestra.
 
 - **Objetivo**: El objetivo principal de un estimador es proporcionar una estimación lo más cercana posible al verdadero parámetro poblacional. Para lograr esto, los estimadores deben poseer ciertas propiedades que garantizan su calidad y precisión.
 
 - **Estimación vs Parámetro**:
-  - **Estimación**: Es el valor calculado a partir de la muestra, como la media muestral $\bar{x}$ o la proporción muestral $\hat{p}$.
-  - **Parámetro**: Es el valor real en la población, como la media poblacional $\mu$ o la proporción poblacional $p$.
+  - **Estimación**: Es el valor calculado a partir de la muestra, como la media muestral$\bar{x}$o la proporción muestral$\hat{p}$.
+  - **Parámetro**: Es el valor real en la población, como la media poblacional$\mu$o la proporción poblacional$p$.
 
 
-## Estimadores Comunes
+### Estimadores Comunes
 
 A continuación, se presentan algunos de los estimadores más utilizados en estadística, junto con sus fórmulas y descripciones:
 
-### Media Muestral $\bar{x}$ {-}
+#### Media Muestral$\bar{x}${-}
 
-La **media muestral** es uno de los estimadores más comunes para la **media poblacional** $\mu$. Representa el promedio de los valores en la muestra.
+La **media muestral** es uno de los estimadores más comunes para la **media poblacional**$\mu$. Representa el promedio de los valores en la muestra.
 
 $$
 \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
@@ -565,9 +545,9 @@ $$
 
 **Interpretación**: La media muestral proporciona una estimación central de los datos de la muestra y, bajo ciertas condiciones, es un buen estimador de la media poblacional.
 
-### Proporción Muestral $\hat{p}$ {-}
+#### Proporción Muestral$\hat{p}${-}
 
-La **proporción muestral** estima la **proporción poblacional** $p$. Es especialmente útil en estudios de encuestas y análisis de características categóricas.
+La **proporción muestral** estima la **proporción poblacional**$p$. Es especialmente útil en estudios de encuestas y análisis de características categóricas.
 
 $$
 \hat{p} = \frac{\text{Número de éxitos en la muestra}}{n}
@@ -578,9 +558,9 @@ $$
 
 **Interpretación**: La proporción muestral indica la fracción de la muestra que posee una determinada característica, proporcionando una estimación directa de la proporción en la población.
 
-### Cuasivarianza $s^2$ {-}
+#### Cuasivarianza$s^2${-}
 
-La **cuasivarianza** estima la **varianza poblacional** $\sigma^2$. Mide la dispersión de los datos alrededor de la media muestral.
+La **cuasivarianza** estima la **varianza poblacional**$\sigma^2$. Mide la dispersión de los datos alrededor de la media muestral.
 
 $$
 s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
@@ -593,11 +573,11 @@ $$
 **Interpretación**: La cuasivarianza cuantifica la variabilidad de los datos en la muestra, proporcionando información sobre la dispersión de los valores individuales respecto a la media.
 
 
-## Propiedades de los Estimadores
+### Propiedades de los Estimadores
 
 Los estimadores poseen ciertas **propiedades** que determinan su calidad y adecuación para inferir parámetros poblacionales. Las propiedades más importantes son:
 
-### Insesgadez
+#### Insesgadez
 
 Un estimador es **insesgado** si su valor esperado es igual al parámetro que estima. Es decir, en promedio, el estimador no sobreestima ni subestima el parámetro poblacional.
 
@@ -606,27 +586,27 @@ E(\hat{\theta}) = \theta
 $$
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: La media muestral $\bar{x}$ es un estimador insesgado de la media poblacional $\mu$. Esto implica que, en promedio, la media muestral coincide con la media poblacional, garantizando que $\bar{x}$ no tiende a sobrestimar ni subestimar el valor real de $\mu$. Para ilustrar la **insesgadez** de la media muestral, realizaremos una simulación en R con 1000 repeticiones de una distribución normal $N(50, 10)$, donde compararemos la media de las medias muestrales con la media poblacional para verificar que ambas son prácticamente iguales.
+**Ejemplo**: La media muestral$\bar{x}$es un estimador insesgado de la media poblacional$\mu$. Esto implica que, en promedio, la media muestral coincide con la media poblacional, garantizando que$\bar{x}$no tiende a sobrestimar ni subestimar el valor real de$\mu$. Para ilustrar la **insesgadez** de la media muestral, realizaremos una simulación en R con 1000 repeticiones de una distribución normal$N(50, 10)$, donde compararemos la media de las medias muestrales con la media poblacional para verificar que ambas son prácticamente iguales.
 :::
 
 
 A continuación, presentamos una simulación que verifica esta propiedad.
 
 ```{r}
-# Simulación para demostrar la insesgadez de la media muestral
-set.seed(123)        # Fijar la semilla para reproducibilidad
-n <- 30              # Tamaño de la muestra
-mu <- 50             # Media poblacional
-sigma <- 10          # Desviación estándar poblacional
-reps <- 1000         # Número de repeticiones
+## Simulación para demostrar la insesgadez de la media muestral
+set.seed(123)        ## Fijar la semilla para reproducibilidad
+n <- 30              ## Tamaño de la muestra
+mu <- 50             ## Media poblacional
+sigma <- 10          ## Desviación estándar poblacional
+reps <- 1000         ## Número de repeticiones
 
-# Generar múltiples muestras y calcular sus medias
+## Generar múltiples muestras y calcular sus medias
 medias_muestrales <- replicate(reps, {
-  muestra <- rnorm(n, mean = mu, sd = sigma)  # Generar una muestra de tamaño n
-  mean(muestra)                                # Calcular la media muestral
+  muestra <- rnorm(n, mean = mu, sd = sigma)  ## Generar una muestra de tamaño n
+  mean(muestra)                                ## Calcular la media muestral
 })
 
-# Calcular la media de las medias muestrales
+## Calcular la media de las medias muestrales
 media_de_medias <- mean(medias_muestrales)
 ```
 
@@ -651,16 +631,16 @@ media_de_medias <- mean(medias_muestrales)
 
 
 ```{r}
-# Crear un data frame para ggplot
+## Crear un data frame para ggplot
 datos <- data.frame(medias_muestrales)
 
-# Calcular la media de las medias muestrales
+## Calcular la media de las medias muestrales
 media_de_medias <- mean(datos$medias_muestrales)
 
-# Definir la media poblacional
+## Definir la media poblacional
 media_poblacional <- mu
 
-# Graficar las medias muestrales usando ggplot2
+## Graficar las medias muestrales usando ggplot2
 ggplot(datos, aes(x = medias_muestrales)) +
   geom_histogram(bins = 50, fill = "orange", color = "white", alpha = 0.7) +
   geom_vline(aes(xintercept = media_poblacional), color = "seagreen", linetype = "dashed", size = 1.2) +
@@ -681,17 +661,17 @@ ggplot(datos, aes(x = medias_muestrales)) +
 
 El gráfico resultante muestra la distribución de las medias muestrales obtenidas a lo largo de las 1000 repeticiones. Observamos lo siguiente:
 
-- **Histograma**: Representa la frecuencia de las diferentes medias muestrales. La mayoría de las medias muestrales se concentran alrededor de la media poblacional $\mu = 50$, formando una distribución aproximadamente normal debido al **Teorema del Límite Central**.
+- **Histograma**: Representa la frecuencia de las diferentes medias muestrales. La mayoría de las medias muestrales se concentran alrededor de la media poblacional$\mu = 50$, formando una distribución aproximadamente normal debido al **Teorema del Límite Central**.
 
-- **Línea Verde (Media Verdadera)**: Indica la media poblacional $\mu = 50$. Es el valor al cual esperamos que las medias muestrales se acerquen en promedio.
+- **Línea Verde (Media Verdadera)**: Indica la media poblacional$\mu = 50$. Es el valor al cual esperamos que las medias muestrales se acerquen en promedio.
 
-- **Línea Azul (Media de las Medias Muestrales)**: Representa la media de todas las medias muestrales calculadas en la simulación. Debería estar muy cercana a la media poblacional, confirmando que $\bar{x}$ es un estimador insesgado de $\mu$.
+- **Línea Azul (Media de las Medias Muestrales)**: Representa la media de todas las medias muestrales calculadas en la simulación. Debería estar muy cercana a la media poblacional, confirmando que$\bar{x}$es un estimador insesgado de$\mu$.
 
 Este gráfico visualiza cómo, a pesar de la variabilidad inherente en cada muestra individual, la media de las medias muestrales converge hacia la media poblacional, demostrando la **insesgadez** de la media muestral.
 
 
 
-### Eficiencia
+#### Eficiencia
 
 Entre los estimadores insesgados, el **eficiente** es aquel que tiene la menor varianza posible. Un estimador eficiente proporciona estimaciones más precisas al reducir la dispersión en torno al valor del parámetro poblacional.
 
@@ -700,34 +680,34 @@ $$
 $$
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: Dentro de los estimadores insesgados de la media, la **media muestral** $\bar{x}$ es más eficiente que la **mediana muestral**. Para demostrar la **eficiencia** de la media muestral, compararemos la varianza de ambos estimadores utilizando una simulación de 1000 repeticiones de una distribución normal $N(50, 10)$.
+**Ejemplo**: Dentro de los estimadores insesgados de la media, la **media muestral**$\bar{x}$es más eficiente que la **mediana muestral**. Para demostrar la **eficiencia** de la media muestral, compararemos la varianza de ambos estimadores utilizando una simulación de 1000 repeticiones de una distribución normal$N(50, 10)$.
 :::
 
 A continuación, presentamos una simulación en R para comparar la varianza de la media y la mediana muestral.
 
 ```{r}
-# Simulación para comparar la eficiencia de la media y la mediana muestral
+## Simulación para comparar la eficiencia de la media y la mediana muestral
 set.seed(123)
-n <- 30  # Tamaño de la muestra
-mu <- 50  # Media poblacional
-sigma <- 10  # Desviación estándar poblacional
-reps <- 1000  # Número de repeticiones
+n <- 30  ## Tamaño de la muestra
+mu <- 50  ## Media poblacional
+sigma <- 10  ## Desviación estándar poblacional
+reps <- 1000  ## Número de repeticiones
 
-# Generar muestras y calcular la media y mediana muestral
+## Generar muestras y calcular la media y mediana muestral
 resultados <- replicate(reps, {
   muestra <- rnorm(n, mean = mu, sd = sigma)
   c(mean = mean(muestra), median = median(muestra))
 })
 
-# Extraer las medias y medianas muestrales
-medias_muestrales <- resultados[1, ]  # Primer fila: medias
-medianas_muestrales <- resultados[2, ]  # Segunda fila: medianas
+## Extraer las medias y medianas muestrales
+medias_muestrales <- resultados[1, ]  ## Primer fila: medias
+medianas_muestrales <- resultados[2, ]  ## Segunda fila: medianas
 
-# Calcular las varianzas
+## Calcular las varianzas
 var_media <- var(medias_muestrales)
 var_mediana <- var(medianas_muestrales)
 
-# Imprimir las varianzas
+## Imprimir las varianzas
 var_media
 var_mediana
 ```
@@ -768,32 +748,32 @@ En este caso, el bootstrap nos permitirá estimar la distribución de las difere
 
 
 ```{r}
-# Configuración inicial
+## Configuración inicial
 set.seed(123)
-n_muestra <- 100  # Tamaño de los grupos de muestreo
-reps_bootstrap <- 1000  # Número de repeticiones para el bootstrap
+n_muestra <- 100  ## Tamaño de los grupos de muestreo
+reps_bootstrap <- 1000  ## Número de repeticiones para el bootstrap
 
-# Inicializar un vector para almacenar las diferencias de varianzas
+## Inicializar un vector para almacenar las diferencias de varianzas
 diferencias_varianzas <- numeric(reps_bootstrap)
 
-# Realizar el muestreo con reemplazo sobre medias_muestrales y medianas_muestrales
+## Realizar el muestreo con reemplazo sobre medias_muestrales y medianas_muestrales
 for (i in 1:reps_bootstrap) {
-  # Generar índices de muestreo con reemplazamiento
+  ## Generar índices de muestreo con reemplazamiento
   indices <- sample(1:reps, size = n_muestra, replace = TRUE)
   
-  # Muestrear las medias y las medianas usando los mismos índices
+  ## Muestrear las medias y las medianas usando los mismos índices
   muestra_media <- medias_muestrales[indices]
   muestra_mediana <- medianas_muestrales[indices]
   
-  # Calcular las varianzas de las muestras
+  ## Calcular las varianzas de las muestras
   var_media <- var(muestra_media)
   var_mediana <- var(muestra_mediana)
   
-  # Almacenar la diferencia de varianzas entre media y mediana
+  ## Almacenar la diferencia de varianzas entre media y mediana
   diferencias_varianzas[i] <- var_media - var_mediana
 }
 
-# Crear un dataframe para ggplot
+## Crear un dataframe para ggplot
 datos_varianzas <- data.frame(diferencias_varianzas)
 ```
 
@@ -828,7 +808,7 @@ datos_varianzas <- data.frame(diferencias_varianzas)
 - `datos_varianzas <- data.frame(diferencias_varianzas)`: Convierte el vector de diferencias de varianzas en un dataframe para facilitar su manejo con `ggplot2`.
 
 ```{r}
-# Graficar las diferencias de varianzas entre media y mediana con un boxplot
+## Graficar las diferencias de varianzas entre media y mediana con un boxplot
 ggplot(datos_varianzas, aes(x = "", y = diferencias_varianzas)) +
   geom_boxplot(fill = "steelblue", alpha = 0.7) +
   labs(title = "Diferencias de Varianzas entre Media y Mediana Muestral",
@@ -849,7 +829,7 @@ El gráfico resultante muestra la **distribución de las diferencias de varianza
 
 En resumen, el gráfico demuestra que la varianza de la media muestral tiende a ser menor que la de la mediana, confirmando la **eficiencia** de la media como estimador.
 
-### Consistencia
+#### Consistencia
 
 Un estimador es **consistente** si, a medida que el tamaño de la muestra aumenta, el estimador converge en probabilidad al verdadero valor del parámetro poblacional.
 
@@ -860,28 +840,28 @@ $$
 Esto implica que, con muestras suficientemente grandes, el estimador proporcionará una estimación arbitrariamente cercana al parámetro que se desea estimar
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: La **media muestral** $\bar{x}$ es un estimador consistente de la **media poblacional** $\mu$. Para demostrar la **consistencia** de $\bar{x}$, realizaremos una simulación en R donde generaremos múltiples muestras de una distribución normal $N(50, 10)$ con diferentes tamaños de muestra, y observaremos cómo la media muestral se aproxima cada vez más a la media poblacional $\mu$ conforme aumenta el tamaño de la muestra $n$. Específicamente, utilizaremos tamaños de muestra que van desde 10 hasta 1000 en incrementos de 10, y realizaremos 1000 repeticiones para cada tamaño de muestra.
+**Ejemplo**: La **media muestral**$\bar{x}$es un estimador consistente de la **media poblacional**$\mu$. Para demostrar la **consistencia** de$\bar{x}$, realizaremos una simulación en R donde generaremos múltiples muestras de una distribución normal$N(50, 10)$con diferentes tamaños de muestra, y observaremos cómo la media muestral se aproxima cada vez más a la media poblacional$\mu$conforme aumenta el tamaño de la muestra$n$. Específicamente, utilizaremos tamaños de muestra que van desde 10 hasta 1000 en incrementos de 10, y realizaremos 1000 repeticiones para cada tamaño de muestra.
 :::
 
 
 ```{r}
-# Simulación para demostrar la consistencia de la media muestral
-set.seed(123)          # Fijar la semilla para reproducibilidad
-mu <- 50               # Media poblacional
-sigma <- 10            # Desviación estándar poblacional
+## Simulación para demostrar la consistencia de la media muestral
+set.seed(123)          ## Fijar la semilla para reproducibilidad
+mu <- 50               ## Media poblacional
+sigma <- 10            ## Desviación estándar poblacional
 
-# Definir una secuencia de tamaños de muestra
+## Definir una secuencia de tamaños de muestra
 n_values <- seq(10, 10000, by = 10)
 
-# Calcular la media muestral para cada tamaño de muestra utilizando sapply
+## Calcular la media muestral para cada tamaño de muestra utilizando sapply
 media_convergente <- sapply(n_values, function(n) {
-  # Generar una muestra de tamaño n de una distribución normal N(50, 10)
+  ## Generar una muestra de tamaño n de una distribución normal N(50, 10)
   muestra <- rnorm(n, mean = mu, sd = sigma)
-  # Calcular la media muestral
+  ## Calcular la media muestral
   mean(muestra)
 })
 
-# Crear un data frame para graficar
+## Crear un data frame para graficar
 datos_convergencia <- data.frame(
   Tamaño_Muestra = n_values,
   Media_Muestral = media_convergente
@@ -899,7 +879,7 @@ datos_convergencia <- data.frame(
 
 **1. Generación de Muestras y Cálculo de Medias Muestrales:**
 
-- `media_convergente <- sapply(n_values, function(n) { ... })`: Para cada tamaño de muestra $n$ en `n_values`, se genera una muestra aleatoria de tamaño $n$ de una distribución normal $N(\mu, \sigma)$ y se calcula su media muestral.
+- `media_convergente <- sapply(n_values, function(n) { ... })`: Para cada tamaño de muestra$n$en `n_values`, se genera una muestra aleatoria de tamaño$n$de una distribución normal$N(\mu, \sigma)$y se calcula su media muestral.
 
 **2. Almacenamiento de Resultados:**
 
@@ -907,7 +887,7 @@ datos_convergencia <- data.frame(
 
 
 ```{r}
-# Graficar la convergencia de la media muestral hacia la media poblacional
+## Graficar la convergencia de la media muestral hacia la media poblacional
 
 ggplot(datos_convergencia, aes(x = Tamaño_Muestra, y = Media_Muestral)) +
   geom_line(color = "steelblue") +
@@ -924,28 +904,28 @@ ggplot(datos_convergencia, aes(x = Tamaño_Muestra, y = Media_Muestral)) +
 
 El gráfico resultante muestra cómo la media muestral se comporta a medida que aumenta el tamaño de la muestra. Observamos lo siguiente:
 
-- **Línea Azul (Media Muestral):** Representa la media muestral obtenida para cada tamaño de muestra $n$. A medida que $n$ incrementa, las fluctuaciones en las medias muestrales tienden a reducirse, acercándose más al valor verdadero de la media poblacional $\mu = 50$.
+- **Línea Azul (Media Muestral):** Representa la media muestral obtenida para cada tamaño de muestra$n$. A medida que$n$incrementa, las fluctuaciones en las medias muestrales tienden a reducirse, acercándose más al valor verdadero de la media poblacional$\mu = 50$.
 
-- **Línea Verde Discontinua (Media Poblacional):** Indica el valor verdadero de la media poblacional. Es el punto al cual esperamos que la media muestral converja conforme $n$ aumenta.
+- **Línea Verde Discontinua (Media Poblacional):** Indica el valor verdadero de la media poblacional. Es el punto al cual esperamos que la media muestral converja conforme$n$aumenta.
 
-La simulación demuestra que, al incrementar el tamaño de la muestra, la **media muestral** $\bar{x}$ se aproxima cada vez más a la **media poblacional** $\mu$. Esto confirma la propiedad de **consistencia** de la media muestral, ya que $\bar{x}$ converge en probabilidad a $\mu$ cuando $n \rightarrow \infty$.
+La simulación demuestra que, al incrementar el tamaño de la muestra, la **media muestral**$\bar{x}$se aproxima cada vez más a la **media poblacional**$\mu$. Esto confirma la propiedad de **consistencia** de la media muestral, ya que$\bar{x}$converge en probabilidad a$\mu$cuando$n \rightarrow \infty$.
 
 Además, esta propiedad asegura que, con muestras suficientemente grandes, podemos confiar en que la media muestral proporcionará una estimación precisa del parámetro poblacional, reduciendo la incertidumbre asociada a la variabilidad muestral.
 
 
-### Suficiencia
+#### Suficiencia
 
-Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador $ T(X) $ es **suficiente** para un parámetro $ \theta $ si la distribución condicional de la muestra $ X $ dado el estimador $ T(X) $ no depende de $ \theta $. En otras palabras, $ T(X) $ captura toda la información relevante de la muestra sobre $ \theta $.
+Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador$T(X)$es **suficiente** para un parámetro$\theta$si la distribución condicional de la muestra$X$dado el estimador$T(X)$no depende de$\theta$. En otras palabras,$T(X)$captura toda la información relevante de la muestra sobre$\theta$.
 
-Además, según el **Teorema de Factorización de Fisher**, un estadístico $ T(X) $ es suficiente para $ \theta $ si y solo si la **función de densidad** $ f(x|\theta) $ puede factorizarse de la siguiente manera:
+Además, según el **Teorema de Factorización de Fisher**, un estadístico$T(X)$es suficiente para$\theta$si y solo si la **función de densidad**$f(x|\theta)$puede factorizarse de la siguiente manera:
 
 $$
 f(x|\theta) = g(T(x), \theta) \cdot h(x)
 $$
 
-donde $ g(T(x), \theta) $ es una función que depende de la muestra $ x $ únicamente a través de $ T(x) $ y del parámetro $ \theta $, mientras que $ h(x) $ es una función que depende de la muestra $ x $ pero no del parámetro $ \theta $.
+donde$g(T(x), \theta)$es una función que depende de la muestra$x$únicamente a través de$T(x)$y del parámetro$\theta$, mientras que$h(x)$es una función que depende de la muestra$x$pero no del parámetro$\theta$.
 
-#### Propiedades de Estimadores Suficientes {-}
+##### Propiedades de Estimadores Suficientes {-}
 
 - **Propiedad Teórica**: La suficiencia se demuestra mediante la estructura de la función de densidad o masa de probabilidad y su factorización, no a través de cálculos empíricos.
 
@@ -954,7 +934,7 @@ donde $ g(T(x), \theta) $ es una función que depende de la muestra $ x $ única
 - **Reducción de Datos**: La suficiencia permite reducir los datos de la muestra a un estadístico suficiente sin pérdida de información relevante para la estimación del parámetro. Esto simplifica el análisis al trabajar con un resumen conciso de los datos originales.
 
 
-#### Relación con Otras Propiedades de los Estimadores {-}
+##### Relación con Otras Propiedades de los Estimadores {-}
 
 - **Insesgadez**: Un estimador suficiente puede ser insesgado, pero la suficiencia no implica necesariamente insesgadez.
 
@@ -962,7 +942,7 @@ donde $ g(T(x), \theta) $ es una función que depende de la muestra $ x $ única
 
 - **Consistencia**: La suficiencia no garantiza la consistencia, aunque muchos estimadores consistentes también son suficientes.
 
-#### Importancia de la Suficiencia {-}
+##### Importancia de la Suficiencia {-}
 
 - **Optimización de Datos**: Permite reducir la muestra a un estadístico suficiente sin perder información relevante, facilitando el análisis.
 
@@ -973,14 +953,14 @@ donde $ g(T(x), \theta) $ es una función que depende de la muestra $ x $ única
 La propiedad de **suficiencia** asegura que un estimador captura toda la información necesaria de la muestra respecto al parámetro de interés, evitando la pérdida de información y optimizando el proceso de estimación. Comprender y identificar estimadores suficientes es esencial para desarrollar inferencias estadísticas sólidas y eficientes.
 
 ::: {.rmdpractica data-latex=""}
-**Ejemplo**: La **media muestral** $\bar{x}$ es un estimador suficiente de la **media poblacional** $\mu$ en una Distribución Normal $N(\mu, \sigma)$ con $\sigma^2$ conocida.
+**Ejemplo**: La **media muestral**$\bar{x}$es un estimador suficiente de la **media poblacional**$\mu$en una Distribución Normal$N(\mu, \sigma)$con$\sigma^2$conocida.
 :::
 
-Utilizamos el **Teorema de Factorización de Fisher** para demostrar que $\bar{x}$ es un estadístico suficiente para $\mu$.
+Utilizamos el **Teorema de Factorización de Fisher** para demostrar que$\bar{x}$es un estadístico suficiente para$\mu$.
 
 **Función de Densidad de la Distribución Normal**:
 
-La función de densidad para una distribución normal $N(\mu, \sigma^2)$ es:
+La función de densidad para una distribución normal$N(\mu, \sigma^2)$es:
 
 $$
 f(x|\mu) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)
@@ -996,12 +976,12 @@ $$
 
 Donde:
 
-- $ g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right) $ depende de los datos solo a través de $\bar{x}$ y del parámetro $\mu$.
-- $ h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right) $ depende de los datos $x$ pero no de $\mu$.
+-$g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right)$depende de los datos solo a través de$\bar{x}$y del parámetro$\mu$.
+-$h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right)$depende de los datos$x$pero no de$\mu$.
 
-Según el **Teorema de Factorización de Fisher**, esto implica que $\bar{x}$ es un estadístico suficiente para $\mu$, ya que la función de densidad se factoriza en una función que depende de los datos solo a través de $\bar{x}$ y otra que no depende de $\mu$.
+Según el **Teorema de Factorización de Fisher**, esto implica que$\bar{x}$es un estadístico suficiente para$\mu$, ya que la función de densidad se factoriza en una función que depende de los datos solo a través de$\bar{x}$y otra que no depende de$\mu$.
 
-## Conclusión
+### Conclusión
 
 Este laboratorio nos ha permitido comprender y aplicar de manera práctica los conceptos fundamentales de **muestreo** y **estimación estadística**, prestando especial atención a las propiedades de los estimadores y su suficiencia.
 
@@ -1009,13 +989,13 @@ A través de ejemplos y simulaciones realizadas en R, abordamos diversos tipos d
 
 Adicionalmente, exploramos las propiedades de los estimadores más comunes:
 
-- **Insesgadez**: Se verificó que la media muestral $\bar{x}$ es un estimador insesgado de la media poblacional $\mu$. En promedio, la media muestral converge al valor real del parámetro, lo cual se demostró mediante simulaciones.
+- **Insesgadez**: Se verificó que la media muestral$\bar{x}$es un estimador insesgado de la media poblacional$\mu$. En promedio, la media muestral converge al valor real del parámetro, lo cual se demostró mediante simulaciones.
   
 - **Eficiencia**: Comparando la media y la mediana muestral, observamos que la media tiene una menor varianza, lo que la convierte en un estimador más eficiente en nuestra muestra simulada.
 
 - **Consistencia**: Simulaciones con tamaños de muestra crecientes mostraron que la media muestral se aproxima cada vez más a la media poblacional, confirmando su consistencia a medida que el tamaño de la muestra aumenta.
 
-- **Suficiencia**: Aplicando el **Teorema de Factorización de Fisher**, demostramos que la media muestral es un estimador suficiente para la media de una población normal. Este concepto asegura que $\bar{x}$ utiliza toda la información relevante de la muestra sin perder ningún detalle necesario para estimar con precisión el parámetro poblacional.
+- **Suficiencia**: Aplicando el **Teorema de Factorización de Fisher**, demostramos que la media muestral es un estimador suficiente para la media de una población normal. Este concepto asegura que$\bar{x}$utiliza toda la información relevante de la muestra sin perder ningún detalle necesario para estimar con precisión el parámetro poblacional.
 
 **Implicaciones Prácticas**:
 
@@ -1026,8 +1006,3 @@ Adicionalmente, exploramos las propiedades de los estimadores más comunes:
 - **Decisiones informadas basadas en datos**: Contar con estimadores consistentes, insesgados y eficientes es esencial para garantizar la confiabilidad de los análisis estadísticos, lo cual es fundamental en la toma de decisiones en diversos campos, desde la investigación científica hasta la industria.
 
 En resumen, este laboratorio ha integrado teoría y práctica para mejorar nuestra comprensión del **muestreo** y las **estimaciones**. Al dominar tanto los conceptos teóricos como las simulaciones en R, los estudiantes están mejor preparados para aplicar estas técnicas en contextos reales, asegurando la precisión y validez de los resultados obtenidos en sus análisis estadísticos.
-
-<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
-<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
-DSLAB - Universidad Rey Juan Carlos
-</div>

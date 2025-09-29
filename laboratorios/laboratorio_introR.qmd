@@ -1,29 +1,10 @@
----
-title: "Laboratorio de Introducción a R y Tratamiento de Datos"
-subtitle: "Inferencia Estadística"
-author: 
-  - "Víctor Aceña Gil"
-  - "Isaac Martín de Diego"
-  - "Carmen Lancho Martín"
-date: today
-lang: es
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: false
-    theme: cosmo
-    embed-resources: true
-execute:
-  warning: false
-  message: false
----
+# Laboratorio de Introducción a R y Tratamiento de Datos
 
 ```{r setup, include=FALSE, purl=FALSE}
 knitr::opts_chunk$set(echo = TRUE, results = "hide", eval=TRUE, warning = FALSE, message = FALSE, results = FALSE)
 ```
 
-# Objetivo de la práctica {-}
+## Objetivo de la práctica {-}
 
 El objetivo principal de esta práctica es familiarizarse con el software estadístico y lenguaje de programación R para realizar análisis estadístico de datos. Como objetivos secundarios tenemos: 
 
@@ -42,7 +23,7 @@ En esta práctica no hay que entregar nada.
 
 :::
 
-# Introducción
+## Introducción
 
 R es un 
 sistema para **computación estadística**: software de **análisis de datos** y
@@ -76,7 +57,7 @@ formato, y así presentar los resultados y, opcionalmente,
 el código, en forma de informes reproducibles.
 
 
-# Instalación y configuración de R y RStudio
+## Instalación y configuración de R y RStudio
 
 ::: {.rmdinfo data-latex=""}
 
@@ -111,7 +92,7 @@ Tanto R como RStudio están instalados en **MyApps**, así como los paquetes que
 IMPORTANTE: Al ejecutar RStudio desde MyApps, lo que se abre es un escritorio virtual, y desde ahí tenéis que buscar RStudio en los programas de Windows.
 :::
 
-## Instalación de R
+### Instalación de R
 
 Para instalar R, sigue los siguientes pasos:
 
@@ -128,7 +109,7 @@ nos redirige al más apropiado
 Hacemos clic en el enlace que se corresponda con nuestro sistema operativo
 (Windows, Mac OS X o Linux), que nos llevará por caminos diferentes.
 
-### Instalación en Windows {-}
+#### Instalación en Windows {-}
 
 1. Descargar el archivo de instalación  
 Antes de mostrar el enlace para la descarga, nos muestra
@@ -151,7 +132,7 @@ en este curso no lo vamos a utilizar. Utilizaremos RStudio, como veremos más
 adelante.
 
 
-### Instalación en Mac OS {-}
+#### Instalación en Mac OS {-}
 
 1. Descargar el archivo de instalación  
 En este caso tenemos el enlace para la descarga directamente al seguir
@@ -165,7 +146,7 @@ Buscamos el archivo descargado (normalmente en la carpeta Descargas) y lo abrimo
 de Mac OS, si bien en este curso no vamos a utilizar el interfaz por defecto sino RStudio,
 que instalaremos a continuación.
 
-### Instalación en Linux {-}
+#### Instalación en Linux {-}
 
 La instalación en Linux no debe tener complicación para los usuarios
 de este sistema operativo. Los pasos difieren ligeramente según
@@ -175,7 +156,7 @@ que no se detallan aquí para no hacer la práctica excesivamente extensa dado q
 tan trivial como en Windows o Mac OS (aunque no es complicado para un usuario de Linux)
 
 
-## Instalación de RStudio
+### Instalación de RStudio
 
 **IMPORTANTE**: Antes de instalar RStudio, tenemos que tener instalado el sistema
 base de R según el apartado anterior. 
@@ -206,7 +187,7 @@ MacOS se arrastra el archivo del programa a la carpeta Aplicaciones. En Linux
 se seleccionan también las opciones por defecto del instalador. 
 
 
-## Ejecución de RStudio
+### Ejecución de RStudio
 
 
 Una vez hemos instalado R y RStudio, ya podemos empezar a usar el software.
@@ -228,7 +209,7 @@ la versión, entre otras cosas.
 knitr::include_graphics("../img/rstudio2.png")
 ```
 
-## Instalación de paquetes
+### Instalación de paquetes
 
 Con la instalación de R base y RStudio ya podríamos empezar a importar y
 analizar datos. No obstante, vamos primero a completar nuestra instalación de 
@@ -342,7 +323,7 @@ _Install_, se instala el paquete. En otras ocasiones la sugerencia
 la hace en forma de cuadro de diálogo modal al ejecutar alguna opción de menú
 o comandos de la aplicación RStudio.
 
-## Configuración de RStudio
+### Configuración de RStudio
 
 RStudio posee una gran cantidad de opciones de configuración. Para las prácticas
 de la asignatura solo vamos a cambiar la configuración recomendada **para asegurar
@@ -365,7 +346,7 @@ knitr::include_graphics("../img/rso2.png")
 Si vas a usar RStudio desde MyApps, la configuración no se guardará para las siguientes sesiones.
 :::
 
-## Configuración y opciones de R
+### Configuración y opciones de R
 
 Las opciones de R son muy numerosas, y se puede acceder a ellas y modificarlas
 con la función `options`. Se puede ver la lista completa de opciones disponibles
@@ -379,7 +360,7 @@ del código), las podemos meter en el archivo `.Rprofile` del directorio
 de usuario.
 
 
-## Actualizaciones
+### Actualizaciones
 
 Los paquetes los podemos actualizar utilizando el botón _Update_ de la pestaña
 _Packages_ en el panel inferior derecho. Si hay versiones más nuevas en CRAN,
@@ -391,7 +372,7 @@ Si no hemos cambiado la configuración, periódicamente comprueba si tenemos
 la última versión y en caso contrario nos ofrece actualizarla.
 
 
-# Proyectos de RStudio
+## Proyectos de RStudio
 
 ::: {.rmdinfo data-latex=""}
 
@@ -399,7 +380,7 @@ Si vas a utilizar el proyecto en Posit.cloud, sáltate este apartado y ve al apa
 
 :::
 
-## Creación y apertura de proyectos
+### Creación y apertura de proyectos
 
 La manera más eficiente de trabajar con R, es mediante proyectos
 de RStudio. Esto nos permite abstraernos de los detalles de la sesión de R 
@@ -466,9 +447,9 @@ Cuando volvamos a abrir RStudio, por defecto se abrirá el último proyecto
 utilizado. Podemos abrir un proyecto desde el menú de proyectos o haciendo doble clic en el archivo `*.RProject` de la carpeta del proyecto
 desde el explorador de archivos del sistema operativo.
 
-# Trabajar en RStudio
+## Trabajar en RStudio
 
-## Flujo de trabajo por proyectos
+### Flujo de trabajo por proyectos
 
 Una vez creamos un proyecto, el flujo recomendado para trabajos para análisis de datos
 es el siguiente:
@@ -497,7 +478,7 @@ la carpeta raíz del proyecto directamente.
 
 
 
-## El interfaz de RStudio
+### El interfaz de RStudio
 
 La ventana
 del programa RStudio se divide en cuatro partes o paneles (_panes_), 
@@ -538,7 +519,7 @@ knitr::include_graphics("../img/rstudio1.png")
 
 
 
-## La sesión de R
+### La sesión de R
 
 Cuando abrimos R (directamente o con RStudio), iniciamos una **Sesión** de R, 
 que tiene un **espacio de trabajo** en el que se encontrarán los
@@ -567,7 +548,7 @@ Cuando ejecutamos una función, se produce un resultado, que normalmente
 se visualiza en la consola o en la salida gráfica. También se puede guardar en un objeto del
 espacio de trabajo.
 
-## La consola y el editor de scripts 
+### La consola y el editor de scripts 
 
 La **consola** de R (figura \@ref(fig:rsconsole)) se encuentra en 
 el panel inferior izquierdo de RStudio. En la barra de título de la consola, 
@@ -687,7 +668,7 @@ queremos facilitar una cadena de caracteres y no lo hemos puesto entre comillas.
 Una cosa muy importante en R, es que las expresiones son **sensibles a mayúsculas**,
 y por tanto los objetos `datos` y `Datos` son distintos.
 
-## El espacio de trabajo, el historial y el directorio de trabajo
+### El espacio de trabajo, el historial y el directorio de trabajo
 
 En R,todos los datos con los que trabaja se
 encuentran en memoria.
@@ -755,7 +736,7 @@ el directorio `../` para ir "hacia arriba" en la estructura de carpetas.
 Estas rutas se proporcionan entre comillas, y se pueden seleccionar fácilmente
 con la ayuda contextual (pulsando TAB después de abrir comillas), que además evita errores.
 
-# Elementos básicos del lenguaje
+## Elementos básicos del lenguaje
 
 Ya hemos visto las dos operaciones básicas que estaremos utilizando todo el rato
 en R:
@@ -848,9 +829,9 @@ sensacion
 
 
 
-# Estructuras de datos
+## Estructuras de datos
 
-## Tablas de datos
+### Tablas de datos
 
 En la inmensa mayoría de análisis estadísticos que vayamos a realizar, necesitamos
 tener dispuestos los datos en forma de **tabla rectangular**, que debe cumplir los siguientes requisitos:
@@ -1035,7 +1016,7 @@ ejemplo_lista$vector
 ejemplo_lista[[2]]
 ```
 
-# Operaciones con datos con el _tidyverse_
+## Operaciones con datos con el _tidyverse_
 
 En el apartado anterior hemos seleccionado filas y columnas mediante los
 índices. En este apartado vamos a utilizar algunas funciones de los paquetes
@@ -1108,7 +1089,7 @@ material adicional.
 
 
 
-# Informes reproducibles
+## Informes reproducibles
 
 El resultado final de nuestro proyecto de análisis de datos terminará
 comunicándose en lo que llamaremos un informe de forma general.
@@ -1136,11 +1117,11 @@ actualizados adecuadamente.
 
 Para utilizar este enfoque, utilizamos archivos **Quarto**, el sistema moderno de publicación científica y técnica de código abierto.
 
-## ¿Qué es Quarto?
+### ¿Qué es Quarto?
 
 Quarto es la nueva generación de R Markdown, desarrollado por Posit. Es un sistema de publicación que unifica y amplía el ecosistema R Markdown, con soporte nativo para múltiples lenguajes (R, Python, Julia, Observable JS) y mejores capacidades de publicación.
 
-## Creando documentos Quarto
+### Creando documentos Quarto
 
 Para crear un nuevo documento Quarto en RStudio, seleccionamos _Quarto Document..._ en el
 icono de nuevo archivo de la barra de herramientas o en el menú _File_. Hay varios tipos
@@ -1150,7 +1131,7 @@ de salida (HTML, PDF, Word) desde el inicio.
 Una vez hacemos clic en el botón _Create_ de la ventana _New Quarto Document_, se abre en 
 el editor de RStudio un archivo Quarto (.qmd) con una estructura básica a modo de plantilla. Los elementos principales de un archivo Quarto son:
 
-### Encabezado YAML
+#### Encabezado YAML
 
 Constituyen la configuración del documento, y controlan sobre todo las opciones de salida. Este encabezado se encuentra entre dos líneas con tres guiones (`---`):
 
@@ -1171,7 +1152,7 @@ execute:
 ---
 ```
 
-### Texto formateado
+#### Texto formateado
 
 Con una sintaxis Markdown mejorada, podemos dar formato al texto:
 
@@ -1181,7 +1162,7 @@ Con una sintaxis Markdown mejorada, podemos dar formato al texto:
 - Enlaces: `[texto](URL)`
 - Listas numeradas y con viñetas
 
-### Fragmentos de código (chunks)
+#### Fragmentos de código (chunks)
 
 En Quarto, los chunks se definen con:
 
@@ -1195,7 +1176,7 @@ summary(cars)
 ```
 
 
-## Opciones de chunks en Quarto
+### Opciones de chunks en Quarto
 
 Quarto utiliza una sintaxis más clara para las opciones de chunks con `#|`:
 
@@ -1208,7 +1189,7 @@ Quarto utiliza una sintaxis más clara para las opciones de chunks con `#|`:
 - `#| label: nombre-chunk` - Etiquetar el chunk
 - `#| output-location: column` - Controlar ubicación de salida
 
-## Renderizado de documentos
+### Renderizado de documentos
 
 Para generar el documento, guardamos el archivo .qmd en nuestro proyecto y utilizamos:
 
@@ -1216,11 +1197,11 @@ Para generar el documento, guardamos el archivo .qmd en nuestro proyecto y utili
 - El comando `quarto render documento.qmd` desde la terminal
 - `Ctrl+Shift+K` (atajo de teclado)
 
-## Formatos de salida
+### Formatos de salida
 
 Quarto ofrece múltiples formatos de salida mejorados:
 
-### HTML
+#### HTML
 ```yaml
 format:
   html:
@@ -1231,7 +1212,7 @@ format:
     embed-resources: true
 ```
 
-### PDF
+#### PDF
 ```yaml
 format:
   pdf:
@@ -1243,7 +1224,7 @@ format:
           \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ```
 
-### Word
+#### Word
 ```yaml
 format:
   docx:
@@ -1251,7 +1232,7 @@ format:
     toc: true
 ```
 
-### Presentaciones
+#### Presentaciones
 ```yaml
 format:
   revealjs:
@@ -1259,7 +1240,7 @@ format:
     transition: slide
 ```
 
-## Ventajas de Quarto sobre R Markdown
+### Ventajas de Quarto sobre R Markdown
 
 1. **Sintaxis más clara**: Las opciones de chunks con `#|` son más legibles
 2. **Mejor soporte multilenguaje**: R, Python, Julia, Observable JS nativamente
@@ -1268,7 +1249,7 @@ format:
 5. **Editor visual mejorado**: Mejor experiencia de edición
 6. **Proyectos y sitios web**: Capacidades avanzadas para proyectos complejos
 
-## Tablas y visualización
+### Tablas y visualización
 
 Para mostrar tablas formateadas, puedes usar:
 
@@ -1284,7 +1265,7 @@ library(gt)
 gt(head(mtcars))
 ```
 
-## Editor visual
+### Editor visual
 
 Quarto mantiene y mejora el editor visual de RStudio, permitiendo:
 - Edición WYSIWYG
@@ -1293,7 +1274,7 @@ Quarto mantiene y mejora el editor visual de RStudio, permitiendo:
 - Soporte para diagramas (Mermaid, Graphviz)
 
 :::{.callout-tip}
-## Práctica recomendada
+### Práctica recomendada
 
 Crea un archivo Quarto (.qmd). Experimenta con:
 
@@ -1307,7 +1288,7 @@ Crea un archivo Quarto (.qmd). Experimenta con:
 Utiliza `quarto render` para generar tu documento en diferentes formatos.
 :::
 
-## Recursos adicionales
+### Recursos adicionales
 
 - [Guía oficial de Quarto](https://quarto.org/docs/guide/)
 - [Galería de Quarto](https://quarto.org/docs/gallery/)
@@ -1315,9 +1296,3 @@ Utiliza `quarto render` para generar tu documento en diferentes formatos.
 - Cheatsheet de Quarto disponible en RStudio
 
 Quarto representa el futuro de la investigación reproducible, ofreciendo todas las capacidades de R Markdown con mejoras significativas en usabilidad, flexibilidad y opciones de publicación.
-
-
-<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
-<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
-DSLAB - Universidad Rey Juan Carlos
-</div>

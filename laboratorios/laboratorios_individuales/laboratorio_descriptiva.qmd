@@ -54,12 +54,12 @@ url_correcta <- "https://raw.githubusercontent.com/URJCDSLab/LaboratoriosRInfere
 
 # Descargar el archivo (asegúrate de que la carpeta "datos" exista)
 download.file(url = url_correcta, 
-              destfile = "datos/lab.xlsx", 
+              destfile = "../datos/lab.xlsx", 
               mode = "wb") # El modo "wb" es importante para archivos binarios como .xlsx
 
 # 'readxl::read_excel("lab.xlsx")' lee el archivo Excel 'lab.xlsx' que acabamos de descargar.
 # 'readxl' es un paquete en R que proporciona funciones para leer archivos Excel.
-lab <- readxl::read_excel("datos/lab.xlsx") |> 
+lab <- readxl::read_excel("../datos/lab.xlsx") |> 
   # 'mutate(fecha = as.Date(fecha))' transforma la columna 'fecha' a formato de fecha.
   # 'mutate()' es una función del paquete dplyr que se utiliza para añadir nuevas variables o transformar las existentes.
   # 'as.Date()' convierte los datos a formato de fecha.
@@ -838,6 +838,6 @@ El Análisis Exploratorio de Datos (EDA) en este laboratorio ha servido como mar
 En resumen, este laboratorio ha demostrado cómo los elementos teóricos de la estadística descriptiva pueden ser aplicados eficazmente para el análisis de datos. El EDA Nos permite no solo comprender los datos a un nivel superficial, sino también descubrir las historias y los patrones que yacen en su interior, preparando el terreno para análisis estadísticos más avanzados.
 
 <div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
-<img src="../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
+<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
 DSLAB - Universidad Rey Juan Carlos
 </div>

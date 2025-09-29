@@ -8,7 +8,7 @@ book:
   # La lista de capítulos, que ahora no tienen YAML propio
   chapters:
     - index.qmd
-    - laboratorio_introR.qmd
+    - laboratorio_descriptiva.qmd
     - laboratorio_VVAA.qmd
     - laboratorio_muestreo.qmd
     - laboratorio_estimacion_contraste.qmd
@@ -26,9 +26,3 @@ format:
     number-sections: false
     # Portada y estilo personalizado para HTML (ignorado en PDF)
     include-before-body: portada.html
-    include-in-header:
-      text: |
-        \usepackage{tcolorbox}
-        \newtcolorbox{rmdeval}{colback=yellow!5!white,colframe=yellow!75!black,title=Evaluación}
-        \newtcolorbox{rmdpractica}{colback=blue!5!white,colframe=blue!75!black,title=Práctica}
-        \newtcolorbox{rmdinfo}{colback=green!5!white,colframe=green!75!black,title=Información}

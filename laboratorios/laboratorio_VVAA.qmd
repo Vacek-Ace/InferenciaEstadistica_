@@ -1,23 +1,4 @@
----
-title: "Laboratorio de Probabilidad y Variables Aleatorias"
-subtitle: "Inferencia Estadística"
-author: 
-  - "Víctor Aceña Gil"
-  - "Isaac Martín de Diego"
-  - "Carmen Lancho Martín"
-date: today
-lang: es
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: false
-    theme: cosmo
-    embed-resources: true
-execute:
-  warning: false
-  message: false
----
+# Laboratorio de Probabilidad y Variables Aleatorias
 
 ```{r setup, include=FALSE, purl=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
@@ -29,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       error = TRUE)
 ```
 
-# Objetivo {-}
+## Objetivo {-}
 
 El objetivo principal de este documento es aprender a calcular probabilidades de distintas variables aleatorias. Como objetivos secundarios tenemos: 
 
@@ -37,11 +18,11 @@ El objetivo principal de este documento es aprender a calcular probabilidades de
 2. Saber manejar las funciones de R para calcular probabilidades
 3. Saber interpretar los cálculos
 
-# Cálculos en variables aleatorias genéricas
+## Cálculos en variables aleatorias genéricas
 
 La teoría de variables aleatorias ofrece un marco robusto para entender y modelizar fenómenos aleatorios en diversas disciplinas. En esta sección, abordaremos cómo realizar cálculos prácticos con variables aleatorias, tanto discretas como continuas, utilizando herramientas de R. Comenzaremos con las variables aleatorias discretas, donde la probabilidad de cada posible resultado se puede calcular directamente o acumularse. Luego, avanzaremos hacia las variables aleatorias continuas, cuya comprensión requiere integrar su función de densidad sobre un intervalo de interés.
 
-## Variables aleatorias discretas
+### Variables aleatorias discretas
 
 Si tenemos la función de masa de probabilidad de una variable aleatoria 
 discreta en forma de tabla, podemos guardar los valores $x_i$ en un vector
@@ -74,7 +55,7 @@ $$
 Estos vectores se utilizan luego para realizar cálculos estadísticos sobre la variable aleatoria:
 
 ```{r}
-# Definición de los vectores de valores y probabilidades
+## Definición de los vectores de valores y probabilidades
 x <- c(0, 1, 2, 3)
 p <- c(1/8, 3/8, 3/8, 1/8)
 ```
@@ -88,7 +69,7 @@ $$
 Implementamos esta verificación en R de la siguiente manera:
 
 ```{r}
-# Suma de probabilidades
+## Suma de probabilidades
 suma_probabilidades <- sum(p)
 cat(sprintf("La suma de las probabilidades es %.2f.\n", suma_probabilidades))
 ```
@@ -103,7 +84,7 @@ $$
 Implementamos esta probabilidad en R de la siguiente manera:
 
 ```{r}
-# Probabilidad de obtener menos de 2 caras
+## Probabilidad de obtener menos de 2 caras
 probabilidad_menos_2 <- sum(p[x < 2])
 cat(sprintf("La probabilidad de obtener menos de 2 caras es %.2f.\n", probabilidad_menos_2))
 ```
@@ -117,7 +98,7 @@ $$
 Para determinar la media de la variable aleatoria:
 
 ```{r}
-# Media de la variable aleatoria
+## Media de la variable aleatoria
 media <- sum(x * p)
 cat(sprintf("La media de la variable aleatoria es %.2f.\n", media))
 ```
@@ -131,12 +112,12 @@ $$
 En R se puede implementar como:
 
 ```{r}
-# Varianza de la variable aleatoria
+## Varianza de la variable aleatoria
 varianza <- sum(x^2 * p) - media^2
 cat(sprintf("La varianza de la variable aleatoria es %.2f.\n", varianza))
 ```
 
-## Variables aleatorias continuas
+### Variables aleatorias continuas
 
 Los cálculos de variables aleatorias continuas se realizan a través de la función de densidad (con integrales) o a través de la función de distribución (sustituyendo valores en la función). En ambos casos, lo más cómodo es crear una función en R para esas funciones matemáticas.
 
@@ -273,7 +254,7 @@ cat(sprintf("La varianza de la variable aleatoria es %.2f.\n", Vx))
 ```
 
 
-# Cálculos en modelos de distribución de probabilidad
+## Cálculos en modelos de distribución de probabilidad
 
 En R, para cada modelo de distribución de probabilidad tenemos una función que
 empieza por `d` y devuelve la "densidad" (masa de probabilidad en el caso de discretas) 
@@ -288,13 +269,13 @@ es la función inversa de la función de distribución) y otra que empieza por `
 la que podemos obtener valores aleatorios (_random_) o simulaciones de una
 variable aleatoria.
 
-## Distribuciones discretas
+### Distribuciones discretas
 
 Las distribuciones discretas juegan un papel crucial cuando tratamos con variables aleatorias que toman valores específicos o cuentas. En contextos donde los resultados son contables y no continuos, aplicamos modelos de distribución discreta para describir la probabilidad asociada a cada posible valor de la variable. En R, utilizamos funciones que comienzan con `d` para calcular la masa de probabilidad, que nos da la probabilidad de cada valor específico de la variable. Similarmente, las funciones que comienzan con `p` nos ayudan a obtener la función de distribución acumulada para evaluar la probabilidad de que la variable tome un valor menor o igual a un cierto límite.
 
 En esta sección, abordaremos modelos específicos como la distribución binomial, la distribución geométrica, la distribución binomial negativa, la distribución hipergeométrica y la distribución de Poisson. A través de ejemplos prácticos, exploraremos cómo aplicar las funciones `dxxx`, `pxxx`, `qxxx`, y `rxxx` para comprender y analizar estas distribuciones en diversos contextos.
 
-### Funciones disponibles
+#### Funciones disponibles
 
 En R, cada distribución discreta cuenta con cuatro funciones asociadas, que permiten realizar distintos cálculos estadísticos:
 
@@ -315,7 +296,7 @@ Reemplace `xxx` por el identificador correspondiente de la distribución que des
 Las funciones en R están meticulosamente diseñadas para facilitar el análisis y la modelización de variables aleatorias. La consistencia en la nomenclatura de estas funciones ayuda a identificar rápidamente la herramienta adecuada para cada tipo de cálculo relacionado con distintas distribuciones estadísticas.
 
 
-### Distribución Binomial
+#### Distribución Binomial
 
 La distribución binomial se utiliza para modelar el número de éxitos en una secuencia de $n$ ensayos independientes entre sí, con una probabilidad fija $p$ de ocurrencia del éxito en cada ensayo. La función `dbinom(x, size, prob)` en R proporciona la probabilidad de obtener exactamente $x$ éxitos en $n$ ensayos.
 
@@ -419,7 +400,7 @@ cat(sprintf("La probabilidad de que al menos dos estudiantes terminen el grado e
 
 Esta expresión suma las probabilidades calculadas por `dbinom` para 2, 3, 4 y 5 éxitos (estudiantes que terminan el grado) en 5 ensayos, ofreciendo otra vía para determinar la probabilidad de que al menos dos estudiantes logren terminar su grado.
 
-### Distribución de Bernoulli
+#### Distribución de Bernoulli
 
 La distribución de Bernoulli es la distribución más simple, modelando un experimento que tiene solo dos posibles resultados: éxito o fracaso (normalmente codificados como 1 y 0, respectivamente). La función `dbinom(x, size, prob)` en R puede utilizarse para una variable aleatoria de Bernoulli, especificando `size = 1` (un solo ensayo).
 
@@ -442,9 +423,9 @@ Supongamos que lanzamos una moneda con una probabilidad de 0.6 de obtener cara (
 Podemos utilizar la función `dbinom` en R para calcular las probabilidades de los dos resultados posibles (0 o 1) de una variable aleatoria de Bernoulli.
 
 ```{r}
-p <- 0.6  # Probabilidad de éxito
+p <- 0.6  ## Probabilidad de éxito
 
-# Probabilidades para éxito (1) y fracaso (0)
+## Probabilidades para éxito (1) y fracaso (0)
 prob_1 <- dbinom(x = 1, size = 1, prob = p)
 prob_0 <- dbinom(x = 0, size = 1, prob = p)
 
@@ -452,7 +433,7 @@ cat(sprintf("La probabilidad de éxito (cara) es %.4f.\n", prob_1))
 cat(sprintf("La probabilidad de fracaso (cruz) es %.4f.\n", prob_0))
 ```
 
-### Distribución de Poisson
+#### Distribución de Poisson
 La distribución de Poisson se utiliza para modelar el número de eventos que ocurren en un intervalo de tiempo fijo cuando estos eventos ocurren con una tasa media constante y de manera independiente entre sí. Esta distribución se define completamente por su parámetro $\lambda$ (lambda), que representa la tasa media de ocurrencia de los eventos por intervalo.
 
 Para un valor dado $k$, la probabilidad de observar exactamente $k$ eventos se calcula como:
@@ -500,7 +481,7 @@ cat(sprintf("La probabilidad de que no haya errores en una página es %.4f.\n", 
 ```
 
 
-### Distribución Binomial Negativa
+#### Distribución Binomial Negativa
 
 La distribución binomial negativa modela el número de fracasos que ocurren antes de que se alcancen un número fijo de éxitos en una secuencia de ensayos independientes con probabilidad constante de éxito. La función `dnbinom(x, size, prob)` en R devuelve la probabilidad de observar un número específico de fracasos antes de alcanzar un número determinado de éxitos.
 
@@ -527,15 +508,15 @@ Donde:
 - $p = 0.4$ es la probabilidad de éxito en cada ensayo.
 
 ```{r}
-p <- 0.4  # Probabilidad de éxito
-size <- 2  # Número de éxitos deseados
+p <- 0.4  ## Probabilidad de éxito
+size <- 2  ## Número de éxitos deseados
 
-# Probabilidad de tener exactamente 3 fracasos antes de 2 éxitos
+## Probabilidad de tener exactamente 3 fracasos antes de 2 éxitos
 prob_3_failures <- dnbinom(x = 3, size = size, prob = p)
 cat(sprintf("La probabilidad de que ocurran exactamente 3 fracasos antes de 2 éxitos es %.4f.\n", prob_3_failures))
 ```
 
-### Distribución Geométrica
+#### Distribución Geométrica
 
 La distribución geométrica modela el número de fracasos que ocurren antes del primer éxito en una secuencia de ensayos independientes con probabilidad constante de éxito. La función `dgeom(x, prob)` en R calcula la probabilidad de obtener exactamente $x$ fracasos antes de obtener el primer éxito.
 
@@ -557,9 +538,9 @@ Supongamos que lanzamos una moneda con una probabilidad de 0.7 de obtener cara (
 :::
 
 ```{r}
-p <- 0.7  # Probabilidad de éxito
+p <- 0.7  ## Probabilidad de éxito
 
-# Probabilidad de obtener 2 fracasos antes del primer éxito
+## Probabilidad de obtener 2 fracasos antes del primer éxito
 prob_2_failures <- dgeom(x = 2, prob = p)
 cat(sprintf("La probabilidad de que ocurran exactamente 2 fracasos antes del primer éxito es %.4f.\n", prob_2_failures))
 ```
@@ -573,14 +554,14 @@ En una fábrica, cada producto tiene una probabilidad de 0.1 de ser defectuoso. 
 En este ejemplo, podemos usar la función `dgeom` para calcular la probabilidad de tener exactamente 3 fracasos (productos defectuosos) antes de encontrar el primer éxito (producto no defectuoso).
 
 ```{r}
-p <- 0.9  # Probabilidad de éxito (producto no defectuoso)
+p <- 0.9  ## Probabilidad de éxito (producto no defectuoso)
 
-# Probabilidad de obtener 3 productos defectuosos antes del primer no defectuoso
+## Probabilidad de obtener 3 productos defectuosos antes del primer no defectuoso
 prob_3_failures <- dgeom(x = 3, prob = p)
 cat(sprintf("La probabilidad de que haya exactamente 3 productos defectuosos antes del primer no defectuoso es %.4f.\n", prob_3_failures))
 ```
 
-### Distribución Hipergeométrica
+#### Distribución Hipergeométrica
 
 Para la distribución hipergeométrica, utilizamos `dhyper` en R, que requiere parámetros específicos para describir el escenario: el total de éxitos en la población (`m`), el total de no éxitos en la población (`n`), y el número de extracciones (`k`). La función devuelve la probabilidad de obtener un número dado de éxitos (`x`) en las extracciones realizadas.
 
@@ -614,13 +595,13 @@ prob_no_acuerdo <- dhyper(x = 1, m = 30, n = 20, k = 5)
 cat(sprintf("La probabilidad de que de esos cinco solo uno esté de acuerdo en crear la línea de negocio %.4f.\n", prob_no_acuerdo))
 ```
 
-## Distribuciones continuas
+### Distribuciones continuas
 
 Las distribuciones continuas son esenciales cuando abordamos variables aleatorias que pueden tomar cualquier valor dentro de un intervalo. Estas distribuciones nos permiten entender y modelar fenómenos donde la precisión y la continuidad son claves, como tiempos, distancias o temperaturas. En este caso, las funciones que empiezan por `d` nos proporcionan la densidad de probabilidad, que, a diferencia de la masa de probabilidad para las discretas, nos ofrece la densidad en un punto específico o intervalo. Las funciones que inician con `p` siguen siendo cruciales para determinar la probabilidad acumulada, permitiéndonos calcular la probabilidad de que la variable aleatoria caiga por debajo de un cierto valor.
 
 En esta parte, nos centraremos en distribuciones continuas claves como la distribución normal, la distribución exponencial, y otras distribuciones relevantes. Exploraremos el uso de `dxxx`, `pxxx`, `qxxx`, y `rxxx` para efectuar análisis detallados y aplicaciones prácticas de estas distribuciones, proporcionando así una base sólida para el modelado y la interpretación de datos continuos.
 
-### Funciones disponibles
+#### Funciones disponibles
 
 En R, cada distribución continua tiene asociadas cuatro funciones principales que facilitan la realización de cálculos estadísticos importantes:
 
@@ -647,7 +628,7 @@ Las funciones en R para distribuciones continuas permiten calcular la densidad d
 
 Para la distribución uniforme utilizamos las funciones `dunif` y `punif`, con los argumentos `min` y `max` para los parámetros $a$ y $b$ respectivamente. `dunif(x, min, max)` ofrece el valor de la densidad de probabilidad en el punto `x`, mientras que `punif(q, min, max)` calcula la probabilidad de que una variable aleatoria uniforme sea menor o igual a `q`.
 
-### Distribución Uniforme
+#### Distribución Uniforme
 
 La distribución uniforme continua se utiliza para modelar situaciones en las que todos los valores dentro de un intervalo están igualmente distribuidos, es decir, tienen la misma probabilidad de ocurrencia. La función `dunif(x, min, max)` en R calcula la densidad de probabilidad para un valor específico dentro de un intervalo definido por `min` y `max`.
 
@@ -670,26 +651,26 @@ Supongamos que seleccionamos al azar un número entre 0 y 10. Queremos calcular 
 :::
 
 ```{r}
-# Parámetros de la distribución uniforme
+## Parámetros de la distribución uniforme
 min_val <- 0
 max_val <- 10
 
-# Probabilidad de que el número sea exactamente 5
-# Nota: en la distribución continua, la probabilidad de un solo punto es 0, pero mostramos cómo usar la función dunif.
+## Probabilidad de que el número sea exactamente 5
+## Nota: en la distribución continua, la probabilidad de un solo punto es 0, pero mostramos cómo usar la función dunif.
 prob_x_equals_5 <- dunif(5, min = min_val, max = max_val)
 cat(sprintf("La densidad en x = 5 es %.4f.\n", prob_x_equals_5))
 
-# Generar 1000 números aleatorios con distribución uniforme entre 0 y 10
+## Generar 1000 números aleatorios con distribución uniforme entre 0 y 10
 set.seed(123)
 random_uniform <- runif(1000, min = min_val, max = max_val)
 
-# Visualizar histograma de los números aleatorios generados
+## Visualizar histograma de los números aleatorios generados
 hist(random_uniform, probability = TRUE, main = "Distribución Uniforme",
      xlab = "Valores", xlim = c(min_val, max_val), col = "lightblue", border = "black")
 ```
 
 
-### Distribución exponencial
+#### Distribución exponencial
 
 La distribución exponencial es utilizada comúnmente para modelar el tiempo que transcurre entre eventos sucesivos en un proceso con tasa constante. En R, las funciones `dexp` para la densidad y `pexp` para la distribución acumulativa manejan estas consultas, utilizando el parámetro de tasa `rate`, que corresponde a $1/\beta$ en la formulación matemática de la distribución.
 
@@ -728,10 +709,10 @@ El tiempo de respuesta de un servidor web sigue una distribución exponencial co
 Podemos usar la función `pexp` con el parámetro `lower.tail = TRUE`, que calcula la probabilidad acumulada de que el tiempo de respuesta sea **menor** que 1 segundo.
 
 ```{r}
-rate <- 1/2  # Tasa inversa del tiempo medio de respuesta
-time <- 1  # Tiempo que queremos evaluar
+rate <- 1/2  ## Tasa inversa del tiempo medio de respuesta
+time <- 1  ## Tiempo que queremos evaluar
 
-# Probabilidad de que el servidor responda en menos de 1 segundo
+## Probabilidad de que el servidor responda en menos de 1 segundo
 prob_menos_1s <- pexp(time, rate = rate, lower.tail = TRUE)
 
 cat(sprintf("La probabilidad de que el servidor responda en menos de 1 segundo es %.4f.\n", prob_menos_1s))
@@ -747,10 +728,10 @@ El tiempo de vida útil de una bombilla sigue una distribución exponencial con 
 En este caso, podemos usar la función `pexp` para calcular la probabilidad de que la vida útil de una bombilla sea mayor a 1500 horas. Dado que el parámetro de tasa `rate` en R es la inversa de $\beta$, el valor de `rate` será $1/1000$.
 
 ```{r}
-rate <- 1/1000  # Tasa inversa del tiempo medio de vida
-time <- 1500  # Tiempo que queremos evaluar
+rate <- 1/1000  ## Tasa inversa del tiempo medio de vida
+time <- 1500  ## Tiempo que queremos evaluar
 
-# Probabilidad de que una bombilla dure más de 1500 horas
+## Probabilidad de que una bombilla dure más de 1500 horas
 prob_mas_1500h <- pexp(time, rate = rate, lower.tail = FALSE)
 ```
 
@@ -759,7 +740,7 @@ prob_mas_1500h <- pexp(time, rate = rate, lower.tail = FALSE)
 
 
 
-### Distribución normal
+#### Distribución normal
 
 La distribución normal es una de las distribuciones más importantes en estadística, utilizada para modelar fenómenos naturales, sociales y de investigación científica cuando los datos se distribuyen en forma de campana alrededor de un promedio. En R, las funciones `dnorm` y `pnorm` nos permiten trabajar con la densidad y la distribución acumulativa de la normal, respectivamente, sin necesidad de tipificar manualmente las variables, ya que podemos especificar directamente la media (`mean`) y la desviación estándar (`sd`). Su función de densidad de probabilidad es:
 
@@ -806,8 +787,3 @@ hist(simu, main = "Distribución del Peso de los Paquetes", xlab = "Peso (kg)", 
 ```
 
 Este histograma nos ofrece una representación gráfica de la distribución esperada del peso de los paquetes, permitiéndonos observar la variabilidad y la tendencia central de los datos simulados basados en la distribución normal.
-
-<div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 18px; color: #666;">
-<img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
-DSLAB - Universidad Rey Juan Carlos
-</div>
