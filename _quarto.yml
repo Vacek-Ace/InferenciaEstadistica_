@@ -6,4 +6,4 @@ format:
     documentclass: beamer
     toc: false
     number-sections: false
-    output-dir: diapositivas/diapositivas_pdf
+    output-dir: laboratorios/laboratorios_pdf

@@ -1,0 +1,16 @@
+## **Introducción**
+
+Este documento recopila una serie de laboratorios prácticos diseñados para complementar la asignatura "Inferencia Estadística" del Grado en Ciencia e Ingeniería de Datos. El objetivo de esta colección es afianzar los conocimientos adquiridos en cada tema, fomentando tanto la comprensión de los fundamentos teóricos como la habilidad para implementar y aplicar técnicas de inferencia estadística en R.
+
+## **Estructura de los Laboratorios**
+
+Los laboratorios están organizados por temas, siguiendo la estructura del curso. Para cada tema, encontrarás una combinación de:
+
+- **Fundamentos Conceptuales:** Explicaciones claras de la teoría subyacente a cada técnica estadística.
+- **Implementación Práctica en R:** Código detallado y comentado para aplicar las técnicas a conjuntos de datos reales o simulados.
+- **Ejemplos Aplicados:** Casos de estudio que ilustran la aplicación de los métodos estadísticos en contextos reales.
+- **Interpretación de Resultados:** Guías para interpretar correctamente las salidas de los análisis y modelos estadísticos.
+
+## **Requisitos Previos**
+
+Para abordar estos laboratorios, se asume que el estudiante ha estudiado el contenido teórico del tema correspondiente y posee un manejo básico del entorno de programación R y RStudio. Es recomendable tener instalados los paquetes principales del tidyverse y otros paquetes específicos que se indican en cada laboratorio.

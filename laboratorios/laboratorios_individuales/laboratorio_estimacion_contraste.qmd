@@ -7,7 +7,7 @@ author:
   - "Carmen Lancho Martín"
 date: today
 lang: es
-format: 
+format:
   html:
     toc: true
     toc-depth: 3

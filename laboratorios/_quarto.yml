@@ -1,0 +1,34 @@
+project:
+  type: book
+  output-dir: laboratorios_pdf
+
+book:
+  # Metadatos para el PDF, pero no se mostrarán en la portada personalizada
+  
+  # La lista de capítulos, que ahora no tienen YAML propio
+  chapters:
+    - index.qmd
+    - laboratorio_introR.qmd
+    - laboratorio_VVAA.qmd
+    - laboratorio_muestreo.qmd
+    - laboratorio_estimacion_contraste.qmd
+
+# --- Formato de Salida PDF (igual que el proyecto principal) ---
+format:
+  pdf:
+    documentclass: scrreprt
+    # Desactivamos el bloque de título automático de Quarto
+    title-block-banner: false 
+    # Opciones para la Tabla de Contenidos
+    toc: true
+    toc-depth: 3
+    toc-title: "Índice de Laboratorios"
+    number-sections: false
+    # Portada y estilo personalizado para HTML (ignorado en PDF)
+    include-before-body: portada.html
+    include-in-header:
+      text: |
+        \usepackage{tcolorbox}
+        \newtcolorbox{rmdeval}{colback=yellow!5!white,colframe=yellow!75!black,title=Evaluación}
+        \newtcolorbox{rmdpractica}{colback=blue!5!white,colframe=blue!75!black,title=Práctica}
+        \newtcolorbox{rmdinfo}{colback=green!5!white,colframe=green!75!black,title=Información}
