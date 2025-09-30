@@ -16,6 +16,8 @@ book:
     - tema0_intro_solucion.qmd
     - tema1_EDA1_solucion.qmd
     - tema1_EDA2_solucion.qmd
+    - tema2_IC1_solucion.qmd
+    - tema2_CH1_solucion.qmd
   cover-image: ../../images/DSLab_logo_2.png
 
 format:
@@ -23,6 +25,7 @@ format:
     theme: cerulean
     lang: es-ES
     css: soluciones.css
+    number-sections: false
   pdf:
     documentclass: scrreprt
     toc-title: "Índice de Soluciones"

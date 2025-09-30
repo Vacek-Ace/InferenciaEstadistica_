@@ -2,13 +2,13 @@
 
 ### Ejercicio 1
 
-**Pregunta**: Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.
+Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.
 
 **Solución**: La Ciencia de Datos es una disciplina interdisciplinaria que se centra en la extracción de conocimiento significativo a partir de grandes conjuntos de datos. Es crucial en un mundo impulsado por los datos, ya que permite tomar decisiones informadas y hacer predicciones basadas en el análisis de datos. La Ciencia de Datos combina elementos de estadística, informática y conocimiento específico del dominio para interpretar datos y aplicar este conocimiento en diversas áreas como la medicina, las finanzas y la tecnología. Su importancia radica en su capacidad para transformar datos crudos en información valiosa que puede impulsar la innovación y la eficiencia en múltiples campos.
 
 ### Ejercicio 2
 
-**Pregunta**: Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.
+Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.
 
 
 **Solución**: En la inferencia estadística, se utilizan diversas herramientas para analizar datos y hacer generalizaciones sobre una población a partir de muestras:
@@ -26,7 +26,7 @@
 
 ### Ejercicio 3
 
-**Pregunta**: Define los términos "población" y "muestra" y explica la diferencia entre ambos.
+Define los términos "población" y "muestra" y explica la diferencia entre ambos.
 
 **Solución**: 
 
@@ -38,7 +38,7 @@ La **diferencia principal** entre ambos términos es el alcance. Mientras que la
 
 ### Ejercicio 4
 
-**Pregunta**: ¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?
+¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?
 
 **Solución**: Una **distribución de probabilidad** es una función matemática que describe la probabilidad de ocurrencia de los diferentes posibles resultados en un experimento. En otras palabras, asigna probabilidades a cada posible resultado de una variable aleatoria. Las distribuciones de probabilidad se relacionan con las variables cualitativas y cuantitativas de la siguiente manera:
 
@@ -49,7 +49,7 @@ La **diferencia principal** entre ambos términos es el alcance. Mientras que la
 
 ### Ejercicio 5
 
-**Pregunta**: Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.
+Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.
 
 **Solución**: Imaginemos un conjunto de datos que representa las calificaciones de un grupo de estudiantes en un examen:
 
@@ -114,7 +114,7 @@ Este resumen descriptivo proporciona una visión clara y concisa de las caracter
 
 ### Ejercicio 6
 
-**Pregunta**: Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.
+Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.
 
 **Solución**: La **estadística descriptiva** y la **estadística inferencial** son dos ramas principales de la estadística que tienen propósitos y métodos diferentes:
 
@@ -127,7 +127,7 @@ Este resumen descriptivo proporciona una visión clara y concisa de las caracter
 
 ### Ejercicio 7
 
-**Pregunta**: Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población. 
+Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población. 
 
 **Solución**: Para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población, consideremos el siguiente experimento:
 
@@ -170,7 +170,7 @@ Este resumen descriptivo proporciona una visión clara y concisa de las caracter
 
 ### Ejercicio 8
 
-**Pregunta**: Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.
+Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.
 
 **Solución**: Teorema Central del Límite (TCL)
 
@@ -203,7 +203,7 @@ $$
 
 ### Ejercicio 9
 
-**Pregunta**: Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.
+Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.
 
 **Solución**: La **estadística paramétrica** y la **estadística no paramétrica** son dos enfoques de análisis estadístico que tienen diferentes supuestos y aplicaciones. La **estadística paramétrica** se utiliza cuando los datos se ajustan a ciertos supuestos y se conoce la distribución subyacente, lo que permite hacer inferencias más precisas si estos supuestos se cumplen. Por otro lado, la **estadística no paramétrica** es más flexible y se puede utilizar en una variedad más amplia de situaciones, especialmente cuando los datos no cumplen con los supuestos de los métodos paramétricos.
 
@@ -225,7 +225,7 @@ $$
 
 ### Ejercicio 10
 
-**Pregunta**: Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.
+Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.
 
 **Solución**: La inferencia estadística se basa en métodos que nos permiten hacer conclusiones sobre una población a partir de datos muestrales. Existen dos enfoques principales en la inferencia estadística: el enfoque frecuentista y el enfoque bayesiano. A continuación, se presentan las diferencias clave entre estos enfoques y ejemplos de aplicación para cada uno.
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Cargar el conjunto de datos – Problemas de Inferencia Estadística</title>
+<title>Análisis Exploratorio de Datos – Problemas de Inferencia Estadística</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema1_EDA1_solucion.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema1_EDA1_solucion.html"><span class="chapter-title">Análisis Exploratorio de Datos</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -154,20 +154,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span></a>
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span></a>
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Análisis Exploratorio de Datos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></span></a>
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Procesado y Limpieza de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_IC1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intervalos de Confianza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_CH1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contrastes de Hipótesis</span></a>
   </div>
 </li>
     </ul>
@@ -175,15 +182,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio 3</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4">Ejercicio 4</a></li>
+  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5">Ejercicio 5</a></li>
+  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6">Ejercicio 6</a></li>
+  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7">Ejercicio 7</a></li>
+  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8">Ejercicio 8</a></li>
+  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9">Ejercicio 9</a></li>
+  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10">Ejercicio 10</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></h1>
+<h1 class="title"><span class="chapter-title">Análisis Exploratorio de Datos</span></h1>
 </div>
 
 
@@ -200,34 +222,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Utilizar el dataframe denominado <em>bank</em> con el que hemos trabajo en el tema 2 de la asignatura para responder a las siguientes cuestiones:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip"</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"bank.zip"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"bank.zip"</span>, <span class="st">"bank-full.csv"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>bank_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"bank-full.csv"</span>,<span class="at">sep=</span><span class="st">";"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar el conjunto de datos</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"bank.zip"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"bank.zip"</span>, <span class="st">"bank-full.csv"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>bank_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"bank-full.csv"</span>,<span class="at">sep=</span><span class="st">";"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<section id="ejercicio-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h3>
+<p><strong>Estructura del DataFrame</strong>:</p>
+<ul>
+<li>¿Cuántos campos y observaciones tiene el dataframe <code>bank</code>? Utiliza las funciones <code>head</code> y <code>dim</code>.</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 1: Estructura del DataFrame</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bank_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 1: Estructura del DataFrame</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bank_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  age          job marital education default balance housing loan contact day
 1  58   management married  tertiary      no    2143     yes   no unknown   5
@@ -244,14 +260,25 @@ Attaching package: 'dplyr'</code></pre>
 5   may      198        1    -1        0  unknown no
 6   may      139        1    -1        0  unknown no</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(bank_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(bank_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 45211    17</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>El dataframe <code>bank_data</code> contiene 45,211 observaciones (filas) y 17 variables (columnas). La función <code>head()</code> nos muestra las primeras 6 filas del conjunto de datos, donde podemos observar variables numéricas como <code>age</code>, <code>balance</code> y <code>duration</code>, así como variables categóricas como <code>job</code>, <code>marital</code> y <code>education</code>. Esta estructura nos permite analizar tanto características demográficas como comportamentales de los clientes contactados durante la campaña de marketing.</p>
+</section>
+<section id="ejercicio-2" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2">Ejercicio 2</h3>
+<p><strong>Resumen del DataFrame</strong>:</p>
+<ul>
+<li>Evalúa el dataframe con la función <code>summary</code>.</li>
+<li>¿Tiene observaciones con elementos faltantes (NA)?</li>
+<li>¿A qué categorías corresponden las observaciones en la variable <code>job</code>?</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 2: Resumen del DataFrame</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 2: Resumen del DataFrame</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      age            job              marital           education        
  Min.   :18.00   Length:45211       Length:45211       Length:45211      
@@ -289,7 +316,27 @@ Attaching package: 'dplyr'</code></pre>
                    
                    </code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(bank_data))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(bank_data<span class="sc">$</span>job)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "management"    "technician"    "entrepreneur"  "blue-collar"  
+ [5] "unknown"       "retired"       "admin."        "services"     
+ [9] "self-employed" "unemployed"    "housemaid"     "student"      </code></pre>
+</div>
+</div>
+<p><strong>Respuesta</strong>:</p>
+<p>El resumen estadístico proporciona información clave sobre cada variable del dataset. El dataset no contiene valores faltantes (NA), lo cual facilita el análisis sin necesidad de imputación. La variable <code>job</code> clasifica a los clientes en 12 categorías profesionales: admin., blue-collar, entrepreneur, housemaid, management, retired, self-employed, services, student, technician, unemployed y unknown. Las categorías más frecuentes son blue-collar (trabajadores manuales), management (gerentes) y technician (técnicos), lo que refleja una muestra diversa de perfiles profesionales en la base de clientes del banco.</p>
+</section>
+<section id="ejercicio-3" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3">Ejercicio 3</h3>
+<p><strong>Distribución de la Edad</strong>:</p>
+<ul>
+<li>¿Cuál es la edad máxima y mínima de los clientes en el dataframe?</li>
+<li>¿Cuál es la media y la mediana de la edad de los clientes?</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 3: Distribución de la Edad</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data<span class="sc">$</span>age)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -311,6 +358,16 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La edad de los clientes varía entre 18 años (mínimo) y 95 años (máximo), con una media de 40.94 años y una mediana de 39 años. El histograma muestra una distribución ligeramente sesgada a la derecha, con la mayor concentración de clientes entre los 30 y 50 años. La proximidad entre la media y la mediana indica que no hay valores extremos que distorsionen significativamente la distribución central. La amplitud del rango etario sugiere que la campaña se dirigió a un público amplio, desde jóvenes adultos hasta personas de edad avanzada.</p>
+</section>
+<section id="ejercicio-4" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-4">Ejercicio 4</h3>
+<p><strong>Balance Promedio</strong>:</p>
+<ul>
+<li>¿Cuál es el balance promedio anual (balance) de los clientes?</li>
+<li>¿Cuál es el balance promedio anual de los clientes que han suscrito un depósito a plazo fijo (<code>y</code> = “yes”)?</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 4: Balance Promedio</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bank_data<span class="sc">$</span>balance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -322,6 +379,15 @@ Attaching package: 'dplyr'</code></pre>
 <pre><code>[1] 1804.268</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>El balance promedio anual de todos los clientes es de 1,362.27 €. Los clientes que suscribieron un depósito a plazo fijo tienen un balance promedio de 1,804.27 €, significativamente superior al promedio general. Esta diferencia de aproximadamente 442 € sugiere que el balance financiero es un factor relevante en la decisión de suscripción, ya que los clientes con mayor capacidad de ahorro tienden a estar más interesados en productos de inversión como los depósitos a plazo fijo.</p>
+</section>
+<section id="ejercicio-5" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-5">Ejercicio 5</h3>
+<p><strong>Frecuencia de Contacto</strong>:</p>
+<ul>
+<li>¿Cuál es el número máximo y mínimo de contactos realizados durante esta campaña (<code>campaign</code>)?</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 5: Frecuencia de Contacto</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data<span class="sc">$</span>campaign)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -330,6 +396,16 @@ Attaching package: 'dplyr'</code></pre>
   1.000   1.000   2.000   2.764   3.000  63.000 </code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>Durante la campaña, el número de contactos realizados a los clientes varía entre 1 (mínimo) y 63 (máximo), con una media de 2.76 contactos por cliente. La mediana de 2 contactos indica que la mayoría de los clientes fueron contactados pocas veces, lo cual es una buena práctica para evitar saturar a los clientes. Sin embargo, la existencia de casos extremos con hasta 63 contactos sugiere que algunos clientes requirieron múltiples seguimientos, posiblemente clientes difíciles de convencer o con mayor interés que necesitaban información adicional antes de tomar una decisión.</p>
+</section>
+<section id="ejercicio-6" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-6">Ejercicio 6</h3>
+<p><strong>Análisis de Duración</strong>:</p>
+<ul>
+<li>¿Cuál es la duración media y mediana del último contacto en segundos (<code>duration</code>)?</li>
+<li>¿Cuál es la duración media del último contacto en segundos para los clientes que suscribieron un depósito a plazo fijo (<code>y</code> = “yes”)?</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 6: Análisis de Duración</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data<span class="sc">$</span>duration)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -342,6 +418,15 @@ Attaching package: 'dplyr'</code></pre>
 <pre><code>[1] 537.2946</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La duración del último contacto tiene una media de 258.16 segundos (aproximadamente 4.3 minutos) y una mediana de 180 segundos (3 minutos). Los clientes que suscribieron el depósito tuvieron conversaciones significativamente más largas, con una duración media de 537.29 segundos (aproximadamente 9 minutos). Esta diferencia de casi 5 minutos adicionales es notable y sugiere que la duración del contacto es un fuerte predictor del éxito de la campaña: conversaciones más extensas permiten explicar mejor el producto, resolver dudas y construir confianza con el cliente.</p>
+</section>
+<section id="ejercicio-7" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-7">Ejercicio 7</h3>
+<p><strong>Relación entre Variables</strong>:</p>
+<ul>
+<li>¿Existe alguna relación entre el balance promedio anual y la duración del último contacto? Utiliza una visualización adecuada para responder a esta pregunta.</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 7: Relación entre Balance y Duración</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bank_data, <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> duration)) <span class="sc">+</span></span>
@@ -357,12 +442,25 @@ Attaching package: 'dplyr'</code></pre>
 </figure>
 </div>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bank_data<span class="sc">$</span>balance, bank_data<span class="sc">$</span>duration, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02156038</code></pre>
 </div>
+</div>
+<p><strong>Respuesta</strong>:</p>
+<p>El diagrama de dispersión muestra una nube de puntos sin un patrón claro, y la correlación de Pearson entre balance y duración es prácticamente nula (r ≈ 0.022). Esto indica que no existe una relación lineal significativa entre el balance del cliente y la duración de la llamada. En otras palabras, el balance financiero del cliente no predice cuánto durará la conversación. Clientes con balances altos y bajos pueden tener conversaciones de cualquier duración, lo que sugiere que otros factores (como el interés del cliente, la habilidad del operador o la complejidad de las preguntas) son más determinantes en la duración del contacto.</p>
+</section>
+<section id="ejercicio-8" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-8">Ejercicio 8</h3>
+<p><strong>Segmentación por Trabajo</strong>:</p>
+<ul>
+<li>¿Cuál es la media y mediana del balance anual de los clientes agrupados por tipo de trabajo (<code>job</code>)?</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 8: Segmentación por Trabajo</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>bank_data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(job) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_balance =</span> <span class="fu">mean</span>(balance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mediana_balance =</span> <span class="fu">median</span>(balance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 8: Segmentación por Trabajo</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>bank_data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(job) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_balance =</span> <span class="fu">mean</span>(balance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mediana_balance =</span> <span class="fu">median</span>(balance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 3
    job           media_balance mediana_balance
@@ -381,31 +479,59 @@ Attaching package: 'dplyr'</code></pre>
 12 unknown               1772.            677 </code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La segmentación por tipo de trabajo revela diferencias importantes en los balances. Los jubilados (retired) presentan el balance medio más alto (1,984 €), seguidos por trabajadores con ocupación desconocida (unknown) con 1,772 € y los gerentes (management) con 1,764 €. En el extremo opuesto, los trabajadores de servicios (services) tienen el balance medio más bajo (997 €), seguidos por los trabajadores manuales (blue-collar) con 1,079 €. Esta estratificación económica según la ocupación es lógica: los jubilados han tenido toda una vida laboral para acumular ahorros, mientras que los trabajadores de servicios suelen tener salarios más bajos. Esta información es valiosa para segmentar las campañas de marketing, dirigiendo productos de mayor inversión a los grupos con mayor capacidad de ahorro.</p>
+</section>
+<section id="ejercicio-9" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-9">Ejercicio 9</h3>
+<p><strong>Análisis de Contactos Anteriores</strong>:</p>
+<ul>
+<li>¿Cuál es el número máximo y mínimo de días que pasaron desde el último contacto de una campaña anterior (<code>pdays</code>)?</li>
+<li>¿Cuál es la media de <code>pdays</code> para los clientes que suscribieron un depósito a plazo fijo (<code>y</code> = “yes”)?</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 9: Análisis de Contactos Anteriores</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data<span class="sc">$</span>pdays)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 9: Análisis de Contactos Anteriores</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bank_data<span class="sc">$</span>pdays)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    -1.0    -1.0    -1.0    40.2    -1.0   871.0 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bank_data<span class="sc">$</span>pdays[bank_data<span class="sc">$</span>y <span class="sc">==</span> <span class="st">"yes"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bank_data<span class="sc">$</span>pdays[bank_data<span class="sc">$</span>y <span class="sc">==</span> <span class="st">"yes"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 68.70297</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La variable <code>pdays</code> tiene un valor especial de -1 que indica que el cliente no fue contactado en campañas anteriores, y este es el valor más frecuente (mediana de -1). Para los clientes que sí fueron contactados previamente, el rango varía ampliamente hasta 871 días. La media de <code>pdays</code> para los clientes que suscribieron es de 68.70 días. Es importante notar que el valor de -1 domina la distribución, lo que sugiere que muchas conversiones exitosas provienen de clientes nuevos o que no habían sido contactados en campañas anteriores. Sin embargo, la media de 68.70 días para suscriptores indica que aquellos contactados previamente y que finalmente suscriben, lo hicieron después de aproximadamente 2 meses desde el último contacto, lo que podría indicar un tiempo óptimo para recontactar.</p>
+</section>
+<section id="ejercicio-10" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-10">Ejercicio 10</h3>
+<p><strong>Estudio General</strong>:</p>
+<ul>
+<li>Haciendo un estudio general de los datos, ¿qué puedes concluir?</li>
+<li>¿Existe alguna relación significativa entre las variables <code>balance</code>, <code>duration</code>, y <code>campaign</code>? Se recomienda hacer un análisis visual y estadístico de estas variables.</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 10: Estudio General</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Puedes utilizar técnicas de análisis más avanzadas como correlación, regresión, etc.</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bank_data<span class="sc">$</span>balance, bank_data<span class="sc">$</span>duration, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pregunta 10: Estudio General</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Puedes utilizar técnicas de análisis más avanzadas como correlación, regresión, etc.</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bank_data<span class="sc">$</span>balance, bank_data<span class="sc">$</span>duration, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02156038</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bank_data, <span class="fu">aes</span>(<span class="at">x =</span> campaign, <span class="at">y =</span> balance)) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre Campañas y Balance"</span>,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Número de Campañas"</span>,</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Balance"</span>) <span class="sc">+</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bank_data<span class="sc">$</span>balance, bank_data<span class="sc">$</span>campaign, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.01457828</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bank_data<span class="sc">$</span>duration, bank_data<span class="sc">$</span>campaign, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.0845695</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bank_data, <span class="fu">aes</span>(<span class="at">x =</span> campaign, <span class="at">y =</span> balance)) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre Campañas y Balance"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Número de Campañas"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Balance"</span>) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -414,8 +540,14 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>El análisis general de los datos revela varios hallazgos importantes. En cuanto a las relaciones entre variables, las correlaciones son muy débiles: balance vs duration (r ≈ 0.022), balance vs campaign (r ≈ -0.015), y duration vs campaign (r ≈ -0.085). Esto indica que estas tres variables operan de manera relativamente independiente entre sí.</p>
+<p>Los factores más asociados al éxito de la campaña son: la duración del contacto emerge como el predictor más fuerte del éxito (conversaciones de ~9 minutos para suscriptores vs ~4 minutos para no suscriptores), el balance muestra una relación positiva pero moderada con la suscripción, y el número de contactos previos tiene una relación débil y negativa.</p>
+<p>La segmentación de clientes muestra alta variabilidad en los balances según la ocupación, con jubilados (1,984 €), unknown (1,772 €) y gerentes (1,764 €) como los grupos más prometedores financieramente. La eficiencia de la campaña se caracteriza por contactos mayormente breves y eficientes (1-3 intentos), donde las conversaciones largas están fuertemente asociadas con conversiones exitosas.</p>
+<p>En conclusión, el éxito de la campaña depende más de la calidad de la interacción (duración y contenido de la conversación) que de características demográficas o económicas del cliente. Las recomendaciones estratégicas incluyen: priorizar calidad sobre cantidad en los contactos, invertir en conversaciones más largas y detalladas, segmentar audiencias dirigiendo productos premium a ocupaciones con mayor capacidad económica, y limitar contactos repetidos para evitar saturar a clientes que no muestran interés inicial.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -819,13 +951,13 @@ Attaching package: 'dplyr'</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tema0_intro_solucion.html" class="pagination-link" aria-label="Ejercicio 1">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span>
+      <a href="./tema0_intro_solucion.html" class="pagination-link" aria-label="Introducción a la Inferencia Estadística">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Introducción a la Inferencia Estadística</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tema1_EDA2_solucion.html" class="pagination-link" aria-label="Ejercicio 1 (tidyr y dplyr)">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tema1_EDA2_solucion.html" class="pagination-link" aria-label="Procesado y Limpieza de Datos">
+        <span class="nav-page-text"><span class="chapter-title">Procesado y Limpieza de Datos</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,280 @@
+# Intervalos de Confianza
+
+### Ejercicio 1: Conceptos Básicos
+
+Explica brevemente qué es un intervalo de confianza y por qué es importante en la estadística inferencial. Da un ejemplo sencillo de un intervalo de confianza.
+
+**Solución**:
+
+Un intervalo de confianza es un rango de valores, derivado de los datos muestrales, que se utiliza para estimar un parámetro desconocido de la población, como la media o la proporción. Este intervalo se construye de tal manera que, con un cierto nivel de confianza (por ejemplo, 95% o 99%), se espera que contenga el verdadero valor del parámetro poblacional.
+
+**Importancia en la estadística inferencial**: (1) Proporciona una estimación del parámetro poblacional en lugar de un solo valor puntual, ofreciendo así más información sobre la precisión de la estimación. (2) Permite cuantificar la incertidumbre asociada a la estimación. Un intervalo de confianza más estrecho indica una estimación más precisa. (3) Ayuda en la toma de decisiones basadas en datos al proporcionar un rango de valores posibles para el parámetro poblacional. Esto es crucial en áreas como la investigación científica, la economía, la medicina y muchas otras.
+
+**Ejemplo**: Supongamos que estamos interesados en estimar la media de las alturas de los estudiantes en una universidad. Tomamos una muestra aleatoria de 30 estudiantes y encontramos que la media muestral ($\bar{x}$) es de 170 cm y la desviación estándar ($\sigma$) es de 10 cm. Queremos calcular un intervalo de confianza del 95% para la media poblacional ($\mu$).
+
+1. **Determinar el nivel de confianza**: 95%. El nivel de significancia ($\alpha$) es $0.05$. El valor crítico ($z$) para un nivel de confianza del 95% es aproximadamente 1.96.
+
+2. **Calcular el error estándar**:
+   $$
+   \text{Error estándar} = \frac{\sigma}{\sqrt{n}} = \frac{10}{\sqrt{30}} \approx 1.83
+   $$
+
+3. **Calcular el margen de error**:
+   $$
+   \text{Margen de error} = z \times \text{Error estándar} = 1.96 \times 1.83 \approx 3.59
+   $$
+
+4. **Calcular el intervalo de confianza**:
+   $$
+   \text{Intervalo de confianza} = \bar{x} \pm \text{Margen de error} = 170 \pm 3.59 = (166.41, 173.59)
+   $$
+
+**Interpretación**: Con un 95% de confianza, podemos afirmar que la media de las alturas de todos los estudiantes en la universidad está entre 166.41 cm y 173.59 cm. Esto significa que si repitiéramos este proceso de muestreo muchas veces, aproximadamente el 95% de los intervalos calculados de esta manera contendrían la verdadera media poblacional.
+
+### Ejercicio 2: Intervalo de Confianza Básico
+
+Dada una muestra aleatoria de tamaño 30 de una población normal con media muestral $\bar{x} = 50$ y desviación estándar $\sigma = 10$, calcula el intervalo de confianza del 95% para la media poblacional.
+
+**Solución**:
+
+**Datos proporcionados**: Tamaño de la muestra ($n$) = 30, media muestral ($\bar{x}$) = 50, desviación estándar ($\sigma$) = 10, nivel de confianza = 95%.
+
+**Paso 1 - Determinar el valor crítico**: Para un nivel de confianza del 95%, el valor crítico $z$ (para una distribución normal estándar) es aproximadamente 1.96.
+
+**Paso 2 - Calcular el error estándar de la media**:
+$$
+\text{Error estándar} = \frac{\sigma}{\sqrt{n}} = \frac{10}{\sqrt{30}} \approx 1.8257
+$$
+
+**Paso 3 - Calcular el margen de error**:
+$$
+\text{Margen de error} = z \times \text{Error estándar} = 1.96 \times 1.8257 \approx 3.5774
+$$
+
+**Paso 4 - Calcular el intervalo de confianza**:
+$$
+\text{Intervalo de confianza} = \bar{x} \pm \text{Margen de error} = 50 \pm 3.5774 = (46.4226, 53.5774)
+$$
+
+**Resultado**: El intervalo de confianza del 95% para la media poblacional es aproximadamente $(46.42, 53.58)$. Esto significa que con un 95% de confianza, podemos afirmar que la verdadera media poblacional se encuentra dentro de este rango.
+
+### Ejercicio 3: Nivel de Confianza Diferente
+
+Utilizando la misma muestra del ejercicio anterior, calcula el intervalo de confianza del 99% para la media poblacional. Compara ambos intervalos y explica las diferencias.
+
+**Solución**:
+
+Para calcular el intervalo de confianza del 99% para la media poblacional utilizando la misma muestra, seguimos los mismos pasos que antes pero con el valor crítico correspondiente al 99% de confianza.
+
+**Datos proporcionados**: Tamaño de la muestra ($n$) = 30, media muestral ($\bar{x}$) = 50, desviación estándar ($\sigma$) = 10, nivel de confianza = 99%.
+
+**Paso 1 - Determinar el valor crítico**: Para un nivel de confianza del 99%, el valor crítico $z$ es aproximadamente 2.576.
+
+**Paso 2 - Calcular el error estándar**: El error estándar de la media es el mismo que antes:
+$$
+\text{Error estándar} = \frac{10}{\sqrt{30}} \approx 1.8257
+$$
+
+**Paso 3 - Calcular el margen de error**:
+$$
+\text{Margen de error} = 2.576 \times 1.8257 \approx 4.7015
+$$
+
+**Paso 4 - Calcular el intervalo de confianza**:
+$$
+\text{Intervalo de confianza} = 50 \pm 4.7015 = (45.2985, 54.7015)
+$$
+
+**Comparación de los intervalos**: Intervalo de confianza del 95% = $(46.42, 53.58)$; Intervalo de confianza del 99% = $(45.30, 54.70)$.
+
+**Explicación de las diferencias**: (1) El intervalo de confianza del 99% es más amplio que el del 95%. Esto se debe a que al aumentar el nivel de confianza, necesitamos un intervalo más amplio para asegurarnos de que contiene el parámetro poblacional con mayor certeza. (2) Un intervalo de confianza más amplio (como el del 99%) proporciona mayor seguridad de que contiene la verdadera media poblacional, pero a costa de ser menos preciso. Un intervalo más estrecho (como el del 95%) es más preciso pero conlleva un menor nivel de certeza de que contiene la verdadera media poblacional. (3) El valor crítico para el 99% de confianza (2.576) es mayor que el valor crítico para el 95% de confianza (1.96), lo que contribuye al aumento del margen de error y, por ende, al ancho del intervalo.
+
+En resumen, al aumentar el nivel de confianza del 95% al 99%, el intervalo de confianza se vuelve más amplio, lo que refleja un mayor grado de certeza de que el intervalo incluye la verdadera media poblacional.
+
+### Ejercicio 4: Interpretación Práctica
+
+Un investigador encuentra que el intervalo de confianza del 95% para la media de una variable es (45, 55). Explica qué significa este intervalo en términos prácticos y cómo debería interpretarlo el investigador.
+
+**Solución**:
+
+Cuando un investigador encuentra que el intervalo de confianza del 95% para la media de una variable es (45, 55), esto significa lo siguiente:
+
+**Rango de valores probables**: El intervalo (45, 55) representa un rango de valores dentro del cual se estima que se encuentra la verdadera media poblacional de la variable con un nivel de confianza del 95%.
+
+**Nivel de confianza**: El nivel de confianza del 95% indica que si se repitiera el proceso de muestreo muchas veces y se calcularan intervalos de confianza del 95% para cada muestra, aproximadamente el 95% de esos intervalos incluirían la verdadera media poblacional.
+
+**Incertidumbre**: El intervalo refleja la incertidumbre inherente a la estimación. Debido a la variabilidad de la muestra, no podemos estar 100% seguros de que la media poblacional esté exactamente en un punto específico, pero podemos afirmar con un 95% de confianza que está dentro del intervalo calculado.
+
+**Cómo interpretarlo**: (1) La mejor estimación de la media poblacional basada en la muestra es que se encuentra entre 45 y 55. (2) Si el investigador necesita tomar decisiones basadas en la media de la población, puede hacerlo con la confianza de que la verdadera media está muy probablemente dentro de este rango. Por ejemplo, si está considerando un límite superior o inferior para una variable crítica, el intervalo le ayuda a entender dónde podría estar la verdadera media. (3) Al comunicar los resultados a otros, el investigador debe mencionar que el intervalo de confianza del 95% para la media es (45, 55). Esto proporciona una visión clara de la precisión y fiabilidad de la estimación basada en los datos de la muestra.
+
+**Ejemplo práctico**: Supongamos que el investigador está estudiando la puntuación de satisfacción del cliente para un producto. Si el intervalo de confianza del 95% es (45, 55), puede interpretar que: La satisfacción promedio de los clientes está en algún lugar entre 45 y 55 en la escala utilizada, con un 95% de confianza. Si se está comparando este producto con otro cuya satisfacción promedio conocida es 60, el investigador puede argumentar que es muy probable (con un 95% de confianza) que la media de satisfacción del producto en estudio sea significativamente menor. Si la satisfacción mínima aceptable se define en 50, el investigador puede señalar que hay una posibilidad considerable de que la media real esté por debajo de este umbral, sugiriendo una necesidad de mejorar el producto.
+
+En resumen, el intervalo de confianza proporciona una estimación del rango en el que se espera encontrar la verdadera media poblacional con un cierto nivel de confianza. Es una herramienta clave en la estadística inferencial que ayuda a los investigadores a comunicar y tomar decisiones informadas basadas en sus datos muestrales.
+
+### Ejercicio 5: Varianza Conocida
+
+Se sabe que la desviación estándar de las alturas de una población es de 5 cm. Se toma una muestra aleatoria de 40 individuos con una media muestral de 170 cm. Calcula el intervalo de confianza del 95% para la media poblacional.
+
+**Solución**:
+
+**Datos proporcionados**: Desviación estándar poblacional ($\sigma$) = 5 cm, tamaño de la muestra ($n$) = 40, media muestral ($\bar{x}$) = 170 cm, nivel de confianza = 95%.
+
+**Paso 1 - Determinar el valor crítico**: Para un nivel de confianza del 95%, el valor crítico $z$ es aproximadamente 1.96.
+
+**Paso 2 - Calcular el error estándar**:
+$$
+\text{Error estándar} = \frac{\sigma}{\sqrt{n}} = \frac{5}{\sqrt{40}} \approx 0.7906
+$$
+
+**Paso 3 - Calcular el margen de error**:
+$$
+\text{Margen de error} = 1.96 \times 0.7906 \approx 1.5496
+$$
+
+**Paso 4 - Calcular el intervalo de confianza**:
+$$
+\text{Intervalo de confianza} = 170 \pm 1.5496 = (168.4504, 171.5496)
+$$
+
+**Resultado**: El intervalo de confianza del 95% para la media poblacional es aproximadamente $(168.45, 171.55)$. Esto significa que con un 95% de confianza, podemos afirmar que la verdadera media poblacional de las alturas se encuentra dentro de este rango.
+
+### Ejercicio 6: Varianza Desconocida
+
+En un estudio de satisfacción laboral, se toma una muestra de 25 empleados y se encuentra una media muestral de 78 puntos con una desviación estándar muestral de 12 puntos. Calcula el intervalo de confianza del 95% para la media poblacional.
+
+**Solución**:
+
+Para calcular el intervalo de confianza del 95% para la media poblacional, usaremos la media y la desviación estándar muestral. Dado que la muestra es pequeña (n < 30) y la desviación estándar poblacional no es conocida, utilizaremos la distribución t de Student.
+
+**Datos proporcionados**: Tamaño de la muestra ($n$) = 25, media muestral ($\bar{x}$) = 78 puntos, desviación estándar muestral ($s$) = 12 puntos, nivel de confianza = 95%.
+
+**Paso 1 - Determinar el valor crítico t**: Para un nivel de confianza del 95% y $n-1 = 24$ grados de libertad, el valor crítico $t_{0.025, 24} \approx 2.064$.
+
+**Paso 2 - Calcular el error estándar**:
+$$
+\text{Error estándar} = \frac{s}{\sqrt{n}} = \frac{12}{\sqrt{25}} = 2.4
+$$
+
+**Paso 3 - Calcular el margen de error**:
+$$
+\text{Margen de error} = 2.064 \times 2.4 \approx 4.9536
+$$
+
+**Paso 4 - Calcular el intervalo de confianza**:
+$$
+\text{Intervalo de confianza} = 78 \pm 4.9536 = (73.0464, 82.9536)
+$$
+
+**Resultado**: El intervalo de confianza del 95% para la media poblacional es aproximadamente $(73.05, 82.95)$. Esto significa que con un 95% de confianza, podemos afirmar que la verdadera media poblacional de la satisfacción laboral se encuentra dentro de este rango.
+
+### Ejercicio 7: Muestra Grande
+
+Una encuesta a 200 estudiantes universitarios encuentra que el gasto promedio mensual en libros es de $100 con una desviación estándar de $20. Calcula el intervalo de confianza del 95% para la media del gasto mensual en libros para todos los estudiantes universitarios.
+
+**Solución**:
+
+**Datos proporcionados**: Tamaño de la muestra ($n$) = 200, media muestral ($\bar{x}$) = $100, desviación estándar muestral ($\sigma$) = $20, nivel de confianza = 95%.
+
+Dado que la muestra es grande ($n > 30$), podemos utilizar la distribución normal estándar.
+
+**Paso 1 - Determinar el valor crítico**: Para un nivel de confianza del 95%, el valor crítico $z$ es aproximadamente 1.96.
+
+**Paso 2 - Calcular el error estándar**:
+$$
+\text{Error estándar} = \frac{20}{\sqrt{200}} \approx 1.4142
+$$
+
+**Paso 3 - Calcular el margen de error**:
+$$
+\text{Margen de error} = 1.96 \times 1.4142 \approx 2.7714
+$$
+
+**Paso 4 - Calcular el intervalo de confianza**:
+$$
+\text{Intervalo de confianza} = 100 \pm 2.7714 = (97.2286, 102.7714)
+$$
+
+**Resultado**: El intervalo de confianza del 95% para la media del gasto mensual en libros es aproximadamente $(97.23, 102.77)$. Esto significa que con un 95% de confianza, podemos afirmar que la verdadera media del gasto mensual en libros para todos los estudiantes universitarios se encuentra dentro de este rango.
+
+### Ejercicio 8: Proporción
+
+En una muestra de 150 votantes, 90 indican que planean votar por el candidato A. Calcula el intervalo de confianza del 95% para la proporción de votantes que planean votar por el candidato A.
+
+**Solución**:
+
+**Datos proporcionados**: Tamaño de la muestra ($n$) = 150, número de éxitos ($x$) = 90, nivel de confianza = 95%.
+
+**Paso 1 - Calcular la proporción muestral**:
+$$
+\hat{p} = \frac{x}{n} = \frac{90}{150} = 0.6
+$$
+
+**Paso 2 - Determinar el valor crítico**: Para un nivel de confianza del 95%, el valor crítico $z$ es aproximadamente 1.96.
+
+**Paso 3 - Calcular el error estándar**:
+$$
+\text{Error estándar} = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} = \sqrt{\frac{0.6 \times 0.4}{150}} = 0.04
+$$
+
+**Paso 4 - Calcular el margen de error**:
+$$
+\text{Margen de error} = 1.96 \times 0.04 = 0.0784
+$$
+
+**Paso 5 - Calcular el intervalo de confianza**:
+$$
+\text{Intervalo de confianza} = 0.6 \pm 0.0784 = (0.5216, 0.6784)
+$$
+
+**Resultado**: El intervalo de confianza del 95% para la proporción de votantes que planean votar por el candidato A es aproximadamente $(0.5216, 0.6784)$. Esto significa que con un 95% de confianza, podemos afirmar que la verdadera proporción de votantes que planean votar por el candidato A se encuentra dentro de este rango.
+
+### Ejercicio 9: Comparación de Proporciones
+
+Dos empresas están interesadas en la proporción de empleados que están satisfechos con su trabajo. En una muestra de 100 empleados de la empresa A, 60 se declaran satisfechos. En una muestra de 120 empleados de la empresa B, 90 se declaran satisfechos. Calcula el intervalo de confianza del 95% para la diferencia en las proporciones de empleados satisfechos entre las dos empresas.
+
+**Solución**:
+
+**Datos proporcionados**: Tamaño de la muestra de la empresa A ($n_A$) = 100, número de empleados satisfechos en A ($x_A$) = 60, tamaño de la muestra de la empresa B ($n_B$) = 120, número de empleados satisfechos en B ($x_B$) = 90.
+
+**Paso 1 - Calcular las proporciones muestrales**:
+$$
+\hat{p}_A = \frac{60}{100} = 0.60 \quad ; \quad \hat{p}_B = \frac{90}{120} = 0.75
+$$
+
+**Paso 2 - Determinar el valor crítico**: Para un nivel de confianza del 95%, el valor crítico $z$ es aproximadamente 1.96.
+
+**Paso 3 - Calcular el error estándar de la diferencia**:
+$$
+\text{Error estándar} = \sqrt{\frac{0.60 \times 0.40}{100} + \frac{0.75 \times 0.25}{120}} \approx 0.06296
+$$
+
+**Paso 4 - Calcular el margen de error**:
+$$
+\text{Margen de error} = 1.96 \times 0.06296 \approx 0.1234
+$$
+
+**Paso 5 - Calcular el intervalo de confianza**:
+$$
+\hat{p}_A - \hat{p}_B = 0.60 - 0.75 = -0.15
+$$
+$$
+\text{Intervalo de confianza} = -0.15 \pm 0.1234 = (-0.2734, -0.0266)
+$$
+
+**Resultado**: El intervalo de confianza del 95% para la diferencia en las proporciones es aproximadamente $(-0.2734, -0.0266)$. Esto significa que con un 95% de confianza, podemos afirmar que la proporción de empleados satisfechos es mayor en la empresa B que en la empresa A, y la diferencia se encuentra en el rango de $-0.2734$ a $-0.0266$.
+
+### Ejercicio 10: Interpretación Crítica
+
+Un informe estadístico presenta el intervalo de confianza del 95% para la media de una variable como (75, 85). El informe concluye que la media poblacional es 80. ¿Es esta conclusión válida? Explica por qué o por qué no, utilizando conceptos de la interpretación de intervalos de confianza.
+
+**Solución**:
+
+La conclusión del informe **NO es válida**. Existen varios problemas fundamentales:
+
+**1. Error en la interpretación del intervalo de confianza**: El intervalo de confianza del 95% (75, 85) significa que si repitiéramos el proceso de muestreo muchas veces, aproximadamente el 95% de los intervalos calculados contendrían la verdadera media poblacional. No significa que haya un 95% de probabilidad de que la media esté en ese rango - la media poblacional es un valor fijo, no una variable aleatoria.
+
+**2. El valor 80 no es especial**: Aunque 80 está dentro del intervalo de confianza, no hay nada que lo haga más probable que cualquier otro valor dentro del rango (75, 85). Los valores 76, 79, 82 o 84.5 son igualmente compatibles con los datos observados. Afirmar que "la media poblacional es 80" sin justificación adicional es arbitrario.
+
+**3. Confusión entre estimación puntual y el intervalo**: El informe parece haber tomado el punto medio del intervalo (80) y lo presentó como "la media poblacional". El intervalo de confianza indica incertidumbre - si tuviéramos certeza de que la media es exactamente 80, no necesitaríamos un intervalo.
+
+**Conclusión correcta**: El informe debería concluir que "con un 95% de confianza, la media poblacional se encuentra entre 75 y 85", o que "el valor 80 es compatible con los datos, pero también lo son todos los demás valores dentro del intervalo". Afirmar que la media "es 80" contradice el propósito mismo del intervalo de confianza, que es reconocer la incertidumbre inherente a la estimación basada en muestras.

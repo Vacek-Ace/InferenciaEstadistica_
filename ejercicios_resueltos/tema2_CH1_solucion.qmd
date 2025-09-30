@@ -1,0 +1,229 @@
+# Contrastes de Hipótesis
+
+### Ejercicio 1: Conceptos Básicos
+Define los conceptos básicos de un contraste de hipótesis: hipótesis nula ($H_0$), hipótesis alternativa ($H_1$), nivel de significación ($\alpha$), región de rechazo y valor crítico.
+
+**Solución**:
+
+En un contraste de hipótesis, se evalúa una afirmación sobre una población a partir de datos muestrales. Los conceptos básicos que se utilizan son los siguientes:
+
+**Hipótesis Nula ($H_0$)**: La hipótesis nula ($H_0$) es una afirmación sobre el parámetro de la población que se asume verdadera hasta que se demuestre lo contrario. Generalmente, $H_0$ representa una situación de "no efecto" o "no diferencia". Es la hipótesis que se pretende refutar. Por ejemplo, $H_0$ podría afirmar que la media poblacional $\mu$ es igual a un valor específico.
+
+**Hipótesis Alternativa ($H_1$)**: La hipótesis alternativa ($H_1$) es una afirmación que se acepta si los datos muestrales proporcionan suficiente evidencia para rechazar la hipótesis nula. $H_1$ representa una situación de "efecto" o "diferencia". Puede ser una hipótesis unilateral (por ejemplo, $\mu > 0$ o $\mu < 0$) o bilateral (por ejemplo, $\mu \neq 0$).
+
+**Nivel de Significación ($\alpha$)**: El nivel de significación ($\alpha$) es la probabilidad de cometer un error tipo I, que es rechazar la hipótesis nula cuando en realidad es verdadera. Es un umbral predefinido que determina la sensibilidad del contraste de hipótesis. Comúnmente, se usan niveles de significación como $\alpha = 0.05$, $\alpha = 0.01$ o $\alpha = 0.10$. Un $\alpha$ de 0.05 indica una probabilidad del 5% de rechazar $H_0$ incorrectamente.
+
+**Región de Rechazo**: La región de rechazo es el conjunto de valores de la estadística de prueba para los cuales se rechaza la hipótesis nula. Depende del nivel de significación y de la distribución de la estadística de prueba bajo $H_0$. Si la estadística de prueba cae dentro de esta región, se considera que los datos muestrales proporcionan suficiente evidencia para rechazar $H_0$.
+
+**Valor Crítico**: El valor crítico es el límite que separa la región de rechazo del resto de la distribución de la estadística de prueba. Se determina en función del nivel de significación $\alpha$ y de la distribución de la estadística de prueba bajo $H_0$. En una prueba unilateral, hay un único valor crítico, mientras que en una prueba bilateral hay dos valores críticos (uno en cada extremo de la distribución).
+
+**Ejemplo de Conceptos Aplicados**: Supongamos que queremos probar si la media poblacional $\mu$ es igual a 50 con un nivel de significación $\alpha = 0.05$. **Hipótesis Nula ($H_0$)**: $\mu = 50$. **Hipótesis Alternativa ($H_1$)**: $\mu \neq 50$ (contraste bilateral). **Nivel de Significación ($\alpha$)**: 0.05. **Región de Rechazo**: Para un contraste bilateral con $\alpha = 0.05$, la región de rechazo estará en los extremos de la distribución de la estadística de prueba (por ejemplo, los valores de $z$ mayores que $z_{0.025}$ o menores que $-z_{0.025}$, donde $z_{0.025}$ corresponde al valor crítico de la distribución normal estándar que deja un 2.5% de probabilidad en cada cola). **Valor Crítico**: Para una prueba $z$, los valores críticos serían $\pm 1.96$ (aproximadamente) porque $P(Z > 1.96) = 0.025$ y $P(Z < -1.96) = 0.025$.
+
+Si la estadística de prueba calculada a partir de los datos muestrales cae en la región de rechazo (es decir, es mayor que 1.96 o menor que -1.96), rechazamos $H_0$. Si no cae en la región de rechazo, no rechazamos $H_0$.
+
+### Ejercicio 2: Pasos en un Contraste de Hipótesis
+Describe los pasos necesarios para realizar un contraste de hipótesis. Ilustra estos pasos con un ejemplo simple en el que se quiera comprobar si la media de una muestra es igual a un valor específico.
+
+**Solución**:
+
+Para realizar un contraste de hipótesis, se siguen los siguientes pasos:
+
+1. **Formular las Hipótesis**: **Hipótesis Nula ($H_0$)**: Es la hipótesis que se presume cierta hasta que se demuestre lo contrario. **Hipótesis Alternativa ($H_1$)**: Es la hipótesis que se acepta si la evidencia sugiere que $H_0$ es falsa.
+
+2. **Elegir el Nivel de Significación ($\alpha$)**: $\alpha$ es la probabilidad de cometer un error tipo I (rechazar $H_0$ cuando es verdadera). Comúnmente, $\alpha = 0.05$.
+
+3. **Seleccionar la Estadística de Prueba**: Dependiendo del tipo de hipótesis y de los datos, se selecciona la estadística adecuada (por ejemplo, $z$ para una distribución normal con varianza conocida, $t$ para varianza desconocida).
+
+4. **Calcular la Estadística de Prueba**: Utilizar los datos muestrales para calcular el valor de la estadística de prueba.
+
+5. **Determinar la Región de Rechazo**: Con base en $\alpha$ y la distribución de la estadística de prueba, determinar los valores críticos y la región de rechazo.
+
+6. **Tomar una Decisión**: Comparar el valor de la estadística de prueba con los valores críticos para decidir si se rechaza o no $H_0$.
+
+7. **Conclusión**: Interpretar los resultados en el contexto del problema original.
+
+**Ejemplo - Comprobar si la Media de una Muestra es Igual a un Valor Específico**: Supongamos que queremos comprobar si la media de una población es igual a 50. Tenemos una muestra de tamaño $n = 30$, con una media muestral de $\bar{x} = 52$ y una desviación estándar conocida de $\sigma = 5$.
+
+**Paso 1 - Formular las Hipótesis**: Hipótesis Nula ($H_0$): $\mu = 50$. Hipótesis Alternativa ($H_1$): $\mu \neq 50$ (contraste bilateral).
+
+**Paso 2 - Elegir el Nivel de Significación**: $\alpha = 0.05$.
+
+**Paso 3 - Seleccionar la Estadística de Prueba**: Dado que la varianza es conocida y la muestra es suficientemente grande, utilizamos la estadística $z$: $$ z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} $$
+
+**Paso 4 - Calcular la Estadística de Prueba**: $$ z = \frac{52 - 50}{5 / \sqrt{30}} \approx 2.19 $$
+
+**Paso 5 - Determinar la Región de Rechazo**: Para $\alpha = 0.05$ en una prueba bilateral, los valores críticos $z_{0.025}$ son aproximadamente $\pm 1.96$.
+
+**Paso 6 - Tomar una Decisión**: Comparamos el valor de $z$ calculado con los valores críticos. El valor $z = 2.19$ es mayor que $1.96$, por lo que cae en la región de rechazo.
+
+**Paso 7 - Conclusión**: Decisión: Rechazamos la hipótesis nula $H_0$. Interpretación: Hay suficiente evidencia para concluir que la media poblacional es diferente de 50 al nivel de significación $\alpha = 0.05$.
+
+### Ejercicio 3: Errores tipo I y tipo II. Potencia
+Explica la diferencia entre los errores tipo I y tipo II en un contraste de hipótesis. ¿Qué es la potencia de un test? Calcula la probabilidad de cometer un error tipo I ($\alpha$) y un error tipo II ($\beta$) en un contraste de hipótesis dado.
+
+**Solución**:
+
+En un contraste de hipótesis, existen dos tipos de errores que se pueden cometer:
+
+**Error Tipo I ($\alpha$)**: Es el error que se comete al rechazar la hipótesis nula ($H_0$) cuando en realidad es verdadera. La probabilidad de cometer un error tipo I es denotada por $\alpha$, y se establece como el nivel de significación del test. Es decir, $\alpha$ es la probabilidad de rechazar $H_0$ incorrectamente. Si se fija $\alpha = 0.05$, significa que hay un 5% de riesgo de concluir que $H_0$ es falsa cuando en realidad es verdadera.
+
+**Error Tipo II ($\beta$)**: Es el error que se comete al no rechazar la hipótesis nula ($H_0$) cuando en realidad es falsa. La probabilidad de cometer un error tipo II es denotada por $\beta$. $\beta$ representa la probabilidad de no detectar un efecto o diferencia cuando realmente existe.
+
+**Potencia de un Test**: La potencia de un test es la probabilidad de rechazar $H_0$ cuando $H_0$ es falsa. Es decir, es la probabilidad de detectar un efecto o diferencia cuando realmente existe. La potencia se denota por $1 - \beta$. A mayor potencia, mayor capacidad del test para detectar un efecto real.
+
+**Cálculo de $\alpha$ y $\beta$ en un Contraste de Hipótesis Dado**: Supongamos un ejemplo donde se quiere contrastar la media poblacional $\mu$ con el valor 50 utilizando una muestra de tamaño $n = 30$, una desviación estándar conocida $\sigma = 5$, y un nivel de significación $\alpha = 0.05$.
+
+**Datos**: $\mu_0 = 50$ (hipótesis nula), $\mu_1 = 52$ (hipótesis alternativa específica), $\sigma = 5$, $n = 30$, $\alpha = 0.05$.
+
+**Paso 1 - Determinar los valores críticos**: Para $\alpha = 0.05$ (contraste bilateral): $$ z_{\alpha/2} = \pm 1.96 $$
+
+**Paso 2 - Calcular los límites de la región de rechazo**: Para $\alpha = 0.05$ y una media $\mu_0 = 50$:
+$$ \text{Límite inferior} = \mu_0 - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}  \approx 48.21 $$
+$$ \text{Límite superior} = \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}  \approx 51.79 $$
+
+**Paso 3 - Calcular $\beta$**: Supongamos que la verdadera media poblacional es $\mu_1 = 52$. Calculamos la probabilidad de que la media muestral caiga en la región de no rechazo (48.21, 51.79) cuando la media real es 52:
+$z_1 = \frac{48.21 - 52}{5 / \sqrt{30}} \approx -4.15$
+$z_2 = \frac{51.79 - 52}{5 / \sqrt{30}} \approx -0.23$
+
+La probabilidad de que $Z$ esté entre $-4.15$ y $-0.23$ es: $\beta = P(-4.15 < Z < -0.23) = P(Z < -0.23) - P(Z < -4.15) \approx 0.409 - 0 = 0.409$. Por lo tanto, $\beta \approx 0.41$.
+
+**Paso 4 - Calcular la Potencia del Test**: $ \text{Potencia} = 1 - \beta = 1 - 0.41 = 0.59 $
+
+**Resumen**: Error Tipo I ($\alpha$): En este ejemplo, $\alpha$ es predefinido como 0.05, lo que significa que hay un 5% de probabilidad de rechazar $H_0$ cuando es verdadera. Error Tipo II ($\beta$): Calculado como 0.41, lo que significa que hay un 41% de probabilidad de no rechazar $H_0$ cuando $\mu = 52$. Potencia del Test: Calculada como 0.59, lo que significa que hay un 59% de probabilidad de rechazar $H_0$ cuando $\mu = 52$.
+
+### Ejercicio 4: Contraste para la media de una población normal con varianza conocida
+Se tiene una muestra de tamaño $n = 30$ con una media muestral de $\bar{x} = 50$ y una varianza conocida de $\sigma^2 = 25$. Realiza un contraste de hipótesis para verificar si la media poblacional es 52 con un nivel de significación $\alpha = 0.05$.
+
+**Solución**:
+
+**Datos**: Tamaño de la muestra ($n$) = 30, media muestral ($\bar{x}$) = 50, varianza poblacional ($\sigma^2$) = 25 (desviación estándar $\sigma = 5$), media poblacional bajo $H_0$ ($\mu_0$) = 52, nivel de significación ($\alpha$) = 0.05.
+
+**Paso 1 - Formular las Hipótesis**: Hipótesis Nula ($H_0$): $\mu = 52$. Hipótesis Alternativa ($H_1$): $\mu \neq 52$ (contraste bilateral).
+
+**Paso 2 - Elegir el Nivel de Significación**: $\alpha = 0.05$.
+
+**Paso 3 - Seleccionar la Estadística de Prueba**: Como la varianza es conocida, utilizamos la estadística $z$: $$ z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} $$
+
+**Paso 4 - Calcular la Estadística de Prueba**: $$ z = \frac{50 - 52}{5 / \sqrt{30}}  \approx -2.19 $$
+
+**Paso 5 - Determinar la Región de Rechazo**: Para un nivel de significación $\alpha = 0.05$ en una prueba bilateral, los valores críticos son: $$ z_{\alpha/2} = \pm 1.96 $$. La región de rechazo son los valores de $z$ que son menores que $-1.96$ o mayores que $1.96$.
+
+**Paso 6 - Tomar una Decisión**: Comparamos el valor calculado de $z$ con los valores críticos. Valor calculado: $z = -2.19$. Valores críticos: $-1.96$ y $1.96$. Dado que $-2.19$ es menor que $-1.96$, el valor de $z$ cae en la región de rechazo.
+
+**Paso 7 - Conclusión**: Decisión: Rechazamos la hipótesis nula $H_0$. Interpretación: Hay suficiente evidencia para concluir que la media poblacional es diferente de 52 al nivel de significación $\alpha = 0.05$.
+
+### Ejercicio 5: Contraste para la media de una población normal con varianza desconocida
+Una muestra de tamaño $n = 20$ tiene una media muestral de $\bar{x} = 30$ y una desviación estándar muestral de $s = 5$. Realiza un contraste de hipótesis para probar si la media poblacional es diferente de 32 con un nivel de significación $\alpha = 0.01$.
+
+**Solución**:
+
+**Paso 1 - Plantear las hipótesis**: Hipótesis nula ($H_0$): $\mu = 32$. Hipótesis alternativa ($H_1$): $\mu \neq 32$.
+
+**Paso 2 - Seleccionar el nivel de significación**: $\alpha = 0.01$.
+
+**Paso 3 - Calcular el estadístico de prueba**: Usaremos el estadístico $t$ para muestras pequeñas cuando la desviación estándar poblacional no es conocida: $$ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} $$. Sustituyendo los valores: $\bar{x} = 30$, $\mu_0 = 32$, $s = 5$, $n = 20$: $$ t = \frac{30 - 32}{5 / \sqrt{20}}  \approx -1.79 $$
+
+**Paso 4 - Determinar los grados de libertad y el valor crítico**: Los grados de libertad (df) se calculan como $df = n - 1 = 19$. Para $\alpha = 0.01$, el valor crítico $t_{c}$ es aproximadamente $\pm 2.861$ (usando una tabla de valores críticos de t-Student o una calculadora estadística).
+
+**Paso 5 - Tomar una decisión**: Comparamos el valor absoluto del estadístico de prueba con el valor crítico. Si $|t| > t_{c}$, rechazamos $H_0$. Si $|t| \leq t_{c}$, no rechazamos $H_0$. En este caso: $|t| = 1.79$, $t_{c} = 2.861$. Dado que $|t| < t_{c}$, no rechazamos $H_0$.
+
+**Conclusión**: Con un nivel de significación $\alpha = 0.01$, no hay suficiente evidencia para rechazar la hipótesis nula. Esto significa que no podemos concluir que la media poblacional sea diferente de 32.
+
+### Ejercicio 6: Contraste de hipótesis para la igualdad de medias de dos muestras independientes
+Se tienen dos muestras independientes: Muestra A: $x_A = \{23, 21, 22, 24, 25, 23, 24, 22, 23, 24\}$. Muestra B: $x_B = \{18, 19, 17, 20, 18, 19, 18, 19, 20, 18\}$. Realiza un contraste de hipótesis para verificar si las medias de las dos poblaciones son diferentes con un nivel de significación $\alpha = 0.05$.
+
+**Solución**:
+
+**Paso 1 - Plantear las hipótesis**: Hipótesis nula ($H_0$): $\mu_A = \mu_B$ (las medias de las dos poblaciones son iguales). Hipótesis alternativa ($H_1$): $\mu_A \neq \mu_B$ (las medias de las dos poblaciones son diferentes).
+
+**Paso 2 - Seleccionar el nivel de significación**: $\alpha = 0.05$.
+
+**Paso 3 - Calcular las estadísticas muestrales**: **Muestra A**: $x_A = \{23, 21, 22, 24, 25, 23, 24, 22, 23, 24\}$. $\bar{x}_A = 23.1$, $s_A = 1.197$. **Muestra B**: $x_B = \{18, 19, 17, 20, 18, 19, 18, 19, 20, 18\}$. $\bar{x}_B = 18.6$, $s_B = 0.966$.
+
+**Paso 4 - Calcular el estadístico de prueba**: Usaremos el estadístico $t$ para comparar las medias de dos muestras independientes: $$ t = \frac{\bar{x}_A - \bar{x}_B}{\sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}} $$
+
+**Paso 5 - Determinar los grados de libertad**: Los grados de libertad se pueden aproximar usando la fórmula de Welch-Satterthwaite: $$ df \approx \frac{\left( \frac{s_A^2}{n_A} + \frac{s_B^2}{n_B} \right)^2}{\frac{\left( \frac{s_A^2}{n_A} \right)^2}{n_A - 1} + \frac{\left( \frac{s_B^2}{n_B} \right)^2}{n_B - 1}} $$
+
+**Paso 6 - Tomar una decisión**: Comparamos el valor absoluto del estadístico de prueba con el valor crítico. Si $|t| > t_{c}$, rechazamos $H_0$. Si $|t| \leq t_{c}$, no rechazamos $H_0$.
+
+**Resultados**: Estadístico de prueba: $t = 9.25$. Grados de libertad (aproximados): $df \approx 17.23$. Valor crítico para $\alpha = 0.05$ en una prueba bilateral: $t_{c} = 2.108$.
+
+**Decisión**: Comparando: $|t| = 9.25$, $t_{c} = 2.108$. Dado que $|t| > t_{c}$, rechazamos $H_0$.
+
+**Conclusión**: Con un nivel de significación $\alpha = 0.05$, hay suficiente evidencia para rechazar la hipótesis nula. Esto significa que podemos concluir que las medias de las dos poblaciones son significativamente diferentes.
+
+### Ejercicio 7: Contraste de hipótesis para la diferencia de proporciones
+En un estudio se observa que de 200 hombres, 130 prefieren el producto A, mientras que de 250 mujeres, 140 prefieren el mismo producto. Realiza un contraste de hipótesis para determinar si existe una diferencia significativa en las proporciones de hombres y mujeres que prefieren el producto A con un nivel de significación $\alpha = 0.05$.
+
+**Solución**:
+
+**Paso 1 - Plantear las hipótesis**: Hipótesis nula ($H_0$): $p_1 = p_2$ (no hay diferencia en las proporciones de hombres y mujeres que prefieren el producto A). Hipótesis alternativa ($H_1$): $p_1 \neq p_2$ (hay una diferencia en las proporciones). Donde $p_1$ es la proporción de hombres y $p_2$ es la proporción de mujeres que prefieren el producto A.
+
+**Paso 2 - Seleccionar el nivel de significación**: $\alpha = 0.05$.
+
+**Paso 3 - Calcular las proporciones muestrales**: $n_1 = 200$, $x_1 = 130$, $\hat{p}_1 = \frac{130}{200} = 0.65$. $n_2 = 250$, $x_2 = 140$, $\hat{p}_2 = \frac{140}{250} = 0.56$.
+
+**Paso 4 - Calcular el estadístico de prueba**: $$ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}} $$. Donde $\hat{p}$ es la proporción combinada: $$ \hat{p} = \frac{x_1 + x_2}{n_1 + n_2} = \frac{130 + 140}{200 + 250} = 0.6 $$
+
+**Paso 5 - Determinar el valor crítico**: Para $\alpha = 0.05$ en una prueba bilateral, el valor crítico $z_c$ es aproximadamente $\pm 1.96$.
+
+**Paso 6 - Tomar una decisión**: Comparamos el valor absoluto del estadístico de prueba con el valor crítico. Si $|z| > z_c$, rechazamos $H_0$. Si $|z| \leq z_c$, no rechazamos $H_0$.
+
+**Resultados**: Proporciones muestrales: $\hat{p}_1 = 0.65$, $\hat{p}_2 = 0.56$. Proporción combinada: $\hat{p} = 0.6$. Estadístico de prueba: $z = 1.94$. Valor crítico: $z_c = 1.96$.
+
+**Decisión**: Comparando: $|z| = 1.94$, $z_c = 1.96$. Dado que $|z| < z_c$, no rechazamos $H_0$.
+
+**Conclusión**: Con un nivel de significación $\alpha = 0.05$, no hay suficiente evidencia para rechazar la hipótesis nula. Esto significa que no podemos concluir que existe una diferencia significativa en las proporciones de hombres y mujeres que prefieren el producto A.
+
+### Ejercicio 8: Aplicación en un contexto real
+Un fabricante afirma que el peso medio de sus paquetes de galletas es 500 gramos. Una muestra de 40 paquetes tiene una media de 495 gramos y una desviación estándar de 10 gramos. Realiza un contraste de hipótesis para comprobar la afirmación del fabricante con un nivel de significación $\alpha = 0.01$.
+
+**Solución**:
+
+**Paso 1 - Plantear las hipótesis**: Hipótesis nula ($H_0$): $\mu = 500$ gramos (el peso medio es 500 gramos). Hipótesis alternativa ($H_1$): $\mu \neq 500$ gramos (el peso medio es diferente de 500 gramos).
+
+**Paso 2 - Seleccionar el nivel de significación**: $\alpha = 0.01$.
+
+**Paso 3 - Calcular el estadístico de prueba**: Utilizamos el estadístico $t$ para muestras grandes ($n > 30$): $$ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} $$. Sustituyendo los valores: $\bar{x} = 495$, $\mu_0 = 500$, $s = 10$, $n = 40$: $$ t = \frac{495 - 500}{10 / \sqrt{40}} = \frac{-5}{10 / 6.32} \approx -3.16 $$
+
+**Paso 4 - Determinar el valor crítico**: Para $\alpha = 0.01$ en una prueba bilateral en la distribución t de Student con $df = 39$, el valor crítico $t_{c}$ es aproximadamente $\pm 2.708$.
+
+**Paso 5 - Tomar una decisión**: Comparamos el valor absoluto del estadístico de prueba con el valor crítico. Si $|t| > t_{c}$, rechazamos $H_0$. Si $|t| \leq t_{c}$, no rechazamos $H_0$. En este caso: $|t| = 3.16$, $t_{c} = 2.708$. Dado que $|t| > t_{c}$, rechazamos $H_0$.
+
+**Conclusión**: Con un nivel de significación $\alpha = 0.01$, hay suficiente evidencia para rechazar la hipótesis nula. Esto significa que podemos concluir que el peso medio de los paquetes de galletas es significativamente diferente de 500 gramos.
+
+### Ejercicio 9: Prueba t de Student
+Se tiene una muestra de tamaño $n = 25$ de una población normal con una media muestral de $\bar{x} = 20$ y una desviación estándar muestral de $s = 4$. Realiza un contraste de hipótesis para probar si la media poblacional es mayor que 18 con un nivel de significación $\alpha = 0.05$.
+
+**Solución**:
+
+**Paso 1 - Plantear las hipótesis**: Hipótesis nula ($H_0$): $\mu \leq 18$ (la media poblacional es menor o igual a 18). Hipótesis alternativa ($H_1$): $\mu > 18$ (la media poblacional es mayor que 18).
+
+**Paso 2 - Seleccionar el nivel de significación**: $\alpha = 0.05$.
+
+**Paso 3 - Calcular el estadístico de prueba**: Utilizamos el estadístico $t$ porque la muestra es pequeña (n < 30): $$ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} $$. Sustituyendo los valores: $\bar{x} = 20$, $\mu_0 = 18$, $s = 4$, $n = 25$: $$ t = \frac{20 - 18}{4 / \sqrt{25}} = 2.5 $$
+
+**Paso 4 - Determinar el valor crítico**: Para $\alpha = 0.05$ en una prueba unilateral (cola derecha) en la distribución t de Student con $df = 24$, el valor crítico $t_{c}$ es aproximadamente $1.711$.
+
+**Paso 5 - Tomar una decisión**: Comparamos el valor del estadístico de prueba con el valor crítico. Si $t > t_{c}$, rechazamos $H_0$. Si $t \leq t_{c}$, no rechazamos $H_0$. En este caso: $t = 2.5$, $t_{c} = 1.711$. Dado que $t > t_{c}$, rechazamos $H_0$.
+
+**Conclusión**: Con un nivel de significación $\alpha = 0.05$, hay suficiente evidencia para rechazar la hipótesis nula. Esto significa que podemos concluir que la media poblacional es mayor que 18.
+
+### Ejercicio 10: Prueba z para grandes muestras
+Una encuesta a 500 personas revela que 320 están a favor de una nueva ley. Realiza un contraste de hipótesis para determinar si la proporción de personas a favor de la ley es diferente de 0.6 con un nivel de significación $\alpha = 0.05$.
+
+**Solución**:
+
+**Paso 1 - Plantear las hipótesis**: Hipótesis nula ($H_0$): $p = 0.6$ (la proporción de personas a favor de la ley es 0.6). Hipótesis alternativa ($H_1$): $p \neq 0.6$ (la proporción es diferente de 0.6).
+
+**Paso 2 - Seleccionar el nivel de significación**: $\alpha = 0.05$.
+
+**Paso 3 - Calcular la proporción muestral**: $$ \hat{p} = \frac{x}{n} $$. Donde $x = 320$, $n = 500$: $$ \hat{p} = \frac{320}{500} = 0.64 $$
+
+**Paso 4 - Calcular el estadístico de prueba**: Utilizamos el estadístico $z$ para proporciones: $$ z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1 - p_0)}{n}}} $$. Sustituyendo los valores: $p_0 = 0.6$: $$ z = \frac{0.64 - 0.6}{\sqrt{\frac{0.6 \cdot (1 - 0.6)}{500}}}  \approx 1.826 $$
+
+**Paso 5 - Determinar el valor crítico**: Para $\alpha = 0.05$ en una prueba bilateral, el valor crítico $z_c$ es aproximadamente $\pm 1.96$.
+
+**Paso 6 - Tomar una decisión**: Comparamos el valor absoluto del estadístico de prueba con el valor crítico. Si $|z| > z_c$, rechazamos $H_0$. Si $|z| \leq z_c$, no rechazamos $H_0$. En este caso: $|z| = 1.826$, $z_c = 1.96$. Dado que $|z| < z_c$, no rechazamos $H_0$.
+
+**Conclusión**: Con un nivel de significación $\alpha = 0.05$, no hay suficiente evidencia para rechazar la hipótesis nula. Esto significa que no podemos concluir que la proporción de personas a favor de la ley sea diferente de 0.6.

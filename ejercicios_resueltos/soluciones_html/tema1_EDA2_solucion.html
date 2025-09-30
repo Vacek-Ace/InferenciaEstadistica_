@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Ejercicio 1 (tidyr y dplyr) – Problemas de Inferencia Estadística</title>
+<title>Procesado y Limpieza de Datos – Problemas de Inferencia Estadística</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./tema2_IC1_solucion.html" rel="next">
 <link href="./tema1_EDA1_solucion.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -118,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema1_EDA2_solucion.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema1_EDA2_solucion.html"><span class="chapter-title">Procesado y Limpieza de Datos</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -153,20 +154,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span></a>
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span></a>
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Análisis Exploratorio de Datos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></span></a>
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Procesado y Limpieza de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_IC1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intervalos de Confianza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_CH1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contrastes de Hipótesis</span></a>
   </div>
 </li>
     </ul>
@@ -174,15 +182,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></h1>
+<h1 class="title"><span class="chapter-title">Procesado y Limpieza de Datos</span></h1>
 </div>
 
 
@@ -202,96 +217,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-</div>
+<section id="ejercicio-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h3>
+<p>Crear el siguiente <em>dataframe</em> mediante estas instrucciones</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A partir del siguiente dataframe realizar las siguientes operaciones de limpieza de datos:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">as.Date</span>(<span class="st">'2009-01-01'</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Walmart =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">1</span>),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Target =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">2</span>),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Walgreens =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">4</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#       time  Walmart   Target Walgreens</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  2009-01-01 19.37355 23.02356  23.67591</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  2009-01-02 20.18364 20.77969  23.12855</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3  2009-01-03 19.16437 18.75752  20.29826</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 4  2009-01-04 21.59528 15.57060  12.04259</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 5  2009-01-05 20.32951 22.24986  22.47930</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 6  2009-01-06 19.17953 19.91013  19.77549</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 7  2009-01-07 20.48743 19.96762  19.37682</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 8  2009-01-08 20.73832 21.88767  14.11699</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 9  2009-01-09 20.57578 21.64244  18.08740</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 2009-01-10 19.69461 21.18780  21.67177</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Como se puede observar hay un problema de clave-valor en las compañias con sus observaciones.</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformar los datos para que tengan una clave stock y el valor sea el precio. </span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Por lo tanto se requiere la funcion "gather".</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Opcion 1:</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="at">data =</span> stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price, Walmart, Target, Walgreens)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Opcion 2:</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="at">data =</span> stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price, Walmart<span class="sc">:</span>Walgreens)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Opcion 3:</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="at">data =</span> stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price, <span class="sc">-</span>time)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># El último argumento, -time, significa que todas las columnas excepto el tiempo </span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># contienen los pares clave-valor.</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Devolver el dataframe al estado original utilizando la funcion "spread".</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>original_stocks <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data =</span> new_stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price)</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizando el operador tuberia %&gt;% se desea realizar las siguientes operaciones anidadas.</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Transformar los datos para que tengan una clave stock y el valor sea </span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co"># el precio mediante la funcion "gather".</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Agrupar los datos por la clave stock mediante la funcion "group_by".</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Obtener el precio minimo y maximo utilizando la funcion "summarise".</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>stocks <span class="sc">%&gt;%</span> </span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> stock, <span class="at">value =</span> price,Walmart<span class="sc">:</span>Walgreens)<span class="sc">%&gt;%</span> </span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(stock) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min =</span> <span class="fu">min</span>(price), <span class="at">max =</span> <span class="fu">max</span>(price))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> <span class="fu">as.Date</span>(<span class="st">"2009-01-01"</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">Walmart =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">1</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">Target =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">2</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">Walgreens =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">4</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>stocks</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         time  Walmart   Target Walgreens
+1  2009-01-01 18.79293 19.04561  20.53635
+2  2009-01-02 20.27743 18.00323  18.03726
+3  2009-01-03 21.08444 18.44749  18.23781
+4  2009-01-04 17.65430 20.12892  21.83836
+5  2009-01-05 20.42912 21.91899  17.22512
+6  2009-01-06 20.50606 19.77943  14.20718
+7  2009-01-07 19.42526 18.97798  22.29902
+8  2009-01-08 19.45337 18.17761  15.90538
+9  2009-01-09 19.43555 18.32566  19.93945
+10 2009-01-10 19.10996 24.83167  16.25621</code></pre>
+</div>
+</div>
+<p>A continuación, realizar las siguientes operaciones de limpieza de datos:</p>
+<ul>
+<li>Como se puede observar, hay un problema de clave-valor en las compañías con sus observaciones. Por lo tanto, se pide transformar los datos para que tengan una clave “<em>stock</em>” y un valor “<em>precio</em>”. Utilizar la instrucción “<em>gather</em>”.</li>
+<li>Devolver el dataframe al estado original empleando la instrucción <em>spread</em>.</li>
+<li>Utilizando el operador tubería %&gt;% se desea realizar las siguientes operaciones anidadas:
+<ul>
+<li>Transformar los datos para que tengan una clave “<em>stock</em>” y el valor sea el “<em>precio</em>”. Utilizar la instrucción “<em>gather</em>”.</li>
+<li>Agrupar los datos por la clave “<em>stock</em>” mediante la instrucción “<em>group_by</em>”.</li>
+<li>Obtener el precio mínimo y el máximo utilizando la instrucción “<em>summarise</em>”.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformar los datos para que tengan una clave stock y el valor sea el precio.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Opción 1:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="at">data =</span> stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price, Walmart, Target, Walgreens)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Opción 2:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="at">data =</span> stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price, Walmart<span class="sc">:</span>Walgreens)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Opción 3:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>new_stocks <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="at">data =</span> stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price, <span class="sc">-</span>time)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Devolver el dataframe al estado original utilizando la función "spread".</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>original_stocks <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data =</span> new_stocks, <span class="at">key =</span> stock, <span class="at">value =</span> price)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizando el operador tubería %&gt;% realizar las operaciones anidadas.</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>stocks <span class="sc">%&gt;%</span> </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> stock, <span class="at">value =</span> price, Walmart<span class="sc">:</span>Walgreens) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(stock) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min =</span> <span class="fu">min</span>(price), <span class="at">max =</span> <span class="fu">max</span>(price))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   stock       min   max
   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-1 Target     15.6  23.0
-2 Walgreens  12.0  23.7
-3 Walmart    19.2  21.6</code></pre>
+1 Target     18.0  24.8
+2 Walgreens  14.2  22.3
+3 Walmart    17.7  21.1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">###################################################################</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>El ejercicio demuestra tres operaciones fundamentales en la reestructuración de datos con tidyr. Primero, la función <code>gather()</code> convierte el dataframe de formato ancho a formato largo, transformando las columnas de las tres compañías (Walmart, Target, Walgreens) en dos columnas: una clave llamada “stock” que identifica la compañía y otra llamada “price” que contiene los valores. Se presentan tres formas equivalentes de realizar esta operación: especificando las columnas explícitamente, usando el operador de rango <code>:</code>, o excluyendo columnas con el signo <code>-</code>.</p>
+<p>Segundo, la función <code>spread()</code> realiza la operación inversa, devolviendo el dataframe a su formato ancho original. Esta operación toma la columna clave “stock” y crea una columna separada para cada valor único, rellenándolas con los valores correspondientes de la columna “price”.</p>
+<p>Finalmente, el uso del operador tubería <code>%&gt;%</code> permite encadenar múltiples operaciones de forma legible. En este caso, se transforma el dataframe a formato largo con <code>gather()</code>, se agrupan las observaciones por compañía con <code>group_by()</code>, y se calculan estadísticos resumen (precio mínimo y máximo) para cada grupo usando <code>summarise()</code>. Esta secuencia de operaciones es típica en el análisis exploratorio de datos y demuestra el poder del enfoque tidyverse para manipulación de datos.</p>
+</section>
+<section id="ejercicio-2" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2">Ejercicio 2</h3>
+<p>En este ejercicio vamos a manejar datos contenidos en distintos <em>dataframes</em> y operar sobre ellos con <em>dplyr</em>.</p>
+<ol type="1">
+<li>Descargar el paquete <em>nycflights13</em>.</li>
+<li>Evaluar el contenido de los dataframes proporcionados por el paquete. Utilizar <em>head</em> y <em>summary</em>.</li>
+<li>Simplificar los dataframes originales a 100 observaciones mediante el comando <em>head</em>. Asignarlos a una variable que indique el tipo de dataframe añadiendo la coletilla “<em>_simple</em>“. Ejemplo:”<em>flights_simple</em>“.</li>
+<li>Selecciona los tipos de aerolínea (“<em>carrier</em>”) mediante la instrucción <em>select</em> y el operador <em>unique</em> concatenados con el operador tubería %&gt;%. (Utilizar “<em>airlines_simple</em>”).</li>
+<li>Obtener la media y el número máximo de asientos (“<em>seats</em>”) que tienen los aviones. Utilizar el operador tubería %&gt;% y la instrucción <em>summarise</em>.</li>
+<li>Ordenar los aviones por su número de motores (“<em>engines</em>”) y número de asientos (“<em>seats</em>”). Utilizar la instrucción <em>arrange</em>.</li>
+<li>Averigua qué número de cola (“<em>tailnum</em>”) comparten los dataframes “<em>flights_simple</em>” y “<em>planes_simple</em>” que has creado anteriormente. Obten su aerolínea (“<em>carrier</em>”). Utilizar la instrucción <em>inner_join</em>.</li>
+<li>Cruzar los datos de vuelos (“<em>flights</em>”) con los aviones (“<em>planes</em>”) por el número de cola (“<em>tailnum</em>”) que no coincidan (usar la instrucción <em>anti_join</em>). De esos obtener aquellos con 2 o más motores (usar la instrucción <em>filter</em>). Finalmente obtener los distintos modelos de avión que satisfacen las premisas anteriores (usar la instrucción <em>unique</em>).</li>
+<li>Crea una nueva variable (“<em>total_delay</em>”) que calcule el retraso total sumando los delays acumulados (“<em>dep_delay</em>”) y (“<em>arr_delay</em>”). Utilizar la instrucción <em>mutate</em>. Almacena el dataframe resultante en “<em>flights_total</em>”.</li>
+<li>En base a la variable anteriormente obtenida (“<em>total_delay</em>”), devuelve los aviones que han llegado con antelación a su destino, es decir aquellos tal que la variable <em>total_delay</em> tiene valores negativos.</li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejercicio 2 (dplyr)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># COMPROBACION.</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Observamos los distintos dataframes que nos proporcionan.</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizamos el nombre del paquete y doblemente dos puntos (::) para comprobarlo.</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tambien se puede utilizar el nombre del dataframe si previamente estamos familiarizados.</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># PRIMERA OBSERVACION.</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobamos las variables de cada uno de los datasets que nos proporcionan</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># mediante la instrucción "head".</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(flights))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Observamos los distintos dataframes que nos proporcionan</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(flights))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 19
    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
@@ -306,7 +322,7 @@ Attaching package: 'dplyr'</code></pre>
 #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(airports))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(airports))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
   faa   name                             lat   lon   alt    tz dst   tzone      
@@ -318,7 +334,7 @@ Attaching package: 'dplyr'</code></pre>
 5 09J   Jekyll Island Airport           31.1 -81.4    11    -5 A     America/Ne…
 6 0A9   Elizabethton Municipal Airport  36.4 -82.2  1593    -5 A     America/Ne…</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(weather))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(weather))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 15
   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_gust
@@ -332,7 +348,7 @@ Attaching package: 'dplyr'</code></pre>
 # ℹ 4 more variables: precip &lt;dbl&gt;, pressure &lt;dbl&gt;, visib &lt;dbl&gt;,
 #   time_hour &lt;dttm&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(airlines))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(airlines))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   carrier name                    
@@ -344,7 +360,7 @@ Attaching package: 'dplyr'</code></pre>
 5 DL      Delta Air Lines Inc.    
 6 EV      ExpressJet Airlines Inc.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(planes))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(planes))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 9
   tailnum  year type               manufacturer model engines seats speed engine
@@ -356,9 +372,8 @@ Attaching package: 'dplyr'</code></pre>
 5 N10575   2002 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…
 6 N105UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobamos las variables de cada uno de los datasets que nos proporcionan </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mediante la instrucción "summary".</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(flights))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobamos las variables mediante summary</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(flights))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year          month             day           dep_time    sched_dep_time
  Min.   :2013   Min.   : 1.000   Min.   : 1.00   Min.   :   1   Min.   : 106  
@@ -401,7 +416,7 @@ Attaching package: 'dplyr'</code></pre>
  Max.   :59.00   Max.   :2013-12-31 23:00:00.00  
                                                  </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(airports))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(airports))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     faa                name                lat             lon         
  Length:1458        Length:1458        Min.   :19.72   Min.   :-176.65  
@@ -418,7 +433,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.:1062.50   3rd Qu.: -5.000                                        
  Max.   :9078.00   Max.   :  8.000                                        </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(weather))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(weather))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    origin               year          month             day       
  Length:26115       Min.   :2013   Min.   : 1.000   Min.   : 1.00  
@@ -453,14 +468,14 @@ Attaching package: 'dplyr'</code></pre>
  Max.   :1042.1   Max.   :10.000   Max.   :2013-12-30 18:00:00.0  
  NA's   :2729                                                     </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(airlines))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(airlines))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   carrier              name          
  Length:16          Length:16         
  Class :character   Class :character  
  Mode  :character   Mode  :character  </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(planes))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(planes))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   tailnum               year          type           manufacturer      
  Length:3322        Min.   :1956   Length:3322        Length:3322       
@@ -488,20 +503,18 @@ Attaching package: 'dplyr'</code></pre>
                    </code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>El paquete nycflights13 proporciona cinco dataframes relacionados con vuelos que salieron de los aeropuertos de Nueva York en 2013. El dataframe <code>flights</code> contiene 336,776 observaciones con información sobre cada vuelo, incluyendo fecha, hora, aerolíneas, origen, destino y retrasos. <code>airports</code> contiene información sobre 1,458 aeropuertos incluyendo códigos, nombres y ubicaciones geográficas. <code>weather</code> proporciona 26,115 observaciones meteorológicas horarias de los tres aeropuertos de origen. <code>airlines</code> es un pequeño dataframe con 16 aerolíneas y sus nombres completos. Finalmente, <code>planes</code> contiene información sobre 3,322 aviones, incluyendo fabricante, modelo, año de fabricación y características técnicas como número de asientos y motores. Estos dataframes están relacionados entre sí mediante claves como <code>tailnum</code> (número de cola del avión) y <code>carrier</code> (código de aerolínea), lo que permite realizar análisis complejos combinando múltiples fuentes de información.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplificar los dataframes originales a 100 observaciones. Renombrarlos</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># introduciendo la coletilla "_simple".</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>flights_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(flights,<span class="dv">100</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>airports_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(airports,<span class="dv">100</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>weather_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(weather,<span class="dv">100</span>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>airlines_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(airlines,<span class="dv">100</span>)</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>planes_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(planes,<span class="dv">100</span>)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecciona los tipos de aerolinea ("carrier") mediante la instruccion "select" </span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># y el operador "unique" concatenados con el operador tuberia %&gt;%.</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>airlines_simple <span class="sc">%&gt;%</span> unique <span class="sc">%&gt;%</span> <span class="fu">select</span>(carrier)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplificar los dataframes originales a 100 observaciones</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>flights_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(flights, <span class="dv">100</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>airports_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(airports, <span class="dv">100</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>weather_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(weather, <span class="dv">100</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>airlines_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(airlines, <span class="dv">100</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>planes_simple <span class="ot">&lt;-</span> <span class="fu">head</span>(planes, <span class="dv">100</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecciona los tipos de aerolínea</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>airlines_simple <span class="sc">%&gt;%</span> unique <span class="sc">%&gt;%</span> <span class="fu">select</span>(carrier)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 16 × 1
    carrier
@@ -524,10 +537,11 @@ Attaching package: 'dplyr'</code></pre>
 16 YV     </code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La simplificación de los dataframes a 100 observaciones facilita el trabajo exploratorio sin comprometer la comprensión de la estructura de datos. Al seleccionar los tipos de aerolínea del dataframe <code>airlines_simple</code> usando el operador tubería, obtenemos una lista de códigos de aerolínea únicos. El uso de <code>unique()</code> elimina cualquier duplicado que pudiera existir, mientras que <code>select(carrier)</code> extrae únicamente la columna de interés. Esta combinación de operaciones es eficiente y legible, demostrando el estilo declarativo de programación que promueve dplyr.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener la media y el maximo de asientos ("seats") que tienen los aviones. </span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizar el operador tuberia %&gt;%.</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>planes_simple <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(seats),<span class="at">max_engines =</span> <span class="fu">max</span>(seats))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener la media y el máximo de asientos</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>planes_simple <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(seats), <span class="at">max_engines =</span> <span class="fu">max</span>(seats))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
    mean max_engines
@@ -535,10 +549,12 @@ Attaching package: 'dplyr'</code></pre>
 1  105.         330</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>El análisis de la capacidad de asientos en los aviones revela estadísticos importantes sobre la flota. La función <code>summarise()</code> reduce el dataframe a una única fila conteniendo la media y el máximo de asientos. Esto permite identificar tanto la capacidad promedio de los aviones en el conjunto de datos como el avión de mayor capacidad. Esta información es valiosa para comprender la composición de la flota y puede influir en decisiones operativas relacionadas con la asignación de aviones a rutas específicas según la demanda esperada.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenar los aviones por numero de motores ("engines") y numero de asientos ("seats").</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>result1 <span class="ot">&lt;-</span> <span class="fu">arrange</span>(planes_simple,engines,seats)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result1)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenar los aviones por número de motores y número de asientos</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>result1 <span class="ot">&lt;-</span> <span class="fu">arrange</span>(planes_simple, engines, seats)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result1)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 100 × 9
    tailnum  year type              manufacturer model engines seats speed engine
@@ -556,39 +572,37 @@ Attaching package: 'dplyr'</code></pre>
 # ℹ 90 more rows</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La función <code>arrange()</code> ordena el dataframe de aviones primero por número de motores y luego, dentro de cada grupo de motores, por número de asientos en orden ascendente. Esta ordenación revela la relación entre la complejidad técnica del avión (número de motores) y su capacidad (número de asientos). Típicamente, los aviones con menos asientos tienen menos motores, y conforme aumenta la capacidad, se requieren configuraciones con más motores para proporcionar la potencia necesaria. Este ordenamiento facilita la identificación de patrones en el diseño y capacidades de diferentes modelos de aeronaves.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Averigua que numero de cola comparten los dataframes "flights_simple" </span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># y "planes_simple" que has creado anteriormente.</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obten su aerolinea ("carrier")</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>shared <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(flights_simple,planes_simple,<span class="at">by=</span><span class="st">"tailnum"</span>) <span class="co"># -&gt; N14228</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>shared_carrier <span class="ot">&lt;-</span> shared<span class="sc">$</span>carrier</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(shared_carrier)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Averigua qué número de cola comparten los dataframes</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>shared <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(flights_simple, planes_simple, <span class="at">by =</span> <span class="st">"tailnum"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>shared_carrier <span class="ot">&lt;-</span> shared<span class="sc">$</span>carrier</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(shared_carrier)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "EV"</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La función <code>inner_join()</code> combina los dataframes <code>flights_simple</code> y <code>planes_simple</code> usando el número de cola (<code>tailnum</code>) como clave de unión, devolviendo únicamente las filas donde existe coincidencia en ambos dataframes. Esto permite identificar qué aviones del registro de vuelos tienen información técnica disponible en el dataframe de aviones. Al extraer la columna <code>carrier</code>, obtenemos las aerolíneas que operaron estos vuelos específicos. Esta operación es fundamental en análisis de datos relacionales, donde diferentes tablas contienen información complementaria sobre las mismas entidades y se requiere combinarlas para obtener un panorama completo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cruzar los datos de vuelos ("flights") con los aviones ("planes") </span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># por el numero de cola ("tailnum") que no coincidan.</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># De esos obtener aquellos con 2 o mas motores.</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Finlmente obtener los distintos modelos de avión que satisfacen las premisas anteriores.</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>fp <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(planes_simple,flights_simple,<span class="at">by=</span><span class="st">"tailnum"</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>engines_fp <span class="ot">&lt;-</span> <span class="fu">filter</span>(fp,engines <span class="sc">&gt;=</span> <span class="dv">2</span>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>result2 <span class="ot">&lt;-</span> <span class="fu">unique</span>(engines_fp<span class="sc">$</span>model) <span class="co"># No queremos los repetidos. Por lo tanto usamos "unique".</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cruzar datos que no coincidan</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>fp <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(planes_simple, flights_simple, <span class="at">by =</span> <span class="st">"tailnum"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>engines_fp <span class="ot">&lt;-</span> <span class="fu">filter</span>(fp, engines <span class="sc">&gt;=</span> <span class="dv">2</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>result2 <span class="ot">&lt;-</span> <span class="fu">unique</span>(engines_fp<span class="sc">$</span>model)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "EMB-145XR" "A320-214"  "EMB-145LR" "737-824"   "767-332"   "757-224"  </code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La operación <code>anti_join()</code> identifica aviones en <code>planes_simple</code> que no tienen vuelos correspondientes en <code>flights_simple</code>, es decir, aviones registrados que no aparecen en los primeros 100 vuelos analizados. Posteriormente, se filtran aquellos con 2 o más motores, típicamente aviones de mayor tamaño o alcance. Finalmente, se extraen los modelos únicos que satisfacen estas condiciones. Esta secuencia de operaciones es útil para análisis de utilización de flota, permitiendo identificar qué aviones con ciertas características técnicas no están siendo utilizados o no aparecen en el período analizado, lo cual podría indicar aviones en mantenimiento, reserva, o asignados a otras rutas no capturadas en la muestra.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crea una nueva variable que calcule el retraso total sumando los</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># delays acumulados ("dep_delay") y ("arr_delay").</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Almacena el dataframe resultante en "flights_total".</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>flights_total <span class="ot">&lt;-</span> <span class="fu">mutate</span>(flights_simple,<span class="at">total_delay=</span>dep_delay<span class="sc">+</span>arr_delay)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># En base a la variable anteriormente obtenida, devuelve los aviones que </span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># han llegado con antelación a su destino.</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights_total,total_delay <span class="sc">&lt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear nueva variable de retraso total</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>flights_total <span class="ot">&lt;-</span> <span class="fu">mutate</span>(flights_simple, <span class="at">total_delay =</span> dep_delay <span class="sc">+</span> arr_delay)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Devolver aviones que llegaron con antelación</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights_total, total_delay <span class="sc">&lt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 57 × 20
     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
@@ -609,8 +623,11 @@ Attaching package: 'dplyr'</code></pre>
 #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, total_delay &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<p><strong>Respuesta</strong>:</p>
+<p>La función <code>mutate()</code> crea una nueva columna <code>total_delay</code> que suma los retrasos de salida (<code>dep_delay</code>) y llegada (<code>arr_delay</code>), proporcionando una medida agregada del retraso acumulado durante todo el trayecto del vuelo. Valores positivos indican retraso total, mientras que valores negativos indican que el vuelo llegó antes de lo programado. Al filtrar por <code>total_delay &lt; 0</code>, se identifican vuelos que, a pesar de cualquier retraso en la salida, lograron recuperar tiempo durante el vuelo y llegar anticipadamente a su destino. Esto puede ocurrir cuando los pilotos compensan retrasos iniciales aumentando la velocidad de crucero cuando las condiciones lo permiten, o cuando el tiempo de vuelo programado incluye márgenes de seguridad que no siempre se utilizan completamente. Estos casos son de interés para el análisis de eficiencia operativa y satisfacción del cliente.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1014,11 +1031,14 @@ Attaching package: 'dplyr'</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tema1_EDA1_solucion.html" class="pagination-link" aria-label="Cargar el conjunto de datos">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span>
+      <a href="./tema1_EDA1_solucion.html" class="pagination-link" aria-label="Análisis Exploratorio de Datos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Análisis Exploratorio de Datos</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./tema2_IC1_solucion.html" class="pagination-link" aria-label="Intervalos de Confianza">
+        <span class="nav-page-text"><span class="chapter-title">Intervalos de Confianza</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

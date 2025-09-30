@@ -1,11 +1,16 @@
 # Análisis Exploratorio de Datos
 
+Utilizar el dataframe denominado *bank* con el que hemos trabajo en el tema 2 de la asignatura
+para responder a las siguientes cuestiones:
+
 ```{r}
+#| message: false
+#| warning: false
+
 library(ggplot2)
 library(dplyr)
 library(readr)
 ```
-
 
 ```{r}
 # Cargar el conjunto de datos
@@ -15,18 +20,47 @@ unzip("bank.zip", "bank-full.csv")
 bank_data <- read.csv("bank-full.csv",sep=";")
 ```
 
+### Ejercicio 1
+
+**Estructura del DataFrame**:
+
+   - ¿Cuántos campos y observaciones tiene el dataframe `bank`? Utiliza las funciones `head` y `dim`.
+
 ```{r}
 # Pregunta 1: Estructura del DataFrame
 head(bank_data)
 dim(bank_data)
 ```
 
+**Respuesta**:
+
+El dataframe `bank_data` contiene 45,211 observaciones (filas) y 17 variables (columnas). La función `head()` nos muestra las primeras 6 filas del conjunto de datos, donde podemos observar variables numéricas como `age`, `balance` y `duration`, así como variables categóricas como `job`, `marital` y `education`. Esta estructura nos permite analizar tanto características demográficas como comportamentales de los clientes contactados durante la campaña de marketing.
+
+### Ejercicio 2
+
+**Resumen del DataFrame**:
+
+   - Evalúa el dataframe con la función `summary`.
+   - ¿Tiene observaciones con elementos faltantes (NA)?
+   - ¿A qué categorías corresponden las observaciones en la variable `job`?
+
 ```{r}
 # Pregunta 2: Resumen del DataFrame
 summary(bank_data)
+sum(is.na(bank_data))
+unique(bank_data$job)
 ```
 
+**Respuesta**:
 
+El resumen estadístico proporciona información clave sobre cada variable del dataset. El dataset no contiene valores faltantes (NA), lo cual facilita el análisis sin necesidad de imputación. La variable `job` clasifica a los clientes en 12 categorías profesionales: admin., blue-collar, entrepreneur, housemaid, management, retired, self-employed, services, student, technician, unemployed y unknown. Las categorías más frecuentes son blue-collar (trabajadores manuales), management (gerentes) y technician (técnicos), lo que refleja una muestra diversa de perfiles profesionales en la base de clientes del banco.
+
+### Ejercicio 3
+
+**Distribución de la Edad**:
+
+   - ¿Cuál es la edad máxima y mínima de los clientes en el dataframe?
+   - ¿Cuál es la media y la mediana de la edad de los clientes?
 
 ```{r}
 # Pregunta 3: Distribución de la Edad
@@ -39,7 +73,16 @@ ggplot(bank_data, aes(x = age)) +
   theme_minimal()
 ```
 
+**Respuesta**:
 
+La edad de los clientes varía entre 18 años (mínimo) y 95 años (máximo), con una media de 40.94 años y una mediana de 39 años. El histograma muestra una distribución ligeramente sesgada a la derecha, con la mayor concentración de clientes entre los 30 y 50 años. La proximidad entre la media y la mediana indica que no hay valores extremos que distorsionen significativamente la distribución central. La amplitud del rango etario sugiere que la campaña se dirigió a un público amplio, desde jóvenes adultos hasta personas de edad avanzada.
+
+### Ejercicio 4
+
+**Balance Promedio**:
+
+   - ¿Cuál es el balance promedio anual (balance) de los clientes?
+   - ¿Cuál es el balance promedio anual de los clientes que han suscrito un depósito a plazo fijo (`y` = "yes")?
 
 ```{r}
 # Pregunta 4: Balance Promedio
@@ -47,12 +90,31 @@ mean(bank_data$balance, na.rm = TRUE)
 mean(bank_data$balance[bank_data$y == "yes"], na.rm = TRUE)
 ```
 
+**Respuesta**:
 
+El balance promedio anual de todos los clientes es de 1,362.27 €. Los clientes que suscribieron un depósito a plazo fijo tienen un balance promedio de 1,804.27 €, significativamente superior al promedio general. Esta diferencia de aproximadamente 442 € sugiere que el balance financiero es un factor relevante en la decisión de suscripción, ya que los clientes con mayor capacidad de ahorro tienden a estar más interesados en productos de inversión como los depósitos a plazo fijo.
+
+### Ejercicio 5
+
+**Frecuencia de Contacto**:
+
+   - ¿Cuál es el número máximo y mínimo de contactos realizados durante esta campaña (`campaign`)?
 
 ```{r}
 # Pregunta 5: Frecuencia de Contacto
 summary(bank_data$campaign)
 ```
+
+**Respuesta**:
+
+Durante la campaña, el número de contactos realizados a los clientes varía entre 1 (mínimo) y 63 (máximo), con una media de 2.76 contactos por cliente. La mediana de 2 contactos indica que la mayoría de los clientes fueron contactados pocas veces, lo cual es una buena práctica para evitar saturar a los clientes. Sin embargo, la existencia de casos extremos con hasta 63 contactos sugiere que algunos clientes requirieron múltiples seguimientos, posiblemente clientes difíciles de convencer o con mayor interés que necesitaban información adicional antes de tomar una decisión.
+
+### Ejercicio 6
+
+**Análisis de Duración**:
+
+   - ¿Cuál es la duración media y mediana del último contacto en segundos (`duration`)?
+   - ¿Cuál es la duración media del último contacto en segundos para los clientes que suscribieron un depósito a plazo fijo (`y` = "yes")?
 
 ```{r}
 # Pregunta 6: Análisis de Duración
@@ -60,6 +122,15 @@ summary(bank_data$duration)
 mean(bank_data$duration[bank_data$y == "yes"], na.rm = TRUE)
 ```
 
+**Respuesta**:
+
+La duración del último contacto tiene una media de 258.16 segundos (aproximadamente 4.3 minutos) y una mediana de 180 segundos (3 minutos). Los clientes que suscribieron el depósito tuvieron conversaciones significativamente más largas, con una duración media de 537.29 segundos (aproximadamente 9 minutos). Esta diferencia de casi 5 minutos adicionales es notable y sugiere que la duración del contacto es un fuerte predictor del éxito de la campaña: conversaciones más extensas permiten explicar mejor el producto, resolver dudas y construir confianza con el cliente.
+
+### Ejercicio 7
+
+**Relación entre Variables**:
+
+   - ¿Existe alguna relación entre el balance promedio anual y la duración del último contacto? Utiliza una visualización adecuada para responder a esta pregunta.
 
 ```{r}
 # Pregunta 7: Relación entre Balance y Duración
@@ -69,8 +140,19 @@ ggplot(bank_data, aes(x = balance, y = duration)) +
        x = "Balance",
        y = "Duración (segundos)") +
   theme_minimal()
+
+cor(bank_data$balance, bank_data$duration, use = "complete.obs")
 ```
 
+**Respuesta**:
+
+El diagrama de dispersión muestra una nube de puntos sin un patrón claro, y la correlación de Pearson entre balance y duración es prácticamente nula (r ≈ 0.022). Esto indica que no existe una relación lineal significativa entre el balance del cliente y la duración de la llamada. En otras palabras, el balance financiero del cliente no predice cuánto durará la conversación. Clientes con balances altos y bajos pueden tener conversaciones de cualquier duración, lo que sugiere que otros factores (como el interés del cliente, la habilidad del operador o la complejidad de las preguntas) son más determinantes en la duración del contacto.
+
+### Ejercicio 8
+
+**Segmentación por Trabajo**:
+
+   - ¿Cuál es la media y mediana del balance anual de los clientes agrupados por tipo de trabajo (`job`)?
 
 ```{r}
 # Pregunta 8: Segmentación por Trabajo
@@ -79,6 +161,16 @@ bank_data %>% group_by(job) %>%
             mediana_balance = median(balance, na.rm = TRUE))
 ```
 
+**Respuesta**:
+
+La segmentación por tipo de trabajo revela diferencias importantes en los balances. Los jubilados (retired) presentan el balance medio más alto (1,984 €), seguidos por trabajadores con ocupación desconocida (unknown) con 1,772 € y los gerentes (management) con 1,764 €. En el extremo opuesto, los trabajadores de servicios (services) tienen el balance medio más bajo (997 €), seguidos por los trabajadores manuales (blue-collar) con 1,079 €. Esta estratificación económica según la ocupación es lógica: los jubilados han tenido toda una vida laboral para acumular ahorros, mientras que los trabajadores de servicios suelen tener salarios más bajos. Esta información es valiosa para segmentar las campañas de marketing, dirigiendo productos de mayor inversión a los grupos con mayor capacidad de ahorro.
+
+### Ejercicio 9
+
+**Análisis de Contactos Anteriores**:
+
+   - ¿Cuál es el número máximo y mínimo de días que pasaron desde el último contacto de una campaña anterior (`pdays`)?
+   - ¿Cuál es la media de `pdays` para los clientes que suscribieron un depósito a plazo fijo (`y` = "yes")?
 
 ```{r}
 # Pregunta 9: Análisis de Contactos Anteriores
@@ -86,11 +178,24 @@ summary(bank_data$pdays)
 mean(bank_data$pdays[bank_data$y == "yes"], na.rm = TRUE)
 ```
 
+**Respuesta**:
+
+La variable `pdays` tiene un valor especial de -1 que indica que el cliente no fue contactado en campañas anteriores, y este es el valor más frecuente (mediana de -1). Para los clientes que sí fueron contactados previamente, el rango varía ampliamente hasta 871 días. La media de `pdays` para los clientes que suscribieron es de 68.70 días. Es importante notar que el valor de -1 domina la distribución, lo que sugiere que muchas conversiones exitosas provienen de clientes nuevos o que no habían sido contactados en campañas anteriores. Sin embargo, la media de 68.70 días para suscriptores indica que aquellos contactados previamente y que finalmente suscriben, lo hicieron después de aproximadamente 2 meses desde el último contacto, lo que podría indicar un tiempo óptimo para recontactar.
+
+### Ejercicio 10
+
+**Estudio General**:
+
+   - Haciendo un estudio general de los datos, ¿qué puedes concluir? 
+   - ¿Existe alguna relación significativa entre las variables `balance`, `duration`, y `campaign`? Se recomienda hacer un análisis visual y estadístico de estas variables.
 
 ```{r}
 # Pregunta 10: Estudio General
 # Puedes utilizar técnicas de análisis más avanzadas como correlación, regresión, etc.
 cor(bank_data$balance, bank_data$duration, use = "complete.obs")
+cor(bank_data$balance, bank_data$campaign, use = "complete.obs")
+cor(bank_data$duration, bank_data$campaign, use = "complete.obs")
+
 ggplot(bank_data, aes(x = campaign, y = balance)) +
   geom_point(alpha = 0.5) +
   labs(title = "Relación entre Campañas y Balance",
@@ -99,6 +204,12 @@ ggplot(bank_data, aes(x = campaign, y = balance)) +
   theme_minimal()
 ```
 
+**Respuesta**:
 
+El análisis general de los datos revela varios hallazgos importantes. En cuanto a las relaciones entre variables, las correlaciones son muy débiles: balance vs duration (r ≈ 0.022), balance vs campaign (r ≈ -0.015), y duration vs campaign (r ≈ -0.085). Esto indica que estas tres variables operan de manera relativamente independiente entre sí.
 
+Los factores más asociados al éxito de la campaña son: la duración del contacto emerge como el predictor más fuerte del éxito (conversaciones de ~9 minutos para suscriptores vs ~4 minutos para no suscriptores), el balance muestra una relación positiva pero moderada con la suscripción, y el número de contactos previos tiene una relación débil y negativa.
 
+La segmentación de clientes muestra alta variabilidad en los balances según la ocupación, con jubilados (1,984 €), unknown (1,772 €) y gerentes (1,764 €) como los grupos más prometedores financieramente. La eficiencia de la campaña se caracteriza por contactos mayormente breves y eficientes (1-3 intentos), donde las conversaciones largas están fuertemente asociadas con conversiones exitosas.
+
+En conclusión, el éxito de la campaña depende más de la calidad de la interacción (duración y contenido de la conversación) que de características demográficas o económicas del cliente. Las recomendaciones estratégicas incluyen: priorizar calidad sobre cantidad en los contactos, invertir en conversaciones más largas y detalladas, segmentar audiencias dirigiendo productos premium a ocupaciones con mayor capacidad económica, y limitar contactos repetidos para evitar saturar a clientes que no muestran interés inicial.

@@ -8,6 +8,7 @@
 
 <meta name="author" content="Víctor Aceña Gil">
 <meta name="author" content="Isaac Martín de Diego">
+<meta name="author" content="Carmen Lancho Martín">
 
 <title>Problemas de Inferencia Estadística</title>
 <style>
@@ -155,20 +156,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span></a>
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span></a>
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Análisis Exploratorio de Datos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></span></a>
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Procesado y Limpieza de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_IC1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intervalos de Confianza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_CH1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contrastes de Hipótesis</span></a>
   </div>
 </li>
     </ul>
@@ -209,13 +217,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title-meta-contents">
              <p>Víctor Aceña Gil </p>
              <p>Isaac Martín de Diego </p>
+             <p>Carmen Lancho Martín </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">12 de septiembre de 2025</p>
+      <p class="date">30 de septiembre de 2025</p>
     </div>
   </div>
   
@@ -280,16 +289,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="requisitos-de-software" class="level2">
 <h2 class="anchored" data-anchor-id="requisitos-de-software">Requisitos de software</h2>
 <p>Para ejecutar las soluciones necesitas tener instalados los siguientes paquetes de R:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paquetes principales</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paquetes principales para análisis exploratorio de datos</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"car"</span>,           <span class="co"># Diagnósticos avanzados</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MASS"</span>,          <span class="co"># Datasets y funciones estadísticas  </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"glmnet"</span>,        <span class="co"># Regularización</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"caret"</span>,         <span class="co"># Machine learning</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"pROC"</span>,          <span class="co"># Curvas ROC</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"fitdistrplus"</span>,  <span class="co"># Ajuste de distribuciones</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"lmtest"</span>         <span class="co"># Tests estadísticos</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>,       <span class="co"># Visualización de datos</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span>,         <span class="co"># Manipulación de datos</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyr"</span>,         <span class="co"># Restructuración de datos</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readr"</span>,         <span class="co"># Lectura de archivos de datos</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nycflights13"</span>   <span class="co"># Dataset de vuelos usado en ejercicios</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled" title="Sobre los autores">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -302,6 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container callout-body">
 <p><strong>Víctor Aceña Gil</strong> es graduado en Matemáticas por la UNED, máster en Tratamiento Estadístico y Computacional de la Información por la UCM y la UPM, doctor en Tecnologías de la Información y las Comunicaciones por la URJC y profesor del departamento de Informática y Estadística de la URJC. Miembro del grupo de investigación de alto rendimiento en Fundamentos y Aplicaciones de la Ciencia de Datos, DSLAB, de la URJC. Pertenece al grupo de innovación docente, DSLAB-TI.</p>
 <p><strong>Isaac Martín de Diego</strong> es diplomado en Estadística por la Universidad de Valladolid (UVA), licenciado en Ciencias y Técnicas Estadísticas por la Universidad Carlos III de Madrid (UC3M), doctor en Ingeniería Matemática por la UC3M, catedrático de Ciencias de la Computación e Inteligencia Artificial del departamento de Informática y Estadística de la URJC. Es fundador y coordinador del DSLAB y del DSLAB-TI.</p>
+<p><strong>Carmen Lancho Martín</strong> es graduada en Matemáticas y Estadística por la Universidad Complutense de Madrid (UCM), máster en Tratamiento Estadístico y Computacional de la Información por la UCM y la Universidad Politécnica de Madrid (UPM), doctora en Tecnologías de la Información y las Comunicaciones por la Universidad Rey Juan Carlos (URJC) y profesora del departamento de Informática y Estadística de la URJC. Miembro del grupo de investigación de alto rendimiento en Fundamentos y Aplicaciones de la Ciencia de Datos, DSLAB, de la URJC. Pertenece al grupo de innovación docente, DSLAB-TI.</p>
 </div>
 </div>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="Licencia de Creative Commons" style="border-width:0"></a><br>Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licencia de Creative Commons Atribución-CompartirIgual 4.0 Internacional</a>.</p>
@@ -714,8 +722,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tema0_intro_solucion.html" class="pagination-link" aria-label="Ejercicio 1">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tema0_intro_solucion.html" class="pagination-link" aria-label="Introducción a la Inferencia Estadística">
+        <span class="nav-page-text"><span class="chapter-title">Introducción a la Inferencia Estadística</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

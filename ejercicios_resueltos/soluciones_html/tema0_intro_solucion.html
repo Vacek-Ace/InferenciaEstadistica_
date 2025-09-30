@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Ejercicio 1 – Problemas de Inferencia Estadística</title>
+<title>Introducción a la Inferencia Estadística – Problemas de Inferencia Estadística</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema0_intro_solucion.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema0_intro_solucion.html"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -183,20 +183,27 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></span></a>
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span></a>
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Análisis Exploratorio de Datos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ejercicio 1 (tidyr y dplyr)</span></span></a>
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Procesado y Limpieza de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_IC1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intervalos de Confianza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_CH1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contrastes de Hipótesis</span></a>
   </div>
 </li>
     </ul>
@@ -209,15 +216,16 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link active" data-scroll-target="#ejercicio-2"><span class="header-section-number">2</span> Ejercicio 2</a></li>
-  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3"><span class="header-section-number">3</span> Ejercicio 3</a></li>
-  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4"><span class="header-section-number">4</span> Ejercicio 4</a></li>
-  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5"><span class="header-section-number">5</span> Ejercicio 5</a></li>
-  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6"><span class="header-section-number">6</span> Ejercicio 6</a></li>
-  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7"><span class="header-section-number">7</span> Ejercicio 7</a></li>
-  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8"><span class="header-section-number">8</span> Ejercicio 8</a></li>
-  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9"><span class="header-section-number">9</span> Ejercicio 9</a></li>
-  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10"><span class="header-section-number">10</span> Ejercicio 10</a></li>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio 3</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4">Ejercicio 4</a></li>
+  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5">Ejercicio 5</a></li>
+  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6">Ejercicio 6</a></li>
+  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7">Ejercicio 7</a></li>
+  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8">Ejercicio 8</a></li>
+  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9">Ejercicio 9</a></li>
+  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10">Ejercicio 10</a></li>
   </ul>
 </nav>
     </div>
@@ -226,7 +234,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Ejercicio 1</span></h1>
+<h1 class="title"><span class="chapter-title">Introducción a la Inferencia Estadística</span></h1>
 </div>
 
 
@@ -243,11 +251,14 @@ window.Quarto = {
 </header>
 
 
-<p><strong>Pregunta</strong>: Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.</p>
+<section id="ejercicio-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h3>
+<p>Describe en tus propias palabras qué es la Ciencia de Datos y su importancia en el análisis de grandes volúmenes de datos.</p>
 <p><strong>Solución</strong>: La Ciencia de Datos es una disciplina interdisciplinaria que se centra en la extracción de conocimiento significativo a partir de grandes conjuntos de datos. Es crucial en un mundo impulsado por los datos, ya que permite tomar decisiones informadas y hacer predicciones basadas en el análisis de datos. La Ciencia de Datos combina elementos de estadística, informática y conocimiento específico del dominio para interpretar datos y aplicar este conocimiento en diversas áreas como la medicina, las finanzas y la tecnología. Su importancia radica en su capacidad para transformar datos crudos en información valiosa que puede impulsar la innovación y la eficiencia en múltiples campos.</p>
-<section id="ejercicio-2" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Ejercicio 2</h1>
-<p><strong>Pregunta</strong>: Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.</p>
+</section>
+<section id="ejercicio-2" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2">Ejercicio 2</h3>
+<p>Enumera las herramientas estadísticas que se utilizan en la inferencia estadística y explica brevemente su propósito.</p>
 <p><strong>Solución</strong>: En la inferencia estadística, se utilizan diversas herramientas para analizar datos y hacer generalizaciones sobre una población a partir de muestras:</p>
 <ul>
 <li><strong>Pruebas de Hipótesis</strong>: Se utilizan para determinar si existe suficiente evidencia en una muestra de datos para inferir que una cierta condición es verdadera para toda la población.</li>
@@ -261,9 +272,9 @@ window.Quarto = {
 <li><strong>Métodos No Paramétricos</strong>: Son técnicas que no asumen una distribución específica de los datos y son útiles cuando no se cumplen los supuestos de los métodos paramétricos.</li>
 </ul>
 </section>
-<section id="ejercicio-3" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Ejercicio 3</h1>
-<p><strong>Pregunta</strong>: Define los términos “población” y “muestra” y explica la diferencia entre ambos.</p>
+<section id="ejercicio-3" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3">Ejercicio 3</h3>
+<p>Define los términos “población” y “muestra” y explica la diferencia entre ambos.</p>
 <p><strong>Solución</strong>:</p>
 <ul>
 <li><p><strong>Población</strong>: Se refiere al conjunto completo de elementos o resultados que se están estudiando, del cual se desean obtener conclusiones. La población incluye a todos los individuos, mediciones, objetos o eventos que cumplen con un conjunto de especificaciones previamente definidas. Por ejemplo, si estamos estudiando la altura de los estudiantes de una universidad, la población sería la altura de <strong>todos</strong> los estudiantes de esa universidad.</p></li>
@@ -271,18 +282,18 @@ window.Quarto = {
 </ul>
 <p>La <strong>diferencia principal</strong> entre ambos términos es el alcance. Mientras que la población es el grupo completo que se quiere estudiar, la muestra es solo una parte de ese grupo. Las muestras se utilizan porque a menudo es impracticable o imposible estudiar toda la población debido a limitaciones de tiempo, costo o logística. Por lo tanto, se selecciona una muestra para obtener estimaciones o pruebas sobre la población completa.</p>
 </section>
-<section id="ejercicio-4" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Ejercicio 4</h1>
-<p><strong>Pregunta</strong>: ¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?</p>
+<section id="ejercicio-4" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-4">Ejercicio 4</h3>
+<p>¿Qué es una distribución de probabilidad y cómo se relaciona con las variables cualitativas y cuantitativas?</p>
 <p><strong>Solución</strong>: Una <strong>distribución de probabilidad</strong> es una función matemática que describe la probabilidad de ocurrencia de los diferentes posibles resultados en un experimento. En otras palabras, asigna probabilidades a cada posible resultado de una variable aleatoria. Las distribuciones de probabilidad se relacionan con las variables cualitativas y cuantitativas de la siguiente manera:</p>
 <ul>
 <li><p><strong>Variables Cualitativas (o Categóricas)</strong>: Son aquellas que describen una cualidad o categoría y no tienen un orden o medida numérica inherente. Las distribuciones de probabilidad para estas variables son conocidas como <strong>distribuciones discretas</strong> y asignan probabilidades a resultados específicos. Un ejemplo es la <strong>distribución binomial</strong>, que puede modelar eventos como el lanzamiento de una moneda, donde los resultados son categóricos (cara o cruz).</p></li>
 <li><p><strong>Variables Cuantitativas</strong>: Son variables que se pueden medir en una escala numérica y tienen sentido hablar de valores mayores o menores. Las distribuciones de probabilidad asociadas a estas variables son <strong>distribuciones continuas</strong> y asignan probabilidades a intervalos de números. Por ejemplo, la <strong>distribución normal</strong> es una distribución continua que se utiliza comúnmente para modelar fenómenos naturales como la altura o el peso de individuos.</p></li>
 </ul>
 </section>
-<section id="ejercicio-5" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Ejercicio 5</h1>
-<p><strong>Pregunta</strong>: Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.</p>
+<section id="ejercicio-5" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-5">Ejercicio 5</h3>
+<p>Realiza un resumen descriptivo de un conjunto de datos utilizando medidas de tendencia central y dispersión.</p>
 <p><strong>Solución</strong>: Imaginemos un conjunto de datos que representa las calificaciones de un grupo de estudiantes en un examen:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">=</span><span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">68</span>, <span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">95</span>, <span class="dv">89</span>, <span class="dv">75</span>, <span class="dv">80</span>)</span>
@@ -325,9 +336,9 @@ window.Quarto = {
 </ul>
 <p>Este resumen descriptivo proporciona una visión clara y concisa de las características principales del conjunto de datos, permitiendo una mejor comprensión de su distribución y variabilidad.</p>
 </section>
-<section id="ejercicio-6" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Ejercicio 6</h1>
-<p><strong>Pregunta</strong>: Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.</p>
+<section id="ejercicio-6" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-6">Ejercicio 6</h3>
+<p>Explica la diferencia entre estadística descriptiva e inferencial y proporciona un ejemplo de cómo se utiliza cada una.</p>
 <p><strong>Solución</strong>: La <strong>estadística descriptiva</strong> y la <strong>estadística inferencial</strong> son dos ramas principales de la estadística que tienen propósitos y métodos diferentes:</p>
 <ul>
 <li><p><strong>Estadística Descriptiva</strong>: Se centra en resumir y describir las características de un conjunto de datos. Utiliza medidas como la media, mediana, moda, rango y desviación estándar para dar una visión general de los datos. Por ejemplo, si tenemos los resultados de una prueba de matemáticas de una clase, la estadística descriptiva podría incluir el cálculo de la media de las calificaciones, la calificación más alta, la más baja y la variabilidad de las calificaciones.</p></li>
@@ -335,9 +346,9 @@ window.Quarto = {
 </ul>
 <p><strong>Solución</strong>:</p>
 </section>
-<section id="ejercicio-7" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Ejercicio 7</h1>
-<p><strong>Pregunta</strong>: Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población.</p>
+<section id="ejercicio-7" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-7">Ejercicio 7</h3>
+<p>Diseña un experimento para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población.</p>
 <p><strong>Solución</strong>: Para ilustrar cómo el muestreo aleatorio simple puede ser utilizado para estimar una característica de una población, consideremos el siguiente experimento:</p>
 <p><strong>Objetivo del Experimento</strong>: Estimar la proporción de personas en una ciudad que prefieren el transporte público sobre otros medios de transporte.</p>
 <p><strong>Población</strong>: Todos los residentes de la ciudad que son mayores de edad y utilizan algún medio de transporte para desplazarse.</p>
@@ -372,9 +383,9 @@ window.Quarto = {
 </ul></li>
 </ol>
 </section>
-<section id="ejercicio-8" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Ejercicio 8</h1>
-<p><strong>Pregunta</strong>: Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.</p>
+<section id="ejercicio-8" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-8">Ejercicio 8</h3>
+<p>Explica el Teorema Central del Límite y su relevancia en la inferencia estadística.</p>
 <p><strong>Solución</strong>: Teorema Central del Límite (TCL)</p>
 <p>El Teorema Central del Límite es un principio fundamental en estadística que establece que, bajo ciertas condiciones, la distribución de la suma de un gran número de variables aleatorias independientes y identicamente distribuidas (i.i.d.) tiende a aproximarse a una distribución normal (gaussiana), independientemente de la forma de la distribución original de las variables.</p>
 <p><strong>Enunciado del Teorema Central del Límite</strong></p>
@@ -391,9 +402,9 @@ window.Quarto = {
 <li><p><strong>Aplicación Universal</strong>: Es aplicable en una amplia gama de situaciones, desde la economía y la biología hasta la ingeniería y las ciencias sociales, siempre que se cumplan las condiciones necesarias (independencia y tamaño de muestra grande).</p></li>
 </ol>
 </section>
-<section id="ejercicio-9" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Ejercicio 9</h1>
-<p><strong>Pregunta</strong>: Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.</p>
+<section id="ejercicio-9" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-9">Ejercicio 9</h3>
+<p>Compara y contrasta la estadística paramétrica y no paramétrica, dando ejemplos de cuándo se utilizaría cada una.</p>
 <p><strong>Solución</strong>: La <strong>estadística paramétrica</strong> y la <strong>estadística no paramétrica</strong> son dos enfoques de análisis estadístico que tienen diferentes supuestos y aplicaciones. La <strong>estadística paramétrica</strong> se utiliza cuando los datos se ajustan a ciertos supuestos y se conoce la distribución subyacente, lo que permite hacer inferencias más precisas si estos supuestos se cumplen. Por otro lado, la <strong>estadística no paramétrica</strong> es más flexible y se puede utilizar en una variedad más amplia de situaciones, especialmente cuando los datos no cumplen con los supuestos de los métodos paramétricos.</p>
 <ul>
 <li><p><strong>Estadística Paramétrica</strong>:</p>
@@ -412,9 +423,9 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="ejercicio-10" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Ejercicio 10</h1>
-<p><strong>Pregunta</strong>: Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.</p>
+<section id="ejercicio-10" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-10">Ejercicio 10</h3>
+<p>Discute las diferencias entre los enfoques frecuentista y bayesiano en la inferencia estadística y da un ejemplo de aplicación para cada uno.</p>
 <p><strong>Solución</strong>: La inferencia estadística se basa en métodos que nos permiten hacer conclusiones sobre una población a partir de datos muestrales. Existen dos enfoques principales en la inferencia estadística: el enfoque frecuentista y el enfoque bayesiano. A continuación, se presentan las diferencias clave entre estos enfoques y ejemplos de aplicación para cada uno.</p>
 <p><strong>Enfoque Frecuentista</strong></p>
 <p><strong>Características Principales</strong>:</p>
@@ -893,8 +904,8 @@ P(E|+) = \frac{0.90 \cdot 0.01}{0.90 \cdot 0.01 + 0.05 \cdot 0.99} = \frac{0.009
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tema1_EDA1_solucion.html" class="pagination-link" aria-label="Cargar el conjunto de datos">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cargar el conjunto de datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tema1_EDA1_solucion.html" class="pagination-link" aria-label="Análisis Exploratorio de Datos">
+        <span class="nav-page-text"><span class="chapter-title">Análisis Exploratorio de Datos</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

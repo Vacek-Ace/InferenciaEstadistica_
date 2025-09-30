@@ -1,88 +1,95 @@
 # Procesado y Limpieza de Datos
+
 ```{r}
-# Ejercicio 1 (tidyr y dplyr)
+#| message: false
+#| warning: false
+
 library(tidyr)
 library(dplyr)
 ```
 
+### Ejercicio 1
+
+Crear el siguiente *dataframe* mediante estas instrucciones
 
 ```{r}
-# A partir del siguiente dataframe realizar las siguientes operaciones de limpieza de datos:
-set.seed(1)
-stocks <- data.frame(
-  time = as.Date('2009-01-01') + 0:9,
-  Walmart = rnorm(10, 20, 1),
-  Target = rnorm(10, 20, 2),
-  Walgreens = rnorm(10, 20, 4)
-)
-#       time  Walmart   Target Walgreens
-# 1  2009-01-01 19.37355 23.02356  23.67591
-# 2  2009-01-02 20.18364 20.77969  23.12855
-# 3  2009-01-03 19.16437 18.75752  20.29826
-# 4  2009-01-04 21.59528 15.57060  12.04259
-# 5  2009-01-05 20.32951 22.24986  22.47930
-# 6  2009-01-06 19.17953 19.91013  19.77549
-# 7  2009-01-07 20.48743 19.96762  19.37682
-# 8  2009-01-08 20.73832 21.88767  14.11699
-# 9  2009-01-09 20.57578 21.64244  18.08740
-# 10 2009-01-10 19.69461 21.18780  21.67177
-
-# Como se puede observar hay un problema de clave-valor en las compañias con sus observaciones.
-# Transformar los datos para que tengan una clave stock y el valor sea el precio. 
-# Por lo tanto se requiere la funcion "gather".
-
-# Opcion 1:
-new_stocks <- gather(data = stocks, key = stock, value = price, Walmart, Target, Walgreens)
-
-# Opcion 2:
-new_stocks <- gather(data = stocks, key = stock, value = price, Walmart:Walgreens)
-
-# Opcion 3:
-new_stocks <- gather(data = stocks, key = stock, value = price, -time)
-# El último argumento, -time, significa que todas las columnas excepto el tiempo 
-# contienen los pares clave-valor.
-
-
-# Devolver el dataframe al estado original utilizando la funcion "spread".
-original_stocks <- spread(data = new_stocks, key = stock, value = price)
-
-# Utilizando el operador tuberia %>% se desea realizar las siguientes operaciones anidadas.
-# 1) Transformar los datos para que tengan una clave stock y el valor sea 
-# el precio mediante la funcion "gather".
-# 2) Agrupar los datos por la clave stock mediante la funcion "group_by".
-# 3) Obtener el precio minimo y maximo utilizando la funcion "summarise".
-
-stocks %>% 
-  gather(key = stock, value = price,Walmart:Walgreens)%>% 
-  group_by(stock) %>% 
-  summarise(min = min(price), max = max(price))
-
-###################################################################
+set.seed(1234)
+stocks <- data.frame(time = as.Date("2009-01-01") + 0:9,
+                    Walmart = rnorm(10,20,1),
+                    Target = rnorm(10,20,2),
+                    Walgreens = rnorm(10,20,4)
+                    )
+stocks
 ```
 
+A continuación, realizar las siguientes operaciones de limpieza de datos:
+
+* Como se puede observar, hay un problema de clave-valor en las compañías con sus observaciones. Por lo tanto, se pide transformar los datos para que tengan una clave "*stock*" y un valor "*precio*". Utilizar la instrucción "*gather*".
+* Devolver el dataframe al estado original empleando la instrucción *spread*.
+* Utilizando el operador tubería %>% se desea realizar las siguientes operaciones anidadas:
+    + Transformar los datos para que tengan una clave "*stock*" y el valor sea el "*precio*". Utilizar la instrucción "*gather*".
+    + Agrupar los datos por la clave "*stock*" mediante la instrucción "*group_by*".
+    + Obtener el precio mínimo y el máximo utilizando la instrucción "*summarise*".
 
 ```{r}
-# Ejercicio 2 (dplyr)
+# Transformar los datos para que tengan una clave stock y el valor sea el precio.
+# Opción 1:
+new_stocks <- gather(data = stocks, key = stock, value = price, Walmart, Target, Walgreens)
+
+# Opción 2:
+new_stocks <- gather(data = stocks, key = stock, value = price, Walmart:Walgreens)
+
+# Opción 3:
+new_stocks <- gather(data = stocks, key = stock, value = price, -time)
+
+# Devolver el dataframe al estado original utilizando la función "spread".
+original_stocks <- spread(data = new_stocks, key = stock, value = price)
+
+# Utilizando el operador tubería %>% realizar las operaciones anidadas.
+stocks %>% 
+  gather(key = stock, value = price, Walmart:Walgreens) %>% 
+  group_by(stock) %>% 
+  summarise(min = min(price), max = max(price))
+```
+
+**Respuesta**:
+
+El ejercicio demuestra tres operaciones fundamentales en la reestructuración de datos con tidyr. Primero, la función `gather()` convierte el dataframe de formato ancho a formato largo, transformando las columnas de las tres compañías (Walmart, Target, Walgreens) en dos columnas: una clave llamada "stock" que identifica la compañía y otra llamada "price" que contiene los valores. Se presentan tres formas equivalentes de realizar esta operación: especificando las columnas explícitamente, usando el operador de rango `:`, o excluyendo columnas con el signo `-`.
+
+Segundo, la función `spread()` realiza la operación inversa, devolviendo el dataframe a su formato ancho original. Esta operación toma la columna clave "stock" y crea una columna separada para cada valor único, rellenándolas con los valores correspondientes de la columna "price".
+
+Finalmente, el uso del operador tubería `%>%` permite encadenar múltiples operaciones de forma legible. En este caso, se transforma el dataframe a formato largo con `gather()`, se agrupan las observaciones por compañía con `group_by()`, y se calculan estadísticos resumen (precio mínimo y máximo) para cada grupo usando `summarise()`. Esta secuencia de operaciones es típica en el análisis exploratorio de datos y demuestra el poder del enfoque tidyverse para manipulación de datos.
+
+### Ejercicio 2
+
+En este ejercicio vamos a manejar datos contenidos en distintos *dataframes* y operar sobre ellos con *dplyr*.
+
+1. Descargar el paquete *nycflights13*.
+2. Evaluar el contenido de los dataframes proporcionados por el paquete. Utilizar *head* y *summary*.
+3. Simplificar los dataframes originales a 100 observaciones mediante el comando *head*. Asignarlos a una variable que indique el tipo de dataframe añadiendo la coletilla "<em>_simple</em>". Ejemplo: "<em>flights_simple</em>".
+4. Selecciona los tipos de aerolínea ("*carrier*") mediante la instrucción *select* y el operador *unique* concatenados con el operador tubería %>%. (Utilizar "*airlines_simple*").
+5. Obtener la media y el número máximo de asientos ("*seats*") que tienen los aviones. Utilizar el operador tubería %>% y la instrucción *summarise*.
+6. Ordenar los aviones por su número de motores ("*engines*") y número de asientos ("*seats*"). Utilizar la instrucción *arrange*.
+7. Averigua qué número de cola ("*tailnum*") comparten los dataframes "*flights_simple*" y "*planes_simple*" que has creado anteriormente. Obten su aerolínea ("*carrier*"). Utilizar la instrucción *inner_join*.
+8. Cruzar los datos de vuelos ("*flights*") con los aviones ("*planes*") por el número de cola ("*tailnum*") que no coincidan (usar la instrucción *anti_join*). De esos obtener aquellos con 2 o más motores (usar la instrucción *filter*). Finalmente obtener los distintos modelos de avión que satisfacen las premisas anteriores (usar la instrucción *unique*).
+9. Crea una nueva variable ("*total_delay*") que calcule el retraso total sumando los delays acumulados ("*dep_delay*") y ("*arr_delay*"). Utilizar la instrucción *mutate*. Almacena el dataframe resultante en "*flights_total*".
+10. En base a la variable anteriormente obtenida ("*total_delay*"), devuelve los aviones que han llegado con antelación a su destino, es decir aquellos tal que la variable *total_delay* tiene valores negativos.
+
+```{r}
+#| message: false
+#| warning: false
 
 library(dplyr)
 library(nycflights13)
 
-# COMPROBACION.
-# Observamos los distintos dataframes que nos proporcionan.
-# Utilizamos el nombre del paquete y doblemente dos puntos (::) para comprobarlo.
-# Tambien se puede utilizar el nombre del dataframe si previamente estamos familiarizados.
-
-# PRIMERA OBSERVACION.
-# Comprobamos las variables de cada uno de los datasets que nos proporcionan
-# mediante la instrucción "head".
+# Observamos los distintos dataframes que nos proporcionan
 print(head(flights))
 print(head(airports))
 print(head(weather))
 print(head(airlines))
 print(head(planes))
 
-# Comprobamos las variables de cada uno de los datasets que nos proporcionan 
-# mediante la instrucción "summary".
+# Comprobamos las variables mediante summary
 print(summary(flights))
 print(summary(airports))
 print(summary(weather))
@@ -90,77 +97,76 @@ print(summary(airlines))
 print(summary(planes))
 ```
 
+**Respuesta**:
 
+El paquete nycflights13 proporciona cinco dataframes relacionados con vuelos que salieron de los aeropuertos de Nueva York en 2013. El dataframe `flights` contiene 336,776 observaciones con información sobre cada vuelo, incluyendo fecha, hora, aerolíneas, origen, destino y retrasos. `airports` contiene información sobre 1,458 aeropuertos incluyendo códigos, nombres y ubicaciones geográficas. `weather` proporciona 26,115 observaciones meteorológicas horarias de los tres aeropuertos de origen. `airlines` es un pequeño dataframe con 16 aerolíneas y sus nombres completos. Finalmente, `planes` contiene información sobre 3,322 aviones, incluyendo fabricante, modelo, año de fabricación y características técnicas como número de asientos y motores. Estos dataframes están relacionados entre sí mediante claves como `tailnum` (número de cola del avión) y `carrier` (código de aerolínea), lo que permite realizar análisis complejos combinando múltiples fuentes de información.
 
 ```{r}
-# Simplificar los dataframes originales a 100 observaciones. Renombrarlos
-# introduciendo la coletilla "_simple".
+# Simplificar los dataframes originales a 100 observaciones
+flights_simple <- head(flights, 100)
+airports_simple <- head(airports, 100)
+weather_simple <- head(weather, 100)
+airlines_simple <- head(airlines, 100)
+planes_simple <- head(planes, 100)
 
-flights_simple <- head(flights,100)
-airports_simple <- head(airports,100)
-weather_simple <- head(weather,100)
-airlines_simple <- head(airlines,100)
-planes_simple <- head(planes,100)
-
-
-# Selecciona los tipos de aerolinea ("carrier") mediante la instruccion "select" 
-# y el operador "unique" concatenados con el operador tuberia %>%.
+# Selecciona los tipos de aerolínea
 airlines_simple %>% unique %>% select(carrier)
 ```
 
+**Respuesta**:
 
+La simplificación de los dataframes a 100 observaciones facilita el trabajo exploratorio sin comprometer la comprensión de la estructura de datos. Al seleccionar los tipos de aerolínea del dataframe `airlines_simple` usando el operador tubería, obtenemos una lista de códigos de aerolínea únicos. El uso de `unique()` elimina cualquier duplicado que pudiera existir, mientras que `select(carrier)` extrae únicamente la columna de interés. Esta combinación de operaciones es eficiente y legible, demostrando el estilo declarativo de programación que promueve dplyr.
 
 ```{r}
-# Obtener la media y el maximo de asientos ("seats") que tienen los aviones. 
-# Utilizar el operador tuberia %>%.
-planes_simple %>% summarise(mean = mean(seats),max_engines = max(seats))
+# Obtener la media y el máximo de asientos
+planes_simple %>% summarise(mean = mean(seats), max_engines = max(seats))
 ```
 
+**Respuesta**:
+
+El análisis de la capacidad de asientos en los aviones revela estadísticos importantes sobre la flota. La función `summarise()` reduce el dataframe a una única fila conteniendo la media y el máximo de asientos. Esto permite identificar tanto la capacidad promedio de los aviones en el conjunto de datos como el avión de mayor capacidad. Esta información es valiosa para comprender la composición de la flota y puede influir en decisiones operativas relacionadas con la asignación de aviones a rutas específicas según la demanda esperada.
+
 ```{r}
-# Ordenar los aviones por numero de motores ("engines") y numero de asientos ("seats").
-result1 <- arrange(planes_simple,engines,seats)
+# Ordenar los aviones por número de motores y número de asientos
+result1 <- arrange(planes_simple, engines, seats)
 print(result1)
 ```
 
+**Respuesta**:
+
+La función `arrange()` ordena el dataframe de aviones primero por número de motores y luego, dentro de cada grupo de motores, por número de asientos en orden ascendente. Esta ordenación revela la relación entre la complejidad técnica del avión (número de motores) y su capacidad (número de asientos). Típicamente, los aviones con menos asientos tienen menos motores, y conforme aumenta la capacidad, se requieren configuraciones con más motores para proporcionar la potencia necesaria. Este ordenamiento facilita la identificación de patrones en el diseño y capacidades de diferentes modelos de aeronaves.
 
 ```{r}
-
-# Averigua que numero de cola comparten los dataframes "flights_simple" 
-# y "planes_simple" que has creado anteriormente.
-# Obten su aerolinea ("carrier")
-shared <- inner_join(flights_simple,planes_simple,by="tailnum") # -> N14228
+# Averigua qué número de cola comparten los dataframes
+shared <- inner_join(flights_simple, planes_simple, by = "tailnum")
 shared_carrier <- shared$carrier
 print(shared_carrier)
-
 ```
 
+**Respuesta**:
+
+La función `inner_join()` combina los dataframes `flights_simple` y `planes_simple` usando el número de cola (`tailnum`) como clave de unión, devolviendo únicamente las filas donde existe coincidencia en ambos dataframes. Esto permite identificar qué aviones del registro de vuelos tienen información técnica disponible en el dataframe de aviones. Al extraer la columna `carrier`, obtenemos las aerolíneas que operaron estos vuelos específicos. Esta operación es fundamental en análisis de datos relacionales, donde diferentes tablas contienen información complementaria sobre las mismas entidades y se requiere combinarlas para obtener un panorama completo.
 
 ```{r}
-# Cruzar los datos de vuelos ("flights") con los aviones ("planes") 
-# por el numero de cola ("tailnum") que no coincidan.
-# De esos obtener aquellos con 2 o mas motores.
-# Finlmente obtener los distintos modelos de avión que satisfacen las premisas anteriores.
-fp <- anti_join(planes_simple,flights_simple,by="tailnum")
-engines_fp <- filter(fp,engines >= 2)
-result2 <- unique(engines_fp$model) # No queremos los repetidos. Por lo tanto usamos "unique".
+# Cruzar datos que no coincidan
+fp <- anti_join(planes_simple, flights_simple, by = "tailnum")
+engines_fp <- filter(fp, engines >= 2)
+result2 <- unique(engines_fp$model)
 print(result2)
 ```
 
+**Respuesta**:
 
+La operación `anti_join()` identifica aviones en `planes_simple` que no tienen vuelos correspondientes en `flights_simple`, es decir, aviones registrados que no aparecen en los primeros 100 vuelos analizados. Posteriormente, se filtran aquellos con 2 o más motores, típicamente aviones de mayor tamaño o alcance. Finalmente, se extraen los modelos únicos que satisfacen estas condiciones. Esta secuencia de operaciones es útil para análisis de utilización de flota, permitiendo identificar qué aviones con ciertas características técnicas no están siendo utilizados o no aparecen en el período analizado, lo cual podría indicar aviones en mantenimiento, reserva, o asignados a otras rutas no capturadas en la muestra.
 
 ```{r}
-# Crea una nueva variable que calcule el retraso total sumando los
-# delays acumulados ("dep_delay") y ("arr_delay").
-# Almacena el dataframe resultante en "flights_total".
-flights_total <- mutate(flights_simple,total_delay=dep_delay+arr_delay)
+# Crear nueva variable de retraso total
+flights_total <- mutate(flights_simple, total_delay = dep_delay + arr_delay)
 
-# En base a la variable anteriormente obtenida, devuelve los aviones que 
-# han llegado con antelación a su destino.
-filter(flights_total,total_delay < 0)
+# Devolver aviones que llegaron con antelación
+filter(flights_total, total_delay < 0)
 ```
 
+**Respuesta**:
 
-
-
-
-
+La función `mutate()` crea una nueva columna `total_delay` que suma los retrasos de salida (`dep_delay`) y llegada (`arr_delay`), proporcionando una medida agregada del retraso acumulado durante todo el trayecto del vuelo. Valores positivos indican retraso total, mientras que valores negativos indican que el vuelo llegó antes de lo programado. Al filtrar por `total_delay < 0`, se identifican vuelos que, a pesar de cualquier retraso en la salida, lograron recuperar tiempo durante el vuelo y llegar anticipadamente a su destino. Esto puede ocurrir cuando los pilotos compensan retrasos iniciales aumentando la velocidad de crucero cuando las condiciones lo permiten, o cuando el tiempo de vuelo programado incluye márgenes de seguridad que no siempre se utilizan completamente. Estos casos son de interés para el análisis de eficiencia operativa y satisfacción del cliente.
