@@ -353,7 +353,13 @@ window.Quarto = {
 <p>Para la misma muestra del Ejercicio 2 (<span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span>), calcula un intervalo de confianza del 95% para la media poblacional <span class="math inline">\(\mu\)</span>, asumiendo que la varianza poblacional es conocida y es igual a 25.</p>
 <p><strong>Solución</strong>: Para calcular un intervalo de confianza para la media poblacional <span class="math inline">\(\mu\)</span> cuando la varianza poblacional <span class="math inline">\(\sigma^2\)</span> es conocida, utilizamos la distribución normal. El intervalo de confianza del 95% para la media poblacional se calcula con la siguiente fórmula:</p>
 <p><span class="math display">\[ \bar{x} \pm z_{\alpha/2} \left(\frac{\sigma}{\sqrt{n}}\right) \]</span></p>
-<p>donde: - <span class="math inline">\(\bar{x}\)</span> es la media muestral. - <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de la distribución normal estándar para un nivel de confianza del 95% (para <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(z_{0.025} = 1.96\)</span>). - <span class="math inline">\(\sigma\)</span> es la desviación estándar poblacional. - <span class="math inline">\(n\)</span> es el tamaño de la muestra.</p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> es la media muestral.</li>
+<li><span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de la distribución normal estándar para un nivel de confianza del 95% (para <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(z_{0.025} = 1.96\)</span>).</li>
+<li><span class="math inline">\(\sigma\)</span> es la desviación estándar poblacional.</li>
+<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
+</ul>
 <p><strong>Paso 1: Calcular la Media Muestral (<span class="math inline">\(\bar{x}\)</span>)</strong></p>
 <p>Para la muestra <span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span>:</p>
 <p><span class="math display">\[ \bar{x} = \frac{1}{10} \sum_{i=1}^{10} x_i = \frac{1}{10} (10 + \ldots+ 14) = \frac{1}{10} \cdot 112 = 11.2 \]</span></p>
@@ -435,7 +441,7 @@ window.Quarto = {
 <p><strong>Calcular la Desviación Estándar Muestral (<span class="math inline">\(s\)</span>)</strong></p>
 <p>Primero, calculemos la varianza muestral (<span class="math inline">\(s^2\)</span>):</p>
 <p><span class="math display">\[ s^2 = \frac{1}{n-1} \sum_{i=1}^{15} (x_i - \bar{x})^2 \]</span></p>
-<p>Calculando cada $ (x_i - {x})^2 $:</p>
+<p>Calculando cada <span class="math inline">\((x_i - \bar{x})^2\)</span>:</p>
 <p><span class="math display">\[ \sum_{i=1}^{15} (x_i - \bar{x})^2 = 25.73 \]</span></p>
 <p>Entonces, la varianza muestral es:</p>
 <p><span class="math display">\[ s^2 = \frac{25.73}{14} \approx 1.838 \]</span></p>

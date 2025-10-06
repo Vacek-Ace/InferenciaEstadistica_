@@ -711,7 +711,8 @@ Hipótesis:
    - $H_1$: Hay relación entre el nivel de educación y la preferencia por el tipo de música (dependencia).
 
 Frecuencias Esperadas:
-   - La frecuencia esperada para cada celda se calcula usando la fórmula: $ E_{ij} = \frac{( \text{Total Fila i} ) ( \text{Total Columna j} )}{ \text{Total General} } $.
+
+   - La frecuencia esperada para cada celda se calcula usando la fórmula: $E_{ij} = \frac{(\text{Total Fila i}) \times (\text{Total Columna j})}{\text{Total General}}$.
 
    |                | Rock      | Pop       | Clásica   | Total |
    |----------------|-----------|-----------|-----------|-------|

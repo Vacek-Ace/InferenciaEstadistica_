@@ -43,6 +43,12 @@ book:
     - tema0_intro_solucion.qmd
     - tema1_EDA1_solucion.qmd
     - tema1_EDA2_solucion.qmd
+    - tema2_CH1_solucion.qmd
+    - tema2_IC1_solucion.qmd
+    - tema2_PARA1_solucion.qmd
+    - tema2_PARA2_solucion.qmd
+    - tema3_NOPARA1_solucion.qmd
+    - tema4_ANOVA1_solucion.qmd
 
 
 format:
@@ -179,6 +185,12 @@ generar_solucion <- function(tema) {
   if (tema == 1) archivo <- "tema0_intro_solucion.qmd"
   if (tema == 2) archivo <- "tema1_EDA1_solucion.qmd"
   if (tema == 3) archivo <- "tema1_EDA2_solucion.qmd"
+  if (tema == 4) archivo <- "tema2_CH1_solucion.qmd"
+  if (tema == 5) archivo <- "tema2_IC1_solucion.qmd"
+  if (tema == 6) archivo <- "tema2_PARA1_solucion.qmd"
+  if (tema == 7) archivo <- "tema2_PARA2_solucion.qmd"
+  if (tema == 8) archivo <- "tema2_NOPARA1_solucion.qmd"
+  if (tema == 9) archivo <- "tema4_ANOVA1_solucion.qmd"
   
   
   cat("Generando solución:", archivo, "\n")

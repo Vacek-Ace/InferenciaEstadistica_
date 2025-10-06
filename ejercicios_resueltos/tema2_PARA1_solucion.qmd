@@ -236,6 +236,7 @@ Para la misma muestra del Ejercicio 2 ($x = \{10, 12, 9, 11, 10, 13, 10, 12, 11,
 $$ \bar{x} \pm z_{\alpha/2} \left(\frac{\sigma}{\sqrt{n}}\right) $$
 
 donde:
+
 - $\bar{x}$ es la media muestral.
 - $z_{\alpha/2}$ es el valor crítico de la distribución normal estándar para un nivel de confianza del 95% (para $\alpha = 0.05$, $z_{0.025} = 1.96$).
 - $\sigma$ es la desviación estándar poblacional.
@@ -369,7 +370,7 @@ Primero, calculemos la varianza muestral ($s^2$):
 
 $$ s^2 = \frac{1}{n-1} \sum_{i=1}^{15} (x_i - \bar{x})^2 $$
 
-Calculando cada $ (x_i - \bar{x})^2 $:
+Calculando cada $(x_i - \bar{x})^2$:
 
 $$ \sum_{i=1}^{15} (x_i - \bar{x})^2 = 25.73 $$
 
