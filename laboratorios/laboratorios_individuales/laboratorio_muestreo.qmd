@@ -935,15 +935,15 @@ Además, esta propiedad asegura que, con muestras suficientemente grandes, podem
 
 ### Suficiencia
 
-Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador $ T(X) $ es **suficiente** para un parámetro $ \theta $ si la distribución condicional de la muestra $ X $ dado el estimador $ T(X) $ no depende de $ \theta $. En otras palabras, $ T(X) $ captura toda la información relevante de la muestra sobre $ \theta $.
+Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador $T(X)$ es **suficiente** para un parámetro $\theta$ si la distribución condicional de la muestra $X$ dado el estimador $T(X)$ no depende de $ \theta $. En otras palabras, $T(X)$ captura toda la información relevante de la muestra sobre $\theta$.
 
-Además, según el **Teorema de Factorización de Fisher**, un estadístico $ T(X) $ es suficiente para $ \theta $ si y solo si la **función de densidad** $ f(x|\theta) $ puede factorizarse de la siguiente manera:
+Además, según el **Teorema de Factorización de Fisher**, un estadístico $T(X)$ es suficiente para $\theta$ si y solo si la **función de densidad** $f(x|\theta)$ puede factorizarse de la siguiente manera:
 
 $$
 f(x|\theta) = g(T(x), \theta) \cdot h(x)
 $$
 
-donde $ g(T(x), \theta) $ es una función que depende de la muestra $ x $ únicamente a través de $ T(x) $ y del parámetro $ \theta $, mientras que $ h(x) $ es una función que depende de la muestra $ x $ pero no del parámetro $ \theta $.
+donde $g(T(x), \theta)$ es una función que depende de la muestra $ x $ únicamente a través de $T(x)$ y del parámetro $\theta$, mientras que $h(x)$ es una función que depende de la muestra $ x $ pero no del parámetro $\theta$.
 
 #### Propiedades de Estimadores Suficientes {-}
 
@@ -996,8 +996,8 @@ $$
 
 Donde:
 
-- $ g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right) $ depende de los datos solo a través de $\bar{x}$ y del parámetro $\mu$.
-- $ h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right) $ depende de los datos $x$ pero no de $\mu$.
+- $g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right)$ depende de los datos solo a través de $\bar{x}$ y del parámetro $\mu$.
+- $h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right)$ depende de los datos $x$ pero no de $\mu$.
 
 Según el **Teorema de Factorización de Fisher**, esto implica que $\bar{x}$ es un estadístico suficiente para $\mu$, ya que la función de densidad se factoriza en una función que depende de los datos solo a través de $\bar{x}$ y otra que no depende de $\mu$.
 

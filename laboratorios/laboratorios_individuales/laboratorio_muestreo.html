@@ -2420,7 +2420,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">29 de septiembre de 2025</p>
+      <p class="date">6 de octubre de 2025</p>
     </div>
   </div>
   
@@ -3310,12 +3310,12 @@ E(\hat{\theta}) = \theta
 </section>
 <section id="suficiencia" class="level3">
 <h3 class="anchored" data-anchor-id="suficiencia">Suficiencia</h3>
-<p>Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador $ T(X) $ es <strong>suficiente</strong> para un parámetro $ $ si la distribución condicional de la muestra $ X $ dado el estimador $ T(X) $ no depende de $ $. En otras palabras, $ T(X) $ captura toda la información relevante de la muestra sobre $ $.</p>
-<p>Además, según el <strong>Teorema de Factorización de Fisher</strong>, un estadístico $ T(X) $ es suficiente para $ $ si y solo si la <strong>función de densidad</strong> $ f(x|) $ puede factorizarse de la siguiente manera:</p>
+<p>Un estimador suficiente es aquel que garantiza que dicho estimador utiliza toda la información relevante contenida en la muestra respecto al parámetro que se está estimando. Un estimador suficiente no pierde información útil para la estimación del parámetro poblacional. Formalmente, un estimador <span class="math inline">\(T(X)\)</span> es <strong>suficiente</strong> para un parámetro <span class="math inline">\(\theta\)</span> si la distribución condicional de la muestra <span class="math inline">\(X\)</span> dado el estimador <span class="math inline">\(T(X)\)</span> no depende de $ $. En otras palabras, <span class="math inline">\(T(X)\)</span> captura toda la información relevante de la muestra sobre <span class="math inline">\(\theta\)</span>.</p>
+<p>Además, según el <strong>Teorema de Factorización de Fisher</strong>, un estadístico <span class="math inline">\(T(X)\)</span> es suficiente para <span class="math inline">\(\theta\)</span> si y solo si la <strong>función de densidad</strong> <span class="math inline">\(f(x|\theta)\)</span> puede factorizarse de la siguiente manera:</p>
 <p><span class="math display">\[
 f(x|\theta) = g(T(x), \theta) \cdot h(x)
 \]</span></p>
-<p>donde $ g(T(x), ) $ es una función que depende de la muestra $ x $ únicamente a través de $ T(x) $ y del parámetro $ $, mientras que $ h(x) $ es una función que depende de la muestra $ x $ pero no del parámetro $ $.</p>
+<p>donde <span class="math inline">\(g(T(x), \theta)\)</span> es una función que depende de la muestra $ x $ únicamente a través de <span class="math inline">\(T(x)\)</span> y del parámetro <span class="math inline">\(\theta\)</span>, mientras que <span class="math inline">\(h(x)\)</span> es una función que depende de la muestra $ x $ pero no del parámetro <span class="math inline">\(\theta\)</span>.</p>
 <section id="propiedades-de-estimadores-suficientes" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="propiedades-de-estimadores-suficientes">Propiedades de Estimadores Suficientes</h4>
 <ul>
@@ -3356,8 +3356,8 @@ f(x|\mu) = \left( \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \
 \]</span></p>
 <p>Donde:</p>
 <ul>
-<li>$ g({x}, ) = ( - ) $ depende de los datos solo a través de <span class="math inline">\(\bar{x}\)</span> y del parámetro <span class="math inline">\(\mu\)</span>.</li>
-<li>$ h(x) = ( - ) $ depende de los datos <span class="math inline">\(x\)</span> pero no de <span class="math inline">\(\mu\)</span>.</li>
+<li><span class="math inline">\(g(\bar{x}, \mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left( -\frac{n(\bar{x} - \mu)^2}{2\sigma^2} \right)\)</span> depende de los datos solo a través de <span class="math inline">\(\bar{x}\)</span> y del parámetro <span class="math inline">\(\mu\)</span>.</li>
+<li><span class="math inline">\(h(x) = \exp\left( -\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{2\sigma^2} \right)\)</span> depende de los datos <span class="math inline">\(x\)</span> pero no de <span class="math inline">\(\mu\)</span>.</li>
 </ul>
 <p>Según el <strong>Teorema de Factorización de Fisher</strong>, esto implica que <span class="math inline">\(\bar{x}\)</span> es un estadístico suficiente para <span class="math inline">\(\mu\)</span>, ya que la función de densidad se factoriza en una función que depende de los datos solo a través de <span class="math inline">\(\bar{x}\)</span> y otra que no depende de <span class="math inline">\(\mu\)</span>.</p>
 </section>

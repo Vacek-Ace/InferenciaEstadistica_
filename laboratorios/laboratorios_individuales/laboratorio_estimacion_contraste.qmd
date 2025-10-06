@@ -625,8 +625,8 @@ $$
 
 Donde:
 
-- $ \bar{X}_1 $ y $ \bar{X}_2 $ son las medias muestrales de los grupos 1 y 2, respectivamente.
-- $ s_{\text{pooled}} $ es la desviación estándar combinada (desviación estándar agrupada), calculada como:
+- $\bar{X}_1 $ y $ \bar{X}_2$ son las medias muestrales de los grupos 1 y 2, respectivamente.
+- $s_{\text{pooled}}$ es la desviación estándar combinada (desviación estándar agrupada), calculada como:
 
 $$
 s_{\text{pooled}} = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
@@ -634,8 +634,8 @@ $$
 
 Donde:
 
-- $ s_1^2 $ y $ s_2^2 $ son las varianzas muestrales de los grupos 1 y 2, respectivamente.
-- $ n_1 $ y $ n_2 $ son los tamaños de muestra de los grupos 1 y 2.
+- $s_1^2$ y $s_2^2$ son las varianzas muestrales de los grupos 1 y 2, respectivamente.
+- $n_1$ y $n_2$ son los tamaños de muestra de los grupos 1 y 2.
 
 Esta fórmula combina las desviaciones estándar de ambos grupos, asumiendo que las varianzas son homogéneas.
 
@@ -643,11 +643,11 @@ Esta fórmula combina las desviaciones estándar de ambos grupos, asumiendo que 
 
 Los valores del **d de Cohen** se interpretan generalmente de la siguiente manera:
 
-- **Pequeño**: $ d = 0.2 $
-- **Medio**: $ d = 0.5 $
-- **Grande**: $ d = 0.8 $ o mayor
+- **Pequeño**: $d = 0.2$
+- **Medio**: $d = 0.5$
+- **Grande**: $d = 0.8$ o mayor
 
-Un valor mayor de $ d $ indica una diferencia más grande entre los grupos en términos de desviaciones estándar.
+Un valor mayor de $d$ indica una diferencia más grande entre los grupos en términos de desviaciones estándar.
 
 ### Implementación en R
 
@@ -719,6 +719,3 @@ A lo largo de este laboratorio, hemos aplicado técnicas de **estimación estad�
 <img src="../../images/DSLab_logo_2.png" width="50px" style="vertical-align: middle; margin-right: 8px;">
 DSLAB - Universidad Rey Juan Carlos
 </div>
-
-
-
