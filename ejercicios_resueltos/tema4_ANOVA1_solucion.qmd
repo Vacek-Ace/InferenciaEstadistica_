@@ -1,0 +1,911 @@
+# Análisis de Varianza
+
+```{r echo=FALSE}
+#install.packages("DescTools")
+### devtools::install_version("DescTools", version = "0.99.38")
+library(DescTools)
+```
+
+
+### Ejercicio 1
+
+Se realizó un experimento para investigar si hay
+diferencias significativas en el tiempo de reacción ante un estímulo
+visual entre tres grupos de participantes que fueron sometidos a
+diferentes niveles de iluminación: normal, baja y alta. Se registraron
+los tiempos de reacción (en milisegundos) para cada participante en cada
+grupo. Los datos obtenidos se muestran a continuación:
+
+**Grupo Normal:** 40, 45, 38, 42, 39\
+**Grupo Baja:** 48, 50, 55, 52, 51\
+**Grupo Alta:** 35, 37, 32, 40, 36
+
+Usando un nivel de significancia de 0.05, ¿hay diferencias
+significativas en el tiempo de reacción entre los tres grupos?
+
+**Solución**: Para determinar si hay diferencias significativas en el
+tiempo de reacción entre los tres grupos, podemos utilizar un análisis
+de varianza (ANOVA) de un factor. Aquí están los pasos para realizar el
+ANOVA:
+
+**Paso 1: Calcular las medias de cada grupo.**
+
+Grupo Normal: $\bar{X}_1 = \frac{40 + 45 + 38 + 42 + 39}{5} = 40.8$\
+Grupo Baja: $\bar{X}_2 = \frac{48 + 50 + 55 + 52 + 51}{5} = 51.2$\
+Grupo Alta: $\bar{X}_3 = \frac{35 + 37 + 32 + 40 + 36}{5} = 36$
+
+**Paso 2: Calcular la media global (promedio de todas las observaciones).**
+
+$$ \bar{X} = \frac{40.8 + 51.2 + 36}{3} \approx 42.67 $$
+
+**Paso 3: Calcular las sumas de cuadrados (SS).**
+
+$$ SS_{\text{Total}} = \sum (X_{ij} - \bar{X})^2 = \sum (X_{ij} - 42.67)^2 \approx 695.33 $$
+
+**Paso 4: Calcular las sumas de cuadrados entre grupos (SSB).**
+
+$$ SSB = \sum (\bar{X}_j - \bar{X})^2 $$
+
+Para cada grupo:
+
+$$ SSB_{\text{Grupo Normal}} = 5\cdot (40.8 - 42,7)^2\approx 17.42 $$
+$$ SSB_{\text{Grupo Baja}} = 5 \cdot (51.2 - 42.7)^2 \approx 364.09$$
+$$ SSB_{\text{Grupo Alta}} = 5 \cdot (36 - 42.7)^2 \approx 222.22$$
+
+De modo que: $$ SSB = 17.42+364.09+222.22 \approx  603.73 $$
+
+**Paso 5: Calcular las sumas de cuadrados dentro de los grupos (SSW).**
+$$ SSW = \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij}-\bar{X}_i)^2 $$ Para cada
+grupo:
+
+$$ SS_{\text{Grupo Normal}} = (40-40.8)^2 + (45-40.8)^2 + (38-40.8)^2 + (42-40.8)^2 + (39-40.8)^2= 30.8$$
+$$ SS_{\text{Grupo Baja}} = (48-51.2)^2 + (50-51.2)^2 + (55-51.2)^2 + (52-51.2)^2 + (51-51.2)^2= 26.8 $$
+$$ SS_{\text{Grupo Alta}} = (35-36)^2 + (37-36)^2 + (32-36)^2 + (40-36)^2 + (36-36)^2 =34$$
+
+De donde:
+
+$$ SSW = 30.8+26.8+34=91.6
+$$
+
+**Paso 6: Calcular los grados de libertad (df).**
+
+$$ df_{\text{Total}} = N - 1 =15-1=14$$
+$$ df_{\text{Grupos}} = k - 1 =3-1=2$$
+$$ df_{\text{Dentro de grupos}} = N - k =15-3=12$$
+
+Donde $N$ es el número total de observaciones y $k$ es el número de
+grupos.
+
+**Paso 7: Calcular la estadística de prueba $F$.**
+
+$$ F = \frac{MSG}{MSE} $$
+
+Donde $MSG = \frac{SSB}{df_{\text{Grupos}}}$ y
+$MSE = \frac{SSW}{df_{\text{Dentro de grupos}}}$.
+
+De modo que:
+
+$$ F = \frac{603.73/2}{91.6/12} \approx 39.5 $$
+
+**Paso 8: Realizar la prueba de hipótesis.**
+
+-   Hipótesis nula ($H_0$): No hay diferencias significativas entre los
+    grupos ($\mu_1 = \mu_2 = \mu_3$).
+-   Hipótesis alternativa ($H_1$): Hay diferencias significativas entre
+    los grupos.
+
+Para $\alpha = 0.05$ y los grados de libertad $df_{\text{Grupos}} = 2$ y
+$df_{\text{Dentro de grupos}} = 12$, el valor crítico de la distribución
+$F$ es aproximadamente $F_{\text{crítico}} = 3.89$.
+
+Por tanto, dado que $F > F_{\text{crítico}}$, rechazamos la hipótesis
+nula y concluimos que hay diferencias significativas entre los grupos.
+
+La tabla ANOVA queda como sigue:
+
+| Fuente de variación | Suma de cuadrados | Grados de libertad | Cuadrado Medio | F     | Pr(\>F) |
+|---------------|-------------|-------------|-----------|-----------|-----------|
+| Entre grupos        | 603.7             | 2                  | 301.9          | 39.55 | \<0.001 |
+| Residual            | 91.6              | 12                 | 7.63           |       |         |
+| Total               | 695.3             | 14                 |                |       |         |
+
+### Ejercicio 2
+
+Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los estudiantes URJC en un examen final. Los dos factores considerados son el tipo de método de estudio (Método Tradicional y Método Moderno) y el ambiente de estudio (Ambiente Silencioso y Ambiente con Ruido). Para ello, se seleccionan 5 estudiantes aleatoriamente para cada combinación de métodos y ambientes, y se registra su puntuación en el examen final.
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Ambiente / Método | Método Tradicional | Método Moderno |
+|-------------------|---------------------|----------------|
+| Silencioso        | 85, 90, 88, 92, 87  | 91, 93, 89, 94, 92 |
+| Con Ruido         | 70, 75, 72, 78, 73  | 77, 79, 74, 80, 76 |
+
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en las puntuaciones del examen debido al tipo de método de estudio, al ambiente de estudio, y a la interacción entre ambos factores.
+
+**Solución**:
+Para resolver el problema anterior utilizando R, se puede seguir el siguiente procedimiento paso a paso. A continuación se presentan los comandos necesarios y sus salidas correspondientes:
+
+1. **Ingresar los datos:**
+
+```{r anova2}
+### Datos de las puntuaciones
+silencioso_tradicional <- c(85, 90, 88, 92, 87)
+silencioso_moderno <- c(91, 93, 89, 94, 92)
+ruido_tradicional <- c(70, 75, 72, 78, 73)
+ruido_moderno <- c(77, 79, 74, 80, 76)
+
+### Crear un data frame
+data <- data.frame(
+  puntuacion = c(silencioso_tradicional, silencioso_moderno, 
+                 ruido_tradicional, ruido_moderno),
+  metodo = factor(rep(c("Tradicional", "Moderno"), each = 5, times = 2)),
+  ambiente = factor(rep(c("Silencioso", "Ruido"), each = 10))
+)
+
+### Visualizar el data frame
+print(data)
+
+### Visualizamos las interacciones
+library("ggpubr")
+ggline(data, x = "metodo", y = "puntuacion", color = "ambiente",
+       add = c("mean_se", "dotplot"),
+       palette = c("#00AFBB", "#E7B800"))
+```
+
+2. **Realizar el ANOVA de dos factores:**
+
+```{r anova21}
+### Realizar el ANOVA de dos factores
+anova_result <- aov(puntuacion ~ metodo * ambiente, data = data)
+summary(anova_result)
+```
+
+3. **Interpretar los resultados:**
+
+- **Método:** El valor $p$ (Pr(>F)) para el método es $0.00733$, que es menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones del examen debida al tipo de método de estudio.
+- **Ambiente:** El valor $p$ (Pr(>F)) para el ambiente es $7.23e-10$, que es mucho menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones del examen debida al ambiente de estudio.
+- **Interacción:** El valor $p$ (Pr(>F)) para la interacción es $0.93120$, que es mayor que 0.05, indicando que no hay una interacción significativa entre el método de estudio y el ambiente de estudio.
+
+Por lo tanto, podemos concluir que tanto el método de estudio como el ambiente de estudio tienen un efecto significativo en las puntuaciones del examen, pero no hay una interacción significativa entre estos dos factores.
+
+### Ejercicio 3
+
+Un equipo de investigadores quiere evaluar el efecto de dos factores en la satisfacción laboral de los empleados. Los dos factores considerados son el tipo de horario de trabajo (Horario Flexible y Horario Fijo) y el tipo de entorno de trabajo (Oficina Abierta y Oficina Cerrada). Se seleccionan 5 empleados aleatoriamente para cada combinación de horarios y entornos, y se registra su puntuación de satisfacción laboral en una escala de 1 a 100.
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Entorno / Horario   | Horario Flexible | Horario Fijo  |
+|---------------------|------------------|---------------|
+| Oficina Abierta     | 78, 82, 85, 80, 84  | 60, 65, 58, 63, 61 |
+| Oficina Cerrada     | 88, 90, 87, 85, 89  | 70, 73, 75, 72, 71 |
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en la satisfacción laboral debido al tipo de horario de trabajo, al entorno de trabajo, y a la interacción entre ambos factores.
+
+**Solución**:
+
+1. **Ingresar los datos:**
+
+```{r anova30}
+### Datos de las puntuaciones
+abierta_flexible <- c(78, 82, 85, 80, 84)
+abierta_fija <- c(60, 65, 58, 63, 61)
+cerrada_flexible <- c(88, 90, 87, 85, 89)
+cerrada_fija <- c(70, 73, 75, 72, 71)
+
+### Crear un data frame
+data <- data.frame(
+  satisfaccion = c(abierta_flexible, abierta_fija, cerrada_flexible, cerrada_fija),
+  horario = factor(rep(c("Flexible", "Fijo"), each = 5, times = 2)),
+  entorno = factor(rep(c("Abierta", "Cerrada"), each = 10))
+)
+
+### Visualizar el data frame
+print(data)
+
+### Visualizamos las interacciones
+library("ggpubr")
+ggline(data, x = "horario", y = "satisfaccion", color = "entorno",
+       add = c("mean_se", "dotplot"),
+       palette = c("#00AFBB", "#E7B800"))
+```
+
+2. **Realizar el ANOVA de dos factores:**
+
+```{r anova31}
+### Realizar el ANOVA de dos factores
+anova_result <- aov(satisfaccion ~ horario * entorno, data = data)
+summary(anova_result)
+```
+
+3. **Interpretar los resultados:**
+
+- **Horario:** El valor $ p $ (Pr(>F)) para el horario es $1.35e-11$, que es menor que 0.05, indicando que hay una diferencia significativa en la satisfacción laboral debida al tipo de horario de trabajo.
+- **Entorno:** El valor $ p $ (Pr(>F)) para el entorno es $7.08e-07$, que es mucho menor que 0.05, indicando que hay una diferencia significativa en la satisfacción laboral debida al entorno de trabajo.
+- **Interacción:** El valor $ p $ (Pr(>F)) para la interacción es $0.0394$, que es menor que 0.05, indicando que hay una interacción significativa entre el tipo de horario de trabajo y el entorno de trabajo a un nivel de significancia de 0.05.
+
+Por lo tanto, podemos concluir que tanto el tipo de horario de trabajo como el entorno de trabajo tienen un efecto significativo en la satisfacción laboral, y además hay una interacción significativa entre estos dos factores a un nivel de significancia de 0.05. Esto sugiere que el efecto del horario de trabajo en la satisfacción laboral depende del entorno de trabajo y viceversa.
+
+### Ejercicio 4
+Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los estudiantes en una prueba de matemáticas. Los dos factores considerados son el método de enseñanza (Tradicional y Moderno) y el tipo de material de apoyo (Libro, Video, Software, Sin material). Se seleccionan 3 estudiantes aleatoriamente para cada combinación de métodos y materiales, y se registra su puntuación en la prueba de matemáticas.
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Material / Método  | Método Tradicional | Método Moderno |
+|--------------------|---------------------|----------------|
+| Libro              | 75, 80, 85          | 90, 92, 88     |
+| Video              | 70, 72, 78          | 85, 87, 84     |
+| Software           | 65, 68, 70          | 80, 83, 79     |
+| Sin material       | 60, 62, 65          | 75, 77, 73     |
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en las puntuaciones de la prueba de matemáticas debido al método de enseñanza, al tipo de material de apoyo, y a la interacción entre ambos factores.
+
+**Solución**:
+
+1. **Ingresar los datos:**
+
+```{r ej4_datos}
+### Datos de las puntuaciones
+tradicional_libro <- c(75, 80, 85)
+tradicional_video <- c(70, 72, 78)
+tradicional_software <- c(65, 68, 70)
+tradicional_sin_material <- c(60, 62, 65)
+moderno_libro <- c(90, 92, 88)
+moderno_video <- c(85, 87, 84)
+moderno_software <- c(80, 83, 79)
+moderno_sin_material <- c(75, 77, 73)
+
+### Crear un data frame
+data <- data.frame(
+  puntuacion = c(tradicional_libro, tradicional_video, tradicional_software,
+                 tradicional_sin_material,
+                 moderno_libro, moderno_video, moderno_software,
+                 moderno_sin_material),
+  metodo = factor(rep(c("Tradicional", "Moderno"), each = 12)),
+  material = factor(rep(rep(c("Libro", "Video", "Software", "Sin material"), each = 3), times = 2))
+)
+
+### Visualizar el data frame
+print(data)
+
+### Visualizamos las interacciones
+library("ggpubr")
+ggline(data, x = "material", y = "puntuacion", color = "metodo",
+       add = c("mean_se", "dotplot"),
+       palette = c("#00AFBB", "#E7B800"))
+```
+
+2. **Realizar el ANOVA de dos factores:**
+
+```{r anova_4}
+### Realizar el ANOVA de dos factores
+anova_result <- aov(puntuacion ~ metodo * material, data = data)
+summary(anova_result)
+```
+
+3. **Interpretar los resultados:**
+
+- **Método:** El valor $p$ (Pr(>F)) para el método es 1.2e-06, que es mucho menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones debida al método de enseñanza.
+- **Material:** El valor $p$ (Pr(>F)) para el material es 1.1e-07, que es mucho menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones debida al tipo de material de apoyo.
+- **Interacción:** El valor $p$ (Pr(>F)) para la interacción es 0.228, que es mayor que 0.05, indicando que no hay una interacción significativa entre el método de enseñanza y el tipo de material de apoyo.
+
+Por lo tanto, podemos concluir que tanto el método de enseñanza como el tipo de material de apoyo tienen un efecto significativo en las puntuaciones de la prueba de matemáticas. Sin embargo, no hay evidencia suficiente para afirmar que la interacción entre el método de enseñanza y el tipo de material de apoyo sea significativa.
+
+### Ejercicio 5
+¿Es posible simplificar el modelo anterior eliminado la iteración? ¿Es posible eliminar alguno de los efectos individuales? De ser así, construye el nuevo modelo. ¿Dónde aparecen las principales diferencias en la puntuación? Plantea un constraste de hipótesis de igualdad de distribuciones. Plantea un intervalo de confianza para la diferencia de medias.
+
+**Solución**:
+Efectivamente, dado que la interacción del modelo del ejercicio anterior no es estadísticamente diferente de 0, podemos eliminar la interacción del modelo.
+
+```{r anova_4_1}
+### Realizar el ANOVA de dos factores
+anova_result <- aov(puntuacion ~ metodo + material, data = data)
+summary(anova_result)
+```
+
+Y viendo los nuevos resultados, podemos eliminar el factor `material`:
+```{r anova_4_3}
+### Realizar el ANOVA de dos factores
+anova_result <- aov(puntuacion ~ metodo, data = data)
+summary(anova_result)
+```
+
+Ahora podemos aplicar un método para la igualdad de medias.
+
+```{r wilcox_4}
+wilcox.test(data[data$metodo=="Moderno",]$puntuacion,
+            data[data$metodo=="Tradicional",]$puntuacion, 
+            alternative = "two.sided")
+```
+
+Dado que el $p-valor$ es menor que $0.05$ podemos rechazar la hipótesis nula de igualdad de distribuciones. Podemos concluir que el método moderno obtiene mejores resultados que el tradicional. 
+
+Calculamos el intervalo de confianza para la diferencia de medias.
+
+```{r IC}
+library(DescTools)
+### Media grupo Moderno
+mean(data[data$metodo=="Moderno",]$puntuacion)
+
+### Media grupo Tradicional
+mean(data[data$metodo=="Tradicional",]$puntuacion)
+
+MeanDiffCI(data[data$metodo=="Moderno",]$puntuacion,
+           data[data$metodo=="Tradicional",]$puntuacion, method="classic", na.rm=TRUE)
+```
+
+De este modo, podemos concluir que el método `Moderno` consigue entre un $6.1$ y un $17.7$ más de puntuación que el método `Tradicional`.
+
+### Ejercicio 6
+
+Una empresa de manufactura quiere evaluar el efecto de dos factores en la durabilidad de un producto. Los dos factores considerados son el tipo de material utilizado (Material A y Material B) y la temperatura de fabricación (Baja, Media y Alta). Se seleccionan 4 muestras aleatoriamente para cada combinación de materiales y temperaturas, y se mide la durabilidad en días. Los datos obtenidos se muestran en la siguiente tabla:
+
+| Temperatura / Material | Material A       | Material B       |
+|------------------------|------------------|------------------|
+| Baja                   | 15, 18, 16, 17   | 14, 17, 16, 15   |
+| Media                  | 20, 22, 21, 19   | 19, 18, 20, 21   |
+| Alta                   | 25, 27, 26, 24   | 23, 22, 24, 25   |
+
+Se realiza un ANOVA de dos factores y se aplica la prueba de Tukey HSD.
+
+```{r anova_61}
+### Datos de durabilidad
+durabilidad <- c(15, 18, 16, 17, 14, 17, 16, 15, 
+                 20, 22, 21, 19, 19, 18, 20, 21, 
+                 25, 27, 26, 24, 23, 22, 24, 25)
+
+### Factor de material
+material <- factor(rep(c("A", "B"), each = 12))
+
+### Factor de temperatura
+temperatura <- factor(rep(c("Baja", "Media", "Alta"), each = 4, times = 2))
+
+### Crear un data frame con los datos
+datos <- data.frame(durabilidad, material, temperatura)
+
+### Realizar ANOVA de dos factores
+modelo <- aov(durabilidad ~ material * temperatura, data = datos)
+
+### Resumen del modelo
+summary(modelo)
+```
+
+En esta salida:
+
+- El factor "material" es altamente significativo (p < 0.05).
+- El factor "temperatura" es significativo (p < 0.05).
+- La interacción "material:temperatura" también ES significativa (p < 0.05).
+
+Realizamos la prueba post-hoc de Tukey HSD de comparación de medias:
+
+```{r tuk6}
+### Realizar la prueba de Tukey HSD
+tukey <- TukeyHSD(modelo)
+
+### Mostrar los resultados
+print(tukey)
+```
+A la vista de los resultados:  ¿Qué contrastes de hipótesis tiene sentido plantear para realizar un experimento en el futuro?
+
+**Solución**: 
+
+A la vista de los resultados del análisis ANOVA y la prueba de Tukey HSD en el ejemplo anterior, se pueden plantear varios contrastes de hipótesis que tengan sentido para futuros experimentos.
+
+**Interpretación de los resultados del ANOVA:**
+
+En la salida del análisis:
+
+- El factor **"material" ES altamente significativo** (p = 7.44e-09 < 0.05) ***, indicando que existe una diferencia significativa en la durabilidad entre el Material A y el Material B.
+- El factor **"temperatura" ES significativo** (p = 3.03e-05 < 0.05) ***, indicando que la temperatura de fabricación afecta significativamente la durabilidad del producto.
+- La interacción **"material:temperatura" ES significativa** (p = 3.03e-05 < 0.05) ***, lo que indica que el efecto de la temperatura en la durabilidad depende del tipo de material utilizado y viceversa.
+
+**Resultados de la prueba de Tukey HSD:**
+
+La prueba post-hoc revela que:
+- El Material B tiene una durabilidad significativamente mayor que el Material A (diferencia de 5.33 días).
+- La temperatura alta produce mayor durabilidad que las temperaturas baja y media.
+- Existen diferencias significativas en múltiples comparaciones de las combinaciones material-temperatura, confirmando la presencia de interacción.
+
+**Contrastes de hipótesis relevantes para futuros experimentos:**
+
+Dado que los tres efectos (material, temperatura e interacción) resultaron significativos, los contrastes más pertinentes son:
+
+**1. Exploración detallada de la interacción material-temperatura**
+
+- **Hipótesis Nula (H0):** El efecto de la temperatura en la durabilidad es el mismo para ambos materiales.
+- **Hipótesis Alternativa (H1):** El efecto de la temperatura en la durabilidad difiere según el tipo de material.
+
+Este contraste es fundamental dado que la interacción es significativa. Es importante entender cómo cada material responde a diferentes temperaturas.
+
+**2. Comparaciones específicas entre combinaciones**
+
+- **H0:** No hay diferencia en durabilidad entre Material A a temperatura alta y Material B a temperatura baja.
+- **H1:** Existe diferencia significativa entre estas combinaciones.
+
+Esto ayudaría a determinar si un material "inferior" a alta temperatura puede igualar o superar a un material "superior" a baja temperatura.
+
+**3. Identificación del punto óptimo**
+
+- Investigar cuál combinación de material y temperatura maximiza la durabilidad.
+- Evaluar la relación costo-beneficio: ¿vale la pena usar Material B si es más costoso?
+- Determinar si temperaturas intermedias no evaluadas podrían ofrecer ventajas.
+
+**4. Validación de supuestos del modelo**
+
+Para asegurar la validez de los resultados obtenidos:
+
+- **H0:** Las varianzas de los grupos son homogéneas (prueba de Levene o Bartlett).
+- **H1:** Las varianzas de los grupos no son homogéneas.
+
+- **H0:** Los residuos del modelo siguen una distribución normal (prueba de Shapiro-Wilk).
+- **H1:** Los residuos del modelo no siguen una distribución normal.
+
+**5. Extensión del diseño experimental**
+
+Si se planean futuros experimentos, considerar:
+
+- **Niveles adicionales de temperatura:** Incluir temperaturas intermedias para modelar mejor la relación.
+- **Diseño de superficie de respuesta:** Para encontrar la combinación óptima de factores.
+- **Otros factores:** Presión de fabricación, humedad, tiempo de exposición, etc.
+
+**6. Estudios de seguimiento**
+
+- **H0:** No hay diferencia significativa en durabilidad debido a un nuevo factor X (presión, humedad, etc.).
+- **H1:** El factor X afecta significativamente la durabilidad.
+
+**Recomendaciones metodológicas:**
+
+- **Aumentar el tamaño de la muestra:** Aunque los efectos fueron significativos, mayor tamaño muestral permitiría detectar diferencias más sutiles.
+- **Replicación:** Repetir el experimento para confirmar los resultados.
+- **Diseño factorial completo:** Si se agregan factores, considerar todas las combinaciones posibles.
+- **Análisis económico:** Evaluar si los beneficios en durabilidad justifican los costos de Material B o temperaturas altas.
+
+En resumen, dado que tanto los efectos principales como la interacción son significativos, los futuros experimentos deberían centrarse en: (1) entender en profundidad cómo interactúan material y temperatura, (2) optimizar el proceso para maximizar durabilidad considerando costos, y (3) explorar factores adicionales que puedan mejorar aún más el producto.
+
+### Ejercicio 7
+
+ Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los empleados en una tarea de productividad. Los dos factores considerados son el tipo de capacitación (Capacitación A y Capacitación B) y el horario de trabajo (Turno de Mañana, Turno de Tarde y Turno de Noche). Para ello, se seleccionan 3 empleados aleatoriamente para cada combinación de capacitación y horario, y se registra su rendimiento en la tarea (en puntos).
+
+Los datos obtenidos se muestran en la siguiente tabla:
+
+| Horario / Capacitación | Capacitación A      | Capacitación B      |
+|------------------------|---------------------|---------------------|
+| Mañana                 | 78, 82, 81          | 85, 87, 88          |
+| Tarde                  | 72, 75, 74          | 80, 82, 83          |
+| Noche                  | 65, 68, 66          | 60, 62, 61          |
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en el rendimiento de los empleados debido al tipo de capacitación, al horario de trabajo, y a la interacción entre ambos factores.
+
+**Solución**:
+
+Este es un problema de ANOVA de dos factores (o ANOVA bifactorial) con interacción. Los dos factores son:
+- Factor A: Tipo de capacitación (2 niveles: A y B)
+- Factor B: Horario de trabajo (3 niveles: Mañana, Tarde, Noche)
+
+Tenemos 3 réplicas para cada combinación de factores.
+
+**Paso 1: Organizar los datos**
+
+| Horario / Capacitación | Capacitación A      | Capacitación B      |
+|------------------------|---------------------|---------------------|
+| Mañana                 | 78, 82, 81          | 85, 87, 88          |
+| Tarde                  | 72, 75, 74          | 80, 82, 83          |
+| Noche                  | 65, 68, 66          | 60, 62, 61          |
+
+**Paso 2: Calcular las medias de cada celda**
+
+- Mañana-A: $\bar{X}_{11} = \frac{78+82+81}{3} = 80.33$
+- Mañana-B: $\bar{X}_{12} = \frac{85+87+88}{3} = 86.67$
+- Tarde-A: $\bar{X}_{21} = \frac{72+75+74}{3} = 73.67$
+- Tarde-B: $\bar{X}_{22} = \frac{80+82+83}{3} = 81.67$
+- Noche-A: $\bar{X}_{31} = \frac{65+68+66}{3} = 66.33$
+- Noche-B: $\bar{X}_{32} = \frac{60+62+61}{3} = 61.00$
+
+**Paso 3: Calcular medias marginales**
+
+Medias por Capacitación:
+- $\bar{X}_{\cdot 1} = \frac{80.33+73.67+66.33}{3} = 73.44$ (Capacitación A)
+- $\bar{X}_{\cdot 2} = \frac{86.67+81.67+61.00}{3} = 76.44$ (Capacitación B)
+
+Medias por Horario:
+- $\bar{X}_{1\cdot} = \frac{80.33+86.67}{2} = 83.50$ (Mañana)
+- $\bar{X}_{2\cdot} = \frac{73.67+81.67}{2} = 77.67$ (Tarde)
+- $\bar{X}_{3\cdot} = \frac{66.33+61.00}{2} = 63.67$ (Noche)
+
+Media global:
+$$\bar{X}_{\cdot\cdot} = \frac{78+82+81+85+87+88+72+75+74+80+82+83+65+68+66+60+62+61}{18} = 74.94$$
+
+**Paso 4: Calcular las Sumas de Cuadrados**
+
+$SS_{Total}$: Suma de cuadrados total
+$$SS_{Total} = \sum_{i,j,k}(X_{ijk} - \bar{X}_{\cdot\cdot})^2$$
+
+Calculando cada término:
+$$SS_{Total} = (78-74.94)^2 + (82-74.94)^2 + ... + (61-74.94)^2 = 1736.94$$
+
+$SS_A$: Suma de cuadrados del Factor A (Capacitación)
+$$SS_A = nb\sum_{j}(\bar{X}_{\cdot j} - \bar{X}_{\cdot\cdot})^2 = 3 \times 3 \times [(73.44-74.94)^2 + (76.44-74.94)^2] = 40.50$$
+
+$SS_B$: Suma de cuadrados del Factor B (Horario)
+$$SS_B = na\sum_{i}(\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2 = 3 \times 2 \times [(83.50-74.94)^2 + (77.67-74.94)^2 + (63.67-74.94)^2] = 1235.11$$
+
+$SS_{AB}$: Suma de cuadrados de la Interacción
+$$SS_{AB} = n\sum_{i,j}(\bar{X}_{ij} - \bar{X}_{i\cdot} - \bar{X}_{\cdot j} + \bar{X}_{\cdot\cdot})^2$$
+$$SS_{AB} = 3 \times [(80.33-83.50-73.44+74.94)^2 + ... + (61.00-63.67-76.44+74.94)^2] = 323.11$$
+
+$SS_E$: Suma de cuadrados del Error
+$$SS_E = SS_{Total} - SS_A - SS_B - SS_{AB} = 1736.94 - 40.50 - 1235.11 - 323.11 = 138.22$$
+
+**Paso 5: Calcular los grados de libertad**
+
+- $df_A = a - 1 = 2 - 1 = 1$
+- $df_B = b - 1 = 3 - 1 = 2$
+- $df_{AB} = (a-1)(b-1) = 1 \times 2 = 2$
+- $df_E = ab(n-1) = 2 \times 3 \times 2 = 12$
+- $df_{Total} = N - 1 = 18 - 1 = 17$
+
+**Paso 6: Calcular los Cuadrados Medios**
+
+- $MS_A = \frac{SS_A}{df_A} = \frac{40.50}{1} = 40.50$
+- $MS_B = \frac{SS_B}{df_B} = \frac{1235.11}{2} = 617.56$
+- $MS_{AB} = \frac{SS_{AB}}{df_{AB}} = \frac{323.11}{2} = 161.56$
+- $MS_E = \frac{SS_E}{df_E} = \frac{138.22}{12} = 11.52$
+
+**Paso 7: Calcular los estadísticos F**
+
+- $F_A = \frac{MS_A}{MS_E} = \frac{40.50}{11.52} = 3.52$
+- $F_B = \frac{MS_B}{MS_E} = \frac{617.56}{11.52} = 53.61$
+- $F_{AB} = \frac{MS_{AB}}{MS_E} = \frac{161.56}{11.52} = 14.03$
+
+**Paso 8: Determinar valores críticos y conclusiones**
+
+Para $\alpha = 0.05$:
+- $F_{crítico}(1, 12) \approx 4.75$ para el Factor A
+- $F_{crítico}(2, 12) \approx 3.89$ para el Factor B
+- $F_{crítico}(2, 12) \approx 3.89$ para la Interacción
+
+**Conclusiones:**
+
+1. **Factor A (Capacitación)**: $F_A = 3.52 < 4.75$ → No rechazamos $H_0$. No hay diferencia significativa entre los tipos de capacitación al nivel 0.05.
+
+2. **Factor B (Horario)**: $F_B = 53.61 > 3.89$ → Rechazamos $H_0$. Hay diferencias significativas entre los horarios de trabajo.
+
+3. **Interacción AB**: $F_{AB} = 14.03 > 3.89$ → Rechazamos $H_0$. Hay una interacción significativa entre capacitación y horario.
+
+La presencia de interacción significativa indica que el efecto de la capacitación depende del horario de trabajo (o viceversa).
+
+**Tabla ANOVA:**
+
+| Fuente        | SS      | df | MS     | F      | p-valor |
+|---------------|---------|-----|--------|--------|---------|
+| Capacitación  | 40.50   | 1   | 40.50  | 3.52   | > 0.05  |
+| Horario       | 1235.11 | 2   | 617.56 | 53.61  | < 0.01  |
+| Interacción   | 323.11  | 2   | 161.56 | 14.03  | < 0.01  |
+| Error         | 138.22  | 12  | 11.52  |        |         |
+| Total         | 1736.94 | 17  |        |        |         |
+
+### Ejercicio 8
+Aplica un método de comparación de medias al ejercicio anterior para estudiar dónde se encuentran las diferencias estadísticamente significativas.
+
+**Solución**: 
+
+Del Ejercicio 7 sabemos que el factor Horario tiene diferencias significativas. Vamos a aplicar el método de Tukey HSD (Honest Significant Difference) para identificar qué horarios difieren entre sí.
+
+**Datos del Ejercicio 7:**
+- Media Mañana: $\bar{X}_{Mañana} = 83.50$
+- Media Tarde: $\bar{X}_{Tarde} = 77.67$
+- Media Noche: $\bar{X}_{Noche} = 63.67$
+- $MS_E = 11.52$ (del ANOVA)
+- $n = 6$ observaciones por horario (3 réplicas × 2 capacitaciones)
+
+**Paso 1: Calcular el estadístico HSD de Tukey**
+
+La diferencia mínima significativa (HSD) se calcula como:
+
+$$HSD = q_{\alpha, k, df_E} \times \sqrt{\frac{MS_E}{n}}$$
+
+donde:
+- $q_{\alpha, k, df_E}$ es el valor crítico de la distribución de Tukey
+- Para $\alpha = 0.05$, $k = 3$ grupos, $df_E = 12$: $q_{0.05, 3, 12} \approx 3.77$
+- $MS_E = 11.52$
+- $n = 6$
+
+$$HSD = 3.77 \times \sqrt{\frac{11.52}{6}} = 3.77 \times 1.386 = 5.22$$
+
+**Paso 2: Calcular las diferencias entre medias**
+
+Comparación Mañana vs Tarde:
+$$|\bar{X}_{Mañana} - \bar{X}_{Tarde}| = |83.50 - 77.67| = 5.83$$
+
+Comparación Mañana vs Noche:
+$$|\bar{X}_{Mañana} - \bar{X}_{Noche}| = |83.50 - 63.67| = 19.83$$
+
+Comparación Tarde vs Noche:
+$$|\bar{X}_{Tarde} - \bar{X}_{Noche}| = |77.67 - 63.67| = 14.00$$
+
+**Paso 3: Comparar con HSD**
+
+- Mañana vs Tarde: $5.83 > 5.22$ → **Diferencia significativa**
+- Mañana vs Noche: $19.83 > 5.22$ → **Diferencia significativa**
+- Tarde vs Noche: $14.00 > 5.22$ → **Diferencia significativa**
+
+**Conclusión:**
+
+Todos los horarios difieren significativamente entre sí al nivel $\alpha = 0.05$. 
+
+El rendimiento es significativamente mayor en el turno de Mañana, seguido por el turno de Tarde, y el menor rendimiento se observa en el turno de Noche:
+
+$$\text{Mañana} > \text{Tarde} > \text{Noche}$$
+
+**Nota sobre la Interacción:**
+
+Es importante recordar que en el Ejercicio 7 encontramos una interacción significativa entre Capacitación y Horario. Esto significa que las diferencias entre horarios pueden variar según el tipo de capacitación. Para un análisis más completo, se podrían realizar comparaciones de medias por separado para cada tipo de capacitación.
+
+### Ejercicio 9
+
+Un investigador quiere evaluar el efecto de tres diferentes dietas en el aumento de peso de ratones. Para ello, selecciona al azar 15 ratones y los divide en tres grupos de 5 ratones cada uno. Cada grupo es alimentado con una dieta diferente durante un período de 8 semanas. Al final del experimento, se mide el aumento de peso (en gramos) de cada ratón. Los datos obtenidos se muestran a continuación:
+
+**Dieta A:** 20, 21, 19, 23, 22  
+**Dieta B:** 30, 32, 29, 31, 33  
+**Dieta C:** 25, 27, 26, 24, 28  
+
+Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en el aumento de peso entre las dietas utilizando el método de Bonferroni para comparaciones múltiples.
+
+**Solución**: 
+
+**Paso 1: Realizar el ANOVA de un factor**
+
+Primero calculamos las medias de cada grupo:
+
+- Dieta A: $\bar{X}_A = \frac{20+21+19+23+22}{5} = 21$
+- Dieta B: $\bar{X}_B = \frac{30+32+29+31+33}{5} = 31$
+- Dieta C: $\bar{X}_C = \frac{25+27+26+24+28}{5} = 26$
+
+Media global:
+$$\bar{X} = \frac{21+31+26}{3} = 26$$
+
+**Paso 2: Calcular las sumas de cuadrados**
+
+$SS_{Entre}$ (Between groups):
+$$SS_{Entre} = n\sum_{i}(\bar{X}_i - \bar{X})^2 = 5[(21-26)^2 + (31-26)^2 + (26-26)^2]$$
+$$SS_{Entre} = 5[25 + 25 + 0] = 250$$
+
+$SS_{Dentro}$ (Within groups):
+
+Para Dieta A:
+$$SS_A = (20-21)^2 + (21-21)^2 + (19-21)^2 + (23-21)^2 + (22-21)^2 = 10$$
+
+Para Dieta B:
+$$SS_B = (30-31)^2 + (32-31)^2 + (29-31)^2 + (31-31)^2 + (33-31)^2 = 10$$
+
+Para Dieta C:
+$$SS_C = (25-26)^2 + (27-26)^2 + (26-26)^2 + (24-26)^2 + (28-26)^2 = 10$$
+
+$$SS_{Dentro} = SS_A + SS_B + SS_C = 10 + 10 + 10 = 30$$
+
+$SS_{Total}$:
+$$SS_{Total} = SS_{Entre} + SS_{Dentro} = 250 + 30 = 280$$
+
+**Paso 3: Calcular grados de libertad y cuadrados medios**
+
+- $df_{Entre} = k - 1 = 3 - 1 = 2$
+- $df_{Dentro} = N - k = 15 - 3 = 12$
+- $df_{Total} = N - 1 = 15 - 1 = 14$
+
+Cuadrados medios:
+- $MS_{Entre} = \frac{SS_{Entre}}{df_{Entre}} = \frac{250}{2} = 125$
+- $MS_{Dentro} = \frac{SS_{Dentro}}{df_{Dentro}} = \frac{30}{12} = 2.5$
+
+**Paso 4: Calcular el estadístico F**
+
+$$F = \frac{MS_{Entre}}{MS_{Dentro}} = \frac{125}{2.5} = 50$$
+
+Valor crítico: $F_{0.05}(2, 12) \approx 3.89$
+
+Como $F = 50 > 3.89$, rechazamos $H_0$. Hay diferencias significativas entre las dietas.
+
+**Paso 5: Aplicar el método de Bonferroni**
+
+El método de Bonferroni ajusta el nivel de significancia dividiendo $\alpha$ por el número de comparaciones.
+
+Número de comparaciones: $C = \frac{k(k-1)}{2} = \frac{3 \times 2}{2} = 3$
+
+Nivel de significancia ajustado: $\alpha_{Bonferroni} = \frac{0.05}{3} = 0.0167$
+
+Para el test t de comparaciones pareadas, el valor crítico es $t_{\alpha/2, df_{Dentro}}$:
+$$t_{0.00835, 12} \approx 2.98$$ (usando $\alpha/2 = 0.0167/2 = 0.00835$)
+
+**Paso 6: Calcular las diferencias entre medias**
+
+Error estándar para comparaciones:
+$$SE = \sqrt{\frac{2 \times MS_{Dentro}}{n}} = \sqrt{\frac{2 \times 2.5}{5}} = \sqrt{1} = 1$$
+
+Diferencia mínima significativa (Bonferroni):
+$$LSD_{Bonferroni} = t_{0.00835, 12} \times SE = 2.98 \times 1 = 2.98$$
+
+Comparaciones:
+
+**Dieta A vs Dieta B:**
+$$|\bar{X}_A - \bar{X}_B| = |21 - 31| = 10$$
+$$10 > 2.98 \rightarrow \text{Diferencia significativa}$$
+
+**Dieta A vs Dieta C:**
+$$|\bar{X}_A - \bar{X}_C| = |21 - 26| = 5$$
+$$5 > 2.98 \rightarrow \text{Diferencia significativa}$$
+
+**Dieta B vs Dieta C:**
+$$|\bar{X}_B - \bar{X}_C| = |31 - 26| = 5$$
+$$5 > 2.98 \rightarrow \text{Diferencia significativa}$$
+
+**Conclusión:**
+
+Con el método de Bonferroni (nivel de significancia ajustado de 0.0167), todas las dietas difieren significativamente entre sí:
+
+- La Dieta B produce el mayor aumento de peso (31 gramos)
+- La Dieta C produce un aumento intermedio (26 gramos)
+- La Dieta A produce el menor aumento de peso (21 gramos)
+
+$$\text{Dieta B} > \text{Dieta C} > \text{Dieta A}$$
+
+**Tabla ANOVA:**
+
+| Fuente     | SS   | df | MS    | F   | p-valor |
+|------------|------|----|-------|-----|---------|
+| Entre      | 250  | 2  | 125   | 50  | < 0.01  |
+| Dentro     | 30   | 12 | 2.5   |     |         |
+| Total      | 280  | 14 |       |     |         |
+
+
+### Ejercicio 10
+Un investigador quiere evaluar el efecto de tres factores en el rendimiento de un motor: el tipo de combustible (Gasolina, Diésel, Eléctrico), la temperatura (Baja, Media, Alta) y la presión (Baja, Media, Alta). Para ello, se mide el rendimiento del motor (en kilovatios) bajo todas las combinaciones posibles de estos factores. Los datos obtenidos se muestran a continuación:
+
+| Combustible | Temperatura | Presión | Rendimiento |
+|-------------|--------------|---------|-------------|
+| Gasolina    | Baja         | Baja    | 150         |
+| Gasolina    | Baja         | Media   | 160         |
+| Gasolina    | Baja         | Alta    | 155         |
+| Gasolina    | Media        | Baja    | 165         |
+| Gasolina    | Media        | Media   | 170         |
+| Gasolina    | Media        | Alta    | 168         |
+| Gasolina    | Alta         | Baja    | 160         |
+| Gasolina    | Alta         | Media   | 158         |
+| Gasolina    | Alta         | Alta    | 162         |
+| Diésel      | Baja         | Baja    | 140         |
+| Diésel      | Baja         | Media   | 145         |
+| Diésel      | Baja         | Alta    | 148         |
+| Diésel      | Media        | Baja    | 150         |
+| Diésel      | Media        | Media   | 155         |
+| Diésel      | Media        | Alta    | 152         |
+| Diésel      | Alta         | Baja    | 148         |
+| Diésel      | Alta         | Media   | 150         |
+| Diésel      | Alta         | Alta    | 149         |
+| Eléctrico   | Baja         | Baja    | 130         |
+| Eléctrico   | Baja         | Media   | 135         |
+| Eléctrico   | Baja         | Alta    | 138         |
+| Eléctrico   | Media        | Baja    | 140         |
+| Eléctrico   | Media        | Media   | 145         |
+| Eléctrico   | Media        | Alta    | 142         |
+| Eléctrico   | Alta         | Baja    | 138         |
+| Eléctrico   | Alta         | Media   | 140         |
+| Eléctrico   | Alta         | Alta    | 139         |
+
+Estudia el efecto de cada uno de los factores en el rendimiento, así como el efecto de las posibles interacciones.
+
+**Solución**: 
+
+Este es un problema de ANOVA de tres factores con una observación por celda. Tenemos:
+
+- Factor A: Combustible (3 niveles)
+- Factor B: Temperatura (3 niveles)  
+- Factor C: Presión (3 niveles)
+- Total de observaciones: N = 27
+
+**Paso 1: Calcular medias marginales**
+
+**Medias por Combustible:**
+
+- Gasolina: $\bar{X}_{Gas} = \frac{150+160+155+165+170+168+160+158+162}{9} = 160.89$
+- Diésel: $\bar{X}_{Dies} = \frac{140+145+148+150+155+152+148+150+149}{9} = 148.56$
+- Eléctrico: $\bar{X}_{Elec} = \frac{130+135+138+140+145+142+138+140+139}{9} = 138.56$
+
+**Medias por Temperatura:**
+
+- Baja: $\bar{X}_{Baja} = \frac{150+160+155+140+145+148+130+135+138}{9} = 144.56$
+- Media: $\bar{X}_{Media} = \frac{165+170+168+150+155+152+140+145+142}{9} = 154.11$
+- Alta: $\bar{X}_{Alta} = \frac{160+158+162+148+150+149+138+140+139}{9} = 149.33$
+
+**Medias por Presión:**
+
+- Baja: $\bar{X}_{PBaja} = \frac{150+165+160+140+150+148+130+140+138}{9} = 146.78$
+- Media: $\bar{X}_{PMed} = \frac{160+170+158+145+155+150+135+145+140}{9} = 150.89$
+- Alta: $\bar{X}_{PAlta} = \frac{155+168+162+148+152+149+138+142+139}{9} = 150.33$
+
+**Media global:**
+$$\bar{X} = \frac{\sum X_{ijk}}{27} = \frac{4070}{27} = 150.74$$
+
+**Paso 2: Calcular las Sumas de Cuadrados**
+
+$SS_{Total}$:
+$$SS_{Total} = \sum (X_{ijk} - \bar{X})^2$$
+Calculando: $SS_{Total} = 2983.63$
+
+$SS_A$ (Combustible):
+$$SS_A = 9 \times [(160.89-150.74)^2 + (148.56-150.74)^2 + (138.56-150.74)^2]$$
+$$SS_A = 9 \times [103.04 + 4.75 + 148.35] = 2305.26$$
+
+$SS_B$ (Temperatura):
+$$SS_B = 9 \times [(144.56-150.74)^2 + (154.11-150.74)^2 + (149.33-150.74)^2]$$
+$$SS_B = 9 \times [38.21 + 11.36 + 1.99] = 464.04$$
+
+$SS_C$ (Presión):
+$$SS_C = 9 \times [(146.78-150.74)^2 + (150.89-150.74)^2 + (150.33-150.74)^2]$$
+$$SS_C = 9 \times [15.68 + 0.02 + 0.17] = 142.83$$
+
+Para un diseño con una observación por celda sin réplicas, no podemos estimar las interacciones de orden superior de manera independiente. Asumiremos que las interacciones de tercer orden son despreciables y usaremos esa variación como error.
+
+$SS_{Error}$ (residual, asumiendo interacciones de orden superior despreciables):
+$$SS_{Error} = SS_{Total} - SS_A - SS_B - SS_C = 2983.63 - 2305.26 - 464.04 - 142.83 = 71.50$$
+
+**Paso 3: Grados de libertad**
+
+- $df_A = 3 - 1 = 2$ (Combustible)
+- $df_B = 3 - 1 = 2$ (Temperatura)
+- $df_C = 3 - 1 = 2$ (Presión)
+- $df_{Error} = 27 - 1 - 2 - 2 - 2 = 20$ (aproximadamente, en diseños sin réplicas)
+- $df_{Total} = 27 - 1 = 26$
+
+**Paso 4: Cuadrados Medios**
+
+- $MS_A = \frac{2305.26}{2} = 1152.63$
+- $MS_B = \frac{464.04}{2} = 232.02$
+- $MS_C = \frac{142.83}{2} = 71.42$
+- $MS_{Error} = \frac{71.50}{20} = 3.58$
+
+**Paso 5: Estadísticos F**
+
+- $F_A = \frac{MS_A}{MS_{Error}} = \frac{1152.63}{3.58} = 322.02$
+- $F_B = \frac{MS_B}{MS_{Error}} = \frac{232.02}{3.58} = 64.81$
+- $F_C = \frac{MS_C}{MS_{Error}} = \frac{71.42}{3.58} = 19.95$
+
+**Paso 6: Valores críticos y conclusiones**
+
+Para $\alpha = 0.05$ y $df_1 = 2$, $df_2 = 20$: $F_{crítico} \approx 3.49$
+
+**Conclusiones:**
+
+1. **Factor A (Combustible)**: $F_A = 322.02 > 3.49$ → **Altamente significativo**
+
+   - El tipo de combustible tiene un efecto muy significativo en el rendimiento del motor.
+   - Gasolina > Diésel > Eléctrico
+
+2. **Factor B (Temperatura)**: $F_B = 64.81 > 3.49$ → **Altamente significativo**
+
+   - La temperatura tiene un efecto muy significativo en el rendimiento.
+   - Temperatura Media produce el mejor rendimiento, seguido de Alta y luego Baja.
+
+3. **Factor C (Presión)**: $F_C = 19.95 > 3.49$ → **Significativo**
+
+   - La presión tiene un efecto significativo en el rendimiento.
+   - Presión Media y Alta producen rendimientos similares y superiores a Presión Baja.
+
+**Tabla ANOVA:**
+
+| Fuente       | SS      | df | MS      | F      | p-valor |
+|--------------|---------|-----|---------|--------|---------|
+| Combustible  | 2305.26 | 2   | 1152.63 | 322.02 | < 0.001 |
+| Temperatura  | 464.04  | 2   | 232.02  | 64.81  | < 0.001 |
+| Presión      | 142.83  | 2   | 71.42   | 19.95  | < 0.001 |
+| Error        | 71.50   | 20  | 3.58    |        |         |
+| Total        | 2983.63 | 26  |         |        |         |
+
+**Interpretación general:**
+
+Los tres factores tienen efectos estadísticamente significativos sobre el rendimiento del motor. El combustible es el factor más importante (mayor suma de cuadrados y F más alto), seguido por la temperatura y luego la presión.
+
+Para maximizar el rendimiento del motor, se recomienda:
+
+- Usar combustible de Gasolina
+- Operar a Temperatura Media
+- Mantener Presión Media o Alta
+
+**Nota:** Este análisis asume que las interacciones entre factores son despreciables. En un estudio más completo con réplicas, se podrían evaluar las interacciones de dos y tres factores.

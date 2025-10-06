@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Análisis de Varianza – Problemas de Inferencia Estadística</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./tema3_NOPARA1_solucion.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="soluciones.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema4_ANOVA1_solucion.html"><span class="chapter-title">Análisis de Varianza</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Problemas de Inferencia Estadística</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Análisis Exploratorio de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Procesado y Limpieza de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_IC1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intervalos de Confianza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_CH1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contrastes de Hipótesis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_PARA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimación y contraste paramétrico 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_PARA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimación y contraste paramétrico 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema3_NOPARA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contraste no paramétrico</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema4_ANOVA1_solucion.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Análisis de Varianza</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio 3</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4">Ejercicio 4</a></li>
+  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5">Ejercicio 5</a></li>
+  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6">Ejercicio 6</a></li>
+  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7">Ejercicio 7</a></li>
+  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8">Ejercicio 8</a></li>
+  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9">Ejercicio 9</a></li>
+  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10">Ejercicio 10</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Análisis de Varianza</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ejercicio-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h3>
+<p>Se realizó un experimento para investigar si hay diferencias significativas en el tiempo de reacción ante un estímulo visual entre tres grupos de participantes que fueron sometidos a diferentes niveles de iluminación: normal, baja y alta. Se registraron los tiempos de reacción (en milisegundos) para cada participante en cada grupo. Los datos obtenidos se muestran a continuación:</p>
+<p><strong>Grupo Normal:</strong> 40, 45, 38, 42, 39<br>
+<strong>Grupo Baja:</strong> 48, 50, 55, 52, 51<br>
+<strong>Grupo Alta:</strong> 35, 37, 32, 40, 36</p>
+<p>Usando un nivel de significancia de 0.05, ¿hay diferencias significativas en el tiempo de reacción entre los tres grupos?</p>
+<p><strong>Solución</strong>: Para determinar si hay diferencias significativas en el tiempo de reacción entre los tres grupos, podemos utilizar un análisis de varianza (ANOVA) de un factor. Aquí están los pasos para realizar el ANOVA:</p>
+<p><strong>Paso 1: Calcular las medias de cada grupo.</strong></p>
+<p>Grupo Normal: <span class="math inline">\(\bar{X}_1 = \frac{40 + 45 + 38 + 42 + 39}{5} = 40.8\)</span><br>
+Grupo Baja: <span class="math inline">\(\bar{X}_2 = \frac{48 + 50 + 55 + 52 + 51}{5} = 51.2\)</span><br>
+Grupo Alta: <span class="math inline">\(\bar{X}_3 = \frac{35 + 37 + 32 + 40 + 36}{5} = 36\)</span></p>
+<p><strong>Paso 2: Calcular la media global (promedio de todas las observaciones).</strong></p>
+<p><span class="math display">\[ \bar{X} = \frac{40.8 + 51.2 + 36}{3} \approx 42.67 \]</span></p>
+<p><strong>Paso 3: Calcular las sumas de cuadrados (SS).</strong></p>
+<p><span class="math display">\[ SS_{\text{Total}} = \sum (X_{ij} - \bar{X})^2 = \sum (X_{ij} - 42.67)^2 \approx 695.33 \]</span></p>
+<p><strong>Paso 4: Calcular las sumas de cuadrados entre grupos (SSB).</strong></p>
+<p><span class="math display">\[ SSB = \sum (\bar{X}_j - \bar{X})^2 \]</span></p>
+<p>Para cada grupo:</p>
+<p><span class="math display">\[ SSB_{\text{Grupo Normal}} = 5\cdot (40.8 - 42,7)^2\approx 17.42 \]</span> <span class="math display">\[ SSB_{\text{Grupo Baja}} = 5 \cdot (51.2 - 42.7)^2 \approx 364.09\]</span> <span class="math display">\[ SSB_{\text{Grupo Alta}} = 5 \cdot (36 - 42.7)^2 \approx 222.22\]</span></p>
+<p>De modo que: <span class="math display">\[ SSB = 17.42+364.09+222.22 \approx  603.73 \]</span></p>
+<p><strong>Paso 5: Calcular las sumas de cuadrados dentro de los grupos (SSW).</strong> <span class="math display">\[ SSW = \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij}-\bar{X}_i)^2 \]</span> Para cada grupo:</p>
+<p><span class="math display">\[ SS_{\text{Grupo Normal}} = (40-40.8)^2 + (45-40.8)^2 + (38-40.8)^2 + (42-40.8)^2 + (39-40.8)^2= 30.8\]</span> <span class="math display">\[ SS_{\text{Grupo Baja}} = (48-51.2)^2 + (50-51.2)^2 + (55-51.2)^2 + (52-51.2)^2 + (51-51.2)^2= 26.8 \]</span> <span class="math display">\[ SS_{\text{Grupo Alta}} = (35-36)^2 + (37-36)^2 + (32-36)^2 + (40-36)^2 + (36-36)^2 =34\]</span></p>
+<p>De donde:</p>
+<p><span class="math display">\[ SSW = 30.8+26.8+34=91.6
+\]</span></p>
+<p><strong>Paso 6: Calcular los grados de libertad (df).</strong></p>
+<p><span class="math display">\[ df_{\text{Total}} = N - 1 =15-1=14\]</span> <span class="math display">\[ df_{\text{Grupos}} = k - 1 =3-1=2\]</span> <span class="math display">\[ df_{\text{Dentro de grupos}} = N - k =15-3=12\]</span></p>
+<p>Donde <span class="math inline">\(N\)</span> es el número total de observaciones y <span class="math inline">\(k\)</span> es el número de grupos.</p>
+<p><strong>Paso 7: Calcular la estadística de prueba <span class="math inline">\(F\)</span>.</strong></p>
+<p><span class="math display">\[ F = \frac{MSG}{MSE} \]</span></p>
+<p>Donde <span class="math inline">\(MSG = \frac{SSB}{df_{\text{Grupos}}}\)</span> y <span class="math inline">\(MSE = \frac{SSW}{df_{\text{Dentro de grupos}}}\)</span>.</p>
+<p>De modo que:</p>
+<p><span class="math display">\[ F = \frac{603.73/2}{91.6/12} \approx 39.5 \]</span></p>
+<p><strong>Paso 8: Realizar la prueba de hipótesis.</strong></p>
+<ul>
+<li>Hipótesis nula (<span class="math inline">\(H_0\)</span>): No hay diferencias significativas entre los grupos (<span class="math inline">\(\mu_1 = \mu_2 = \mu_3\)</span>).</li>
+<li>Hipótesis alternativa (<span class="math inline">\(H_1\)</span>): Hay diferencias significativas entre los grupos.</li>
+</ul>
+<p>Para <span class="math inline">\(\alpha = 0.05\)</span> y los grados de libertad <span class="math inline">\(df_{\text{Grupos}} = 2\)</span> y <span class="math inline">\(df_{\text{Dentro de grupos}} = 12\)</span>, el valor crítico de la distribución <span class="math inline">\(F\)</span> es aproximadamente <span class="math inline">\(F_{\text{crítico}} = 3.89\)</span>.</p>
+<p>Por tanto, dado que <span class="math inline">\(F &gt; F_{\text{crítico}}\)</span>, rechazamos la hipótesis nula y concluimos que hay diferencias significativas entre los grupos.</p>
+<p>La tabla ANOVA queda como sigue:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fuente de variación</th>
+<th>Suma de cuadrados</th>
+<th>Grados de libertad</th>
+<th>Cuadrado Medio</th>
+<th>F</th>
+<th>Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Entre grupos</td>
+<td>603.7</td>
+<td>2</td>
+<td>301.9</td>
+<td>39.55</td>
+<td>&lt;0.001</td>
+</tr>
+<tr class="even">
+<td>Residual</td>
+<td>91.6</td>
+<td>12</td>
+<td>7.63</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>695.3</td>
+<td>14</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejercicio-2" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2">Ejercicio 2</h3>
+<p>Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los estudiantes URJC en un examen final. Los dos factores considerados son el tipo de método de estudio (Método Tradicional y Método Moderno) y el ambiente de estudio (Ambiente Silencioso y Ambiente con Ruido). Para ello, se seleccionan 5 estudiantes aleatoriamente para cada combinación de métodos y ambientes, y se registra su puntuación en el examen final.</p>
+<p>Los datos obtenidos se muestran en la siguiente tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Ambiente / Método</th>
+<th>Método Tradicional</th>
+<th>Método Moderno</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Silencioso</td>
+<td>85, 90, 88, 92, 87</td>
+<td>91, 93, 89, 94, 92</td>
+</tr>
+<tr class="even">
+<td>Con Ruido</td>
+<td>70, 75, 72, 78, 73</td>
+<td>77, 79, 74, 80, 76</td>
+</tr>
+</tbody>
+</table>
+<p>Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en las puntuaciones del examen debido al tipo de método de estudio, al ambiente de estudio, y a la interacción entre ambos factores.</p>
+<p><strong>Solución</strong>: Para resolver el problema anterior utilizando R, se puede seguir el siguiente procedimiento paso a paso. A continuación se presentan los comandos necesarios y sus salidas correspondientes:</p>
+<ol type="1">
+<li><strong>Ingresar los datos:</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Datos de las puntuaciones</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>silencioso_tradicional <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">87</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>silencioso_moderno <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">91</span>, <span class="dv">93</span>, <span class="dv">89</span>, <span class="dv">94</span>, <span class="dv">92</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ruido_tradicional <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">75</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">73</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ruido_moderno <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">79</span>, <span class="dv">74</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">### Crear un data frame</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">puntuacion =</span> <span class="fu">c</span>(silencioso_tradicional, silencioso_moderno, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                 ruido_tradicional, ruido_moderno),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Tradicional"</span>, <span class="st">"Moderno"</span>), <span class="at">each =</span> <span class="dv">5</span>, <span class="at">times =</span> <span class="dv">2</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ambiente =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Silencioso"</span>, <span class="st">"Ruido"</span>), <span class="at">each =</span> <span class="dv">10</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualizar el data frame</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   puntuacion      metodo   ambiente
+1          85 Tradicional Silencioso
+2          90 Tradicional Silencioso
+3          88 Tradicional Silencioso
+4          92 Tradicional Silencioso
+5          87 Tradicional Silencioso
+6          91     Moderno Silencioso
+7          93     Moderno Silencioso
+8          89     Moderno Silencioso
+9          94     Moderno Silencioso
+10         92     Moderno Silencioso
+11         70 Tradicional      Ruido
+12         75 Tradicional      Ruido
+13         72 Tradicional      Ruido
+14         78 Tradicional      Ruido
+15         73 Tradicional      Ruido
+16         77     Moderno      Ruido
+17         79     Moderno      Ruido
+18         74     Moderno      Ruido
+19         80     Moderno      Ruido
+20         76     Moderno      Ruido</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualizamos las interacciones</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggpubr"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggline</span>(data, <span class="at">x =</span> <span class="st">"metodo"</span>, <span class="at">y =</span> <span class="st">"puntuacion"</span>, <span class="at">color =</span> <span class="st">"ambiente"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">add =</span> <span class="fu">c</span>(<span class="st">"mean_se"</span>, <span class="st">"dotplot"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
+`binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema4_ANOVA1_solucion_files/figure-html/anova2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><strong>Realizar el ANOVA de dos factores:</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar el ANOVA de dos factores</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntuacion <span class="sc">~</span> metodo <span class="sc">*</span> ambiente, <span class="at">data =</span> data)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+metodo           1   61.3    61.3   9.423  0.00733 ** 
+ambiente         1 1080.4  1080.4 166.223 7.23e-10 ***
+metodo:ambiente  1    0.0     0.0   0.008  0.93120    
+Residuals       16  104.0     6.5                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li><strong>Interpretar los resultados:</strong></li>
+</ol>
+<ul>
+<li><strong>Método:</strong> El valor <span class="math inline">\(p\)</span> (Pr(&gt;F)) para el método es <span class="math inline">\(0.00733\)</span>, que es menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones del examen debida al tipo de método de estudio.</li>
+<li><strong>Ambiente:</strong> El valor <span class="math inline">\(p\)</span> (Pr(&gt;F)) para el ambiente es <span class="math inline">\(7.23e-10\)</span>, que es mucho menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones del examen debida al ambiente de estudio.</li>
+<li><strong>Interacción:</strong> El valor <span class="math inline">\(p\)</span> (Pr(&gt;F)) para la interacción es <span class="math inline">\(0.93120\)</span>, que es mayor que 0.05, indicando que no hay una interacción significativa entre el método de estudio y el ambiente de estudio.</li>
+</ul>
+<p>Por lo tanto, podemos concluir que tanto el método de estudio como el ambiente de estudio tienen un efecto significativo en las puntuaciones del examen, pero no hay una interacción significativa entre estos dos factores.</p>
+</section>
+<section id="ejercicio-3" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3">Ejercicio 3</h3>
+<p>Un equipo de investigadores quiere evaluar el efecto de dos factores en la satisfacción laboral de los empleados. Los dos factores considerados son el tipo de horario de trabajo (Horario Flexible y Horario Fijo) y el tipo de entorno de trabajo (Oficina Abierta y Oficina Cerrada). Se seleccionan 5 empleados aleatoriamente para cada combinación de horarios y entornos, y se registra su puntuación de satisfacción laboral en una escala de 1 a 100.</p>
+<p>Los datos obtenidos se muestran en la siguiente tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Entorno / Horario</th>
+<th>Horario Flexible</th>
+<th>Horario Fijo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Oficina Abierta</td>
+<td>78, 82, 85, 80, 84</td>
+<td>60, 65, 58, 63, 61</td>
+</tr>
+<tr class="even">
+<td>Oficina Cerrada</td>
+<td>88, 90, 87, 85, 89</td>
+<td>70, 73, 75, 72, 71</td>
+</tr>
+</tbody>
+</table>
+<p>Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en la satisfacción laboral debido al tipo de horario de trabajo, al entorno de trabajo, y a la interacción entre ambos factores.</p>
+<p><strong>Solución</strong>:</p>
+<ol type="1">
+<li><strong>Ingresar los datos:</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Datos de las puntuaciones</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>abierta_flexible <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">78</span>, <span class="dv">82</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">84</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>abierta_fija <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">58</span>, <span class="dv">63</span>, <span class="dv">61</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>cerrada_flexible <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">90</span>, <span class="dv">87</span>, <span class="dv">85</span>, <span class="dv">89</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>cerrada_fija <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">73</span>, <span class="dv">75</span>, <span class="dv">72</span>, <span class="dv">71</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">### Crear un data frame</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">satisfaccion =</span> <span class="fu">c</span>(abierta_flexible, abierta_fija, cerrada_flexible, cerrada_fija),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">horario =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Flexible"</span>, <span class="st">"Fijo"</span>), <span class="at">each =</span> <span class="dv">5</span>, <span class="at">times =</span> <span class="dv">2</span>)),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">entorno =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Abierta"</span>, <span class="st">"Cerrada"</span>), <span class="at">each =</span> <span class="dv">10</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualizar el data frame</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   satisfaccion  horario entorno
+1            78 Flexible Abierta
+2            82 Flexible Abierta
+3            85 Flexible Abierta
+4            80 Flexible Abierta
+5            84 Flexible Abierta
+6            60     Fijo Abierta
+7            65     Fijo Abierta
+8            58     Fijo Abierta
+9            63     Fijo Abierta
+10           61     Fijo Abierta
+11           88 Flexible Cerrada
+12           90 Flexible Cerrada
+13           87 Flexible Cerrada
+14           85 Flexible Cerrada
+15           89 Flexible Cerrada
+16           70     Fijo Cerrada
+17           73     Fijo Cerrada
+18           75     Fijo Cerrada
+19           72     Fijo Cerrada
+20           71     Fijo Cerrada</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualizamos las interacciones</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggpubr"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggline</span>(data, <span class="at">x =</span> <span class="st">"horario"</span>, <span class="at">y =</span> <span class="st">"satisfaccion"</span>, <span class="at">color =</span> <span class="st">"entorno"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">add =</span> <span class="fu">c</span>(<span class="st">"mean_se"</span>, <span class="st">"dotplot"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
+`binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema4_ANOVA1_solucion_files/figure-html/anova30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><strong>Realizar el ANOVA de dos factores:</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar el ANOVA de dos factores</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(satisfaccion <span class="sc">~</span> horario <span class="sc">*</span> entorno, <span class="at">data =</span> data)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+horario          1 1620.0  1620.0 282.969 1.35e-11 ***
+entorno          1  352.8   352.8  61.624 7.08e-07 ***
+horario:entorno  1   28.8    28.8   5.031   0.0394 *  
+Residuals       16   91.6     5.7                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li><strong>Interpretar los resultados:</strong></li>
+</ol>
+<ul>
+<li><strong>Horario:</strong> El valor $ p $ (Pr(&gt;F)) para el horario es <span class="math inline">\(1.35e-11\)</span>, que es menor que 0.05, indicando que hay una diferencia significativa en la satisfacción laboral debida al tipo de horario de trabajo.</li>
+<li><strong>Entorno:</strong> El valor $ p $ (Pr(&gt;F)) para el entorno es <span class="math inline">\(7.08e-07\)</span>, que es mucho menor que 0.05, indicando que hay una diferencia significativa en la satisfacción laboral debida al entorno de trabajo.</li>
+<li><strong>Interacción:</strong> El valor $ p $ (Pr(&gt;F)) para la interacción es <span class="math inline">\(0.0394\)</span>, que es menor que 0.05, indicando que hay una interacción significativa entre el tipo de horario de trabajo y el entorno de trabajo a un nivel de significancia de 0.05.</li>
+</ul>
+<p>Por lo tanto, podemos concluir que tanto el tipo de horario de trabajo como el entorno de trabajo tienen un efecto significativo en la satisfacción laboral, y además hay una interacción significativa entre estos dos factores a un nivel de significancia de 0.05. Esto sugiere que el efecto del horario de trabajo en la satisfacción laboral depende del entorno de trabajo y viceversa.</p>
+</section>
+<section id="ejercicio-4" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-4">Ejercicio 4</h3>
+<p>Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los estudiantes en una prueba de matemáticas. Los dos factores considerados son el método de enseñanza (Tradicional y Moderno) y el tipo de material de apoyo (Libro, Video, Software, Sin material). Se seleccionan 3 estudiantes aleatoriamente para cada combinación de métodos y materiales, y se registra su puntuación en la prueba de matemáticas.</p>
+<p>Los datos obtenidos se muestran en la siguiente tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Material / Método</th>
+<th>Método Tradicional</th>
+<th>Método Moderno</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Libro</td>
+<td>75, 80, 85</td>
+<td>90, 92, 88</td>
+</tr>
+<tr class="even">
+<td>Video</td>
+<td>70, 72, 78</td>
+<td>85, 87, 84</td>
+</tr>
+<tr class="odd">
+<td>Software</td>
+<td>65, 68, 70</td>
+<td>80, 83, 79</td>
+</tr>
+<tr class="even">
+<td>Sin material</td>
+<td>60, 62, 65</td>
+<td>75, 77, 73</td>
+</tr>
+</tbody>
+</table>
+<p>Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en las puntuaciones de la prueba de matemáticas debido al método de enseñanza, al tipo de material de apoyo, y a la interacción entre ambos factores.</p>
+<p><strong>Solución</strong>:</p>
+<ol type="1">
+<li><strong>Ingresar los datos:</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Datos de las puntuaciones</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tradicional_libro <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">80</span>, <span class="dv">85</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>tradicional_video <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">72</span>, <span class="dv">78</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>tradicional_software <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">68</span>, <span class="dv">70</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>tradicional_sin_material <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">65</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>moderno_libro <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">92</span>, <span class="dv">88</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>moderno_video <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">87</span>, <span class="dv">84</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>moderno_software <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">83</span>, <span class="dv">79</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>moderno_sin_material <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">77</span>, <span class="dv">73</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Crear un data frame</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">puntuacion =</span> <span class="fu">c</span>(tradicional_libro, tradicional_video, tradicional_software,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                 tradicional_sin_material,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                 moderno_libro, moderno_video, moderno_software,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                 moderno_sin_material),</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Tradicional"</span>, <span class="st">"Moderno"</span>), <span class="at">each =</span> <span class="dv">12</span>)),</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">material =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Libro"</span>, <span class="st">"Video"</span>, <span class="st">"Software"</span>, <span class="st">"Sin material"</span>), <span class="at">each =</span> <span class="dv">3</span>), <span class="at">times =</span> <span class="dv">2</span>))</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualizar el data frame</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   puntuacion      metodo     material
+1          75 Tradicional        Libro
+2          80 Tradicional        Libro
+3          85 Tradicional        Libro
+4          70 Tradicional        Video
+5          72 Tradicional        Video
+6          78 Tradicional        Video
+7          65 Tradicional     Software
+8          68 Tradicional     Software
+9          70 Tradicional     Software
+10         60 Tradicional Sin material
+11         62 Tradicional Sin material
+12         65 Tradicional Sin material
+13         90     Moderno        Libro
+14         92     Moderno        Libro
+15         88     Moderno        Libro
+16         85     Moderno        Video
+17         87     Moderno        Video
+18         84     Moderno        Video
+19         80     Moderno     Software
+20         83     Moderno     Software
+21         79     Moderno     Software
+22         75     Moderno Sin material
+23         77     Moderno Sin material
+24         73     Moderno Sin material</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualizamos las interacciones</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggpubr"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggline</span>(data, <span class="at">x =</span> <span class="st">"material"</span>, <span class="at">y =</span> <span class="st">"puntuacion"</span>, <span class="at">color =</span> <span class="st">"metodo"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">add =</span> <span class="fu">c</span>(<span class="st">"mean_se"</span>, <span class="st">"dotplot"</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
+`binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema4_ANOVA1_solucion_files/figure-html/ej4_datos-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><strong>Realizar el ANOVA de dos factores:</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar el ANOVA de dos factores</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntuacion <span class="sc">~</span> metodo <span class="sc">*</span> material, <span class="at">data =</span> data)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+metodo           1  852.0   852.0  97.842 3.2e-08 ***
+material         3  880.5   293.5  33.702 3.8e-07 ***
+metodo:material  3    8.1     2.7   0.311   0.817    
+Residuals       16  139.3     8.7                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li><strong>Interpretar los resultados:</strong></li>
+</ol>
+<ul>
+<li><strong>Método:</strong> El valor <span class="math inline">\(p\)</span> (Pr(&gt;F)) para el método es 1.2e-06, que es mucho menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones debida al método de enseñanza.</li>
+<li><strong>Material:</strong> El valor <span class="math inline">\(p\)</span> (Pr(&gt;F)) para el material es 1.1e-07, que es mucho menor que 0.05, indicando que hay una diferencia significativa en las puntuaciones debida al tipo de material de apoyo.</li>
+<li><strong>Interacción:</strong> El valor <span class="math inline">\(p\)</span> (Pr(&gt;F)) para la interacción es 0.228, que es mayor que 0.05, indicando que no hay una interacción significativa entre el método de enseñanza y el tipo de material de apoyo.</li>
+</ul>
+<p>Por lo tanto, podemos concluir que tanto el método de enseñanza como el tipo de material de apoyo tienen un efecto significativo en las puntuaciones de la prueba de matemáticas. Sin embargo, no hay evidencia suficiente para afirmar que la interacción entre el método de enseñanza y el tipo de material de apoyo sea significativa.</p>
+</section>
+<section id="ejercicio-5" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-5">Ejercicio 5</h3>
+<p>¿Es posible simplificar el modelo anterior eliminado la iteración? ¿Es posible eliminar alguno de los efectos individuales? De ser así, construye el nuevo modelo. ¿Dónde aparecen las principales diferencias en la puntuación? Plantea un constraste de hipótesis de igualdad de distribuciones. Plantea un intervalo de confianza para la diferencia de medias.</p>
+<p><strong>Solución</strong>: Efectivamente, dado que la interacción del modelo del ejercicio anterior no es estadísticamente diferente de 0, podemos eliminar la interacción del modelo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar el ANOVA de dos factores</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntuacion <span class="sc">~</span> metodo <span class="sc">+</span> material, <span class="at">data =</span> data)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+metodo       1  852.0   852.0  109.79 2.47e-09 ***
+material     3  880.5   293.5   37.82 3.28e-08 ***
+Residuals   19  147.5     7.8                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Y viendo los nuevos resultados, podemos eliminar el factor <code>material</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar el ANOVA de dos factores</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntuacion <span class="sc">~</span> metodo, <span class="at">data =</span> data)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+metodo       1    852   852.0   18.24 0.000312 ***
+Residuals   22   1028    46.7                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Ahora podemos aplicar un método para la igualdad de medias.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(data[data<span class="sc">$</span>metodo<span class="sc">==</span><span class="st">"Moderno"</span>,]<span class="sc">$</span>puntuacion,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>            data[data<span class="sc">$</span>metodo<span class="sc">==</span><span class="st">"Tradicional"</span>,]<span class="sc">$</span>puntuacion, </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(data[data$metodo == "Moderno", ]$puntuacion, :
+cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  data[data$metodo == "Moderno", ]$puntuacion and data[data$metodo == "Tradicional", ]$puntuacion
+W = 127.5, p-value = 0.001478
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p>Dado que el <span class="math inline">\(p-valor\)</span> es menor que <span class="math inline">\(0.05\)</span> podemos rechazar la hipótesis nula de igualdad de distribuciones. Podemos concluir que el método moderno obtiene mejores resultados que el tradicional.</p>
+<p>Calculamos el intervalo de confianza para la diferencia de medias.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Media grupo Moderno</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data[data<span class="sc">$</span>metodo<span class="sc">==</span><span class="st">"Moderno"</span>,]<span class="sc">$</span>puntuacion)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 82.75</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Media grupo Tradicional</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data[data<span class="sc">$</span>metodo<span class="sc">==</span><span class="st">"Tradicional"</span>,]<span class="sc">$</span>puntuacion)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70.83333</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MeanDiffCI</span>(data[data<span class="sc">$</span>metodo<span class="sc">==</span><span class="st">"Moderno"</span>,]<span class="sc">$</span>puntuacion,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>           data[data<span class="sc">$</span>metodo<span class="sc">==</span><span class="st">"Tradicional"</span>,]<span class="sc">$</span>puntuacion, <span class="at">method=</span><span class="st">"classic"</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> meandiff    lwr.ci    upr.ci 
+11.916667  6.112923 17.720410 </code></pre>
+</div>
+</div>
+<p>De este modo, podemos concluir que el método <code>Moderno</code> consigue entre un <span class="math inline">\(6.1\)</span> y un <span class="math inline">\(17.7\)</span> más de puntuación que el método <code>Tradicional</code>.</p>
+</section>
+<section id="ejercicio-6" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-6">Ejercicio 6</h3>
+<p>Una empresa de manufactura quiere evaluar el efecto de dos factores en la durabilidad de un producto. Los dos factores considerados son el tipo de material utilizado (Material A y Material B) y la temperatura de fabricación (Baja, Media y Alta). Se seleccionan 4 muestras aleatoriamente para cada combinación de materiales y temperaturas, y se mide la durabilidad en días. Los datos obtenidos se muestran en la siguiente tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Temperatura / Material</th>
+<th>Material A</th>
+<th>Material B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Baja</td>
+<td>15, 18, 16, 17</td>
+<td>14, 17, 16, 15</td>
+</tr>
+<tr class="even">
+<td>Media</td>
+<td>20, 22, 21, 19</td>
+<td>19, 18, 20, 21</td>
+</tr>
+<tr class="odd">
+<td>Alta</td>
+<td>25, 27, 26, 24</td>
+<td>23, 22, 24, 25</td>
+</tr>
+</tbody>
+</table>
+<p>Se realiza un ANOVA de dos factores y se aplica la prueba de Tukey HSD.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Datos de durabilidad</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>durabilidad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">14</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">15</span>, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">19</span>, <span class="dv">19</span>, <span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">21</span>, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="do">### Factor de material</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>material <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">each =</span> <span class="dv">12</span>))</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="do">### Factor de temperatura</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>temperatura <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Baja"</span>, <span class="st">"Media"</span>, <span class="st">"Alta"</span>), <span class="at">each =</span> <span class="dv">4</span>, <span class="at">times =</span> <span class="dv">2</span>))</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="do">### Crear un data frame con los datos</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(durabilidad, material, temperatura)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar ANOVA de dos factores</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">aov</span>(durabilidad <span class="sc">~</span> material <span class="sc">*</span> temperatura, <span class="at">data =</span> datos)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="do">### Resumen del modelo</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+material              1 170.67  170.67   102.4 7.44e-09 ***
+temperatura           2  65.33   32.67    19.6 3.03e-05 ***
+material:temperatura  2  65.33   32.67    19.6 3.03e-05 ***
+Residuals            18  30.00    1.67                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>En esta salida:</p>
+<ul>
+<li>El factor “material” es altamente significativo (p &lt; 0.05).</li>
+<li>El factor “temperatura” es significativo (p &lt; 0.05).</li>
+<li>La interacción “material:temperatura” también ES significativa (p &lt; 0.05).</li>
+</ul>
+<p>Realizamos la prueba post-hoc de Tukey HSD de comparación de medias:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Realizar la prueba de Tukey HSD</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>tukey <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(modelo)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Mostrar los resultados</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tukey)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = durabilidad ~ material * temperatura, data = datos)
+
+$material
+        diff     lwr      upr p adj
+B-A 5.333333 4.22605 6.440616     0
+
+$temperatura
+           diff        lwr        upr     p adj
+Baja-Alta  -4.0 -5.6474142 -2.3525858 0.0000216
+Media-Alta -1.5 -3.1474142  0.1474142 0.0779292
+Media-Baja  2.5  0.8525858  4.1474142 0.0030417
+
+$`material:temperatura`
+                diff          lwr       upr     p adj
+B:Alta-A:Alta      3   0.09886432  5.901136 0.0403048
+A:Baja-A:Alta     -4  -6.90113568 -1.098864 0.0041136
+B:Baja-A:Alta     -1  -3.90113568  1.901136 0.8768907
+A:Media-A:Alta    -5  -7.90113568 -2.098864 0.0004115
+B:Media-A:Alta     5   2.09886432  7.901136 0.0004115
+A:Baja-B:Alta     -7  -9.90113568 -4.098864 0.0000058
+B:Baja-B:Alta     -4  -6.90113568 -1.098864 0.0041136
+A:Media-B:Alta    -8 -10.90113568 -5.098864 0.0000009
+B:Media-B:Alta     2  -0.90113568  4.901136 0.2889127
+B:Baja-A:Baja      3   0.09886432  5.901136 0.0403048
+A:Media-A:Baja    -1  -3.90113568  1.901136 0.8768907
+B:Media-A:Baja     9   6.09886432 11.901136 0.0000001
+A:Media-B:Baja    -4  -6.90113568 -1.098864 0.0041136
+B:Media-B:Baja     6   3.09886432  8.901136 0.0000456
+B:Media-A:Media   10   7.09886432 12.901136 0.0000000</code></pre>
+</div>
+</div>
+<p>A la vista de los resultados: ¿Qué contrastes de hipótesis tiene sentido plantear para realizar un experimento en el futuro?</p>
+<p><strong>Solución</strong>:</p>
+<p>A la vista de los resultados del análisis ANOVA y la prueba de Tukey HSD en el ejemplo anterior, se pueden plantear varios contrastes de hipótesis que tengan sentido para futuros experimentos.</p>
+<p><strong>Interpretación de los resultados del ANOVA:</strong></p>
+<p>En la salida del análisis:</p>
+<ul>
+<li>El factor <strong>“material” ES altamente significativo</strong> (p = 7.44e-09 &lt; 0.05) ***, indicando que existe una diferencia significativa en la durabilidad entre el Material A y el Material B.</li>
+<li>El factor <strong>“temperatura” ES significativo</strong> (p = 3.03e-05 &lt; 0.05) ***, indicando que la temperatura de fabricación afecta significativamente la durabilidad del producto.</li>
+<li>La interacción <strong>“material:temperatura” ES significativa</strong> (p = 3.03e-05 &lt; 0.05) ***, lo que indica que el efecto de la temperatura en la durabilidad depende del tipo de material utilizado y viceversa.</li>
+</ul>
+<p><strong>Resultados de la prueba de Tukey HSD:</strong></p>
+<p>La prueba post-hoc revela que: - El Material B tiene una durabilidad significativamente mayor que el Material A (diferencia de 5.33 días). - La temperatura alta produce mayor durabilidad que las temperaturas baja y media. - Existen diferencias significativas en múltiples comparaciones de las combinaciones material-temperatura, confirmando la presencia de interacción.</p>
+<p><strong>Contrastes de hipótesis relevantes para futuros experimentos:</strong></p>
+<p>Dado que los tres efectos (material, temperatura e interacción) resultaron significativos, los contrastes más pertinentes son:</p>
+<p><strong>1. Exploración detallada de la interacción material-temperatura</strong></p>
+<ul>
+<li><strong>Hipótesis Nula (H0):</strong> El efecto de la temperatura en la durabilidad es el mismo para ambos materiales.</li>
+<li><strong>Hipótesis Alternativa (H1):</strong> El efecto de la temperatura en la durabilidad difiere según el tipo de material.</li>
+</ul>
+<p>Este contraste es fundamental dado que la interacción es significativa. Es importante entender cómo cada material responde a diferentes temperaturas.</p>
+<p><strong>2. Comparaciones específicas entre combinaciones</strong></p>
+<ul>
+<li><strong>H0:</strong> No hay diferencia en durabilidad entre Material A a temperatura alta y Material B a temperatura baja.</li>
+<li><strong>H1:</strong> Existe diferencia significativa entre estas combinaciones.</li>
+</ul>
+<p>Esto ayudaría a determinar si un material “inferior” a alta temperatura puede igualar o superar a un material “superior” a baja temperatura.</p>
+<p><strong>3. Identificación del punto óptimo</strong></p>
+<ul>
+<li>Investigar cuál combinación de material y temperatura maximiza la durabilidad.</li>
+<li>Evaluar la relación costo-beneficio: ¿vale la pena usar Material B si es más costoso?</li>
+<li>Determinar si temperaturas intermedias no evaluadas podrían ofrecer ventajas.</li>
+</ul>
+<p><strong>4. Validación de supuestos del modelo</strong></p>
+<p>Para asegurar la validez de los resultados obtenidos:</p>
+<ul>
+<li><p><strong>H0:</strong> Las varianzas de los grupos son homogéneas (prueba de Levene o Bartlett).</p></li>
+<li><p><strong>H1:</strong> Las varianzas de los grupos no son homogéneas.</p></li>
+<li><p><strong>H0:</strong> Los residuos del modelo siguen una distribución normal (prueba de Shapiro-Wilk).</p></li>
+<li><p><strong>H1:</strong> Los residuos del modelo no siguen una distribución normal.</p></li>
+</ul>
+<p><strong>5. Extensión del diseño experimental</strong></p>
+<p>Si se planean futuros experimentos, considerar:</p>
+<ul>
+<li><strong>Niveles adicionales de temperatura:</strong> Incluir temperaturas intermedias para modelar mejor la relación.</li>
+<li><strong>Diseño de superficie de respuesta:</strong> Para encontrar la combinación óptima de factores.</li>
+<li><strong>Otros factores:</strong> Presión de fabricación, humedad, tiempo de exposición, etc.</li>
+</ul>
+<p><strong>6. Estudios de seguimiento</strong></p>
+<ul>
+<li><strong>H0:</strong> No hay diferencia significativa en durabilidad debido a un nuevo factor X (presión, humedad, etc.).</li>
+<li><strong>H1:</strong> El factor X afecta significativamente la durabilidad.</li>
+</ul>
+<p><strong>Recomendaciones metodológicas:</strong></p>
+<ul>
+<li><strong>Aumentar el tamaño de la muestra:</strong> Aunque los efectos fueron significativos, mayor tamaño muestral permitiría detectar diferencias más sutiles.</li>
+<li><strong>Replicación:</strong> Repetir el experimento para confirmar los resultados.</li>
+<li><strong>Diseño factorial completo:</strong> Si se agregan factores, considerar todas las combinaciones posibles.</li>
+<li><strong>Análisis económico:</strong> Evaluar si los beneficios en durabilidad justifican los costos de Material B o temperaturas altas.</li>
+</ul>
+<p>En resumen, dado que tanto los efectos principales como la interacción son significativos, los futuros experimentos deberían centrarse en: (1) entender en profundidad cómo interactúan material y temperatura, (2) optimizar el proceso para maximizar durabilidad considerando costos, y (3) explorar factores adicionales que puedan mejorar aún más el producto.</p>
+</section>
+<section id="ejercicio-7" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-7">Ejercicio 7</h3>
+<p>Un investigador quiere evaluar el efecto de dos factores en el rendimiento de los empleados en una tarea de productividad. Los dos factores considerados son el tipo de capacitación (Capacitación A y Capacitación B) y el horario de trabajo (Turno de Mañana, Turno de Tarde y Turno de Noche). Para ello, se seleccionan 3 empleados aleatoriamente para cada combinación de capacitación y horario, y se registra su rendimiento en la tarea (en puntos).</p>
+<p>Los datos obtenidos se muestran en la siguiente tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Horario / Capacitación</th>
+<th>Capacitación A</th>
+<th>Capacitación B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mañana</td>
+<td>78, 82, 81</td>
+<td>85, 87, 88</td>
+</tr>
+<tr class="even">
+<td>Tarde</td>
+<td>72, 75, 74</td>
+<td>80, 82, 83</td>
+</tr>
+<tr class="odd">
+<td>Noche</td>
+<td>65, 68, 66</td>
+<td>60, 62, 61</td>
+</tr>
+</tbody>
+</table>
+<p>Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en el rendimiento de los empleados debido al tipo de capacitación, al horario de trabajo, y a la interacción entre ambos factores.</p>
+<p><strong>Solución</strong>:</p>
+<p>Este es un problema de ANOVA de dos factores (o ANOVA bifactorial) con interacción. Los dos factores son: - Factor A: Tipo de capacitación (2 niveles: A y B) - Factor B: Horario de trabajo (3 niveles: Mañana, Tarde, Noche)</p>
+<p>Tenemos 3 réplicas para cada combinación de factores.</p>
+<p><strong>Paso 1: Organizar los datos</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Horario / Capacitación</th>
+<th>Capacitación A</th>
+<th>Capacitación B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mañana</td>
+<td>78, 82, 81</td>
+<td>85, 87, 88</td>
+</tr>
+<tr class="even">
+<td>Tarde</td>
+<td>72, 75, 74</td>
+<td>80, 82, 83</td>
+</tr>
+<tr class="odd">
+<td>Noche</td>
+<td>65, 68, 66</td>
+<td>60, 62, 61</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 2: Calcular las medias de cada celda</strong></p>
+<ul>
+<li>Mañana-A: <span class="math inline">\(\bar{X}_{11} = \frac{78+82+81}{3} = 80.33\)</span></li>
+<li>Mañana-B: <span class="math inline">\(\bar{X}_{12} = \frac{85+87+88}{3} = 86.67\)</span></li>
+<li>Tarde-A: <span class="math inline">\(\bar{X}_{21} = \frac{72+75+74}{3} = 73.67\)</span></li>
+<li>Tarde-B: <span class="math inline">\(\bar{X}_{22} = \frac{80+82+83}{3} = 81.67\)</span></li>
+<li>Noche-A: <span class="math inline">\(\bar{X}_{31} = \frac{65+68+66}{3} = 66.33\)</span></li>
+<li>Noche-B: <span class="math inline">\(\bar{X}_{32} = \frac{60+62+61}{3} = 61.00\)</span></li>
+</ul>
+<p><strong>Paso 3: Calcular medias marginales</strong></p>
+<p>Medias por Capacitación: - <span class="math inline">\(\bar{X}_{\cdot 1} = \frac{80.33+73.67+66.33}{3} = 73.44\)</span> (Capacitación A) - <span class="math inline">\(\bar{X}_{\cdot 2} = \frac{86.67+81.67+61.00}{3} = 76.44\)</span> (Capacitación B)</p>
+<p>Medias por Horario: - <span class="math inline">\(\bar{X}_{1\cdot} = \frac{80.33+86.67}{2} = 83.50\)</span> (Mañana) - <span class="math inline">\(\bar{X}_{2\cdot} = \frac{73.67+81.67}{2} = 77.67\)</span> (Tarde) - <span class="math inline">\(\bar{X}_{3\cdot} = \frac{66.33+61.00}{2} = 63.67\)</span> (Noche)</p>
+<p>Media global: <span class="math display">\[\bar{X}_{\cdot\cdot} = \frac{78+82+81+85+87+88+72+75+74+80+82+83+65+68+66+60+62+61}{18} = 74.94\]</span></p>
+<p><strong>Paso 4: Calcular las Sumas de Cuadrados</strong></p>
+<p><span class="math inline">\(SS_{Total}\)</span>: Suma de cuadrados total <span class="math display">\[SS_{Total} = \sum_{i,j,k}(X_{ijk} - \bar{X}_{\cdot\cdot})^2\]</span></p>
+<p>Calculando cada término: <span class="math display">\[SS_{Total} = (78-74.94)^2 + (82-74.94)^2 + ... + (61-74.94)^2 = 1736.94\]</span></p>
+<p><span class="math inline">\(SS_A\)</span>: Suma de cuadrados del Factor A (Capacitación) <span class="math display">\[SS_A = nb\sum_{j}(\bar{X}_{\cdot j} - \bar{X}_{\cdot\cdot})^2 = 3 \times 3 \times [(73.44-74.94)^2 + (76.44-74.94)^2] = 40.50\]</span></p>
+<p><span class="math inline">\(SS_B\)</span>: Suma de cuadrados del Factor B (Horario) <span class="math display">\[SS_B = na\sum_{i}(\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2 = 3 \times 2 \times [(83.50-74.94)^2 + (77.67-74.94)^2 + (63.67-74.94)^2] = 1235.11\]</span></p>
+<p><span class="math inline">\(SS_{AB}\)</span>: Suma de cuadrados de la Interacción <span class="math display">\[SS_{AB} = n\sum_{i,j}(\bar{X}_{ij} - \bar{X}_{i\cdot} - \bar{X}_{\cdot j} + \bar{X}_{\cdot\cdot})^2\]</span> <span class="math display">\[SS_{AB} = 3 \times [(80.33-83.50-73.44+74.94)^2 + ... + (61.00-63.67-76.44+74.94)^2] = 323.11\]</span></p>
+<p><span class="math inline">\(SS_E\)</span>: Suma de cuadrados del Error <span class="math display">\[SS_E = SS_{Total} - SS_A - SS_B - SS_{AB} = 1736.94 - 40.50 - 1235.11 - 323.11 = 138.22\]</span></p>
+<p><strong>Paso 5: Calcular los grados de libertad</strong></p>
+<ul>
+<li><span class="math inline">\(df_A = a - 1 = 2 - 1 = 1\)</span></li>
+<li><span class="math inline">\(df_B = b - 1 = 3 - 1 = 2\)</span></li>
+<li><span class="math inline">\(df_{AB} = (a-1)(b-1) = 1 \times 2 = 2\)</span></li>
+<li><span class="math inline">\(df_E = ab(n-1) = 2 \times 3 \times 2 = 12\)</span></li>
+<li><span class="math inline">\(df_{Total} = N - 1 = 18 - 1 = 17\)</span></li>
+</ul>
+<p><strong>Paso 6: Calcular los Cuadrados Medios</strong></p>
+<ul>
+<li><span class="math inline">\(MS_A = \frac{SS_A}{df_A} = \frac{40.50}{1} = 40.50\)</span></li>
+<li><span class="math inline">\(MS_B = \frac{SS_B}{df_B} = \frac{1235.11}{2} = 617.56\)</span></li>
+<li><span class="math inline">\(MS_{AB} = \frac{SS_{AB}}{df_{AB}} = \frac{323.11}{2} = 161.56\)</span></li>
+<li><span class="math inline">\(MS_E = \frac{SS_E}{df_E} = \frac{138.22}{12} = 11.52\)</span></li>
+</ul>
+<p><strong>Paso 7: Calcular los estadísticos F</strong></p>
+<ul>
+<li><span class="math inline">\(F_A = \frac{MS_A}{MS_E} = \frac{40.50}{11.52} = 3.52\)</span></li>
+<li><span class="math inline">\(F_B = \frac{MS_B}{MS_E} = \frac{617.56}{11.52} = 53.61\)</span></li>
+<li><span class="math inline">\(F_{AB} = \frac{MS_{AB}}{MS_E} = \frac{161.56}{11.52} = 14.03\)</span></li>
+</ul>
+<p><strong>Paso 8: Determinar valores críticos y conclusiones</strong></p>
+<p>Para <span class="math inline">\(\alpha = 0.05\)</span>: - <span class="math inline">\(F_{crítico}(1, 12) \approx 4.75\)</span> para el Factor A - <span class="math inline">\(F_{crítico}(2, 12) \approx 3.89\)</span> para el Factor B - <span class="math inline">\(F_{crítico}(2, 12) \approx 3.89\)</span> para la Interacción</p>
+<p><strong>Conclusiones:</strong></p>
+<ol type="1">
+<li><p><strong>Factor A (Capacitación)</strong>: <span class="math inline">\(F_A = 3.52 &lt; 4.75\)</span> → No rechazamos <span class="math inline">\(H_0\)</span>. No hay diferencia significativa entre los tipos de capacitación al nivel 0.05.</p></li>
+<li><p><strong>Factor B (Horario)</strong>: <span class="math inline">\(F_B = 53.61 &gt; 3.89\)</span> → Rechazamos <span class="math inline">\(H_0\)</span>. Hay diferencias significativas entre los horarios de trabajo.</p></li>
+<li><p><strong>Interacción AB</strong>: <span class="math inline">\(F_{AB} = 14.03 &gt; 3.89\)</span> → Rechazamos <span class="math inline">\(H_0\)</span>. Hay una interacción significativa entre capacitación y horario.</p></li>
+</ol>
+<p>La presencia de interacción significativa indica que el efecto de la capacitación depende del horario de trabajo (o viceversa).</p>
+<p><strong>Tabla ANOVA:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fuente</th>
+<th>SS</th>
+<th>df</th>
+<th>MS</th>
+<th>F</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Capacitación</td>
+<td>40.50</td>
+<td>1</td>
+<td>40.50</td>
+<td>3.52</td>
+<td>&gt; 0.05</td>
+</tr>
+<tr class="even">
+<td>Horario</td>
+<td>1235.11</td>
+<td>2</td>
+<td>617.56</td>
+<td>53.61</td>
+<td>&lt; 0.01</td>
+</tr>
+<tr class="odd">
+<td>Interacción</td>
+<td>323.11</td>
+<td>2</td>
+<td>161.56</td>
+<td>14.03</td>
+<td>&lt; 0.01</td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td>138.22</td>
+<td>12</td>
+<td>11.52</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>1736.94</td>
+<td>17</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejercicio-8" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-8">Ejercicio 8</h3>
+<p>Aplica un método de comparación de medias al ejercicio anterior para estudiar dónde se encuentran las diferencias estadísticamente significativas.</p>
+<p><strong>Solución</strong>:</p>
+<p>Del Ejercicio 7 sabemos que el factor Horario tiene diferencias significativas. Vamos a aplicar el método de Tukey HSD (Honest Significant Difference) para identificar qué horarios difieren entre sí.</p>
+<p><strong>Datos del Ejercicio 7:</strong> - Media Mañana: <span class="math inline">\(\bar{X}_{Mañana} = 83.50\)</span> - Media Tarde: <span class="math inline">\(\bar{X}_{Tarde} = 77.67\)</span> - Media Noche: <span class="math inline">\(\bar{X}_{Noche} = 63.67\)</span> - <span class="math inline">\(MS_E = 11.52\)</span> (del ANOVA) - <span class="math inline">\(n = 6\)</span> observaciones por horario (3 réplicas × 2 capacitaciones)</p>
+<p><strong>Paso 1: Calcular el estadístico HSD de Tukey</strong></p>
+<p>La diferencia mínima significativa (HSD) se calcula como:</p>
+<p><span class="math display">\[HSD = q_{\alpha, k, df_E} \times \sqrt{\frac{MS_E}{n}}\]</span></p>
+<p>donde: - <span class="math inline">\(q_{\alpha, k, df_E}\)</span> es el valor crítico de la distribución de Tukey - Para <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(k = 3\)</span> grupos, <span class="math inline">\(df_E = 12\)</span>: <span class="math inline">\(q_{0.05, 3, 12} \approx 3.77\)</span> - <span class="math inline">\(MS_E = 11.52\)</span> - <span class="math inline">\(n = 6\)</span></p>
+<p><span class="math display">\[HSD = 3.77 \times \sqrt{\frac{11.52}{6}} = 3.77 \times 1.386 = 5.22\]</span></p>
+<p><strong>Paso 2: Calcular las diferencias entre medias</strong></p>
+<p>Comparación Mañana vs Tarde: <span class="math display">\[|\bar{X}_{Mañana} - \bar{X}_{Tarde}| = |83.50 - 77.67| = 5.83\]</span></p>
+<p>Comparación Mañana vs Noche: <span class="math display">\[|\bar{X}_{Mañana} - \bar{X}_{Noche}| = |83.50 - 63.67| = 19.83\]</span></p>
+<p>Comparación Tarde vs Noche: <span class="math display">\[|\bar{X}_{Tarde} - \bar{X}_{Noche}| = |77.67 - 63.67| = 14.00\]</span></p>
+<p><strong>Paso 3: Comparar con HSD</strong></p>
+<ul>
+<li>Mañana vs Tarde: <span class="math inline">\(5.83 &gt; 5.22\)</span> → <strong>Diferencia significativa</strong></li>
+<li>Mañana vs Noche: <span class="math inline">\(19.83 &gt; 5.22\)</span> → <strong>Diferencia significativa</strong></li>
+<li>Tarde vs Noche: <span class="math inline">\(14.00 &gt; 5.22\)</span> → <strong>Diferencia significativa</strong></li>
+</ul>
+<p><strong>Conclusión:</strong></p>
+<p>Todos los horarios difieren significativamente entre sí al nivel <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>El rendimiento es significativamente mayor en el turno de Mañana, seguido por el turno de Tarde, y el menor rendimiento se observa en el turno de Noche:</p>
+<p><span class="math display">\[\text{Mañana} &gt; \text{Tarde} &gt; \text{Noche}\]</span></p>
+<p><strong>Nota sobre la Interacción:</strong></p>
+<p>Es importante recordar que en el Ejercicio 7 encontramos una interacción significativa entre Capacitación y Horario. Esto significa que las diferencias entre horarios pueden variar según el tipo de capacitación. Para un análisis más completo, se podrían realizar comparaciones de medias por separado para cada tipo de capacitación.</p>
+</section>
+<section id="ejercicio-9" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-9">Ejercicio 9</h3>
+<p>Un investigador quiere evaluar el efecto de tres diferentes dietas en el aumento de peso de ratones. Para ello, selecciona al azar 15 ratones y los divide en tres grupos de 5 ratones cada uno. Cada grupo es alimentado con una dieta diferente durante un período de 8 semanas. Al final del experimento, se mide el aumento de peso (en gramos) de cada ratón. Los datos obtenidos se muestran a continuación:</p>
+<p><strong>Dieta A:</strong> 20, 21, 19, 23, 22<br>
+<strong>Dieta B:</strong> 30, 32, 29, 31, 33<br>
+<strong>Dieta C:</strong> 25, 27, 26, 24, 28</p>
+<p>Utilizando un nivel de significancia de 0.05, determine si hay diferencias significativas en el aumento de peso entre las dietas utilizando el método de Bonferroni para comparaciones múltiples.</p>
+<p><strong>Solución</strong>:</p>
+<p><strong>Paso 1: Realizar el ANOVA de un factor</strong></p>
+<p>Primero calculamos las medias de cada grupo:</p>
+<ul>
+<li>Dieta A: <span class="math inline">\(\bar{X}_A = \frac{20+21+19+23+22}{5} = 21\)</span></li>
+<li>Dieta B: <span class="math inline">\(\bar{X}_B = \frac{30+32+29+31+33}{5} = 31\)</span></li>
+<li>Dieta C: <span class="math inline">\(\bar{X}_C = \frac{25+27+26+24+28}{5} = 26\)</span></li>
+</ul>
+<p>Media global: <span class="math display">\[\bar{X} = \frac{21+31+26}{3} = 26\]</span></p>
+<p><strong>Paso 2: Calcular las sumas de cuadrados</strong></p>
+<p><span class="math inline">\(SS_{Entre}\)</span> (Between groups): <span class="math display">\[SS_{Entre} = n\sum_{i}(\bar{X}_i - \bar{X})^2 = 5[(21-26)^2 + (31-26)^2 + (26-26)^2]\]</span> <span class="math display">\[SS_{Entre} = 5[25 + 25 + 0] = 250\]</span></p>
+<p><span class="math inline">\(SS_{Dentro}\)</span> (Within groups):</p>
+<p>Para Dieta A: <span class="math display">\[SS_A = (20-21)^2 + (21-21)^2 + (19-21)^2 + (23-21)^2 + (22-21)^2 = 10\]</span></p>
+<p>Para Dieta B: <span class="math display">\[SS_B = (30-31)^2 + (32-31)^2 + (29-31)^2 + (31-31)^2 + (33-31)^2 = 10\]</span></p>
+<p>Para Dieta C: <span class="math display">\[SS_C = (25-26)^2 + (27-26)^2 + (26-26)^2 + (24-26)^2 + (28-26)^2 = 10\]</span></p>
+<p><span class="math display">\[SS_{Dentro} = SS_A + SS_B + SS_C = 10 + 10 + 10 = 30\]</span></p>
+<p><span class="math inline">\(SS_{Total}\)</span>: <span class="math display">\[SS_{Total} = SS_{Entre} + SS_{Dentro} = 250 + 30 = 280\]</span></p>
+<p><strong>Paso 3: Calcular grados de libertad y cuadrados medios</strong></p>
+<ul>
+<li><span class="math inline">\(df_{Entre} = k - 1 = 3 - 1 = 2\)</span></li>
+<li><span class="math inline">\(df_{Dentro} = N - k = 15 - 3 = 12\)</span></li>
+<li><span class="math inline">\(df_{Total} = N - 1 = 15 - 1 = 14\)</span></li>
+</ul>
+<p>Cuadrados medios: - <span class="math inline">\(MS_{Entre} = \frac{SS_{Entre}}{df_{Entre}} = \frac{250}{2} = 125\)</span> - <span class="math inline">\(MS_{Dentro} = \frac{SS_{Dentro}}{df_{Dentro}} = \frac{30}{12} = 2.5\)</span></p>
+<p><strong>Paso 4: Calcular el estadístico F</strong></p>
+<p><span class="math display">\[F = \frac{MS_{Entre}}{MS_{Dentro}} = \frac{125}{2.5} = 50\]</span></p>
+<p>Valor crítico: <span class="math inline">\(F_{0.05}(2, 12) \approx 3.89\)</span></p>
+<p>Como <span class="math inline">\(F = 50 &gt; 3.89\)</span>, rechazamos <span class="math inline">\(H_0\)</span>. Hay diferencias significativas entre las dietas.</p>
+<p><strong>Paso 5: Aplicar el método de Bonferroni</strong></p>
+<p>El método de Bonferroni ajusta el nivel de significancia dividiendo <span class="math inline">\(\alpha\)</span> por el número de comparaciones.</p>
+<p>Número de comparaciones: <span class="math inline">\(C = \frac{k(k-1)}{2} = \frac{3 \times 2}{2} = 3\)</span></p>
+<p>Nivel de significancia ajustado: <span class="math inline">\(\alpha_{Bonferroni} = \frac{0.05}{3} = 0.0167\)</span></p>
+<p>Para el test t de comparaciones pareadas, el valor crítico es <span class="math inline">\(t_{\alpha/2, df_{Dentro}}\)</span>: <span class="math display">\[t_{0.00835, 12} \approx 2.98\]</span> (usando <span class="math inline">\(\alpha/2 = 0.0167/2 = 0.00835\)</span>)</p>
+<p><strong>Paso 6: Calcular las diferencias entre medias</strong></p>
+<p>Error estándar para comparaciones: <span class="math display">\[SE = \sqrt{\frac{2 \times MS_{Dentro}}{n}} = \sqrt{\frac{2 \times 2.5}{5}} = \sqrt{1} = 1\]</span></p>
+<p>Diferencia mínima significativa (Bonferroni): <span class="math display">\[LSD_{Bonferroni} = t_{0.00835, 12} \times SE = 2.98 \times 1 = 2.98\]</span></p>
+<p>Comparaciones:</p>
+<p><strong>Dieta A vs Dieta B:</strong> <span class="math display">\[|\bar{X}_A - \bar{X}_B| = |21 - 31| = 10\]</span> <span class="math display">\[10 &gt; 2.98 \rightarrow \text{Diferencia significativa}\]</span></p>
+<p><strong>Dieta A vs Dieta C:</strong> <span class="math display">\[|\bar{X}_A - \bar{X}_C| = |21 - 26| = 5\]</span> <span class="math display">\[5 &gt; 2.98 \rightarrow \text{Diferencia significativa}\]</span></p>
+<p><strong>Dieta B vs Dieta C:</strong> <span class="math display">\[|\bar{X}_B - \bar{X}_C| = |31 - 26| = 5\]</span> <span class="math display">\[5 &gt; 2.98 \rightarrow \text{Diferencia significativa}\]</span></p>
+<p><strong>Conclusión:</strong></p>
+<p>Con el método de Bonferroni (nivel de significancia ajustado de 0.0167), todas las dietas difieren significativamente entre sí:</p>
+<ul>
+<li>La Dieta B produce el mayor aumento de peso (31 gramos)</li>
+<li>La Dieta C produce un aumento intermedio (26 gramos)</li>
+<li>La Dieta A produce el menor aumento de peso (21 gramos)</li>
+</ul>
+<p><span class="math display">\[\text{Dieta B} &gt; \text{Dieta C} &gt; \text{Dieta A}\]</span></p>
+<p><strong>Tabla ANOVA:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fuente</th>
+<th>SS</th>
+<th>df</th>
+<th>MS</th>
+<th>F</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Entre</td>
+<td>250</td>
+<td>2</td>
+<td>125</td>
+<td>50</td>
+<td>&lt; 0.01</td>
+</tr>
+<tr class="even">
+<td>Dentro</td>
+<td>30</td>
+<td>12</td>
+<td>2.5</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>280</td>
+<td>14</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejercicio-10" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-10">Ejercicio 10</h3>
+<p>Un investigador quiere evaluar el efecto de tres factores en el rendimiento de un motor: el tipo de combustible (Gasolina, Diésel, Eléctrico), la temperatura (Baja, Media, Alta) y la presión (Baja, Media, Alta). Para ello, se mide el rendimiento del motor (en kilovatios) bajo todas las combinaciones posibles de estos factores. Los datos obtenidos se muestran a continuación:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Combustible</th>
+<th>Temperatura</th>
+<th>Presión</th>
+<th>Rendimiento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gasolina</td>
+<td>Baja</td>
+<td>Baja</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td>Gasolina</td>
+<td>Baja</td>
+<td>Media</td>
+<td>160</td>
+</tr>
+<tr class="odd">
+<td>Gasolina</td>
+<td>Baja</td>
+<td>Alta</td>
+<td>155</td>
+</tr>
+<tr class="even">
+<td>Gasolina</td>
+<td>Media</td>
+<td>Baja</td>
+<td>165</td>
+</tr>
+<tr class="odd">
+<td>Gasolina</td>
+<td>Media</td>
+<td>Media</td>
+<td>170</td>
+</tr>
+<tr class="even">
+<td>Gasolina</td>
+<td>Media</td>
+<td>Alta</td>
+<td>168</td>
+</tr>
+<tr class="odd">
+<td>Gasolina</td>
+<td>Alta</td>
+<td>Baja</td>
+<td>160</td>
+</tr>
+<tr class="even">
+<td>Gasolina</td>
+<td>Alta</td>
+<td>Media</td>
+<td>158</td>
+</tr>
+<tr class="odd">
+<td>Gasolina</td>
+<td>Alta</td>
+<td>Alta</td>
+<td>162</td>
+</tr>
+<tr class="even">
+<td>Diésel</td>
+<td>Baja</td>
+<td>Baja</td>
+<td>140</td>
+</tr>
+<tr class="odd">
+<td>Diésel</td>
+<td>Baja</td>
+<td>Media</td>
+<td>145</td>
+</tr>
+<tr class="even">
+<td>Diésel</td>
+<td>Baja</td>
+<td>Alta</td>
+<td>148</td>
+</tr>
+<tr class="odd">
+<td>Diésel</td>
+<td>Media</td>
+<td>Baja</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td>Diésel</td>
+<td>Media</td>
+<td>Media</td>
+<td>155</td>
+</tr>
+<tr class="odd">
+<td>Diésel</td>
+<td>Media</td>
+<td>Alta</td>
+<td>152</td>
+</tr>
+<tr class="even">
+<td>Diésel</td>
+<td>Alta</td>
+<td>Baja</td>
+<td>148</td>
+</tr>
+<tr class="odd">
+<td>Diésel</td>
+<td>Alta</td>
+<td>Media</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td>Diésel</td>
+<td>Alta</td>
+<td>Alta</td>
+<td>149</td>
+</tr>
+<tr class="odd">
+<td>Eléctrico</td>
+<td>Baja</td>
+<td>Baja</td>
+<td>130</td>
+</tr>
+<tr class="even">
+<td>Eléctrico</td>
+<td>Baja</td>
+<td>Media</td>
+<td>135</td>
+</tr>
+<tr class="odd">
+<td>Eléctrico</td>
+<td>Baja</td>
+<td>Alta</td>
+<td>138</td>
+</tr>
+<tr class="even">
+<td>Eléctrico</td>
+<td>Media</td>
+<td>Baja</td>
+<td>140</td>
+</tr>
+<tr class="odd">
+<td>Eléctrico</td>
+<td>Media</td>
+<td>Media</td>
+<td>145</td>
+</tr>
+<tr class="even">
+<td>Eléctrico</td>
+<td>Media</td>
+<td>Alta</td>
+<td>142</td>
+</tr>
+<tr class="odd">
+<td>Eléctrico</td>
+<td>Alta</td>
+<td>Baja</td>
+<td>138</td>
+</tr>
+<tr class="even">
+<td>Eléctrico</td>
+<td>Alta</td>
+<td>Media</td>
+<td>140</td>
+</tr>
+<tr class="odd">
+<td>Eléctrico</td>
+<td>Alta</td>
+<td>Alta</td>
+<td>139</td>
+</tr>
+</tbody>
+</table>
+<p>Estudia el efecto de cada uno de los factores en el rendimiento, así como el efecto de las posibles interacciones.</p>
+<p><strong>Solución</strong>:</p>
+<p>Este es un problema de ANOVA de tres factores con una observación por celda. Tenemos:</p>
+<ul>
+<li>Factor A: Combustible (3 niveles)</li>
+<li>Factor B: Temperatura (3 niveles)<br>
+</li>
+<li>Factor C: Presión (3 niveles)</li>
+<li>Total de observaciones: N = 27</li>
+</ul>
+<p><strong>Paso 1: Calcular medias marginales</strong></p>
+<p><strong>Medias por Combustible:</strong></p>
+<ul>
+<li>Gasolina: <span class="math inline">\(\bar{X}_{Gas} = \frac{150+160+155+165+170+168+160+158+162}{9} = 160.89\)</span></li>
+<li>Diésel: <span class="math inline">\(\bar{X}_{Dies} = \frac{140+145+148+150+155+152+148+150+149}{9} = 148.56\)</span></li>
+<li>Eléctrico: <span class="math inline">\(\bar{X}_{Elec} = \frac{130+135+138+140+145+142+138+140+139}{9} = 138.56\)</span></li>
+</ul>
+<p><strong>Medias por Temperatura:</strong></p>
+<ul>
+<li>Baja: <span class="math inline">\(\bar{X}_{Baja} = \frac{150+160+155+140+145+148+130+135+138}{9} = 144.56\)</span></li>
+<li>Media: <span class="math inline">\(\bar{X}_{Media} = \frac{165+170+168+150+155+152+140+145+142}{9} = 154.11\)</span></li>
+<li>Alta: <span class="math inline">\(\bar{X}_{Alta} = \frac{160+158+162+148+150+149+138+140+139}{9} = 149.33\)</span></li>
+</ul>
+<p><strong>Medias por Presión:</strong></p>
+<ul>
+<li>Baja: <span class="math inline">\(\bar{X}_{PBaja} = \frac{150+165+160+140+150+148+130+140+138}{9} = 146.78\)</span></li>
+<li>Media: <span class="math inline">\(\bar{X}_{PMed} = \frac{160+170+158+145+155+150+135+145+140}{9} = 150.89\)</span></li>
+<li>Alta: <span class="math inline">\(\bar{X}_{PAlta} = \frac{155+168+162+148+152+149+138+142+139}{9} = 150.33\)</span></li>
+</ul>
+<p><strong>Media global:</strong> <span class="math display">\[\bar{X} = \frac{\sum X_{ijk}}{27} = \frac{4070}{27} = 150.74\]</span></p>
+<p><strong>Paso 2: Calcular las Sumas de Cuadrados</strong></p>
+<p><span class="math inline">\(SS_{Total}\)</span>: <span class="math display">\[SS_{Total} = \sum (X_{ijk} - \bar{X})^2\]</span> Calculando: <span class="math inline">\(SS_{Total} = 2983.63\)</span></p>
+<p><span class="math inline">\(SS_A\)</span> (Combustible): <span class="math display">\[SS_A = 9 \times [(160.89-150.74)^2 + (148.56-150.74)^2 + (138.56-150.74)^2]\]</span> <span class="math display">\[SS_A = 9 \times [103.04 + 4.75 + 148.35] = 2305.26\]</span></p>
+<p><span class="math inline">\(SS_B\)</span> (Temperatura): <span class="math display">\[SS_B = 9 \times [(144.56-150.74)^2 + (154.11-150.74)^2 + (149.33-150.74)^2]\]</span> <span class="math display">\[SS_B = 9 \times [38.21 + 11.36 + 1.99] = 464.04\]</span></p>
+<p><span class="math inline">\(SS_C\)</span> (Presión): <span class="math display">\[SS_C = 9 \times [(146.78-150.74)^2 + (150.89-150.74)^2 + (150.33-150.74)^2]\]</span> <span class="math display">\[SS_C = 9 \times [15.68 + 0.02 + 0.17] = 142.83\]</span></p>
+<p>Para un diseño con una observación por celda sin réplicas, no podemos estimar las interacciones de orden superior de manera independiente. Asumiremos que las interacciones de tercer orden son despreciables y usaremos esa variación como error.</p>
+<p><span class="math inline">\(SS_{Error}\)</span> (residual, asumiendo interacciones de orden superior despreciables): <span class="math display">\[SS_{Error} = SS_{Total} - SS_A - SS_B - SS_C = 2983.63 - 2305.26 - 464.04 - 142.83 = 71.50\]</span></p>
+<p><strong>Paso 3: Grados de libertad</strong></p>
+<ul>
+<li><span class="math inline">\(df_A = 3 - 1 = 2\)</span> (Combustible)</li>
+<li><span class="math inline">\(df_B = 3 - 1 = 2\)</span> (Temperatura)</li>
+<li><span class="math inline">\(df_C = 3 - 1 = 2\)</span> (Presión)</li>
+<li><span class="math inline">\(df_{Error} = 27 - 1 - 2 - 2 - 2 = 20\)</span> (aproximadamente, en diseños sin réplicas)</li>
+<li><span class="math inline">\(df_{Total} = 27 - 1 = 26\)</span></li>
+</ul>
+<p><strong>Paso 4: Cuadrados Medios</strong></p>
+<ul>
+<li><span class="math inline">\(MS_A = \frac{2305.26}{2} = 1152.63\)</span></li>
+<li><span class="math inline">\(MS_B = \frac{464.04}{2} = 232.02\)</span></li>
+<li><span class="math inline">\(MS_C = \frac{142.83}{2} = 71.42\)</span></li>
+<li><span class="math inline">\(MS_{Error} = \frac{71.50}{20} = 3.58\)</span></li>
+</ul>
+<p><strong>Paso 5: Estadísticos F</strong></p>
+<ul>
+<li><span class="math inline">\(F_A = \frac{MS_A}{MS_{Error}} = \frac{1152.63}{3.58} = 322.02\)</span></li>
+<li><span class="math inline">\(F_B = \frac{MS_B}{MS_{Error}} = \frac{232.02}{3.58} = 64.81\)</span></li>
+<li><span class="math inline">\(F_C = \frac{MS_C}{MS_{Error}} = \frac{71.42}{3.58} = 19.95\)</span></li>
+</ul>
+<p><strong>Paso 6: Valores críticos y conclusiones</strong></p>
+<p>Para <span class="math inline">\(\alpha = 0.05\)</span> y <span class="math inline">\(df_1 = 2\)</span>, <span class="math inline">\(df_2 = 20\)</span>: <span class="math inline">\(F_{crítico} \approx 3.49\)</span></p>
+<p><strong>Conclusiones:</strong></p>
+<ol type="1">
+<li><p><strong>Factor A (Combustible)</strong>: <span class="math inline">\(F_A = 322.02 &gt; 3.49\)</span> → <strong>Altamente significativo</strong></p>
+<ul>
+<li>El tipo de combustible tiene un efecto muy significativo en el rendimiento del motor.</li>
+<li>Gasolina &gt; Diésel &gt; Eléctrico</li>
+</ul></li>
+<li><p><strong>Factor B (Temperatura)</strong>: <span class="math inline">\(F_B = 64.81 &gt; 3.49\)</span> → <strong>Altamente significativo</strong></p>
+<ul>
+<li>La temperatura tiene un efecto muy significativo en el rendimiento.</li>
+<li>Temperatura Media produce el mejor rendimiento, seguido de Alta y luego Baja.</li>
+</ul></li>
+<li><p><strong>Factor C (Presión)</strong>: <span class="math inline">\(F_C = 19.95 &gt; 3.49\)</span> → <strong>Significativo</strong></p>
+<ul>
+<li>La presión tiene un efecto significativo en el rendimiento.</li>
+<li>Presión Media y Alta producen rendimientos similares y superiores a Presión Baja.</li>
+</ul></li>
+</ol>
+<p><strong>Tabla ANOVA:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fuente</th>
+<th>SS</th>
+<th>df</th>
+<th>MS</th>
+<th>F</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Combustible</td>
+<td>2305.26</td>
+<td>2</td>
+<td>1152.63</td>
+<td>322.02</td>
+<td>&lt; 0.001</td>
+</tr>
+<tr class="even">
+<td>Temperatura</td>
+<td>464.04</td>
+<td>2</td>
+<td>232.02</td>
+<td>64.81</td>
+<td>&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td>Presión</td>
+<td>142.83</td>
+<td>2</td>
+<td>71.42</td>
+<td>19.95</td>
+<td>&lt; 0.001</td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td>71.50</td>
+<td>20</td>
+<td>3.58</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>2983.63</td>
+<td>26</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretación general:</strong></p>
+<p>Los tres factores tienen efectos estadísticamente significativos sobre el rendimiento del motor. El combustible es el factor más importante (mayor suma de cuadrados y F más alto), seguido por la temperatura y luego la presión.</p>
+<p>Para maximizar el rendimiento del motor, se recomienda:</p>
+<ul>
+<li>Usar combustible de Gasolina</li>
+<li>Operar a Temperatura Media</li>
+<li>Mantener Presión Media o Alta</li>
+</ul>
+<p><strong>Nota:</strong> Este análisis asume que las interacciones entre factores son despreciables. En un estudio más completo con réplicas, se podrían evaluar las interacciones de dos y tres factores.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./tema3_NOPARA1_solucion.html" class="pagination-link" aria-label="Contraste no paramétrico">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Contraste no paramétrico</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

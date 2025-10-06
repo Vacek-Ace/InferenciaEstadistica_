@@ -92,9 +92,9 @@ summary(modelo)
 
 En esta salida:
 
-- El factor "material" no es significativo (p > 0.05).
+- El factor "material" es altamente significativo (p < 0.05).
 - El factor "temperatura" es significativo (p < 0.05).
-- La interacción "material:temperatura" no es significativa (p > 0.05).
+- La interacción "material:temperatura" también ES significativa (p < 0.05).
 
 Realizamos la prueba post-hoc de Tukey HSD de comparación de medias:
 

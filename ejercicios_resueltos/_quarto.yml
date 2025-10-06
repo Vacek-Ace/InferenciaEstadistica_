@@ -18,6 +18,10 @@ book:
     - tema1_EDA2_solucion.qmd
     - tema2_IC1_solucion.qmd
     - tema2_CH1_solucion.qmd
+    - tema2_PARA1_solucion.qmd
+    - tema2_PARA2_solucion.qmd
+    - tema3_NOPARA1_solucion.qmd
+    - tema4_ANOVA1_solucion.qmd
   cover-image: ../../images/DSLab_logo_2.png
 
 format:

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Estimación y contraste paramétrico 1 – Problemas de Inferencia Estadística</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./tema2_PARA2_solucion.html" rel="next">
+<link href="./tema2_CH1_solucion.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="soluciones.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tema2_PARA1_solucion.html"><span class="chapter-title">Estimación y contraste paramétrico 1</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Problemas de Inferencia Estadística</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema0_intro_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción a la Inferencia Estadística</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema1_EDA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Análisis Exploratorio de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema1_EDA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Procesado y Limpieza de Datos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_IC1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intervalos de Confianza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_CH1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contrastes de Hipótesis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_PARA1_solucion.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Estimación y contraste paramétrico 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema2_PARA2_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimación y contraste paramétrico 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema3_NOPARA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contraste no paramétrico</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tema4_ANOVA1_solucion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Análisis de Varianza</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1-definición-de-estadístico" id="toc-ejercicio-1-definición-de-estadístico" class="nav-link active" data-scroll-target="#ejercicio-1-definición-de-estadístico">Ejercicio 1: Definición de Estadístico</a></li>
+  <li><a href="#ejercicio-2-estimación-puntual" id="toc-ejercicio-2-estimación-puntual" class="nav-link" data-scroll-target="#ejercicio-2-estimación-puntual">Ejercicio 2: Estimación Puntual</a></li>
+  <li><a href="#ejercicio-3-propiedades-de-los-estimadores" id="toc-ejercicio-3-propiedades-de-los-estimadores" class="nav-link" data-scroll-target="#ejercicio-3-propiedades-de-los-estimadores">Ejercicio 3: Propiedades de los Estimadores</a></li>
+  <li><a href="#ejercicio-4-método-de-los-momentos" id="toc-ejercicio-4-método-de-los-momentos" class="nav-link" data-scroll-target="#ejercicio-4-método-de-los-momentos">Ejercicio 4: Método de los Momentos</a></li>
+  <li><a href="#ejercicio-5-método-de-la-máxima-verosimilitud" id="toc-ejercicio-5-método-de-la-máxima-verosimilitud" class="nav-link" data-scroll-target="#ejercicio-5-método-de-la-máxima-verosimilitud">Ejercicio 5: Método de la Máxima Verosimilitud</a></li>
+  <li><a href="#ejercicio-6-estimación-por-intervalo" id="toc-ejercicio-6-estimación-por-intervalo" class="nav-link" data-scroll-target="#ejercicio-6-estimación-por-intervalo">Ejercicio 6: Estimación por Intervalo</a></li>
+  <li><a href="#ejercicio-7-contraste-de-hipótesis-prueba-z" id="toc-ejercicio-7-contraste-de-hipótesis-prueba-z" class="nav-link" data-scroll-target="#ejercicio-7-contraste-de-hipótesis-prueba-z">Ejercicio 7: Contraste de Hipótesis (Prueba Z)</a></li>
+  <li><a href="#ejercicio-8-contraste-de-hipótesis-prueba-t" id="toc-ejercicio-8-contraste-de-hipótesis-prueba-t" class="nav-link" data-scroll-target="#ejercicio-8-contraste-de-hipótesis-prueba-t">Ejercicio 8: Contraste de Hipótesis (Prueba T)</a></li>
+  <li><a href="#ejercicio-9-contraste-de-hipótesis-prueba-chi-cuadrado" id="toc-ejercicio-9-contraste-de-hipótesis-prueba-chi-cuadrado" class="nav-link" data-scroll-target="#ejercicio-9-contraste-de-hipótesis-prueba-chi-cuadrado">Ejercicio 9: Contraste de Hipótesis (Prueba Chi-Cuadrado)</a></li>
+  <li><a href="#ejercicio-10-contraste-de-hipótesis-comparación-de-dos-medias" id="toc-ejercicio-10-contraste-de-hipótesis-comparación-de-dos-medias" class="nav-link" data-scroll-target="#ejercicio-10-contraste-de-hipótesis-comparación-de-dos-medias">Ejercicio 10: Contraste de Hipótesis (Comparación de Dos Medias)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Estimación y contraste paramétrico 1</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ejercicio-1-definición-de-estadístico" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1-definición-de-estadístico">Ejercicio 1: Definición de Estadístico</h3>
+<p>¿Qué es un estadístico? Da un ejemplo de un estadístico comúnmente utilizado en la estadística descriptiva.</p>
+<p><strong>Solución</strong>: Un estadístico es una función de una muestra que no depende de parámetros desconocidos. Ejemplo: la media muestral.</p>
+</section>
+<section id="ejercicio-2-estimación-puntual" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2-estimación-puntual">Ejercicio 2: Estimación Puntual</h3>
+<p>Supongamos que tienes una muestra aleatoria de tamaño <span class="math inline">\(n = 10\)</span> de una población con media desconocida <span class="math inline">\(\mu\)</span> y varianza conocida <span class="math inline">\(\sigma^2 = 25\)</span>. La muestra es: <span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span> Calcula la estimación puntual de la media poblacional <span class="math inline">\(\mu\)</span> utilizando la media muestral.</p>
+<p><strong>Solución:</strong> La media muestral es <span class="math inline">\(\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = 11.2\)</span>.</p>
+</section>
+<section id="ejercicio-3-propiedades-de-los-estimadores" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3-propiedades-de-los-estimadores">Ejercicio 3: Propiedades de los Estimadores</h3>
+<p>Demuestra que la media muestral es un estimador insesgado de la media poblacional <span class="math inline">\(\mu\)</span>.</p>
+<p><strong>Solución</strong>: Vamos a demostrar que <span class="math inline">\(\mathbb{E}(\bar{X}) = \mu\)</span>.</p>
+<p>Para demostrar que la media muestral (<span class="math inline">\(\bar{X}\)</span>) es un estimador insesgado de la media poblacional (<span class="math inline">\(\mu\)</span>), necesitamos mostrar que el valor esperado de la media muestral es igual a la media poblacional. Es decir, debemos demostrar que:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \mu \]</span></p>
+<p><strong>Definición de la Media Muestral</strong></p>
+<p>Supongamos que tenemos una muestra aleatoria de tamaño <span class="math inline">\(n\)</span> proveniente de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span>. Los valores de la muestra son <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>.</p>
+<p>La media muestral (<span class="math inline">\(\bar{X}\)</span>) se define como:</p>
+<p><span class="math display">\[ \bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i \]</span></p>
+<p><strong>Propiedad de Linealidad de la Esperanza</strong></p>
+<p>La propiedad de linealidad de la esperanza establece que el valor esperado de una suma de variables aleatorias es igual a la suma de los valores esperados de las variables aleatorias individuales. Formalmente, para cualquier constante <span class="math inline">\(a\)</span> y cualquier variable aleatoria <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[ \mathbb{E}(aX) = a \mathbb{E}(X) \]</span> <span class="math display">\[ \mathbb{E}(X_1 + X_2 + \cdots + X_n) = \mathbb{E}(X_1) + \mathbb{E}(X_2) + \cdots + \mathbb{E}(X_n) \]</span></p>
+<p><strong>Cálculo del Valor Esperado de la Media Muestral</strong></p>
+<p>Usamos la definición de <span class="math inline">\(\bar{X}\)</span> y la propiedad de linealidad de la esperanza para calcular <span class="math inline">\(\mathbb{E}(\bar{X})\)</span>:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \mathbb{E}\left(\frac{1}{n} \sum_{i=1}^{n} X_i \right) \]</span></p>
+<p>Aplicando la propiedad de linealidad:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \frac{1}{n} \mathbb{E}\left( \sum_{i=1}^{n} X_i \right) \]</span></p>
+<p>Nuevamente, aplicamos la propiedad de linealidad a la suma:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \frac{1}{n} \sum_{i=1}^{n} \mathbb{E}(X_i) \]</span></p>
+<p><strong>Esperanza de las Variables Aleatorias de la Muestra</strong></p>
+<p>Dado que <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> son una muestra aleatoria de la población con media <span class="math inline">\(\mu\)</span>, cada <span class="math inline">\(X_i\)</span> tiene el mismo valor esperado, es decir, <span class="math inline">\(\mathbb{E}(X_i) = \mu\)</span> para todo <span class="math inline">\(i\)</span>.</p>
+<p>Sustituyendo esto en la ecuación anterior:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \frac{1}{n} \sum_{i=1}^{n} \mu \]</span></p>
+<p>Hay <span class="math inline">\(n\)</span> términos en la suma, cada uno igual a <span class="math inline">\(\mu\)</span>:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \frac{1}{n} \cdot n \cdot \mu \]</span></p>
+<p>Simplificando:</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \mu \]</span></p>
+<p><strong>Conclusión</strong></p>
+<p>Hemos demostrado que el valor esperado de la media muestral (<span class="math inline">\(\bar{X}\)</span>) es igual a la media poblacional (<span class="math inline">\(\mu\)</span>):</p>
+<p><span class="math display">\[ \mathbb{E}(\bar{X}) = \mu \]</span></p>
+<p>Por lo tanto, la media muestral (<span class="math inline">\(\bar{X}\)</span>) es un estimador insesgado de la media poblacional (<span class="math inline">\(\mu\)</span>).</p>
+</section>
+<section id="ejercicio-4-método-de-los-momentos" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-4-método-de-los-momentos">Ejercicio 4: Método de los Momentos</h3>
+<p>Dado el siguiente conjunto de datos: <span class="math inline">\(x = \{2, 4, 3, 5, 6, 4, 3, 5\}\)</span> Utiliza el método de los momentos para estimar la media <span class="math inline">\(\mu\)</span> y la varianza <span class="math inline">\(\sigma^2\)</span> de la población.</p>
+<p><strong>Solución</strong>:</p>
+<p>El método de los momentos (MoM) es una técnica para estimar parámetros igualando los momentos teóricos de la población con los momentos muestrales.</p>
+<p><strong>Paso 1: Estimación de la Media (<span class="math inline">\(\mu\)</span>)</strong></p>
+<p>El primer momento poblacional es <span class="math inline">\(E[X] = \mu\)</span>. Lo igualamos al primer momento muestral, <span class="math inline">\(\bar{x}\)</span>.</p>
+<ul>
+<li><strong>Media Muestral (<span class="math inline">\(\bar{x}\)</span>)</strong>: <span class="math display">\[ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i \]</span> Para el conjunto de datos <span class="math inline">\(x = \{2, 4, 3, 5, 6, 4, 3, 5\}\)</span>, con <span class="math inline">\(n=8\)</span>: <span class="math display">\[ \bar{x} = \frac{1}{8} (2 + 4 + 3 + 5 + 6 + 4 + 3 + 5) = \frac{32}{8} = 4 \]</span></li>
+<li><strong>Estimador MoM para la media</strong>: <span class="math display">\[ \hat{\mu}_{MoM} = \bar{x} = 4 \]</span></li>
+</ul>
+<p><strong>Paso 2: Estimación de la Varianza (<span class="math inline">\(\sigma^2\)</span>)</strong></p>
+<p>Para la varianza, el método estricto iguala el segundo momento poblacional, <span class="math inline">\(E[X^2]\)</span>, con el segundo momento muestral, <span class="math inline">\(m_2 = \frac{1}{n}\sum x_i^2\)</span>.</p>
+<ul>
+<li><strong>Relación teórica</strong>: <span class="math inline">\(E[X^2] = \sigma^2 + \mu^2\)</span>.</li>
+<li><strong>Igualando momentos</strong>: <span class="math inline">\(\frac{1}{n}\sum x_i^2 = \hat{\sigma}^2 + \hat{\mu}^2\)</span>.</li>
+<li><strong>Despejando <span class="math inline">\(\hat{\sigma}^2\)</span></strong>: <span class="math display">\[ \hat{\sigma}^2_{MoM} = \left(\frac{1}{n}\sum x_i^2\right) - \bar{x}^2 = \frac{1}{n} \sum (x_i - \bar{x})^2 \]</span> Este estimador utiliza <span class="math inline">\(n\)</span> en el denominador.</li>
+</ul>
+<p>Calculando la suma de desviaciones al cuadrado: <span class="math display">\[ \sum_{i=1}^{8} (x_i - \bar{x})^2 = (2-4)^2 + (4-4)^2 + \dots + (5-4)^2 = 4 + 0 + 1 + 1 + 4 + 0 + 1 + 1 = 12 \]</span></p>
+<p>Aplicando la fórmula del MoM: <span class="math display">\[ \hat{\sigma}^2_{MoM} = \frac{12}{8} = 1.5 \]</span></p>
+<p><strong>Aclaración Importante: Estimador Insesgado vs.&nbsp;MoM</strong></p>
+<p>Es muy común utilizar en la práctica la <strong>cuasivarianza muestral (<span class="math inline">\(s^2\)</span>)</strong> porque es un estimador insesgado de <span class="math inline">\(\sigma^2\)</span>. Su fórmula utiliza <span class="math inline">\(n-1\)</span>: <span class="math display">\[ s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2 = \frac{12}{7} \approx 1.714 \]</span> Aunque este no es el estimador estricto del método de los momentos, a menudo se presenta en su lugar por sus buenas propiedades estadísticas.</p>
+<p><strong>Conclusión</strong></p>
+<p>Las estimaciones para los parámetros de la población son:</p>
+<ul>
+<li><strong>Estimador de la media (MoM e insesgado)</strong>: <span class="math display">\[ \hat{\mu} = 4 \]</span></li>
+<li><strong>Estimador de la varianza (estricto MoM, sesgado)</strong>: <span class="math display">\[ \hat{\sigma}^2_{MoM} = 1.5 \]</span></li>
+<li><strong>Estimador de la varianza (insesgado, <span class="math inline">\(s^2\)</span>)</strong>: <span class="math display">\[ s^2 \approx 1.714 \]</span></li>
+</ul>
+</section>
+<section id="ejercicio-5-método-de-la-máxima-verosimilitud" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-5-método-de-la-máxima-verosimilitud">Ejercicio 5: Método de la Máxima Verosimilitud</h3>
+<p>Supongamos que tenemos una muestra aleatoria de tamaño <span class="math inline">\(n\)</span> de una distribución exponencial con parámetro <span class="math inline">\(\lambda\)</span>. Deriva el estimador de máxima verosimilitud para <span class="math inline">\(\lambda\)</span>.</p>
+<p><strong>Solución</strong>: El estimador de máxima verosimilitud para <span class="math inline">\(\lambda\)</span> es <span class="math inline">\(\hat{\lambda} = \frac{1}{\bar{x}}\)</span>. Para derivar el estimador de máxima verosimilitud para el parámetro <span class="math inline">\(\lambda\)</span> de una distribución exponencial, sigamos los pasos habituales en la metodología de máxima verosimilitud:</p>
+<p><strong>1. Función de Densidad de la Distribución Exponencial</strong></p>
+<p>La función de densidad de probabilidad (f.d.p.) de una variable aleatoria <span class="math inline">\(X\)</span> que sigue una distribución exponencial con parámetro <span class="math inline">\(\lambda\)</span> es:</p>
+<p><span class="math display">\[ f(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0, \quad \lambda &gt; 0 \]</span></p>
+<p><strong>2. Función de Verosimilitud</strong></p>
+<p>Supongamos que tenemos una muestra aleatoria <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> de tamaño <span class="math inline">\(n\)</span> de la distribución exponencial con parámetro <span class="math inline">\(\lambda\)</span>. La función de verosimilitud <span class="math inline">\(L(\lambda)\)</span> es el producto de las funciones de densidad para cada observación:</p>
+<p><span class="math display">\[L(\lambda) = \prod_{i=1}^{n} f(X_i; \lambda) = \prod_{i=1}^{n} \lambda e^{-\lambda X_i} \]</span></p>
+<p><strong>3. Log-Verosimilitud</strong></p>
+<p>Para simplificar el cálculo, trabajamos con la log-verosimilitud, que es el logaritmo natural de la función de verosimilitud:</p>
+<p><span class="math display">\[ \ell(\lambda) = \ln L(\lambda) = \ln \left( \prod_{i=1}^{n} \lambda e^{-\lambda X_i} \right) = \sum_{i=1}^{n} \ln (\lambda e^{-\lambda X_i}) \]</span></p>
+<p>Descomponiendo el logaritmo del producto en una suma de logaritmos:</p>
+<p><span class="math display">\[ \ell(\lambda) = \sum_{i=1}^{n} \left( \ln \lambda + \ln e^{-\lambda X_i} \right) \]</span></p>
+<p>Usando las propiedades de los logaritmos (<span class="math inline">\(\ln ab = \ln a + \ln b\)</span> y <span class="math inline">\(\ln e^a = a\)</span>):</p>
+<p><span class="math display">\[ \ell(\lambda) = \sum_{i=1}^{n} \left( \ln \lambda - \lambda X_i \right) \]</span> <span class="math display">\[ \ell(\lambda) = n \ln \lambda - \lambda \sum_{i=1}^{n} X_i \]</span></p>
+<p><strong>4. Derivar la Log-Verosimilitud</strong></p>
+<p>Para encontrar el estimador de máxima verosimilitud, derivamos la log-verosimilitud respecto a <span class="math inline">\(\lambda\)</span> y la igualamos a cero:</p>
+<p><span class="math display">\[ \frac{d\ell(\lambda)}{d\lambda} = \frac{d}{d\lambda} \left( n \ln \lambda - \lambda \sum_{i=1}^{n} X_i \right) \]</span></p>
+<p>Derivando cada término por separado:</p>
+<p><span class="math display">\[ \frac{d}{d\lambda} (n \ln \lambda) = \frac{n}{\lambda} \]</span> <span class="math display">\[ \frac{d}{d\lambda} \left( -\lambda \sum_{i=1}^{n} X_i \right) = -\sum_{i=1}^{n} X_i \]</span></p>
+<p>Sumando ambas derivadas:</p>
+<p><span class="math display">\[ \frac{d\ell(\lambda)}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^{n} X_i \]</span></p>
+<p><strong>5. Igualar a Cero y Resolver para <span class="math inline">\(\lambda\)</span></strong></p>
+<p>Igualamos la derivada a cero para encontrar el valor de <span class="math inline">\(\lambda\)</span> que maximiza la log-verosimilitud:</p>
+<p><span class="math display">\[ \frac{n}{\lambda} - \sum_{i=1}^{n} X_i = 0 \]</span></p>
+<p>Resolviendo para <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[ \frac{n}{\lambda} = \sum_{i=1}^{n} X_i \]</span> <span class="math display">\[ \lambda = \frac{n}{\sum_{i=1}^{n} X_i} \]</span></p>
+<p><strong>6. Expresar en Términos de la Media Muestral</strong></p>
+<p>El denominador es la suma de las observaciones de la muestra. Podemos expresar esta suma en términos de la media muestral <span class="math inline">\(\bar{X}\)</span>:</p>
+<p><span class="math display">\[ \sum_{i=1}^{n} X_i = n \bar{X} \]</span></p>
+<p>Sustituyendo en la ecuación de <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[ \lambda = \frac{n}{n \bar{X}} \]</span> <span class="math display">\[ \lambda = \frac{1}{\bar{X}} \]</span></p>
+<p><strong>Conclusión</strong></p>
+<p>El estimador de máxima verosimilitud para el parámetro <span class="math inline">\(\lambda\)</span> de una distribución exponencial es:</p>
+<p><span class="math display">\[ \hat{\lambda} = \frac{1}{\bar{X}} \]</span></p>
+<p>Este resultado muestra que el estimador de máxima verosimilitud para <span class="math inline">\(\lambda\)</span> es el recíproco de la media muestral <span class="math inline">\(\bar{X}\)</span>.</p>
+</section>
+<section id="ejercicio-6-estimación-por-intervalo" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-6-estimación-por-intervalo">Ejercicio 6: Estimación por Intervalo</h3>
+<p>Para la misma muestra del Ejercicio 2 (<span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span>), calcula un intervalo de confianza del 95% para la media poblacional <span class="math inline">\(\mu\)</span>, asumiendo que la varianza poblacional es conocida y es igual a 25.</p>
+<p><strong>Solución</strong>: Para calcular un intervalo de confianza para la media poblacional <span class="math inline">\(\mu\)</span> cuando la varianza poblacional <span class="math inline">\(\sigma^2\)</span> es conocida, utilizamos la distribución normal. El intervalo de confianza del 95% para la media poblacional se calcula con la siguiente fórmula:</p>
+<p><span class="math display">\[ \bar{x} \pm z_{\alpha/2} \left(\frac{\sigma}{\sqrt{n}}\right) \]</span></p>
+<p>donde: - <span class="math inline">\(\bar{x}\)</span> es la media muestral. - <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de la distribución normal estándar para un nivel de confianza del 95% (para <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(z_{0.025} = 1.96\)</span>). - <span class="math inline">\(\sigma\)</span> es la desviación estándar poblacional. - <span class="math inline">\(n\)</span> es el tamaño de la muestra.</p>
+<p><strong>Paso 1: Calcular la Media Muestral (<span class="math inline">\(\bar{x}\)</span>)</strong></p>
+<p>Para la muestra <span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span>:</p>
+<p><span class="math display">\[ \bar{x} = \frac{1}{10} \sum_{i=1}^{10} x_i = \frac{1}{10} (10 + \ldots+ 14) = \frac{1}{10} \cdot 112 = 11.2 \]</span></p>
+<p><strong>Paso 2: Determinar los Parámetros del Intervalo de Confianza</strong></p>
+<ul>
+<li>La varianza poblacional <span class="math inline">\(\sigma^2\)</span> es conocida y es igual a 25, por lo tanto, la desviación estándar <span class="math inline">\(\sigma = \sqrt{25} = 5\)</span>.</li>
+<li>El tamaño de la muestra <span class="math inline">\(n = 10\)</span>.</li>
+<li>El valor crítico <span class="math inline">\(z_{0.025} = 1.96\)</span>.</li>
+</ul>
+<p><strong>Paso 3: Calcular el Margen de Error</strong></p>
+<p>El margen de error <span class="math inline">\(E\)</span> es:</p>
+<p><span class="math display">\[ E = z_{\alpha/2} \left(\frac{\sigma}{\sqrt{n}}\right) \]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[ E = 1.96 \left(\frac{5}{\sqrt{10}}\right) \approx 3.1 \]</span></p>
+<p><strong>Paso 4: Calcular el Intervalo de Confianza</strong></p>
+<p>El intervalo de confianza del 95% para la media poblacional <span class="math inline">\(\mu\)</span> es:</p>
+<p><span class="math display">\[ \bar{x} \pm E \]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[ 11.2 \pm 3.1  =  (8.1, 14.3) \]</span></p>
+<p><strong>Conclusión</strong></p>
+<p>El intervalo de confianza del 95% para la media poblacional <span class="math inline">\(\mu\)</span> es <span class="math inline">\((8.1, 14.3)\)</span>. Esto significa que estamos un 95% seguros de que la media poblacional se encuentra dentro de este intervalo.</p>
+</section>
+<section id="ejercicio-7-contraste-de-hipótesis-prueba-z" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-7-contraste-de-hipótesis-prueba-z">Ejercicio 7: Contraste de Hipótesis (Prueba Z)</h3>
+<p>Supón que quieres probar si la media poblacional <span class="math inline">\(\mu\)</span> es igual a 10. Utiliza la muestra del Ejercicio 2 y realiza un contraste de hipótesis con un nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p><strong>Solución</strong>: Para probar si la media poblacional <span class="math inline">\(\mu\)</span> es igual a 10 utilizando la muestra del Ejercicio 2 (<span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span>), realizaremos un contraste de hipótesis. Dado que la varianza poblacional es conocida (<span class="math inline">\(\sigma^2 = 25\)</span>), usaremos una prueba <span class="math inline">\(z\)</span>.</p>
+<p><strong>Paso 1: Definir las Hipótesis</strong></p>
+<ul>
+<li><strong>Hipótesis nula (<span class="math inline">\(H_0\)</span>)</strong>: <span class="math inline">\(\mu = 10\)</span></li>
+<li><strong>Hipótesis alternativa (<span class="math inline">\(H_1\)</span>)</strong>: <span class="math inline">\(\mu \neq 10\)</span></li>
+</ul>
+<p><strong>Paso 2: Calcular la Estadística de Prueba</strong></p>
+<p>La estadística de prueba <span class="math inline">\(z\)</span> se calcula como:</p>
+<p><span class="math display">\[ z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} \]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> es la media muestral.</li>
+<li><span class="math inline">\(\mu_0\)</span> es la media poblacional bajo la hipótesis nula.</li>
+<li><span class="math inline">\(\sigma\)</span> es la desviación estándar poblacional.</li>
+<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
+</ul>
+<p><strong>Media Muestral (<span class="math inline">\(\bar{x}\)</span>)</strong></p>
+<p>Para la muestra <span class="math inline">\(x = \{10, 12, 9, 11, 10, 13, 10, 12, 11, 14\}\)</span>:</p>
+<p><span class="math display">\[ \bar{x} = \frac{1}{10} \sum_{i=1}^{10} x_i = \frac{1}{10} (10 + \ldots + 14) = 11.2 \]</span></p>
+<p><strong>Paso 3: Calcular el Valor de la Estadística de Prueba</strong></p>
+<p><span class="math display">\[ z = \frac{11.2 - 10}{5 / \sqrt{10}}  \approx 0.759 \]</span></p>
+<p><strong>Paso 4: Determinar el Valor Crítico y la Región de Rechazo</strong></p>
+<p>Para un nivel de significación <span class="math inline">\(\alpha = 0.05\)</span> en una prueba bilateral, los valores críticos <span class="math inline">\(z_{\alpha/2}\)</span> son:</p>
+<p><span class="math display">\[ z_{0.025} = \pm 1.96 \]</span></p>
+<p><strong>Paso 5: Comparar el Valor de la Estadística de Prueba con los Valores Críticos</strong></p>
+<p>Comparamos el valor de <span class="math inline">\(z\)</span> con los valores críticos:</p>
+<p><span class="math display">\[ -1.96 &lt; 0.759 &lt; 1.96 \]</span></p>
+<p><strong>Paso 6: Conclusión</strong></p>
+<p>Dado que el valor de la estadística de prueba <span class="math inline">\(z\)</span> está dentro del rango de los valores críticos, no rechazamos la hipótesis nula <span class="math inline">\(H_0\)</span>. Esto significa que no hay suficiente evidencia para concluir que la media poblacional <span class="math inline">\(\mu\)</span> es diferente de 10 al nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>En resumen, el contraste de hipótesis indica que no podemos rechazar la hipótesis nula de que la media poblacional es igual a 10.</p>
+</section>
+<section id="ejercicio-8-contraste-de-hipótesis-prueba-t" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-8-contraste-de-hipótesis-prueba-t">Ejercicio 8: Contraste de Hipótesis (Prueba T)</h3>
+<p>Para una muestra aleatoria de tamaño <span class="math inline">\(n = 15\)</span> de una población con distribución normal pero con varianza desconocida, <span class="math display">\[x = \{15, 17, 16, 14, 18, 16, 15, 17, 16, 18, 15, 17, 16, 14, 18\}\]</span> realiza un contraste de hipótesis para verificar si la media poblacional es diferente de 16 con un nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p><strong>Solución</strong>: Para realizar un contraste de hipótesis sobre la media poblacional con una muestra de tamaño <span class="math inline">\(n = 15\)</span> y una varianza desconocida, utilizamos la distribución t de Student. A continuación, se detalla el procedimiento paso a paso:</p>
+<p><strong>Paso 1: Definir las Hipótesis</strong></p>
+<ul>
+<li><strong>Hipótesis nula</strong> (<span class="math inline">\(H_0\)</span>): <span class="math inline">\(\mu = 16\)</span></li>
+<li><strong>Hipótesis alternativa</strong> (<span class="math inline">\(H_1\)</span>): <span class="math inline">\(\mu \neq 16\)</span></li>
+</ul>
+<p><strong>Paso 2: Calcular la Estadística de Prueba</strong></p>
+<p>La estadística de prueba $ t $ se calcula como:</p>
+<p><span class="math display">\[ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} \]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> es la media muestral.</li>
+<li><span class="math inline">\(\mu_0\)</span> es la media poblacional bajo la hipótesis nula.</li>
+<li><span class="math inline">\(s\)</span> es la desviación estándar muestral.</li>
+<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
+</ul>
+<p><strong>Calcular la Media Muestral (<span class="math inline">\(\bar{x}\)</span>)</strong></p>
+<p>Para la muestra <span class="math display">\[ x = \{15, 17, 16, 14, 18, 16, 15, 17, 16, 18, 15, 17, 16, 14, 18\} \]</span> Se tiene:</p>
+<p><span class="math display">\[ \bar{x} = \frac{1}{15} \sum_{i=1}^{15} x_i=\frac{240}{15} = 16 \]</span></p>
+<p><strong>Calcular la Desviación Estándar Muestral (<span class="math inline">\(s\)</span>)</strong></p>
+<p>Primero, calculemos la varianza muestral (<span class="math inline">\(s^2\)</span>):</p>
+<p><span class="math display">\[ s^2 = \frac{1}{n-1} \sum_{i=1}^{15} (x_i - \bar{x})^2 \]</span></p>
+<p>Calculando cada $ (x_i - {x})^2 $:</p>
+<p><span class="math display">\[ \sum_{i=1}^{15} (x_i - \bar{x})^2 = 25.73 \]</span></p>
+<p>Entonces, la varianza muestral es:</p>
+<p><span class="math display">\[ s^2 = \frac{25.73}{14} \approx 1.838 \]</span></p>
+<p>La desviación estándar muestral es:</p>
+<p><span class="math display">\[ s = \sqrt{1.838} \approx 1.356 \]</span></p>
+<p><strong>Paso 3: Calcular el Valor de la Estadística de Prueba</strong></p>
+<p><span class="math display">\[ t = \frac{16 - 16}{1.356 / \sqrt{15}} = 0 \]</span></p>
+<p><strong>Paso 4: Determinar los Valores Críticos y la Región de Rechazo</strong></p>
+<p>Para un nivel de significación <span class="math inline">\(\alpha = 0.05\)</span> en una prueba bilateral con <span class="math inline">\(n - 1 = 14\)</span> grados de libertad, los valores críticos <span class="math inline">\(t_{\alpha/2}\)</span> son:</p>
+<p><span class="math display">\[ t_{0.025, 14} \approx \pm 2.145 \]</span></p>
+<p><strong>Paso 5: Comparar el Valor de la Estadística de Prueba con los Valores Críticos</strong></p>
+<p>El valor de la estadística de prueba <span class="math inline">\(t\)</span> se compara con los valores críticos:</p>
+<p><span class="math display">\[ -2.145 &lt; 0 &lt; 2.145 \]</span></p>
+<p><strong>Paso 6: Conclusión</strong></p>
+<p>Dado que el valor de <span class="math inline">\(t\)</span> está dentro del rango de los valores críticos, no rechazamos la hipótesis nula <span class="math inline">\(H_0\)</span>. Esto significa que no hay suficiente evidencia para concluir que la media poblacional es diferente de 16 al nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>En resumen, el contraste de hipótesis indica que no podemos rechazar la hipótesis nula de que la media poblacional es igual a 16.</p>
+</section>
+<section id="ejercicio-9-contraste-de-hipótesis-prueba-chi-cuadrado" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-9-contraste-de-hipótesis-prueba-chi-cuadrado">Ejercicio 9: Contraste de Hipótesis (Prueba Chi-Cuadrado)</h3>
+<p>Una muestra de tamaño <span class="math inline">\(n = 20\)</span> de una población con varianza desconocida es <span class="math inline">\(x = \{5, 7, 9, 6, 8, 10, 7, 9, 8, 10, 5, 7, 9, 6, 8, 10, 7, 9, 8, 10\}\)</span> Realiza un contraste de hipótesis para probar si la varianza poblacional es igual a 4 con un nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>. Recuerda que <span class="math inline">\(\frac{s^{2}(n-1)}{\sigma^{2}} \sim \chi^{2}_{n-1}\)</span>, es decir, el estadístico, insesgado para la varianza poblacional <span class="math inline">\(\sigma^{2}\)</span>, <span class="math inline">\(\frac{s^{2}(n-1)}{\sigma^{2}}\)</span> se distribuye como una <span class="math inline">\(\chi^{2}_{n-1}\)</span>, siendo <span class="math inline">\(n\)</span> el tamaño muestral, <span class="math inline">\(s^{2}\)</span> la cuasivarianza muestral.</p>
+<p><strong>Solución</strong>:</p>
+<p>Para realizar un contraste de hipótesis para probar si la varianza poblacional es igual a 4, podemos usar la prueba de chi-cuadrado (<span class="math inline">\(\chi^2\)</span>) para una varianza.</p>
+<p><strong>Paso 1: Definir las Hipótesis</strong></p>
+<ul>
+<li><strong>Hipótesis nula</strong> (<span class="math inline">\(H_0\)</span>): La varianza poblacional es igual a 4 (<span class="math inline">\(\sigma^2 = 4\)</span>).</li>
+<li><strong>Hipótesis alternativa</strong> (<span class="math inline">\(H_1\)</span>): La varianza poblacional no es igual a 4 (<span class="math inline">\(\sigma^2 \neq 4\)</span>).</li>
+</ul>
+<p><strong>Paso 2: Calcular la Estadística de Prueba</strong></p>
+<p>La estadística de prueba para la varianza es:</p>
+<p><span class="math display">\[ \chi^2 = \frac{(n-1)s^2}{\sigma_0^2} \]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
+<li><span class="math inline">\(s^2\)</span> es la varianza muestral.</li>
+<li><span class="math inline">\(\sigma_0^2\)</span> es la varianza bajo la hipótesis nula.</li>
+</ul>
+<p>Primero, calculemos la varianza muestral (<span class="math inline">\(s^2\)</span>).</p>
+<p><strong>Media Muestral (<span class="math inline">\(\bar{x}\)</span>)</strong></p>
+<p><span class="math display">\[ \bar{x} = \frac{1}{20} \sum_{i=1}^{20} x_i = \frac{1}{20} \cdot 158 = 7.9 \]</span></p>
+<p><strong>Varianza Muestral (<span class="math inline">\(s^2\)</span>)</strong></p>
+<p><span class="math display">\[ s^2 = \frac{1}{n-1} \sum_{i=1}^{20} (x_i - \bar{x})^2 \]</span></p>
+<p>Calculando cada <span class="math inline">\((x_i - \bar{x})^2\)</span>:</p>
+<ul>
+<li><span class="math inline">\((5 - 7.9)^2 = 8.41\)</span> (aparece 2 veces): <span class="math inline">\(8.41 \times 2 = 16.82\)</span></li>
+<li><span class="math inline">\((6 - 7.9)^2 = 3.61\)</span> (aparece 2 veces): <span class="math inline">\(3.61 \times 2 = 7.22\)</span></li>
+<li><span class="math inline">\((7 - 7.9)^2 = 0.81\)</span> (aparece 4 veces): <span class="math inline">\(0.81 \times 4 = 3.24\)</span></li>
+<li><span class="math inline">\((8 - 7.9)^2 = 0.01\)</span> (aparece 4 veces): <span class="math inline">\(0.01 \times 4 = 0.04\)</span></li>
+<li><span class="math inline">\((9 - 7.9)^2 = 1.21\)</span> (aparece 4 veces): <span class="math inline">\(1.21 \times 4 = 4.84\)</span></li>
+<li><span class="math inline">\((10 - 7.9)^2 = 4.41\)</span> (aparece 4 veces): <span class="math inline">\(4.41 \times 4 = 17.64\)</span></li>
+</ul>
+<p>Sumando estos valores: <span class="math display">\[ \sum_{i=1}^{20} (x_i - \bar{x})^2 = 16.82 + 7.22 + 3.24 + 0.04 + 4.84 + 17.64 = 49.8 \]</span></p>
+<p>Entonces: <span class="math display">\[ s^2 = \frac{49.8}{19} \approx 2.621 \]</span></p>
+<p><strong>Paso 3: Calcular la Estadística de Prueba <span class="math inline">\(\chi^2\)</span></strong></p>
+<p>Usamos la varianza bajo la hipótesis nula (<span class="math inline">\(\sigma_0^2 = 4\)</span>): <span class="math display">\[ \chi^2 = \frac{(20-1) \cdot 2.621}{4} = \frac{19 \cdot 2.621}{4} = \frac{49.799}{4} \approx 12.45 \]</span></p>
+<p><strong>Paso 4: Determinar los Valores Críticos</strong></p>
+<p>Los valores críticos de la distribución <span class="math inline">\(\chi^2\)</span> con <span class="math inline">\(n-1 = 19\)</span> grados de libertad para <span class="math inline">\(\alpha = 0.05\)</span> (prueba bilateral) son: - <span class="math inline">\(\chi^2_{0.025, 19} \approx 32.852\)</span> - <span class="math inline">\(\chi^2_{0.975, 19} \approx 8.907\)</span></p>
+<p><strong>Paso 5: Comparar el Valor de la Estadística de Prueba con los Valores Críticos</strong></p>
+<p>Para no rechazar <span class="math inline">\(H_0\)</span>, el valor de <span class="math inline">\(\chi^2\)</span> debe estar entre los valores críticos: <span class="math display">\[ 8.907 &lt; 12.45 &lt; 32.852 \]</span></p>
+<p><strong>Paso 6: Conclusión</strong></p>
+<p>Dado que el valor de <span class="math inline">\(\chi^2\)</span> está dentro del rango de los valores críticos, no rechazamos la hipótesis nula <span class="math inline">\(H_0\)</span> al nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>. Esto significa que no hay suficiente evidencia para concluir que la varianza poblacional es diferente de 4.</p>
+</section>
+<section id="ejercicio-10-contraste-de-hipótesis-comparación-de-dos-medias" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-10-contraste-de-hipótesis-comparación-de-dos-medias">Ejercicio 10: Contraste de Hipótesis (Comparación de Dos Medias)</h3>
+<p>Tienes dos muestras independientes:</p>
+<ul>
+<li>Muestra A: <span class="math display">\[x_A = \{23, 21, 22, 24, 25, 23, 24, 22, 23, 24\}\]</span></li>
+<li>Muestra B: <span class="math display">\[x_B = \{18, 19, 17, 20, 18, 19, 18, 19, 20, 18\}\]</span></li>
+</ul>
+<p>Realiza un contraste de hipótesis para verificar si las medias de las dos poblaciones de las cuales se extrajeron las muestras son diferentes. Usa un nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p><strong>Solución</strong>:</p>
+<p>Para realizar un contraste de hipótesis sobre si las medias de las dos poblaciones de las cuales se extrajeron las muestras son diferentes, podemos usar la prueba <span class="math inline">\(t\)</span> para dos muestras independientes, también conocida como prueba <span class="math inline">\(t\)</span> de Student para muestras independientes. Supongamos que las dos muestras son independientes y provienen de poblaciones con distribuciones normales y varianzas iguales.</p>
+<p><strong>Paso 1: Definir las Hipótesis</strong></p>
+<ul>
+<li><strong>Hipótesis nula</strong> (<span class="math inline">\(H_0\)</span>): Las medias de las dos poblaciones son iguales (<span class="math inline">\(\mu_A = \mu_B\)</span>).</li>
+<li><strong>Hipótesis alternativa</strong> (<span class="math inline">\(H_1\)</span>): Las medias de las dos poblaciones son diferentes (<span class="math inline">\(\mu_A \neq \mu_B\)</span>).</li>
+</ul>
+<p><strong>Paso 2: Calcular las Estadísticas Descriptivas</strong></p>
+<p>Para las muestras <span class="math inline">\(x_A\)</span> y <span class="math inline">\(x_B\)</span>:</p>
+<ul>
+<li><p>Tamaño de la muestra (<span class="math inline">\(n_A\)</span> y <span class="math inline">\(n_B\)</span>): <span class="math display">\[ n_A = 10, \quad n_B = 10 \]</span></p></li>
+<li><p>Media muestral (<span class="math inline">\(\bar{x}_A\)</span> y <span class="math inline">\(\bar{x}_B\)</span>): <span class="math display">\[ \bar{x}_A = \frac{1}{10}(23 + 21 + 22 + 24 + 25 + 23 + 24 + 22 + 23 + 24) = 23.1 \]</span> <span class="math display">\[ \bar{x}_B = \frac{1}{10}(18 + 19 + 17 + 20 + 18 + 19 + 18 + 19 + 20 + 18) = 18.6 \]</span></p></li>
+<li><p>Varianza muestral (<span class="math inline">\(s_A^2\)</span> y <span class="math inline">\(s_B^2\)</span>): <span class="math display">\[ s_A^2 = \frac{1}{10-1}\sum_{i=1}^{10}(x_{Ai} - \bar{x}_A)^2 \]</span> <span class="math display">\[ s_B^2 = \frac{1}{10-1}\sum_{i=1}^{10}(x_{Bi} - \bar{x}_B)^2 \]</span></p></li>
+</ul>
+<p>Calculando las varianzas muestrales:</p>
+<p>Para la muestra A, calculando cada desviación al cuadrado: - <span class="math inline">\((23-23.1)^2 = 0.01\)</span> (aparece 3 veces) - <span class="math inline">\((21-23.1)^2 = 4.41\)</span> (aparece 1 vez) - <span class="math inline">\((22-23.1)^2 = 1.21\)</span> (aparece 2 veces) - <span class="math inline">\((24-23.1)^2 = 0.81\)</span> (aparece 3 veces) - <span class="math inline">\((25-23.1)^2 = 3.61\)</span> (aparece 1 vez)</p>
+<p>Suma: <span class="math inline">\(0.01 \times 3 + 4.41 + 1.21 \times 2 + 0.81 \times 3 + 3.61 = 12.9\)</span></p>
+<p><span class="math display">\[ s_A^2 = \frac{12.9}{9} \approx 1.433 \]</span></p>
+<p>Para la muestra B: <span class="math display">\[ s_B^2 = \frac{1}{9}[(18-18.6)^2 + (19-18.6)^2 + \ldots + (18-18.6)^2] = \frac{8.4}{9} \approx 0.933 \]</span></p>
+<p><strong>Paso 3: Calcular la Estadística de Prueba <span class="math inline">\(t\)</span></strong></p>
+<p>La estadística de prueba <span class="math inline">\(t\)</span> para dos muestras independientes es:</p>
+<p><span class="math display">\[ t = \frac{\bar{x}_A - \bar{x}_B}{\sqrt{s_p^2 \left(\frac{1}{n_A} + \frac{1}{n_B}\right)}} \]</span></p>
+<p>donde <span class="math inline">\(s_p^2\)</span> es la varianza combinada (ponderada) y se calcula como:</p>
+<p><span class="math display">\[ s_p^2 = \frac{(n_A - 1)s_A^2 + (n_B - 1)s_B^2}{n_A + n_B - 2} \]</span></p>
+<p>Sustituyendo los valores calculados:</p>
+<p><span class="math display">\[ s_p^2 = \frac{(10 - 1) \cdot 1.433 + (10 - 1) \cdot 0.933}{10 + 10 - 2} = \frac{12.9 + 8.4}{18} = \frac{21.3}{18} \approx 1.183 \]</span></p>
+<p>Ahora, calculamos <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[ t = \frac{23.1 - 18.6}{\sqrt{1.183 \left(\frac{1}{10} + \frac{1}{10}\right)}} = \frac{4.5}{\sqrt{1.183 \times 0.2}} = \frac{4.5}{\sqrt{0.2367}} \approx \frac{4.5}{0.487} \approx 9.25 \]</span></p>
+<p><strong>Paso 4: Determinar el Valor Crítico y Decisión</strong></p>
+<p>Para <span class="math inline">\(\alpha = 0.05\)</span> y grados de libertad <span class="math inline">\(df = n_A + n_B - 2 = 18\)</span>, el valor crítico <span class="math inline">\(t_{\alpha/2, df}\)</span> para una prueba bilateral se puede obtener de una tabla de distribución <span class="math inline">\(t\)</span> de Student. Aproximadamente, <span class="math inline">\(t_{0.025, 18} \approx 2.101\)</span>.</p>
+<p><strong>Paso 5: Comparar el Valor de la Estadística de Prueba con el Valor Crítico</strong></p>
+<p>Comparamos el valor absoluto de la estadística de prueba con el valor crítico:</p>
+<p><span class="math display">\[ |t| = 9.25 &gt; 2.101 \]</span></p>
+<p><strong>Paso 6: Conclusión</strong></p>
+<p>Dado que el valor absoluto de la estadística de prueba <span class="math inline">\(t\)</span> es mayor que el valor crítico, rechazamos la hipótesis nula <span class="math inline">\(H_0\)</span>. Esto significa que hay evidencia suficiente para concluir que las medias de las dos poblaciones son significativamente diferentes al nivel de significación <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>En resumen, el contraste de hipótesis indica que las medias de las dos poblaciones son diferentes.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./tema2_CH1_solucion.html" class="pagination-link" aria-label="Contrastes de Hipótesis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Contrastes de Hipótesis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./tema2_PARA2_solucion.html" class="pagination-link" aria-label="Estimación y contraste paramétrico 2">
+        <span class="nav-page-text"><span class="chapter-title">Estimación y contraste paramétrico 2</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
