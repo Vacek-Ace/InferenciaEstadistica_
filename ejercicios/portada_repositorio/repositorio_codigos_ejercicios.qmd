@@ -1,0 +1,17 @@
+---
+format:
+  pdf:
+    pdf-engine: weasyprint
+    include-before-body: portada.html
+    css: ../../estilos.css
+---
+
+Scripts en R de los ejercicios de la asignatura de Inferencia Estadística. Los scripts van por pares, por ejemplo EDA1 se refiere al ejercicio del tema 2 de EDA y EDA1_SOLUCION contiene la solución del mismo.
+
+Código fuente preservado en Software Heritage para garantizar el acceso abierto y la reproducibilidad.
+
+<a href="https://archive.softwareheritage.org/swh:1:dir:9d52591ba23b57fe62f03b3d7de38bef603ebd15;origin=https://github.com/URJCDSLab/Ejercicios_InferenciaEstadistica">
+<img src="https://archive.softwareheritage.org/badge/swh:1:dir:9d52591ba23b57fe62f03b3d7de38bef603ebd15/" alt="Archived"/>
+</a>
+
+

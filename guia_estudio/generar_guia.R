@@ -99,7 +99,7 @@ format:
 }
 
 #' Función para unir los PDFs
-unir_pdfs_guia <- function(nombre_salida = "GuiaEstudioModelosEstadisticosPrediccion.pdf") {
+unir_pdfs_guia <- function(nombre_salida = "GuiaEstudioInferenciaEstadistica.pdf") {
   cat("3. Uniendo PDFs...\n")
   
   dir_original <- getwd()
@@ -143,7 +143,7 @@ unir_pdfs_guia <- function(nombre_salida = "GuiaEstudioModelosEstadisticosPredic
 }
 
 #' Función principal para crear la guía completa
-crear_guia <- function(nombre_salida = "GuiaEstudioModelosEstadisticosPrediccion.pdf") {
+crear_guia <- function(nombre_salida = "GuiaEstudioInferenciaEstadistica.pdf") {
   
   cat("=== CREANDO GUÍA DE ESTUDIO ===\n\n")
   
