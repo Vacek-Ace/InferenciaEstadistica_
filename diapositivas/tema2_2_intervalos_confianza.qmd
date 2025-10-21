@@ -247,7 +247,7 @@ La distribución t-student $t_{n}$ tiene un único parámetro $n > 0$ llamado gr
 -   Sea $X_1,\dots,X_n$ una muestra aleatoria simple (v.a.i.i.d.) de una población $N(\mu,\sigma^{2})$, entonces el estadístico $T$:
 
     $$
-    T=\frac{\bar{X}-\mu}{\sqrt{S^{2}/n-1}} = \frac{\bar{X}-\mu}{\sqrt{\hat{s}^{2}/n}} \sim t_{n-1}
+    T=\frac{\bar{X}-\mu}{\sqrt{s^{2}/n}} \sim t_{n-1}
     $$sigue la distribución $t$ de Student con $n-1$ grados de libertad.
 
 -   La distribución $t$ de Student se puede definir como
