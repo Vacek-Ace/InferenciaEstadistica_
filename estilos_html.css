@@ -89,3 +89,11 @@
     height: auto;
     line-height: normal;
 }
+
+/* Justificación de texto en el cuerpo principal de los apuntes HTML */
+main.content p, 
+main.content li {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
